@@ -1,0 +1,2060 @@
+---
+// Albuquerque city page. Full custom code block (Ken Burns hero, sticky
+// left-nav table of contents, 7 numbered zone sections, mobile accordion,
+// SEO accordion, contact closer) pulled verbatim from the live page source,
+// sandwiched between the shared sitewide Header and Footer.
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Foundation Repair in Albuquerque, NM — The Duke City | TLS Foundations';
+const description =
+  "Where you live in Albuquerque determines what's wrong with your foundation — and what fixes it. West Mesa, North Valley, South Valley, East Side, the Heights. 55 years of New Mexico soil experience. You reach the owners.";
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Article',
+        headline: 'Foundation Repair in Albuquerque, NM — The Duke City',
+        description:
+          'Albuquerque foundation problems are tied to the Rio Grande Rift, West Mesa geology, North Valley river deposits, and Sandia Mountain front collapsible soils. Local expertise matters here.',
+        author: { '@type': 'Organization', name: 'TLS Foundations', url: 'https://www.tlsfoundations.com' },
+        publisher: { '@type': 'Organization', name: 'TLS Foundations', url: 'https://www.tlsfoundations.com' },
+        about: { '@type': 'Place', name: 'Albuquerque, New Mexico' },
+      },
+      {
+        '@type': 'LocalBusiness',
+        name: 'TLS Foundations',
+        telephone: '+15059914180',
+        url: 'https://www.tlsfoundations.com',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: '5048 Edith Blvd NE Suite E',
+          addressLocality: 'Albuquerque',
+          addressRegion: 'NM',
+          postalCode: '87107',
+        },
+        areaServed: { '@type': 'City', name: 'Albuquerque', addressRegion: 'NM' },
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: 'What causes foundation problems in Albuquerque NM?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Foundation problems in Albuquerque are almost always caused by soil movement. The city sits on the Rio Grande Rift basin with four distinct soil zones: West Mesa basalt transition zones, North Valley river deposits and high water table, East Side collapsible alluvial fan soils, and Heights expansive clay. Each zone has different failure patterns requiring different repair approaches.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'What are the warning signs of foundation damage in Albuquerque?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Common warning signs include cracks in slab or concrete floors, sticking doors and windows, uneven or sloping floors, diagonal cracks in drywall near door corners, gaps between walls and ceilings, and sinking concrete around the home. In the Heights, gaps and sticking doors that vary seasonally indicate heave — not settlement. On the East Side, cracks that appear after rain often indicate collapsible soil compression.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'How much does foundation repair cost in Albuquerque NM?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Foundation repair cost in Albuquerque depends on cause, not just symptoms. Without understanding the soil condition beneath a specific home, any estimate is a guess. TLS Foundations investigates before recommending — the right answer requires knowing what the ground is actually doing and which of Albuquerque’s four soil zones the home sits in.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Who does foundation repair in Albuquerque NM?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'TLS Foundations serves Albuquerque, New Mexico with 55 combined years of New Mexico soil and foundation repair experience. We are owner-operated, affiliated with Sandia GEO for geotechnical investigation, and we investigate before we recommend. Call (505) 991-4180 — you reach the owners.',
+            },
+          },
+        ],
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+          { '@type': 'ListItem', position: 2, name: 'City Pages', item: 'https://www.tlsfoundations.com/city-pages' },
+          { '@type': 'ListItem', position: 3, name: 'Albuquerque', item: 'https://www.tlsfoundations.com/albuquerque-nm' },
+        ],
+      },
+    ],
+  },
+];
+---
+
+<Layout title={title} description={description} schema={schema}>
+  <div class="abq-page">
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-photo"></div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <span class="hero-city">Albuquerque, New Mexico</span>
+        <span class="hero-eyebrow">Foundation Repair</span>
+        <h1 class="hero-h1">
+          <span class="w1">The</span><span class="w2">Duke</span>
+          <span class="w3">City.</span>
+        </h1>
+        <p class="hero-sub">
+          Foundation repair in Albuquerque is more than a search term to us. Where you live in this city
+          determines what's wrong with your foundation — and what fixes it. One size does not fit all. Period.
+        </p>
+        <div class="hero-cta">
+          <div>
+            <a href="tel:5059914180" class="hero-phone">(505) 991-4180</a>
+            <span class="hero-note">You reach the owner(s)</span>
+          </div>
+          <div class="hero-sep"></div>
+          <p class="hero-aside">55+ combined years in New Mexico soils.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="gold-rule"></div>
+
+    <!-- STATEMENT BAND -->
+    <div class="statement-band">
+      <div class="statement-band-inner">
+        <span class="statement-band-line1">Foundation Repair</span>
+        <span class="statement-band-line2">Albuquerque.</span>
+        <p class="statement-band-secondary">
+          Where you live in this city determines what's wrong with your foundation — and what fixes it. One
+          size does not fit all. Period.
+        </p>
+      </div>
+    </div>
+
+    <div class="page-layout">
+      <!-- LEFT NAV -->
+      <nav class="left-nav">
+        <div class="nav-progress"><div class="nav-progress-fill" id="progressFill"></div></div>
+        <span class="nav-brand">TLS Foundations · Duke City</span>
+        <ul class="nav-links">
+          <li><a href="#foundation-repair-albuquerque"><span class="nav-dot"></span>Foundation Repair Albuquerque</a></li>
+          <li><a href="#west-mesa"><span class="nav-dot"></span>West Mesa</a></li>
+          <li><a href="#north-valley"><span class="nav-dot"></span>North Valley</a></li>
+          <li><a href="#south-valley"><span class="nav-dot"></span>South Valley</a></li>
+          <li><a href="#east-side"><span class="nav-dot"></span>East Side</a></li>
+          <li><a href="#the-heights"><span class="nav-dot"></span>The Heights</a></li>
+          <li><a href="#duke-city"><span class="nav-dot"></span>The Duke City</a></li>
+        </ul>
+        <div class="nav-contact">
+          <span class="nav-contact-label">Ready to talk</span>
+          <a href="tel:5059914180">(505) 991-4180</a>
+          <span class="nav-contact-sub">You reach the owner(s)</span>
+        </div>
+      </nav>
+
+      <div class="content-area">
+        <!-- 01 FOUNDATION REPAIR ALBUQUERQUE -->
+        <section class="section" id="foundation-repair-albuquerque">
+          <span class="section-num">01</span>
+          <div class="section-inner">
+            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Foundation Repair · Albuquerque, New Mexico</span></div>
+            <h2 class="section-heading reveal">Foundation repair in Albuquerque, NM — <em>what the ground is actually doing</em></h2>
+
+            <div class="two-col-wide reveal">
+              <div>
+                <p class="lede">Most foundation problems in Albuquerque are not structural failures. They are soil failures — and Albuquerque sits on some of the most geologically variable soil in New Mexico.</p>
+                <p>The city is built on the Rio Grande Rift, one of the most active extensional geologic structures in North America. The rift created a deep basin filled with thousands of feet of sediment — the Santa Fe Group basin fill — and that basin is not uniform. It contains subbasins, structural highs, and zones where soil type, density, and consolidation shift over short distances.</p>
+                <p><mark class="key">Bearing capacity can vary significantly from one neighborhood to the next, and sometimes from one lot to the next.</mark> This is why generic inspection and one-size-fits-all repair recommendations fail in Albuquerque more often than anywhere else in the state.</p>
+                <p>In 1706, Spanish settlers named this place La Villa de Alburquerque after Francisco Fernández de la Cueva, the 10th Duke of Alburquerque. The extra "r" dropped over time. The ground didn't change at all.</p>
+              </div>
+              <div>
+                <div class="basin-stat reveal">
+                  <div class="basin-stat-item">
+                    <span class="basin-stat-num" data-target="1706">0</span>
+                    <span class="basin-stat-label">Founded</span>
+                    <p class="basin-stat-desc">Three centuries of building on rift basin sediment</p>
+                  </div>
+                  <div class="basin-stat-divider"></div>
+                  <div class="basin-stat-item">
+                    <span class="basin-stat-num">5</span>
+                    <span class="basin-stat-label">Soil Zones</span>
+                    <p class="basin-stat-desc">Each with distinct failure patterns</p>
+                  </div>
+                  <div class="basin-stat-divider"></div>
+                  <div class="basin-stat-item">
+                    <span class="basin-stat-num" data-target="55">0<span>+</span></span>
+                    <span class="basin-stat-label">Years NM Experience</span>
+                    <p class="basin-stat-desc">TLS Foundations and Sandia GEO combined</p>
+                  </div>
+                </div>
+
+                <div class="fact-box reveal">
+                  <span class="fact-box-label">Albuquerque construction stock</span>
+                  <p><strong style="color:rgba(255,255,255,0.95);">Pre-1950 adobe and territorial</strong> — moisture-sensitive, shallow foundations. Settlement developing for decades, only now becoming visible.</p>
+                  <p><strong style="color:rgba(255,255,255,0.95);">1950s–1980s postwar slab-on-grade</strong> — the West Mesa buildout. Built fast on ground that wasn't always understood. Those slabs are now 50–70 years old.</p>
+                  <p><strong style="color:rgba(255,255,255,0.95);">Modern construction</strong> — better code, same variable soil. A home built in 2005 on East Side alluvial fans faces the same geology as one built in 1965.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 02 WEST MESA -->
+        <section class="section" id="west-mesa">
+          <span class="section-num">02</span>
+          <div class="section-inner">
+            <div class="zone-strip reveal">
+              <div class="zone-strip-num"><span>01</span></div>
+              <div class="zone-strip-content">
+                <div class="zone-strip-title">West Mesa</div>
+                <div class="zone-strip-tag">Basalt Cap · Transition Zones · Differential Settlement</div>
+              </div>
+            </div>
+
+            <div class="west-mesa-layout reveal">
+              <div>
+                <p>The West Mesa sits on older high terrace and basalt-capped surfaces. Where the basalt edge or terrace drops away, transition zones create abrupt changes in drainage, grading, and foundation support conditions.</p>
+                <p>A home with one end on stiff basalt and the other on softer fill is a differential settlement problem waiting to express itself. The transition doesn't announce itself at the surface. <mark class="key">The crack in the floor is the symptom. The soil beneath it is the cause.</mark></p>
+                <p>The post-World War II building boom put large subdivisions on the West Mesa quickly — slab-on-grade homes with shallow stem walls and conventional footings built on ground that wasn't always well-characterized. Many of those slabs are now 50 to 70 years old. Slab repair in these neighborhoods almost always requires understanding what happened below the slab at the time of original construction.</p>
+
+                <div class="zone-warnings">
+                  <span class="zone-warning-label">Warning signs — West Mesa homes</span>
+                  <ul class="warning-list">
+                    <li class="warning-item">
+                      <button class="warning-trigger"><span class="warning-trigger-text">Cracks in slab or concrete floors</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Often indicate differential settlement — one part of the slab dropping faster than another where soil bearing changes. Common near basalt transition edges where stiff and soft ground meet beneath the same foundation.</div></div>
+                    </li>
+                    <li class="warning-item">
+                      <button class="warning-trigger"><span class="warning-trigger-text">Sticking doors and windows</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">One of the earliest signs of foundation movement. The frame racks as the slab shifts beneath it — often before any visible crack appears. On the West Mesa, differential movement at basalt transition zones is a frequent driver.</div></div>
+                    </li>
+                    <li class="warning-item">
+                      <button class="warning-trigger"><span class="warning-trigger-text">Diagonal cracks at door corners in drywall</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Follow differential movement patterns. In West Mesa postwar homes these are among the most consistent early indicators that the slab is moving unevenly. The corner crack pattern shows where the structure is racking.</div></div>
+                    </li>
+                    <li class="warning-item">
+                      <button class="warning-trigger"><span class="warning-trigger-text">Sinking concrete around the home</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Driveways, sidewalks, and patios that have dropped relative to the house often indicate the same soil behavior affecting the foundation below grade. Concrete lifting options depend on what's driving the movement.</div></div>
+                    </li>
+                    <li class="warning-item">
+                      <button class="warning-trigger"><span class="warning-trigger-text">Foundation repair cost in Albuquerque, NM</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Any estimate made before understanding what the soil is doing beneath a specific West Mesa home is a number without a basis. Investigation before recommendation is not a delay — it is the only path to an accurate answer.</div></div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div>
+                <div class="west-mesa-callout">
+                  <span class="west-mesa-callout-label">West Mesa reality</span>
+                  <span class="west-mesa-callout-stat">50–70</span>
+                  <p>Years old — the age of most West Mesa slab-on-grade homes. The deferred soil problems from the postwar buildout are expressing themselves now.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 03 NORTH VALLEY -->
+        <section class="section" id="north-valley">
+          <span class="section-num">03</span>
+          <div class="section-inner">
+            <div class="zone-strip reveal">
+              <div class="zone-strip-num"><span>02</span></div>
+              <div class="zone-strip-content">
+                <div class="zone-strip-title">North Valley</div>
+                <div class="zone-strip-tag">River Deposits · High Water Table · Moisture Movement</div>
+              </div>
+            </div>
+
+            <div class="two-col reveal">
+              <div>
+                <p>The North Valley follows the Rio Grande's historic floodplain. The river that determined where Albuquerque was founded in 1706 still determines foundation behavior here. Younger alluvial and river terrace deposits sit alongside a shallower water table — a combination that creates foundation movement of a specific character.</p>
+                <p>Fine-grained sediment and poor drainage drive moisture-related movement that often shows up first as uneven floors or sticking doors — well before any visible slab crack appears. <mark class="key">North Valley homes need drainage evaluated alongside structure. You can't fix the foundation without addressing the moisture conditions driving it.</mark></p>
+              </div>
+              <div>
+                <div class="pull">The river that determined where this city was built in 1706 still determines foundation behavior in the neighborhoods that surround it.</div>
+              </div>
+            </div>
+
+            <div class="nv-timeline reveal">
+              <div class="nv-event">
+                <span class="nv-event-label">What happens first</span>
+                <h4>Seasonal moisture variation begins</h4>
+                <p>The water table in the North Valley fluctuates seasonally. Fine-grained river terrace deposits absorb and release moisture — expanding slightly as they wet and contracting as they dry.</p>
+              </div>
+              <div class="nv-event">
+                <span class="nv-event-label">Early warning</span>
+                <h4>Floors go uneven — doors begin to stick</h4>
+                <p>Differential movement shows up at the most sensitive parts of the structure first. Floors that were level become slightly sloped. Doors that swung freely begin to bind at the latch or the top corner.</p>
+              </div>
+              <div class="nv-event">
+                <span class="nv-event-label">Visible damage</span>
+                <h4>Cracks appear at drywall corners and ceiling transitions</h4>
+                <p>As movement accumulates, the structure racks enough to open cracks. Diagonal cracks at door corners and separation at ceiling-wall joints follow the foundation movement pattern below.</p>
+              </div>
+              <div class="nv-event">
+                <span class="nv-event-label">The right response</span>
+                <h4>Investigation before recommendation</h4>
+                <p>North Valley foundation problems require understanding both the soil family and the moisture conditions driving movement. A repair approach that ignores drainage is a temporary answer at best. TLS works with Sandia GEO when the site warrants a formal soil investigation.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 04 SOUTH VALLEY -->
+        <section class="section" id="south-valley">
+          <span class="section-num">04</span>
+          <div class="section-inner">
+            <div class="zone-strip reveal">
+              <div class="zone-strip-num"><span>03</span></div>
+              <div class="zone-strip-content">
+                <div class="zone-strip-title">South Valley</div>
+                <div class="zone-strip-tag">Rio Grande Floodplain · Adobe Stock · Drainage Failure</div>
+              </div>
+            </div>
+
+            <div class="two-col reveal">
+              <div>
+                <p>The South Valley sits on Rio Grande floodplain deposits south of downtown — younger, finer-grained alluvial material laid down by the river over centuries. It shares some character with the North Valley but with its own drainage patterns, a higher water table in places, and a concentration of older construction that makes it one of the most historically complex foundation environments in the metro.</p>
+                <p>Pre-1950 adobe and territorial construction is more common here than anywhere else in Albuquerque outside of Old Town. These structures perform well when kept dry — but the South Valley's drainage history, seasonal moisture variation, and proximity to the Rio Grande create conditions where keeping them dry is genuinely difficult. <mark class="key">Settlement in South Valley adobe homes has often been developing for decades. It becomes visible when something changes — a drainage line, a dry summer, a nearby excavation.</mark></p>
+                <p>Foundation repair in the South Valley requires understanding both the soil and the structure type. Standard concrete slab repair approaches applied to adobe or territorial construction can cause additional damage rather than correcting it.</p>
+              </div>
+              <div>
+                <div class="pull">The South Valley's foundation story is written in two languages — the river that built the ground and the adobe that was built on it. Both have to be read together.</div>
+
+                <div class="zone-warnings" style="margin-top:0;">
+                  <span class="zone-warning-label">Warning signs — South Valley homes</span>
+                  <ul class="warning-list">
+                    <li class="warning-item">
+                      <button class="warning-trigger"><span class="warning-trigger-text">Wall cracking and separation in adobe construction</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Adobe walls respond to soil movement differently than concrete. In the South Valley, moisture-sensitive floodplain deposits and seasonal water table variation create repetitive stress that earthen construction handles poorly. Crack patterns in adobe walls require a different diagnostic approach than cracks in a concrete slab.</div></div>
+                    </li>
+                    <li class="warning-item">
+                      <button class="warning-trigger"><span class="warning-trigger-text">Uneven floors and sticking doors in older South Valley homes</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Among the earliest signs of foundation movement in South Valley's older construction stock. In adobe homes these symptoms can precede visible wall cracking by years. The movement is often slow and cumulative — which means by the time it's obvious, it has been developing for a long time.</div></div>
+                    </li>
+                    <li class="warning-item">
+                      <button class="warning-trigger"><span class="warning-trigger-text">Drainage failure and moisture intrusion</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Poor drainage in the South Valley introduces water into moisture-sensitive floodplain deposits and directly threatens adobe foundation integrity. Foundation repair here almost always involves correcting drainage first. The repair that ignores the moisture source is temporary.</div></div>
+                    </li>
+                    <li class="warning-item">
+                      <button class="warning-trigger"><span class="warning-trigger-text">Slab repair in South Valley newer construction</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Newer slab-on-grade construction in the South Valley sits on the same floodplain deposits as the older adobe stock. Slab settlement driven by moisture-sensitive alluvial fill is the recurring pattern. Understanding the soil profile beneath the specific slab is the starting point for any repair recommendation.</div></div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 05 EAST SIDE -->
+        <section class="section" id="east-side">
+          <span class="section-num">05</span>
+          <div class="section-inner">
+            <div class="zone-strip reveal">
+              <div class="zone-strip-num"><span>04</span></div>
+              <div class="zone-strip-content">
+                <div class="zone-strip-title">East Side</div>
+                <div class="zone-strip-tag">Sandia Mountain Front · Collapsible Soils · Tijeras Arroyo · Decomposed Granite</div>
+              </div>
+            </div>
+
+            <div class="east-side-intro reveal">
+              The soil doesn't<br />warn you<br /><em>first.</em>
+            </div>
+
+            <div class="two-col reveal">
+              <div>
+                <p>The East Side is shaped by alluvial fan deposits shed from the Sandia Mountains. These deposits can be coarse, loose, and variable — and they include collapsible soils that compress suddenly when saturated.</p>
+                <p>A slab that looks stable in dry conditions can drop measurably after a single heavy monsoon or an irrigation line failure. That's the nature of collapsible soil: it looks fine until the water arrives. <mark class="key">Slab cracks on the East Side after rain are often collapsible soil compression — not random structural failure.</mark></p>
+                <p>The repair approach for collapsible soil failure is fundamentally different from the approach for expansive clay heave or North Valley moisture movement. Getting the diagnosis right here requires knowing what you're looking at — and most contractors outside New Mexico have never encountered this soil behavior.</p>
+              </div>
+              <div>
+                <p>Helical pier and push pier selection in East Side alluvial fan soils depends on the specific soil profile at each site. A pier system that performs reliably in the Heights may be wrong for the East Side alluvial fans. Recommending a pier system before a soil investigation in this zone is a guess dressed up as a solution.</p>
+                <div class="pull">Collapsible soil compression — not structural failure. The distinction changes everything about the repair.</div>
+              </div>
+            </div>
+
+            <h3>Four Hills and the Tijeras Arroyo</h3>
+            <div class="two-col reveal">
+              <div>
+                <p>Four Hills sits at the edge of the Tijeras Arroyo — one of the major drainage features cutting through the East Side. Arroyo-adjacent soils are among the most variable and settlement-prone in the Albuquerque metro. Fill placed over or near drainage features compresses unevenly. The arroyo itself creates a subsurface moisture gradient that affects soil behavior well beyond its visible banks.</p>
+                <p>Homes in Four Hills that show foundation movement — particularly differential settlement where one corner or side drops more than another — are often sitting on fill over or near this drainage corridor. <mark class="key">The Tijeras Arroyo is a named settlement risk that most foundation contractors in Albuquerque won't mention because they don't know it's there.</mark></p>
+              </div>
+              <div>
+                <p>Decomposed granite on the Sandia Mountain front creates a different kind of false confidence. It drills hard, it feels solid, and it looks like competent bearing material. It isn't always. Decomposed granite can have variable strength, significant moisture sensitivity, and bearing characteristics that change with depth. A drill that hits resistance doesn't necessarily mean the soil profile is suitable for the loads a foundation places on it.</p>
+                <p>On the East Side more than anywhere else in Albuquerque, the soil investigation has to go deep enough and characterize enough of the profile to actually answer the question — not just confirm what the surface suggests.</p>
+              </div>
+            </div>
+
+            <div class="east-side-grid reveal">
+              <div class="east-side-cell">
+                <span class="east-side-cell-label">The soil condition</span>
+                <h4>Collapsible alluvial fan deposits</h4>
+                <p>Coarse, loose, variable material shed from the Sandia Mountain front over millennia. Appears stable and dense when dry. Compresses suddenly and significantly when saturated.</p>
+              </div>
+              <div class="east-side-cell">
+                <span class="east-side-cell-label">The trigger</span>
+                <h4>Water infiltration below grade</h4>
+                <p>A broken irrigation line, a drainage failure, a heavy monsoon season — any source of water reaching beneath the slab can trigger hydrocompaction. The soil collapses. The slab follows.</p>
+              </div>
+              <div class="east-side-cell">
+                <span class="east-side-cell-label">The symptom</span>
+                <h4>Sudden slab cracking and differential settlement</h4>
+                <p>Movement that appears after a weather event rather than gradually over time. Often misdiagnosed by contractors unfamiliar with New Mexico soil behavior. The crack pattern is specific and recognizable once you've seen it.</p>
+              </div>
+              <div class="east-side-cell">
+                <span class="east-side-cell-label">The right response</span>
+                <h4>Soil investigation before pier selection</h4>
+                <p>Foundation inspection in East Side Albuquerque must characterize the specific soil profile before any repair method is selected. The pier system has to match what's actually in the ground — not what usually works elsewhere.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 06 THE HEIGHTS -->
+        <section class="section" id="the-heights">
+          <span class="section-num">06</span>
+          <div class="section-inner">
+            <div class="zone-strip reveal">
+              <div class="zone-strip-num"><span>05</span></div>
+              <div class="zone-strip-content">
+                <div class="zone-strip-title">The Heights</div>
+                <div class="zone-strip-tag">Expansive Clay · Seasonal Heave · Shrink-Swell Cycle</div>
+              </div>
+            </div>
+
+            <div class="two-col reveal">
+              <div>
+                <p>The Heights sit on older basin-fill material where clay-rich layers and expansive soil conditions exist. Seasonal moisture changes drive heave and shrink cycles that stress slabs and footings repeatedly through the year.</p>
+                <p><mark class="key">Sticking doors and wall cracks in the Heights are often misread as settlement when the real mechanism is seasonal heave. The repair approach for each is opposite. Treating heave as settlement makes things worse.</mark></p>
+                <p>The diagnostic clue is the pattern — gaps that appear in dry months and partially close after monsoon, doors that stick in spring and swing free by fall. That seasonal signature is heave. Recognizing it changes the entire repair conversation.</p>
+              </div>
+              <div>
+                <div class="pull">A foundation that appears stable in September may be actively moving by March. The soil is doing what it always does — the question is whether the repair acknowledged it.</div>
+              </div>
+            </div>
+
+            <div class="heights-cycle reveal">
+              <div class="heights-phase wet">
+                <span class="heights-arrow">↑</span>
+                <span class="heights-phase-label">Wet Season — Monsoon &amp; Snowmelt</span>
+                <div class="heights-phase-title">The soil expands. The foundation lifts.</div>
+                <p>Expansive clay absorbs moisture and swells. The slab rises — unevenly, because clay content varies across the site. Doors begin to stick. Gaps at baseboards close. The movement can be significant.</p>
+              </div>
+              <div class="heights-phase dry">
+                <span class="heights-arrow">↓</span>
+                <span class="heights-phase-label">Dry Season — Summer &amp; Late Winter</span>
+                <div class="heights-phase-title">The soil shrinks. The foundation drops.</div>
+                <p>As moisture leaves the clay, it contracts. The slab drops — again unevenly. Gaps open at ceilings and baseboards. Doors swing free. Diagonal cracks appear at door corners. This is heave — not settlement — and the repair must reflect that.</p>
+              </div>
+            </div>
+
+            <div class="zone-warnings reveal">
+              <span class="zone-warning-label">Warning signs — Heights homes</span>
+              <ul class="warning-list">
+                <li class="warning-item">
+                  <button class="warning-trigger"><span class="warning-trigger-text">Gaps between walls and ceilings or baseboards</span><span class="warning-trigger-icon">+</span></button>
+                  <div class="warning-drawer"><div class="warning-drawer-inner">In the Heights this often reflects seasonal heave — the gap appears in dry months and closes partially after monsoon. That seasonal pattern is diagnostic. A gap that opens and closes with the weather is heave, not settlement.</div></div>
+                </li>
+                <li class="warning-item">
+                  <button class="warning-trigger"><span class="warning-trigger-text">Sticking doors and windows that vary seasonally</span><span class="warning-trigger-icon">+</span></button>
+                  <div class="warning-drawer"><div class="warning-drawer-inner">Doors that stick in wet months and swing free in dry months are a classic heave signature in Heights homes. Most contractors misread this as standard settlement — and recommend piers, which don't address heave and can make it worse.</div></div>
+                </li>
+                <li class="warning-item">
+                  <button class="warning-trigger"><span class="warning-trigger-text">Uneven or sloping floors</span><span class="warning-trigger-icon">+</span></button>
+                  <div class="warning-drawer"><div class="warning-drawer-inner">Common in Heights homes where expansive clay causes one area to heave faster than another. The floor tilts — but the tilt may partially reverse with the season. That variable is critical information for diagnosis.</div></div>
+                </li>
+                <li class="warning-item">
+                  <button class="warning-trigger"><span class="warning-trigger-text">Foundation inspection in Albuquerque, NM</span><span class="warning-trigger-icon">+</span></button>
+                  <div class="warning-drawer"><div class="warning-drawer-inner">A Heights foundation inspection should include an assessment of clay content, seasonal moisture variation, and whether the movement is heave-driven or settlement-driven. Those are different conditions with different repair approaches. Skipping that distinction produces wrong answers.</div></div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 07 THE DUKE CITY -->
+        <section class="section" id="duke-city">
+          <span class="section-num">07</span>
+          <div class="section-inner">
+            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Why Albuquerque Is Different</span></div>
+            <h2 class="section-heading reveal">Albuquerque foundation repair isn't <em>one size fits all</em> — and neither are we</h2>
+
+            <div class="two-col reveal">
+              <div>
+                <p>In 1706, the Duke of Alburquerque's title was planted in the Rio Grande valley and it never left. Three centuries later, Albuquerque is still the Duke City — not because someone decided to keep calling it that, but because it stuck. That's not marketing. It's a decision the city made about itself without making it.</p>
+                <p>Foundation repair in Albuquerque works the same way. The right approach isn't announced — it follows from understanding the ground. Five soil zones within the same city. A rift basin that changes from block to block. A 70-year inventory of postwar slabs built on ground that wasn't always understood at the time.</p>
+                <p><mark class="key">In most New Mexico cities, investigation before recommendation is the right approach. In Albuquerque, given this level of variability, it is the only responsible one.</mark></p>
+              </div>
+              <div>
+                <div class="fact-box">
+                  <span class="fact-box-label">Old Town Plaza — 1706</span>
+                  <p>Established with the founding of Albuquerque. One of the oldest continuously occupied public plazas in the United States. San Felipe de Neri Church on the plaza dates to 1793. Adobe on shallow foundations. Still standing — a reminder that local knowledge about local ground is not optional. It's how things last.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pro-grid">
+              <div class="pro-card">
+                <span class="pro-card-letter">S</span>
+                <h4>Structural engineers with local context</h4>
+                <p>A structural engineer who understands Albuquerque's soil variability and construction history brings something a national franchise inspection doesn't: the right questions for this specific place.</p>
+              </div>
+              <div class="pro-card">
+                <span class="pro-card-letter">G</span>
+                <h4>Geotechnical investigation when it matters</h4>
+                <p>TLS works with Sandia GEO when the site warrants formal soil investigation. In Albuquerque's variable rift basin, that threshold is lower than most contractors acknowledge. The investigation cost is modest compared to a wrong repair.</p>
+              </div>
+              <div class="pro-card">
+                <span class="pro-card-letter">L</span>
+                <h4>Local knowledge franchises don't have</h4>
+                <p>55 combined years working New Mexico soil. The difference between West Mesa basalt transition zones and North Valley river deposits isn't in a training manual — it's in the ground, and you learn it here.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- MOBILE ACCORDION -->
+        <section class="section mobile-acc-section">
+          <div class="section-inner">
+            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Foundation Concerns</span></div>
+            <h2 class="section-heading">Common foundation concerns <em>in Albuquerque</em></h2>
+            <div class="accordion">
+              <div class="acc-item"><button class="acc-header">Cracks in slab or concrete floors</button><div class="acc-body"><p>May indicate differential settlement, collapsible soil compression on the East Side, or moisture-driven movement in the North Valley or Heights. The cause varies by zone.</p></div></div>
+              <div class="acc-item"><button class="acc-header">Sticking doors and windows</button><div class="acc-body"><p>One of the earliest signs of foundation movement. In the Heights, often driven by seasonal heave — not settlement. The distinction changes the repair.</p></div></div>
+              <div class="acc-item"><button class="acc-header">Uneven or sloping floors</button><div class="acc-body"><p>Common across all four zones for different reasons. Differential settlement, heave, moisture movement, collapsible soil — each zone has its own driver.</p></div></div>
+              <div class="acc-item"><button class="acc-header">Gaps between walls and ceilings or baseboards</button><div class="acc-body"><p>In the Heights, gaps that open and close seasonally are a heave signature. In the North Valley, persistent gaps indicate ongoing moisture-driven movement.</p></div></div>
+              <div class="acc-item"><button class="acc-header">Slab cracks after rain — East Side homes</button><div class="acc-body"><p>Often collapsible soil compression, not random structural failure. The East Side alluvial fans compress suddenly when saturated. The pattern is recognizable and requires a specific repair approach.</p></div></div>
+              <div class="acc-item"><button class="acc-header">Foundation repair cost in Albuquerque, NM</button><div class="acc-body"><p>Any estimate before understanding the soil beneath a specific home is a number without a basis. The right cost follows the right diagnosis. Investigation before recommendation is not a delay.</p></div></div>
+              <div class="acc-item"><button class="acc-header">Foundation inspection in Albuquerque, NM</button><div class="acc-body"><p>Should account for which of the four soil zones the home sits in, the construction era, drainage history, and whether movement is heave or settlement. Those variables change the answer.</p></div></div>
+              <div class="acc-item"><button class="acc-header">Pier and beam homes with sagging floors</button><div class="acc-body"><p>Older Albuquerque pier and beam construction is susceptible to moisture-driven movement — particularly in the North Valley where the water table is shallower.</p></div></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SEO ACCORDION -->
+        <section class="section" id="foundation-concerns">
+          <span class="section-num">08</span>
+          <div class="section-inner">
+            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Foundation Concerns in Albuquerque, NM</span></div>
+            <h2 class="section-heading reveal">Common foundation problems in Albuquerque — <em>and what they mean</em></h2>
+            <p class="reveal" style="max-width:640px;">Foundation repair in Albuquerque covers a wide range of conditions depending on where you live in the basin. These are the concerns we hear most often — and what each one typically means in the context of Albuquerque's specific soil zones.</p>
+
+            <div class="seo-accordion reveal">
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Foundation repair Albuquerque NM</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">Foundation repair in Albuquerque requires understanding which of the city's four soil zones your home sits in — West Mesa, North Valley, East Side, or the Heights. Each zone has different soil behavior, different failure patterns, and different repair approaches. TLS Foundations brings 55 combined years of New Mexico soil experience to every Albuquerque evaluation. Call (505) 991-4180 — you reach the owners.</div></div>
+              </div>
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Slab repair Albuquerque NM</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">Slab repair in Albuquerque starts with understanding what's happening beneath the slab — not just what's visible on the surface. In West Mesa postwar homes, the cause is often inadequate compaction at original construction. On the East Side, collapsible soils compress suddenly when saturated. In the Heights, expansive clay lifts and drops slabs seasonally. The repair has to match the cause.</div></div>
+              </div>
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Foundation inspection Albuquerque NM</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">A foundation inspection in Albuquerque should account for the Rio Grande Rift geology, the neighborhood-specific soil family, the construction era of the home, and the drainage history of the site. TLS Foundations partners with Sandia GEO for formal geotechnical investigation when site conditions warrant it — which in Albuquerque's variable soil environment is more often than most contractors acknowledge.</div></div>
+              </div>
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Foundation repair cost Albuquerque NM</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">Foundation repair cost in Albuquerque depends entirely on cause — not just symptoms. A crack in a Heights home driven by seasonal heave requires a fundamentally different repair than the same crack in a West Mesa home driven by differential settlement. Any estimate made before understanding the soil beneath a specific home is a number without a basis.</div></div>
+              </div>
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Uneven floors Albuquerque</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">Uneven floors in Albuquerque homes are one of the most consistent early signs of foundation movement. In the North Valley, moisture-sensitive river deposits cause one area to settle faster than another. In the Heights, expansive clay heave tilts floors seasonally — they may partially level out after monsoon. The pattern of the movement tells you which zone you're in and what the repair needs to address.</div></div>
+              </div>
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Sticking doors foundation Albuquerque</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">Sticking doors are often the first thing a homeowner notices before any visible crack appears. In Albuquerque, sticking doors that vary by season — worse in wet months, better in dry months — are a classic heave signature in Heights homes. Sticking doors that stay stuck year-round are more likely settlement. The difference matters because the repairs are opposite.</div></div>
+              </div>
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Cracks in foundation Albuquerque</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">Foundation and slab cracks in Albuquerque follow the soil zone. On the East Side, cracks that appear after heavy rain or an irrigation failure are often collapsible soil compression — sudden, significant, and specific to that alluvial fan geology. In the Heights, cracks that open and close seasonally follow the expansive clay shrink-swell cycle. In the West Mesa, cracks typically reflect differential settlement at basalt transition zones.</div></div>
+              </div>
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Helical piers Albuquerque NM</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">Helical pier selection in Albuquerque depends on the specific soil profile beneath the home. A helical pier system that performs reliably in the Heights may be wrong for East Side alluvial fan soils or North Valley river deposits. TLS Foundations and Sandia GEO characterize the soil before recommending any pier system — because in Albuquerque's variable rift basin, the ground determines the answer.</div></div>
+              </div>
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Push piers Albuquerque NM</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">Push pier installation in Albuquerque requires understanding what the pier will encounter below grade. In the West Mesa, older terrace deposits and basalt may provide good resistance at depth. In the North Valley, softer river deposits change the equation significantly. Pier selection without a soil investigation in this market is a guess — and an expensive one when it's wrong.</div></div>
+              </div>
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Concrete lifting Albuquerque NM</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">Concrete lifting — whether foam injection or mudjacking — is appropriate for some Albuquerque conditions and wrong for others. If the soil driving the settlement is still active and untreated, lifting the slab without addressing the cause is temporary. Understanding what's driving the movement before selecting a lifting method is the only way to get a durable result.</div></div>
+              </div>
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Pier and beam foundation repair Albuquerque</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">Older Albuquerque homes with pier and beam construction — particularly in the North Valley and established neighborhoods near Old Town — are susceptible to moisture-driven movement and wood deterioration. Pier and beam repair in these homes requires evaluating both the structural system and the soil and moisture conditions driving the movement.</div></div>
+              </div>
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Adobe foundation repair Albuquerque NM</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">Adobe construction in Albuquerque is moisture-sensitive and responds to soil movement differently than concrete slab foundations. Settlement that has been developing for decades in a pre-1950 adobe home can become suddenly visible. Standard repair approaches designed for concrete foundations don't always apply — and aggressive excavation or pier installation can cause additional damage to earthen structures.</div></div>
+              </div>
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Foundation settlement Albuquerque NM</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">Foundation settlement in Albuquerque is almost always a soil story. The Rio Grande Rift basin fill varies significantly across the city — what causes settlement in one neighborhood may be different from the cause two miles away. Differential settlement, where one part of the foundation drops more than another, is the most common pattern and the most diagnostic for identifying the underlying soil condition.</div></div>
+              </div>
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Foundation heave Albuquerque NM</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">Foundation heave in Albuquerque is most common in the Heights where expansive clay soils lift foundations as they absorb moisture. The seasonal pattern — heave during monsoon and snowmelt, contraction during dry months — is the diagnostic signature. Heave is frequently misdiagnosed as settlement, and the wrong repair makes it worse. If your foundation problems vary with the season, heave is the likely cause.</div></div>
+              </div>
+              <div class="seo-item">
+                <button class="seo-trigger"><span class="seo-trigger-text">Drainage and foundation problems Albuquerque</span><span class="seo-trigger-icon">+</span></button>
+                <div class="seo-drawer"><div class="seo-drawer-inner">Poor drainage is a contributing cause in a significant portion of Albuquerque foundation problems. In the North Valley, drainage failure introduces water into moisture-sensitive river deposits. On the East Side, drainage failure triggers collapsible soil compression. Foundation repair in Albuquerque that doesn't address drainage is often temporary — the soil condition that caused the movement is still active.</div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- CONTACT CLOSER -->
+        <div class="contact-closer reveal">
+          <div class="contact-closer-inner">
+            <div class="contact-closer-text">
+              <span class="section-label-text" style="display:block;margin-bottom:16px;">Ready to talk</span>
+              <p>We've worked in Albuquerque. We know the soil, the construction stock, and the difference between what the ground is doing in the Heights and what it's doing in the North Valley. You reach the owners when you call.</p>
+            </div>
+            <div class="contact-closer-phone">
+              <a href="tel:5059914180">(505) 991-4180</a>
+              <span class="note">Text or call — your choice</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Progress bar
+  const progressFill = document.getElementById('progressFill');
+  const contentArea = document.querySelector('.content-area');
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!progressFill || !contentArea) return;
+      const rect = contentArea.getBoundingClientRect();
+      const total = (contentArea as HTMLElement).offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      (progressFill as HTMLElement).style.height = Math.min(100, (scrolled / total) * 100) + '%';
+    },
+    { passive: true }
+  );
+
+  // Active nav
+  const sections = document.querySelectorAll('.content-area section[id], .content-area div[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sectionObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((a) => a.classList.remove('active'));
+          const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    },
+    { rootMargin: '-25% 0px -65% 0px' }
+  );
+  sections.forEach((s) => sectionObs.observe(s));
+
+  // Smooth scroll
+  navLinks.forEach((a) => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href')!);
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Scroll reveals
+  const revealObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObs.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -60px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach((el) => revealObs.observe(el));
+
+  // North Valley timeline stagger
+  const nvEvents = document.querySelectorAll('.nv-event');
+  const nvObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          nvEvents.forEach((ev, i) => setTimeout(() => ev.classList.add('visible'), i * 180));
+          nvObs.disconnect();
+        }
+      });
+    },
+    { rootMargin: '0px 0px -80px 0px' }
+  );
+  if (nvEvents.length) nvObs.observe(nvEvents[0]);
+
+  // East Side grid stagger
+  const esCells = document.querySelectorAll('.east-side-cell');
+  const esObs = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        esCells.forEach((c, i) => setTimeout(() => c.classList.add('visible'), i * 120));
+        esObs.disconnect();
+      }
+    },
+    { rootMargin: '0px 0px -40px 0px' }
+  );
+  if (esCells.length) esObs.observe(esCells[0]);
+
+  // Pro cards stagger
+  const proCards = document.querySelectorAll('.pro-card');
+  const proObs = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        proCards.forEach((c, i) => setTimeout(() => c.classList.add('visible'), i * 120));
+        proObs.disconnect();
+      }
+    },
+    { rootMargin: '0px 0px -40px 0px' }
+  );
+  if (proCards.length) proObs.observe(proCards[0]);
+
+  // Counting stats
+  function animateCount(el: Element) {
+    const target = parseInt((el as HTMLElement).dataset.target || '');
+    if (!target) return;
+    const suffixEl = el.querySelector('span');
+    const suffix = suffixEl ? suffixEl.outerHTML : '';
+    const duration = 1600;
+    const start = performance.now();
+    const update = (now: number) => {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.innerHTML = Math.floor(ease * target).toLocaleString() + suffix;
+      if (p < 1) requestAnimationFrame(update);
+    };
+    requestAnimationFrame(update);
+  }
+  const statObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('[data-target]').forEach(animateCount);
+          statObs.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -80px 0px' }
+  );
+  document.querySelectorAll('.basin-stat').forEach((b) => statObs.observe(b));
+
+  // Warning drawers
+  document.querySelectorAll('.warning-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.warning-item')!;
+      const drawer = item.querySelector('.warning-drawer') as HTMLElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.warning-item.open').forEach((i) => {
+        i.classList.remove('open');
+        (i.querySelector('.warning-drawer') as HTMLElement).style.maxHeight = '0';
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        drawer.style.maxHeight = drawer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // SEO accordion
+  document.querySelectorAll('.seo-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const item = trigger.closest('.seo-item')!;
+      const drawer = item.querySelector('.seo-drawer') as HTMLElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.seo-item.open').forEach((i) => {
+        i.classList.remove('open');
+        (i.querySelector('.seo-drawer') as HTMLElement).style.maxHeight = '0';
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        drawer.style.maxHeight = drawer.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // Accordion (mobile)
+  document.querySelectorAll('.accordion .acc-header').forEach((header) => {
+    header.addEventListener('click', () => {
+      const item = header.parentElement!;
+      const isOpen = item.classList.contains('open');
+      item.parentElement!.querySelectorAll('.acc-item').forEach((i) => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+<style>
+  .abq-page {
+    --navy: #0d2238;
+    --blue: #1b3a5c;
+    --gold: #b8860b;
+    --sand: #f5efe6;
+    --stone: #ddd5c8;
+    --slate: #2c3a4a;
+    --muted: #6b7685;
+    --cream: #fdfaf6;
+    --white: #ffffff;
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--cream);
+    color: var(--slate);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 600px;
+    padding-top: 60px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: -4%;
+    background-image: url('/images/albuquerque-hero.jpg');
+    background-size: cover;
+    background-position: center 50%;
+    animation: kenburns 20s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns {
+    0% {
+      transform: scale(1) translate(1%, 0);
+    }
+    100% {
+      transform: scale(1.03) translate(-1%, 0.5%);
+    }
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13, 34, 56, 0.88) 0%, rgba(13, 34, 56, 0.45) 45%, rgba(13, 34, 56, 0.1) 100%);
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 80px 80px;
+  }
+  .hero-city {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.65);
+    display: block;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.2s;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.4s;
+  }
+  .hero-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 8vw, 108px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: -2px;
+    margin-bottom: 28px;
+  }
+  .hero-h1 .w1,
+  .hero-h1 .w2 {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.55s ease forwards;
+  }
+  .hero-h1 .w1 {
+    animation-delay: 0.55s;
+  }
+  .hero-h1 .w2 {
+    animation-delay: 0.72s;
+    margin-left: 0.22em;
+  }
+  .hero-h1 .w3 {
+    display: block;
+    font-style: italic;
+    color: var(--gold);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.55s ease forwards 0.9s;
+  }
+  .hero-sub {
+    font-size: clamp(18px, 1.9vw, 22px);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 540px;
+    line-height: 1.65;
+    margin-bottom: 44px;
+    opacity: 0;
+    animation: fadeUp 0.65s ease forwards 1.1s;
+    border-left: 2px solid rgba(184, 134, 11, 0.5);
+    padding-left: 24px;
+  }
+  .hero-cta {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    opacity: 0;
+    animation: fadeUp 0.65s ease forwards 1.4s;
+  }
+  .hero-phone {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 400;
+    color: var(--white);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(184, 134, 11, 0.6);
+    padding-bottom: 4px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .hero-phone:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+  }
+  .hero-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-top: 8px;
+  }
+  .hero-sep {
+    width: 1px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.2);
+    flex-shrink: 0;
+  }
+  .hero-aside {
+    font-size: 17px;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.65);
+    max-width: 200px;
+    line-height: 1.6;
+  }
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .gold-rule {
+    height: 3px;
+    background: linear-gradient(to right, var(--gold), rgba(184, 134, 11, 0.1));
+  }
+
+  /* ── STATEMENT BAND ── */
+  .statement-band {
+    background: var(--cream);
+    padding: 48px 80px;
+    border-bottom: 1px solid var(--stone);
+    border-left: 4px solid var(--gold);
+  }
+  .statement-band-inner {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .statement-band-line1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    display: block;
+  }
+  .statement-band-line2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    font-style: italic;
+    color: var(--gold);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .statement-band-secondary {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(17px, 1.8vw, 21px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--slate);
+    line-height: 1.65;
+    max-width: 680px;
+  }
+  @media (max-width: 760px) {
+    .statement-band {
+      padding: 36px 24px;
+    }
+  }
+
+  /* ── PAGE LAYOUT ── */
+  .page-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    position: relative;
+  }
+  .page-layout::before {
+    content: '';
+    position: absolute;
+    left: 280px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--stone);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── LEFT NAV ── */
+  .left-nav {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 56px 0 56px 48px;
+    background: var(--cream);
+    z-index: 10;
+  }
+  .nav-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--stone);
+  }
+  .nav-progress-fill {
+    width: 100%;
+    background: var(--gold);
+    height: 0%;
+    transition: height 0.15s linear;
+  }
+  .nav-brand {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 44px;
+    opacity: 0.6;
+  }
+  .nav-links {
+    list-style: none;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 14px 0 14px 16px;
+    margin-left: -18px;
+    border-left: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    line-height: 1.3;
+  }
+  .nav-links a .nav-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.3;
+    flex-shrink: 0;
+    transition: opacity 0.2s, transform 0.2s, background 0.2s;
+  }
+  .nav-links a:hover {
+    color: var(--navy);
+  }
+  .nav-links a.active {
+    color: var(--navy);
+    border-left-color: var(--gold);
+    font-weight: 600;
+  }
+  .nav-links a.active .nav-dot {
+    opacity: 1;
+    transform: scale(1.6);
+    background: var(--gold);
+  }
+  .nav-contact {
+    margin-top: auto;
+    padding-top: 32px;
+    border-top: 1px solid var(--stone);
+  }
+  .nav-contact-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .nav-contact a {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--navy);
+    text-decoration: none;
+    display: block;
+    transition: color 0.2s;
+    line-height: 1.3;
+  }
+  .nav-contact a:hover {
+    color: var(--gold);
+  }
+  .nav-contact-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-top: 6px;
+  }
+
+  /* ── SECTIONS ── */
+  .content-area {
+    min-width: 0;
+  }
+  .section {
+    padding: 120px 96px 100px;
+    border-bottom: 1px solid var(--stone);
+    position: relative;
+  }
+  .section:nth-child(odd) {
+    background: var(--white);
+  }
+  .section:nth-child(even) {
+    background: var(--cream);
+  }
+  .section:last-child {
+    border-bottom: none;
+  }
+  .section-num {
+    position: absolute;
+    top: 40px;
+    right: 80px;
+    font-family: 'Playfair Display', serif;
+    font-size: 160px;
+    font-weight: 700;
+    color: var(--navy);
+    opacity: 0.03;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+  .section-inner {
+    position: relative;
+    z-index: 1;
+  }
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  .section-label-bar {
+    width: 40px;
+    height: 2px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .section-label-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.8vw, 46px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.18;
+    letter-spacing: -0.5px;
+    margin-bottom: 56px;
+    max-width: 680px;
+  }
+  .section-heading em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .abq-page p {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--slate);
+    line-height: 2.05;
+    margin-bottom: 36px;
+    max-width: 560px;
+  }
+  .abq-page p:last-child {
+    margin-bottom: 0;
+  }
+  .abq-page h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--blue);
+    margin: 48px 0 20px;
+    line-height: 1.3;
+  }
+  .lede {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.4vw, 26px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.55;
+    max-width: 620px;
+    margin-bottom: 56px;
+    padding-left: 32px;
+    border-left: 3px solid var(--gold);
+  }
+  .pull {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.3vw, 26px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.65;
+    margin: 56px 0;
+    max-width: 480px;
+    padding-left: 32px;
+    border-left: 2px solid rgba(184, 134, 11, 0.45);
+  }
+  .abq-page mark.key {
+    background: none;
+    color: var(--gold);
+    font-weight: 700;
+    font-style: normal;
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 96px;
+  }
+  .two-col-wide {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 96px;
+  }
+
+  /* ── FACT BOX ── */
+  .fact-box {
+    background: var(--navy);
+    padding: 48px 52px;
+    margin: 48px 0;
+  }
+  .fact-box p {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 17px;
+    line-height: 1.9;
+    margin-bottom: 16px;
+    max-width: none;
+  }
+  .fact-box p:last-child {
+    margin-bottom: 0;
+  }
+  .fact-box-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .basin-stat {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr 1px 1fr;
+    gap: 0;
+    margin: 64px 0;
+    align-items: start;
+  }
+  .basin-stat-item {
+    padding: 0 48px;
+  }
+  .basin-stat-item:first-child {
+    padding-left: 0;
+  }
+  .basin-stat-item:last-child {
+    padding-right: 0;
+  }
+  .basin-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(44px, 5.5vw, 68px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+    letter-spacing: -2px;
+    display: block;
+  }
+  .basin-stat-num span {
+    color: var(--gold);
+  }
+  .basin-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-top: 10px;
+  }
+  .basin-stat-desc {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 8px;
+    max-width: none;
+  }
+  .basin-stat-divider {
+    width: 1px;
+    background: var(--stone);
+    align-self: stretch;
+  }
+
+  /* ── ZONE SECTIONS ── */
+  .zone-strip {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 0 -96px 56px;
+    border-top: 1px solid var(--stone);
+    border-bottom: 1px solid var(--stone);
+  }
+  .zone-strip-num {
+    background: var(--navy);
+    padding: 28px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .zone-strip-num span {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: rgba(184, 134, 11, 0.3);
+    line-height: 1;
+  }
+  .zone-strip-content {
+    padding: 24px 40px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex: 1;
+  }
+  .zone-strip-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+  .zone-strip-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .zone-warnings {
+    margin-top: 48px;
+  }
+  .zone-warning-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: block;
+  }
+  .warning-list {
+    list-style: none;
+    padding: 0;
+    border-top: 1px solid var(--stone);
+  }
+  .warning-item {
+    border-bottom: 1px solid var(--stone);
+    overflow: hidden;
+  }
+  .warning-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 0;
+    gap: 16px;
+    text-align: left;
+  }
+  .warning-trigger-text {
+    font-family: 'Source Serif 4', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--navy);
+    line-height: 1.4;
+    flex: 1;
+  }
+  .warning-trigger-text::before {
+    content: '— ';
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+  }
+  .warning-trigger-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    color: var(--gold);
+    flex-shrink: 0;
+    transition: transform 0.3s;
+  }
+  .warning-item.open .warning-trigger-icon {
+    transform: rotate(45deg);
+  }
+  .warning-drawer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .warning-drawer-inner {
+    padding: 0 0 24px 20px;
+    font-size: 16px;
+    color: var(--slate);
+    line-height: 1.85;
+    border-left: 2px solid rgba(184, 134, 11, 0.3);
+    margin-left: 4px;
+  }
+
+  /* ── WEST MESA ── */
+  .west-mesa-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 64px;
+    align-items: start;
+  }
+  .west-mesa-callout {
+    background: var(--navy);
+    padding: 36px 32px;
+    position: sticky;
+    top: 80px;
+  }
+  .west-mesa-callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .west-mesa-callout-stat {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .west-mesa-callout p {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.7;
+    margin: 0;
+    max-width: none;
+  }
+
+  /* ── NORTH VALLEY ── */
+  .nv-timeline {
+    position: relative;
+    padding-left: 32px;
+    margin-top: 48px;
+  }
+  .nv-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--stone);
+  }
+  .nv-event {
+    position: relative;
+    margin-bottom: 48px;
+    opacity: 0;
+    transform: translateX(-16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .nv-event.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .nv-event::before {
+    content: '';
+    position: absolute;
+    left: -38px;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 2px solid var(--stone);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .nv-event.visible::before {
+    border-color: var(--gold);
+    background: var(--gold);
+  }
+  .nv-event-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .nv-event h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .nv-event p {
+    font-size: 16px;
+    color: var(--slate);
+    line-height: 1.8;
+    margin: 0;
+    max-width: none;
+  }
+
+  /* ── EAST SIDE ── */
+  .east-side-intro {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 48px;
+    max-width: 720px;
+  }
+  .east-side-intro em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .east-side-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--stone);
+    margin-top: 56px;
+  }
+  .east-side-cell {
+    background: var(--white);
+    padding: 36px 32px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .east-side-cell.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .east-side-cell-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .east-side-cell h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .east-side-cell p {
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.8;
+    margin: 0;
+    max-width: none;
+  }
+
+  /* ── HEIGHTS ── */
+  .heights-cycle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--stone);
+    margin: 48px 0;
+  }
+  .heights-phase {
+    padding: 48px 40px;
+  }
+  .heights-phase.wet {
+    background: var(--navy);
+  }
+  .heights-phase.dry {
+    background: var(--sand);
+  }
+  .heights-phase-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .heights-phase.wet .heights-phase-label,
+  .heights-phase.dry .heights-phase-label {
+    color: var(--gold);
+  }
+  .heights-phase-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .heights-phase.wet .heights-phase-title {
+    color: var(--white);
+  }
+  .heights-phase.dry .heights-phase-title {
+    color: var(--navy);
+  }
+  .heights-phase p {
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 0;
+    max-width: none;
+  }
+  .heights-phase.wet p {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .heights-phase.dry p {
+    color: var(--slate);
+  }
+  .heights-arrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 28px;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .heights-phase.wet .heights-arrow {
+    color: rgba(184, 134, 11, 0.5);
+  }
+  .heights-phase.dry .heights-arrow {
+    color: rgba(184, 134, 11, 0.4);
+  }
+
+  /* ── DUKE CITY ── */
+  .pro-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--stone);
+    border: 1px solid var(--stone);
+    margin-top: 64px;
+  }
+  .pro-card {
+    background: var(--white);
+    padding: 48px 40px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .pro-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .pro-card-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--gold);
+    opacity: 0.3;
+    display: block;
+    margin-bottom: 16px;
+    line-height: 1;
+  }
+  .pro-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--navy);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .pro-card p {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin: 0;
+    max-width: none;
+  }
+
+  /* ── CONTACT CLOSER ── */
+  .contact-closer {
+    background: var(--navy);
+    padding: 160px 96px;
+  }
+  .contact-closer-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 64px;
+    align-items: center;
+  }
+  .contact-closer .section-label-text {
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: block;
+  }
+  .contact-closer-text p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: 400;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.45;
+    max-width: none;
+    margin: 0;
+  }
+  .contact-closer-phone {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    flex-shrink: 0;
+    border-left: 1px solid rgba(184, 134, 11, 0.35);
+    padding-left: 48px;
+  }
+  .contact-closer-phone a {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 400;
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: -0.5px;
+  }
+  .contact-closer-phone a:hover {
+    color: var(--gold);
+  }
+  .contact-closer-phone .note {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ── MOBILE ── */
+  .mobile-acc-section {
+    display: none;
+  }
+  .accordion .acc-item {
+    border-bottom: 1px solid var(--stone);
+  }
+  .accordion .acc-item:first-child {
+    border-top: 1px solid var(--stone);
+  }
+  .accordion .acc-header {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Source Serif 4', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--navy);
+    padding: 22px 48px 22px 0;
+    line-height: 1.4;
+    position: relative;
+    display: block;
+    text-align: left;
+    transition: color 0.15s;
+  }
+  .accordion .acc-header::after {
+    content: '+';
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'DM Mono', monospace;
+    font-size: 16px;
+    color: var(--gold);
+  }
+  .accordion .acc-item.open .acc-header::after {
+    content: '−';
+  }
+  .accordion .acc-body {
+    display: none;
+    padding: 0 0 24px;
+  }
+  .accordion .acc-item.open .acc-body {
+    display: block;
+  }
+  .accordion .acc-body p {
+    font-size: 16px;
+    color: var(--slate);
+    line-height: 1.85;
+    margin: 0;
+    padding: 16px 20px;
+    background: var(--cream);
+    border-left: 2px solid rgba(184, 134, 11, 0.4);
+    max-width: none;
+  }
+
+  /* ── SEO ACCORDION ── */
+  .seo-accordion {
+    margin-top: 48px;
+    border-top: 1px solid var(--stone);
+  }
+  .seo-item {
+    border-bottom: 1px solid var(--stone);
+    overflow: hidden;
+  }
+  .seo-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    gap: 16px;
+    text-align: left;
+  }
+  .seo-trigger-text {
+    font-family: 'Source Serif 4', serif;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--navy);
+    line-height: 1.4;
+    flex: 1;
+  }
+  .seo-trigger-text::before {
+    content: '— ';
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+  }
+  .seo-trigger-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    color: var(--gold);
+    flex-shrink: 0;
+    transition: transform 0.3s;
+  }
+  .seo-item.open .seo-trigger-icon {
+    transform: rotate(45deg);
+  }
+  .seo-drawer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .seo-drawer-inner {
+    padding: 0 0 24px 20px;
+    font-size: 16px;
+    color: var(--slate);
+    line-height: 1.85;
+    border-left: 2px solid rgba(184, 134, 11, 0.3);
+    margin-left: 4px;
+  }
+
+  @media (max-width: 960px) {
+    .page-layout {
+      grid-template-columns: 1fr;
+    }
+    .page-layout::before {
+      display: none;
+    }
+    .left-nav {
+      position: static;
+      height: auto;
+      flex-direction: column;
+      padding: 24px;
+      border-bottom: 3px solid var(--gold);
+      background: var(--navy);
+    }
+    .nav-progress,
+    .nav-brand {
+      display: none;
+    }
+    .nav-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      flex: none;
+      margin-bottom: 20px;
+    }
+    .nav-links li {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .nav-links li:nth-child(odd) {
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .nav-links a {
+      font-size: 15px;
+      padding: 12px 10px;
+      margin-left: 0;
+      border-left: none;
+      color: rgba(255, 255, 255, 0.75);
+    }
+    .nav-links a .nav-dot {
+      display: none;
+    }
+    .nav-links a.active {
+      color: var(--gold);
+    }
+    .nav-contact {
+      margin-top: 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(184, 134, 11, 0.3);
+    }
+    .nav-contact-label {
+      color: var(--gold);
+    }
+    .nav-contact a {
+      color: var(--white);
+      font-size: 24px;
+    }
+    .nav-contact-sub {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    .section {
+      padding: 64px 24px;
+    }
+    .two-col,
+    .two-col-wide,
+    .west-mesa-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .abq-page p {
+      max-width: 100%;
+    }
+    .basin-stat {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+    .basin-stat-item {
+      padding: 0;
+    }
+    .basin-stat-divider {
+      width: 100%;
+      height: 1px;
+    }
+    .zone-strip {
+      margin: 0 -24px 40px;
+    }
+    .east-side-grid,
+    .heights-cycle {
+      grid-template-columns: 1fr;
+    }
+    .pro-grid {
+      grid-template-columns: 1fr;
+    }
+    .contact-closer {
+      padding: 64px 24px;
+    }
+    .contact-closer-inner {
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+    .contact-closer-phone {
+      align-items: flex-start;
+      border-left: none;
+      padding-left: 0;
+      border-top: 1px solid rgba(184, 134, 11, 0.3);
+      padding-top: 28px;
+    }
+    .hero-content {
+      padding: 0 24px 64px;
+    }
+    .hero-sep,
+    .hero-aside {
+      display: none;
+    }
+    .section-num {
+      display: none;
+    }
+    .mobile-acc-section {
+      display: block;
+    }
+  }
+  @media (max-width: 480px) {
+    .hero-h1 {
+      letter-spacing: -1px;
+    }
+    .hero-cta {
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+</style>
