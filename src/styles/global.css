@@ -1,0 +1,133 @@
+/*
+  TLS FOUNDATIONS — GLOBAL SITE STYLES
+  Ported verbatim from the live Squarespace site-wide Custom CSS panel
+  (Mobile Nav Override · March 13, 2026), plus the base reset shared by
+  every page-level code block.
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=DM+Mono:wght@400;500&display=swap');
+
+/* ── COLOR TOKENS (canonical, from site-wide custom.css) ── */
+:root {
+  --blue: #1b3a5c;
+  --blue-dark: #0d2238;
+  --blue-mid: #2a5480;
+  --gold: #b8860b;
+  --gold-light: #d4a017;
+  --sand: #f5efe6;
+  --stone: #e0d5c5;
+  --slate: #4a5568;
+  --muted: #7a8694;
+  --dark: #1a1a1a;
+  --white: #ffffff;
+  --cream: #fdfaf6;
+
+  /* aliases used by individual page code blocks — same palette, different names */
+  --navy: var(--blue-dark);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 120px;
+  }
+}
+
+body,
+p,
+li,
+a {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Playfair Display', serif;
+}
+
+/* ── HEADER BACKGROUND ── */
+header#header {
+  background-color: var(--blue) !important;
+}
+
+/* ── HEADER PADDING ── */
+.header-display-desktop {
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+}
+
+/* ── HEADER BUTTON → PHONE NUMBER ── */
+.header-nav-wrapper .btn,
+.header-actions .btn {
+  font-family: 'DM Mono', monospace !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  color: var(--gold-light) !important;
+  background: transparent !important;
+  border: none !important;
+  letter-spacing: 0.05em !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+.header-nav-wrapper .btn:hover,
+.header-actions .btn:hover {
+  color: #ffffff !important;
+  background: transparent !important;
+}
+
+/* ── MOBILE NAV OVERRIDE ── */
+.header-menu-nav-folder-content,
+.header-menu,
+[data-controller='MobileNavigation'] .header-menu-nav {
+  background-color: var(--blue-mid) !important;
+  border-bottom: 2px solid var(--gold) !important;
+}
+.header-menu-nav-item a,
+.header-menu-nav-folder-title,
+.header-menu-nav-item--folder > a {
+  font-family: 'Source Serif 4', serif !important;
+  font-weight: 300 !important;
+  font-size: 18px !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
+  padding: 14px 28px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+.header-menu-nav-item a:hover,
+.header-menu-nav-folder-title:hover {
+  color: var(--gold-light) !important;
+}
+.header-menu-controls .btn,
+[aria-label='Close navigation'] {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+.header-menu-cta a {
+  font-family: 'DM Mono', monospace !important;
+  font-size: 16px !important;
+  color: var(--gold-light) !important;
+  letter-spacing: 0.05em !important;
+}
+.header-menu-nav-folder-content a {
+  font-size: 16px !important;
+  padding-left: 40px !important;
+  color: rgba(255, 255, 255, 0.65) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+.header-menu-nav-folder-content a:hover {
+  color: var(--gold-light) !important;
+}

@@ -1,0 +1,342 @@
+---
+// Site-wide header/nav. Matches the live site's confirmed structure:
+// 6 top-level links + 4 dropdown folders (City Pages, NM Soils, Reference, In Depth),
+// non-sticky, background #1B3A5C, phone CTA in DM Mono gold.
+// Nav data pulled directly from the live header markup at tlsfoundations.com.
+import Logo from './Logo.astro';
+
+const topLevel = [
+  { text: 'Home', href: '/' },
+  { text: "Why NM's Different", href: '/our-approach' },
+  { text: 'Why Foundations Move', href: '/why-foundations-move' },
+  { text: 'Common Concerns', href: '/common-concerns' },
+  { text: 'Services', href: '/foundation-repair-methods' },
+  { text: 'Contact Us', href: '/contact-us' },
+];
+
+const folders = [
+  {
+    title: 'City Pages',
+    items: [
+      { text: 'Albuquerque, NM', href: '/albuquerque-nm' },
+      { text: 'Rio Rancho, NM', href: '/rio-rancho-nm' },
+      { text: 'Santa Fe, NM', href: '/santa-fe-nm' },
+    ],
+  },
+  {
+    title: 'NM Soils',
+    items: [
+      { text: 'Soil Roadmap', href: '/new-mexico-soil-conditions' },
+      { text: 'Northern New Mexico', href: '/northern-new-mexico' },
+      { text: 'Central New Mexico', href: '/central-new-mexico' },
+      { text: 'Four Corners', href: '/four-corners' },
+      { text: 'Eastern New Mexico', href: '/eastern-new-mexico' },
+      { text: 'Southern New Mexico', href: '/southern-new-mexico' },
+    ],
+  },
+  {
+    title: 'Reference',
+    items: [
+      { text: 'FAQ', href: '/foundation-repair-faq' },
+      { text: 'Glossary', href: '/glossary' },
+      { text: 'Expansive Soil', href: '/expansive-soil' },
+      { text: 'Collapsible Soil', href: '/collapsible-soil' },
+      { text: 'Symptom Guide', href: '/symptom-guide' },
+    ],
+  },
+  {
+    title: 'In Depth',
+    items: [
+      { text: 'Soil & Movement', href: '/soil-movement' },
+      { text: 'Homeowner Decision Series', href: '/homeowner-decision-series' },
+    ],
+  },
+];
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <Logo size="header" />
+
+    <nav class="site-nav" aria-label="Primary">
+      <ul class="site-nav-list">
+        {
+          topLevel.map((item) => (
+            <li>
+              <a href={item.href} aria-current={currentPath === item.href ? 'page' : undefined}>
+                {item.text}
+              </a>
+            </li>
+          ))
+        }
+        {
+          folders.map((folder) => (
+            <li class="has-dropdown">
+              <button type="button" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+                {folder.title}
+                <span class="caret" aria-hidden="true">▾</span>
+              </button>
+              <ul class="dropdown-panel">
+                {folder.items.map((item) => (
+                  <li>
+                    <a href={item.href}>{item.text}</a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <a class="phone-cta" href="tel:5059914180">(505) 991-4180</a>
+
+    <button type="button" class="mobile-toggle" aria-label="Open navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-panel" id="mobile-panel" hidden>
+    <ul class="mobile-nav-list">
+      {
+        topLevel.map((item) => (
+          <li>
+            <a href={item.href}>{item.text}</a>
+          </li>
+        ))
+      }
+      {
+        folders.map((folder) => (
+          <li class="mobile-folder">
+            <button type="button" class="mobile-folder-trigger" aria-expanded="false">
+              {folder.title}
+              <span class="caret" aria-hidden="true">＋</span>
+            </button>
+            <ul class="mobile-folder-panel" hidden>
+              {folder.items.map((item) => (
+                <li>
+                  <a href={item.href}>{item.text}</a>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ))
+      }
+    </ul>
+    <a class="mobile-phone-cta" href="tel:5059914180">(505) 991-4180</a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: var(--blue);
+    width: 100%;
+    position: relative;
+    z-index: 100;
+  }
+  .site-header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 5.9vw;
+    padding: 18px 40px;
+  }
+  .site-nav {
+    flex: 1;
+    display: none;
+  }
+  .site-nav-list {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1.8vw;
+    flex-wrap: wrap;
+  }
+  .site-nav-list > li > a,
+  .dropdown-trigger {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 300;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 0;
+  }
+  .site-nav-list > li > a:hover,
+  .site-nav-list > li > a[aria-current='page'],
+  .dropdown-trigger:hover {
+    color: var(--gold-light);
+  }
+  .caret {
+    font-size: 10px;
+  }
+  .has-dropdown {
+    position: relative;
+  }
+  .dropdown-panel {
+    list-style: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--blue-mid);
+    border-bottom: 2px solid var(--gold);
+    min-width: 220px;
+    padding: 8px 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+  }
+  .has-dropdown:hover .dropdown-panel,
+  .has-dropdown:focus-within .dropdown-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  .dropdown-panel a {
+    display: block;
+    font-size: 15px;
+    padding: 10px 20px;
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+  }
+  .dropdown-panel a:hover {
+    color: var(--gold-light);
+  }
+  .phone-cta {
+    display: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--gold-light);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  .phone-cta:hover {
+    color: #fff;
+  }
+  .mobile-toggle {
+    margin-left: auto;
+    background: none;
+    border: none;
+    width: 32px;
+    height: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0;
+  }
+  .mobile-toggle span {
+    display: block;
+    height: 2px;
+    background: #fff;
+    border-radius: 1px;
+  }
+  .mobile-panel {
+    background: var(--blue-mid);
+    border-bottom: 2px solid var(--gold);
+    padding: 8px 0 24px;
+  }
+  .mobile-nav-list {
+    list-style: none;
+  }
+  .mobile-nav-list > li > a {
+    display: block;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    padding: 14px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .mobile-folder-trigger {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 300;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.85);
+    padding: 14px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+  }
+  .mobile-folder-panel {
+    list-style: none;
+    background: rgba(0, 0, 0, 0.12);
+  }
+  .mobile-folder-panel a {
+    display: block;
+    font-size: 16px;
+    padding-left: 40px;
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .mobile-phone-cta {
+    display: block;
+    margin: 20px 28px 0;
+    font-family: 'DM Mono', monospace;
+    font-size: 16px;
+    color: var(--gold-light);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  @media (min-width: 960px) {
+    .site-nav {
+      display: block;
+    }
+    .phone-cta {
+      display: inline-block;
+    }
+    .mobile-toggle,
+    .mobile-panel {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.mobile-toggle');
+  const panel = document.getElementById('mobile-panel');
+  toggle?.addEventListener('click', () => {
+    const isOpen = panel?.hasAttribute('hidden') === false;
+    if (isOpen) {
+      panel?.setAttribute('hidden', '');
+      toggle.setAttribute('aria-expanded', 'false');
+    } else {
+      panel?.removeAttribute('hidden');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.mobile-folder-trigger').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const panel = btn.nextElementSibling as HTMLElement | null;
+      const isOpen = panel?.hasAttribute('hidden') === false;
+      if (isOpen) {
+        panel?.setAttribute('hidden', '');
+        btn.setAttribute('aria-expanded', 'false');
+      } else {
+        panel?.removeAttribute('hidden');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+</script>

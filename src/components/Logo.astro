@@ -1,0 +1,55 @@
+---
+// TLS Foundations wordmark — pure CSS/text, per the "Logo Standard 032326" brand doc.
+// No image asset: Playfair Display 700 white "TLS" + Playfair Display 500 gold "Foundations",
+// inside a navy box with a 4px gold border. Exact 1.33:1 size ratio between the two words.
+interface Props {
+  size?: 'header' | 'footer';
+}
+const { size = 'header' } = Astro.props;
+---
+
+<a href="/" class:list={['wordmark', size]} aria-label="TLS Foundations — home">
+  <span class="wm-tls">TLS</span>
+  <span class="wm-foundations">Foundations</span>
+</a>
+
+<style>
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--blue-dark);
+    border: 4px solid var(--gold);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .wordmark.header {
+    padding: 10px 16px;
+  }
+  .wordmark.footer {
+    padding: 14px 20px;
+    margin-bottom: 20px;
+  }
+  .wm-tls {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: #ffffff;
+  }
+  .wordmark.header .wm-tls {
+    font-size: 21px;
+  }
+  .wordmark.footer .wm-tls {
+    font-size: 28px;
+  }
+  .wm-foundations {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    color: var(--gold);
+  }
+  .wordmark.header .wm-foundations {
+    font-size: 15.75px;
+  }
+  .wordmark.footer .wm-foundations {
+    font-size: 21px;
+  }
+</style>

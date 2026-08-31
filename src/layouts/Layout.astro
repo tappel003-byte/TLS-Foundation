@@ -1,0 +1,90 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BackToTop from '../components/BackToTop.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Extra JSON-LD objects specific to this page (Article, FAQPage, BreadcrumbList, etc.) */
+  schema?: object[];
+}
+
+const { title, description, schema = [] } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// Sitewide schema, present on every page — corrected from what's live:
+// live site's Organization block carries a stale phone number (5057023833,
+// unused everywhere else on the site) and a sameAs pointing at Squarespace's
+// own LinkedIn page (clearly a leftover default, not TLS's). Both fixed here
+// to the canonical number; sameAs dropped until real social profiles are given.
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  legalName: 'TLS Foundations',
+  address: '5048 Edith Blvd NE, Suite E, Albuquerque, NM 87107, United States',
+  email: 'TLSfoundationsNM@gmail.com',
+  telephone: '+15059914180',
+};
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'TLS Foundations',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '5048 Edith Blvd NE, Suite E',
+    addressLocality: 'Albuquerque',
+    addressRegion: 'NM',
+    postalCode: '87107',
+    addressCountry: 'US',
+  },
+  telephone: '+15059914180',
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '08:00',
+    closes: '17:00',
+  },
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  url: 'https://www.tlsfoundations.com',
+  name: 'TLS Foundations',
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="canonical" href={canonicalURL} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:site_name" content="TLS Foundations" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+    {schema.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <Footer />
+    <BackToTop />
+  </body>
+</html>

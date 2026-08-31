@@ -1,0 +1,207 @@
+---
+// Global footer — verbatim from the site-wide footer code block, confirmed
+// identical on every page. The native Squarespace footer region beneath it
+// carries only the address line + back-to-top button, also global.
+import Logo from './Logo.astro';
+---
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <Logo size="footer" />
+      <p class="footer-tagline">Foundation repair for people who live here. By people who live here.</p>
+      <ul class="footer-contact">
+        <li><a href="sms:5059914180">(505) 991-4180 — Text</a></li>
+        <li><a href="tel:5059914180">(505) 991-4180 — Call</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="footer-col-label">Pages</span>
+      <ul class="footer-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/our-approach">Why NM's Different</a></li>
+        <li><a href="/why-foundations-move">Why Foundations Move</a></li>
+        <li><a href="/common-concerns">Common Concerns</a></li>
+        <li><a href="/foundation-repair-methods">Services</a></li>
+        <li><a href="/contact-us">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="footer-col-label">NM Soils</span>
+      <ul class="footer-links">
+        <li><a href="/new-mexico-soil-conditions">Soil Roadmap</a></li>
+        <li><a href="/northern-new-mexico">Northern NM</a></li>
+        <li><a href="/central-new-mexico">Central NM</a></li>
+        <li><a href="/four-corners">Four Corners</a></li>
+        <li><a href="/eastern-new-mexico">Eastern NM</a></li>
+        <li><a href="/southern-new-mexico">Southern NM</a></li>
+      </ul>
+    </div>
+    <div>
+      <span class="footer-col-label">Reference</span>
+      <ul class="footer-links">
+        <li><a href="/foundation-repair-faq">FAQ</a></li>
+        <li><a href="/glossary">Glossary</a></li>
+        <li><a href="/expansive-soil">Expansive Soil</a></li>
+        <li><a href="/collapsible-soil">Collapsible Soil</a></li>
+        <li><a href="/symptom-guide">Symptom Guide</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-service-area">
+    <div class="footer-cities">
+      <span class="footer-col-label" style="margin-bottom:12px;">How we operate</span>
+      TLS Foundations is a New Mexico foundation repair contractor serving homeowners across Albuquerque,
+      Rio Rancho, Santa Fe, Las Cruces, Farmington, Roswell, Taos, and communities throughout the state. We
+      provide helical pier installation, push pier installation, micropile drilling, compaction grouting, foam
+      injection, and surface and drainage correction — matched to the soil conditions at each specific site,
+      not sold from a standard menu. We are contractors. Not a consulting firm, not an engineering office — we
+      fix foundations for a living. The depth of information on this site exists because we have found that
+      homeowners who understand what is happening under their home make better decisions, ask better
+      questions, and are easier to work with. An educated homeowner is a better client. Foundation problems in
+      New Mexico are soil problems. Expansive clay, collapsible desert soils, Mancos Shale, caliche, karst
+      dissolution, and aquifer subsidence each require a different response. Getting that diagnosis wrong
+      produces a worse outcome than the original condition. TLS Foundations is owner-operated, affiliated with
+      Sandia GEO for geotechnical investigation, and built around an evaluation model that has no financial
+      interest in finding something to sell. We work across all five New Mexico geological regions — the Rio
+      Grande Rift corridor, the Four Corners basin, the eastern plains, the southern desert, and the northern
+      mountains. If your foundation is moving, we will tell you why. If it doesn't need repair, we will tell
+      you that too.
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-copy">© {new Date().getFullYear()} TLS Foundations · Albuquerque, New Mexico · Foundation Repair</div>
+    <div class="footer-bottom-right">tlsfoundations.com</div>
+  </div>
+  <div class="footer-address">5048 Edith Blvd NE, Suite E, Albuquerque, NM 87107</div>
+</footer>
+
+<style is:global>
+  .footer {
+    background: var(--blue-dark);
+    padding: 72px 80px 0;
+    border-top: 2px solid var(--gold);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .footer-tagline {
+    font-size: 14px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.38);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+  .footer-contact {
+    list-style: none;
+  }
+  .footer-contact li {
+    margin-bottom: 10px;
+  }
+  .footer-contact a {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--gold-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-contact a:hover {
+    color: #fff;
+  }
+  .footer-col-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .footer-links {
+    list-style: none;
+  }
+  .footer-links li {
+    margin-bottom: 9px;
+  }
+  .footer-links a {
+    font-size: 14px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover {
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .footer-service-area {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 0 40px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .footer-cities {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.22);
+    line-height: 2;
+  }
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-bottom-copy,
+  .footer-bottom-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.2);
+  }
+  .footer-address {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 0 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .footer {
+      padding: 56px 24px 0;
+    }
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .footer-bottom {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .footer-address {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
+  @media (max-width: 480px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
