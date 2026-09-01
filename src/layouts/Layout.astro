@@ -1,6 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import MinimalFooter from '../components/MinimalFooter.astro';
 import BackToTop from '../components/BackToTop.astro';
 import '../styles/global.css';
 
@@ -9,9 +10,16 @@ interface Props {
   description: string;
   /** Extra JSON-LD objects specific to this page (Article, FAQPage, BreadcrumbList, etc.) */
   schema?: object[];
+  /**
+   * 'full' = the elaborate wordmark/link-grid footer — confirmed present on Home.
+   * 'minimal' = just the address line — confirmed present on Albuquerque.
+   * Do NOT default this to 'full' again without checking the live page first;
+   * the footer is NOT confirmed identical across every page.
+   */
+  footer?: 'full' | 'minimal';
 }
 
-const { title, description, schema = [] } = Astro.props;
+const { title, description, schema = [], footer = 'minimal' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 // Sitewide schema, present on every page — corrected from what's live:
@@ -84,7 +92,7 @@ const websiteSchema = {
   <body>
     <Header />
     <slot />
-    <Footer />
+    {footer === 'full' ? <Footer /> : <MinimalFooter />}
     <BackToTop />
   </body>
 </html>
