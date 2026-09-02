@@ -301,7 +301,15 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     text-decoration: none;
   }
 
-  @media (min-width: 960px) {
+  /*
+   * The full inline nav has 10 items (6 top-level + 4 dropdown folders)
+   * plus the logo and phone number -- that genuinely doesn't fit
+   * comfortably before ~1500px. Below that, use the mobile hamburger
+   * menu instead of cramming/overflowing the inline nav (tested: it
+   * pushed items and the phone number off-screen entirely at
+   * 1024-1440px before this breakpoint was raised).
+   */
+  @media (min-width: 1500px) {
     .site-nav {
       display: block;
     }
