@@ -1,0 +1,529 @@
+---
+// Eastern New Mexico regional soil page. Built from user-pasted code blocks:
+// hero, intro + 4-basin accordion body (High Plains, Pecos Valley, Mimbres
+// Basin, Lordsburg Basin -- as given, even though the latter two sit in the
+// state's southwest corner rather than the east), and the shared RegionalNav
+// cross-link band.
+import Layout from '../layouts/Layout.astro';
+import RegionalNav from '../components/RegionalNav.astro';
+
+const title = 'Eastern New Mexico Soil Conditions | TLS Foundations';
+const description =
+  'High Plains, Pecos Valley, Mimbres Basin, and Lordsburg Basin -- expansive aeolian clays, Permian evaporite dissolution, aquifer compaction subsidence, and collapsible fan alluvium.';
+---
+
+<Layout title={title} description={description} footer="minimal">
+  <section class="hero">
+    <img class="hero-photo" src="/images/eastern-new-mexico-hero.webp" alt="Eastern New Mexico high plains" />
+    <div class="hero-overlay"></div>
+    <div class="tls-hero-wrap">
+      <div class="tls-hero-box">
+        <span class="tls-hero-headline">Eastern New Mexico</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="tls-body">
+    <section class="intro-section">
+      <div class="page-body">
+        <p>East of the mountain ranges, New Mexico opens onto a different landscape entirely — the High Plains to the north, the Pecos Valley running south through Roswell and Carlsbad, and the remote basins of the southwest corner that most of the state never thinks about. Each of these environments has its own subsurface character and its own foundation hazard.</p>
+        <p>The High Plains carries the legacy of the Dust Bowl in its soil — wind-deposited <a href="/expansive-soil">smectite clays</a> that shrink and swell with moisture. The Pecos Valley sits on <a href="/glossary#evaporite">Permian evaporite geology</a>, the same formation that produced Carlsbad Caverns, and <a href="/glossary#evaporite-dissolution">dissolution</a> is an ongoing subsurface process. The Mimbres Basin near Deming is experiencing <a href="/glossary#aquifer-compaction-subsidence">aquifer compaction subsidence</a> as decades of irrigation pumping lower the water table. The Lordsburg Basin at the far southwest corner has <a href="/collapsible-soil">collapsible fan alluvium</a> in a setting remote enough that problems go unaddressed for years.</p>
+        <div class="pull-quote">
+          <p>Eastern New Mexico soils are not the same from basin to basin. The Pecos Valley and the High Plains are geologically different environments separated by a few hours of driving. Treating them the same is a mistake.</p>
+        </div>
+        <p>
+          <a href="/new-mexico-soil-conditions">Back to the New Mexico Soil Roadmap →</a><br />
+          <a href="/symptom-guide">Not sure what you're seeing? See our Symptom Guide →</a><br />
+          <a href="/why-foundations-move">For the full range of causes, see Why Foundations Move →</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="basins-section">
+      <div class="page-body">
+        <div class="section-heading">Basin field notes</div>
+        <h2>Four basins. Four different soil hazards.</h2>
+        <p class="basins-intro">Select a basin to read field observations, hazard profiles, and the communities we serve within it.</p>
+        <div class="accordion">
+          <div class="accordion-item" id="high-plains">
+            <button class="accordion-trigger" data-acc aria-expanded="false">
+              <div>
+                <div class="accordion-title">High Plains</div>
+                <div class="accordion-cities">Clovis · Portales · Tucumcari · Fort Sumner · Santa Rosa · Clayton</div>
+              </div>
+              <div class="accordion-arrow">▾</div>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p class="basin-tagline">Dust Bowl country — the aeolian clays that blew in from the west during the 1930s are still here, still in the soil, and still moving when moisture finds them.</p>
+                <div class="field-block">
+                  <span class="field-block-label">What we see when we drive up</span>
+                  <p>East of the Estancia Basin escarpment, New Mexico flattens out dramatically onto the High Plains. Clovis, Portales, Tucumcari — the horizon is wide and the terrain is nearly level. The soil here is the Blackwater Draw Formation: wind-deposited material, mostly silts and clays, that accumulated over tens of thousands of years. The playas — shallow closed depressions — are scattered across the landscape. They fill briefly after rain and drain by evaporation. They are also where the heaviest clay concentrations settle out over time.</p>
+                </div>
+                <div class="field-block">
+                  <span class="field-block-label">What this geology does to foundations</span>
+                  <p>The Blackwater Draw Formation contains smectite clays that shrink and swell with moisture changes. The High Plains receives erratic rainfall, and the playas concentrate moisture in ways that produce local wet-dry cycles more extreme than the surrounding ground. Foundations on or near playa margins see the most movement. Closed drainage means moisture does not run off — it stays in the soil or evaporates. In the Clovis area, the combination of expansive soils and a shallow water table in some areas creates conditions where the soil never fully dries out, keeping it in a near-saturated expanded state.</p>
+                </div>
+                <div class="hazard-callout">
+                  <span class="hazard-callout-label">What TLS sees and repairs most in this basin</span>
+                  <p><strong>Expansive aeolian clays</strong> — Wind-deposited smectite clay that shrinks and swells with moisture. The High Plains receives erratic rainfall and the playas concentrate moisture in local wet-dry cycles more extreme than the surrounding ground. Swell potential varies by location — evaluation establishes what you are actually dealing with.</p>
+                  <p><strong>Playa margin movement</strong> — Foundations on or near playa depressions see the most movement. Closed drainage means moisture stays in the soil or evaporates — it does not run off. The wet-dry cycles are pronounced and seasonal.</p>
+                  <p><strong>Irrigation moisture patterns</strong> — In the Clovis area, irrigation agriculture has altered subsurface moisture conditions. Soil that has been near-saturated for decades behaves differently from soil in its natural arid state. Moisture migration from irrigation history shapes what we find beneath these foundations.</p>
+                </div>
+                <div class="communities-block">
+                  <span class="communities-label">Communities we serve in this basin</span>
+                  <p class="communities-list">Clovis · Portales · Tucumcari · Fort Sumner · Santa Rosa · Vaughn · Logan · Grady · Melrose · Texico · Elida · Dora · Floyd · Mosquero · San Jon · Arch · Causey · Kenna · Milnesand · Pep · Rogers · Tolar · Cuervo · Endee · House · Montoya · Nolan · Yeso · Taiban · Clayton · Folsom · Grenville · Des Moines · Roy · Solano · Wagon Mound</p>
+                </div>
+                <div class="accordion-cta">
+                  <p class="accordion-cta-text">Seeing movement in the Clovis or Portales area?</p>
+                  <a href="tel:5059914180" class="btn-inline">Call (505) 991-4180</a>
+                  <a href="sms:5059914180" class="btn-inline">Send a Text</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" id="pecos-valley">
+            <button class="accordion-trigger" data-acc aria-expanded="false">
+              <div>
+                <div class="accordion-title">Pecos Valley</div>
+                <div class="accordion-cities">Roswell · Artesia · Carlsbad · Dexter · Hagerman · Loving</div>
+              </div>
+              <div class="accordion-arrow">▾</div>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p class="basin-tagline">Permian evaporite country — the same geology that formed Carlsbad Caverns is present in the subsurface throughout this valley, and dissolution does not announce itself before it affects a foundation.</p>
+                <div class="field-block">
+                  <span class="field-block-label">What we see when we drive up</span>
+                  <p>The Pecos Valley is productive agricultural country — dairy operations, alfalfa fields, orchards in the Roswell area. The surface soil is productive and has been irrigated for over a century. Below it, the Permian evaporite formations — gypsum, anhydrite, halite — are close to the surface in places and deeper in others. The landscape gives no indication of what is happening underground. Carlsbad Caverns is the most visible expression of what this geology can do when water and time dissolve the evaporite rock, but the same process operates on a smaller scale throughout the valley.</p>
+                </div>
+                <div class="field-block">
+                  <span class="field-block-label">What this geology does to foundations</span>
+                  <p>Subsurface dissolution of evaporite minerals creates voids that can cause foundation settlement — gradually as the void grows, or suddenly if the roof of the void collapses. The risk is not uniformly distributed; it is highest where the evaporite formations are close to the surface and where groundwater or irrigation has introduced sustained moisture. Century-long irrigation in the Roswell and Carlsbad areas has altered subsurface moisture conditions significantly from natural baseline. Foundations that were stable for 50 years can begin moving as dissolution progresses.</p>
+                </div>
+                <div class="hazard-callout">
+                  <span class="hazard-callout-label">What TLS sees and repairs most in this basin</span>
+                  <p><strong>Permian evaporite dissolution</strong> — Evaporite minerals dissolve slowly under sustained moisture, creating voids beneath foundations with no surface warning. The same process that formed Carlsbad Caverns operates on a smaller scale throughout this valley. Dissolution is ongoing and accelerates with irrigation moisture.</p>
+                  <p><strong>Void-driven settlement</strong> — As evaporite voids grow, settlement can be gradual or sudden depending on void size and roof thickness. A foundation stable for 50 years can begin moving as dissolution progresses beneath it. Investigation is the only way to characterize subsurface void presence.</p>
+                  <p><strong>Century-long irrigation effects</strong> — Over 100 years of agricultural irrigation in the Roswell and Carlsbad areas has altered subsurface moisture conditions far from natural baseline. Moisture migration from sustained irrigation accelerates evaporite dissolution and changes soil behavior throughout the valley.</p>
+                </div>
+                <div class="communities-block">
+                  <span class="communities-label">Communities we serve in this basin</span>
+                  <p class="communities-list">Roswell · Artesia · Carlsbad · Dexter · Hagerman · Lake Arthur · Loving · Malaga · Whites City · Atoka · Hope · La Huerta · Lakewood · Otis · Queen · Berrendo · Orchard Park · Eddy · Brantley</p>
+                </div>
+                <div class="accordion-cta">
+                  <p class="accordion-cta-text">Seeing movement in the Roswell or Carlsbad area?</p>
+                  <a href="tel:5059914180" class="btn-inline">Call (505) 991-4180</a>
+                  <a href="sms:5059914180" class="btn-inline">Send a Text</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" id="mimbres-basin">
+            <button class="accordion-trigger" data-acc aria-expanded="false">
+              <div>
+                <div class="accordion-title">Mimbres Basin</div>
+                <div class="accordion-cities">Deming · Silver City · Bayard · Columbus · Hurley</div>
+              </div>
+              <div class="accordion-arrow">▾</div>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p class="basin-tagline">A closed basin in the southwestern corner of the state where irrigation agriculture has drawn down an aquifer for decades — and where aquifer depletion is beginning to show up as ground subsidence.</p>
+                <div class="field-block">
+                  <span class="field-block-label">What we see when we drive up</span>
+                  <p>Deming sits in the middle of a dry agricultural plain that, until recently, was intensively irrigated from the Mimbres Valley aquifer. The soil is pale and alkaline — caliche is visible in any excavation, and the surface has a bleached look in places from salt accumulation. Silver City to the north is on different terrain entirely — older, harder formations in the upper Mimbres drainage with a mountain-town character. The two communities are in the same basin geologically but present different foundation environments.</p>
+                </div>
+                <div class="field-block">
+                  <span class="field-block-label">What this geology does to foundations</span>
+                  <p>In the Deming area, decades of aquifer pumping have removed water from the subsurface, allowing compressible sediments to consolidate under their own weight — a process called aquifer compaction subsidence. This produces gradual, relatively uniform ground settlement across large areas. It is slow and often goes unnoticed until the cumulative effect becomes visible in foundations and infrastructure. The buried Lake Palomas lacustrine clays in the deeper subsurface are expansive and complicate the picture. In Silver City, the upper Mimbres drainage terrain introduces shallow rock and mine-related subsidence in older areas of the community.</p>
+                </div>
+                <div class="hazard-callout">
+                  <span class="hazard-callout-label">What TLS sees and repairs most in this basin</span>
+                  <p><strong>Aquifer depletion subsidence — Deming area</strong> — Decades of irrigation pumping have removed water from the subsurface, allowing compressible sediments to consolidate under their own weight. This produces gradual, broad ground settlement across large areas. Slow and cumulative — often unnoticed until the effect becomes visible in foundations and infrastructure.</p>
+                  <p><strong>Expansive lacustrine clays at depth</strong> — Buried Lake Palomas lacustrine clays in the deeper subsurface are expansive and complicate the subsidence picture. Two mechanisms — compaction and expansion — operating at different depths in the same foundation.</p>
+                  <p><strong>Caliche variability</strong> — Caliche is visible in any excavation in the Deming area. Looks like competent bearing. A thin layer over loose or compressible material below is not stable foundation support — it is a hard ceiling over a soft floor.</p>
+                </div>
+                <div class="communities-block">
+                  <span class="communities-label">Communities we serve in this basin</span>
+                  <p class="communities-list">Deming · Silver City · Bayard · Hurley · Santa Clara · Columbus · Mimbres · Arenas Valley · Central · Faywood · Pinos Altos · Tyrone · Hanover · Cliff · Gila · Florida · Sunshine · Akela · Virden</p>
+                </div>
+                <div class="accordion-cta">
+                  <p class="accordion-cta-text">Seeing movement in the Deming or Silver City area?</p>
+                  <a href="tel:5059914180" class="btn-inline">Call (505) 991-4180</a>
+                  <a href="sms:5059914180" class="btn-inline">Send a Text</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" id="lordsburg-basin">
+            <button class="accordion-trigger" data-acc aria-expanded="false">
+              <div>
+                <div class="accordion-title">Lordsburg Basin</div>
+                <div class="accordion-cities">Lordsburg · Animas · Hachita · Rodeo · Playas</div>
+              </div>
+              <div class="accordion-arrow">▾</div>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p class="basin-tagline">The far southwestern corner — sparse, hot, and geologically active in ways that have not been as thoroughly documented as the basins with larger populations.</p>
+                <div class="field-block">
+                  <span class="field-block-label">What we see when we drive up</span>
+                  <p>Lordsburg is a small community at the junction of I-10 and the old Route 66 country, surrounded by bajada terrain — the broad alluvial aprons that grade from the surrounding mountain ranges down to the basin floor. The soil on the upper fans is loose, granular, and collapsible. Lower on the fan and in the basin floor, finer-grained material accumulates with more clay content. The Animas Valley to the south is even more remote — ranching country where foundation problems tend to go unaddressed for years before anyone calls.</p>
+                </div>
+                <div class="field-block">
+                  <span class="field-block-label">What this geology does to foundations</span>
+                  <p>The upper fan alluvium is collapsible under first wetting — the same mechanism as the Jornada del Muerto and other dry alluvial basins in southern New Mexico. Hydrocompaction is the mechanism. Lower fan and basin floor material has higher clay content and some expansive potential, but the primary hazard in Lordsburg is collapsibility on the fan surfaces where most development sits. The Gila River floodplain at Virden is a different environment — floodplain clays with overbank deposits that respond to the river's wet and dry cycles.</p>
+                </div>
+                <div class="hazard-callout">
+                  <span class="hazard-callout-label">What TLS sees and repairs most in this basin</span>
+                  <p><strong>Collapsible upper fan alluvium</strong> — Dry-deposited alluvial fan material that consolidates under first wetting. Stable under dry conditions, vulnerable to rapid settlement when moisture finds it. The same hazard mechanism as the Jornada del Muerto and other southern New Mexico dry basins. Hydrocompaction is the mechanism.</p>
+                  <p><strong>Remote setting — problems accumulate</strong> — In a community this size and this remote, foundation problems often go unaddressed for years before anyone calls. By the time evaluation happens, the movement record is long and the moisture source may have been active for a decade. Early evaluation is more important here, not less.</p>
+                  <p><strong>Gila floodplain — Virden</strong> — The Gila River floodplain at Virden is a different environment from the basin fans. Floodplain clays with overbank deposits respond to the river's wet and dry cycles. Moisture migration from seasonal flooding shapes soil behavior in ways that differ from the surrounding bajada terrain.</p>
+                </div>
+                <div class="communities-block">
+                  <span class="communities-label">Communities we serve in this basin</span>
+                  <p class="communities-list">Lordsburg · Animas · Hachita · Playas · Rodeo · Cotton City · Granite Gap · Cloverdale · Antelope Wells · Diamond A</p>
+                </div>
+                <div class="accordion-cta">
+                  <p class="accordion-cta-text">Seeing movement in the Lordsburg area?</p>
+                  <a href="tel:5059914180" class="btn-inline">Call (505) 991-4180</a>
+                  <a href="sms:5059914180" class="btn-inline">Send a Text</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <RegionalNav />
+</Layout>
+
+<script>
+  function initAccordions() {
+    document.querySelectorAll<HTMLButtonElement>('.accordion-trigger[data-acc]').forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const item = trigger.closest('.accordion-item');
+        if (!item) return;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.accordion-item.open').forEach((el) => el.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const item = document.getElementById(hash);
+      if (item) {
+        item.classList.add('open');
+        setTimeout(() => item.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      }
+    }
+  }
+  document.addEventListener('DOMContentLoaded', initAccordions);
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: -4%;
+    width: 108%;
+    height: 108%;
+    object-fit: cover;
+    object-position: center;
+    animation: kenburns 20s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns {
+    0% {
+      transform: scale(1) translate(1%, 0);
+    }
+    100% {
+      transform: scale(1.06) translate(-1%, 0.5%);
+    }
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 34, 56, 0.15);
+  }
+  .tls-hero-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 0 clamp(20px, 5vw, 80px) clamp(40px, 6vw, 80px);
+  }
+  .tls-hero-box {
+    display: inline-block;
+    background: rgba(13, 34, 56, 0.65);
+    padding: 28px 40px 32px;
+  }
+  .tls-hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    display: block;
+  }
+
+  .tls-body {
+    --blue: #1b3a5c;
+    --blue-dark: #0d2238;
+    --blue-mid: #2a5480;
+    --tls-gold: #b8860b;
+    --tls-sand: #f5efe6;
+    --tls-stone: #e0d5c5;
+    --tls-slate: #4a5568;
+    --tls-cream: #fdfaf6;
+    --gutter: clamp(20px, 5vw, 80px);
+    --content-max: 860px;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 300;
+    background: var(--tls-cream);
+    color: #2d2d2d;
+  }
+  .page-body {
+    max-width: calc(var(--content-max) + var(--gutter) * 2);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  .tls-body :global(a) {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--tls-gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .tls-body :global(a):hover {
+    color: var(--tls-gold);
+  }
+  .intro-section {
+    padding: 64px 0 48px;
+  }
+  .intro-section :global(p) {
+    font-size: clamp(16px, 2vw, 18px);
+    line-height: 1.8;
+    color: #3a3a3a;
+    margin-bottom: 24px;
+    max-width: var(--content-max);
+  }
+  .pull-quote {
+    border-left: 3px solid var(--tls-gold);
+    padding: 16px 0 16px 28px;
+    margin: 36px 0;
+    max-width: 680px;
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 2.5vw, 22px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--blue);
+    margin: 0;
+  }
+
+  .basins-section {
+    padding: 48px 0 64px;
+    border-top: 2px solid var(--tls-gold);
+  }
+  .section-heading {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    margin-bottom: 12px;
+  }
+  .basins-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3.5vw, 34px);
+    font-weight: 400;
+    color: var(--blue-dark);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .basins-intro {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--tls-slate);
+    margin-bottom: 40px;
+    max-width: 600px;
+  }
+  .accordion {
+    border-top: 1px solid var(--tls-stone);
+    max-width: var(--content-max);
+  }
+  .accordion-item {
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .accordion-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    text-align: left;
+    font-family: inherit;
+  }
+  .accordion-trigger:hover .accordion-title {
+    color: var(--tls-gold);
+  }
+  .accordion-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--blue-dark);
+    transition: color 0.2s;
+  }
+  .accordion-cities {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--tls-slate);
+    margin-top: 4px;
+  }
+  .accordion-arrow {
+    font-size: 18px;
+    color: var(--tls-gold);
+    flex-shrink: 0;
+    transition: transform 0.25s;
+    line-height: 1;
+  }
+  .accordion-item.open .accordion-arrow {
+    transform: rotate(180deg);
+  }
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .accordion-item.open .accordion-body {
+    max-height: 3000px;
+  }
+  .accordion-body-inner {
+    padding: 0 0 36px;
+  }
+  .basin-tagline {
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--tls-slate);
+    margin-bottom: 28px;
+    max-width: 680px;
+  }
+  .field-block {
+    margin-bottom: 24px;
+  }
+  .field-block-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    display: block;
+    margin-bottom: 10px;
+  }
+  .field-block p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #3a3a3a;
+    max-width: var(--content-max);
+  }
+  .hazard-callout {
+    background: var(--tls-sand);
+    border-left: 3px solid var(--tls-gold);
+    padding: 20px 24px;
+    margin: 28px 0;
+    max-width: var(--content-max);
+  }
+  .hazard-callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .hazard-callout p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--blue-dark);
+    margin-bottom: 12px;
+  }
+  .hazard-callout p:last-child {
+    margin-bottom: 0;
+  }
+  .communities-block {
+    margin-top: 24px;
+  }
+  .communities-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tls-slate);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .communities-list {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--tls-slate);
+  }
+  .accordion-cta {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--tls-stone);
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .accordion-cta-text {
+    font-size: 15px;
+    color: var(--tls-slate);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .btn-inline {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue);
+    text-decoration: none;
+    border: 1px solid var(--blue);
+    padding: 10px 20px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-inline:hover {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  @media (max-width: 767px) {
+    .accordion-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
