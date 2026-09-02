@@ -1,0 +1,71 @@
+---
+// Shared cross-link band at the bottom of the 5 regional soil pages
+// (northern/central/four-corners/eastern/southern). Confirmed identical
+// markup pasted verbatim on Northern NM and reused as-is here.
+---
+
+<div class="regional-nav">
+  <div class="regional-nav-inner">
+    <span class="regional-nav-label">Explore New Mexico Regions</span>
+    <div class="regional-nav-buttons">
+      <a href="/northern-new-mexico">Northern New Mexico</a>
+      <a href="/central-new-mexico">Central New Mexico</a>
+      <a href="/four-corners">Four Corners</a>
+      <a href="/eastern-new-mexico">Eastern New Mexico</a>
+      <a href="/southern-new-mexico">Southern New Mexico</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .regional-nav {
+    background: #0d2238;
+    padding: 40px 80px;
+    border-top: 2px solid #b8860b;
+  }
+  .regional-nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .regional-nav-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #b8860b;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .regional-nav-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .regional-nav-buttons a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    border: 1px solid rgba(184, 134, 11, 0.4);
+    padding: 12px 24px;
+    transition: all 0.2s;
+  }
+  .regional-nav-buttons a:hover {
+    color: #d4a017;
+    border-color: #b8860b;
+    background: rgba(184, 134, 11, 0.06);
+  }
+  @media (max-width: 640px) {
+    .regional-nav {
+      padding: 40px 24px;
+    }
+    .regional-nav-buttons {
+      flex-direction: column;
+    }
+    .regional-nav-buttons a {
+      text-align: center;
+    }
+  }
+</style>

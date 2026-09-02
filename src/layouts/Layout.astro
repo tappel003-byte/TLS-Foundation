@@ -17,9 +17,11 @@ interface Props {
    * the footer is NOT confirmed identical across every page.
    */
   footer?: 'full' | 'minimal';
+  /** Only used when footer='full' -- the service-area paragraph is page-specific, not shared. */
+  footerProps?: { serviceAreaLabel?: string; serviceAreaText?: string };
 }
 
-const { title, description, schema = [], footer = 'minimal' } = Astro.props;
+const { title, description, schema = [], footer = 'minimal', footerProps = {} } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 // Sitewide schema, present on every page — corrected from what's live:
@@ -92,7 +94,7 @@ const websiteSchema = {
   <body>
     <Header />
     <slot />
-    {footer === 'full' ? <Footer /> : <MinimalFooter />}
+    {footer === 'full' ? <Footer {...footerProps} /> : <MinimalFooter />}
     <BackToTop />
   </body>
 </html>

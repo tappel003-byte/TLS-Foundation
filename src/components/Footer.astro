@@ -1,8 +1,36 @@
 ---
-// Global footer — verbatim from the site-wide footer code block, confirmed
-// identical on every page. The native Squarespace footer region beneath it
-// carries only the address line + back-to-top button, also global.
+// Full elaborate footer: wordmark, 4-column link grid, and the address
+// line are identical on every page that uses it. The service-area
+// paragraph is NOT identical sitewide -- confirmed by comparing the live
+// Home, Our Approach, and Why Foundations Move pages, each of which
+// carries its own distinct paragraph under the same "full footer" shell.
+// So it's a prop here, defaulted to Home's confirmed text.
 import Logo from './Logo.astro';
+
+interface Props {
+  serviceAreaLabel?: string;
+  serviceAreaText?: string;
+}
+
+const {
+  serviceAreaLabel = 'How we operate',
+  serviceAreaText = `TLS Foundations is a New Mexico foundation repair contractor serving homeowners across Albuquerque,
+      Rio Rancho, Santa Fe, Las Cruces, Farmington, Roswell, Taos, and communities throughout the state. We
+      provide helical pier installation, push pier installation, micropile drilling, compaction grouting, foam
+      injection, and surface and drainage correction — matched to the soil conditions at each specific site,
+      not sold from a standard menu. We are contractors. Not a consulting firm, not an engineering office — we
+      fix foundations for a living. The depth of information on this site exists because we have found that
+      homeowners who understand what is happening under their home make better decisions, ask better
+      questions, and are easier to work with. An educated homeowner is a better client. Foundation problems in
+      New Mexico are soil problems. Expansive clay, collapsible desert soils, Mancos Shale, caliche, karst
+      dissolution, and aquifer subsidence each require a different response. Getting that diagnosis wrong
+      produces a worse outcome than the original condition. TLS Foundations is owner-operated, affiliated with
+      Sandia GEO for geotechnical investigation, and built around an evaluation model that has no financial
+      interest in finding something to sell. We work across all five New Mexico geological regions — the Rio
+      Grande Rift corridor, the Four Corners basin, the eastern plains, the southern desert, and the northern
+      mountains. If your foundation is moving, we will tell you why. If it doesn't need repair, we will tell
+      you that too.`,
+} = Astro.props;
 ---
 
 <footer class="footer">
