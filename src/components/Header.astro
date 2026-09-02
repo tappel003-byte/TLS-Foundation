@@ -137,12 +137,12 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     z-index: 100;
   }
   .site-header-inner {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     display: flex;
     align-items: center;
-    gap: 5.9vw;
-    padding: 18px 40px;
+    gap: 32px;
+    padding: 18px 32px;
   }
   .site-nav {
     flex: 1;
@@ -152,8 +152,10 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     list-style: none;
     display: flex;
     align-items: center;
-    gap: 1.8vw;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: nowrap;
+    width: 100%;
   }
   .site-nav-list > li > a,
   .dropdown-trigger {
@@ -169,6 +171,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     align-items: center;
     gap: 4px;
     padding: 8px 0;
+    white-space: nowrap;
   }
   .site-nav-list > li > a:hover,
   .site-nav-list > li > a[aria-current='page'],
