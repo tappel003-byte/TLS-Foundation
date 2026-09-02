@@ -1,0 +1,814 @@
+---
+// Foundation Symptom Guide — reimagined per explicit creative license (not
+// a family/sacred-cow page). Original content (19 symptoms, 5 categories)
+// kept verbatim from the live page; presentation rebuilt around three
+// goals: (1) answers visible without a click, so both readers and AI
+// answer engines can actually see them, (2) one region picker instead of
+// 19 duplicated ones, (3) FAQPage schema since the content already is Q&A.
+// Also fixes a real bug found on the live page: its <title> tag read
+// "Most Common Foundation Concerns in New Mexico" (a different page's
+// title) instead of anything about symptoms.
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Foundation Symptom Guide — What Cracks, Sticking Doors & Uneven Floors Mean | TLS Foundations';
+const description =
+  "See something? Here's what it means and whether it warrants attention — for 19 common New Mexico foundation symptoms, grouped by category, with the New Mexico-specific soil context behind each one.";
+
+interface Symptom {
+  q: string;
+  whatsHappening: string;
+  needsRepair: string;
+  nmContext: string;
+  links: { text: string; href: string }[];
+}
+interface Category {
+  id: string;
+  label: string;
+  items: Symptom[];
+}
+
+const categories: Category[] = [
+  {
+    id: 'cracks',
+    label: 'Cracks in Walls & Floors',
+    items: [
+      {
+        q: 'Diagonal cracks near doors or windows',
+        whatsHappening:
+          'Differential settlement, seasonal soil movement, or framing shrinkage concentrating stress at the weakest points in the wall — door and window openings.',
+        needsRepair: 'Often not urgent. Monitor for progression. If actively widening, have it evaluated before assuming the cause.',
+        nmContext:
+          'Clay soil cycles drive seasonal cracking across the Rio Grande corridor. Heave and settlement produce identical-looking cracks — the wrong diagnosis leads to the wrong repair.',
+        links: [
+          { text: 'FAQ: Signs', href: '/foundation-repair-faq#signs' },
+          { text: 'Expansive Soils', href: '/expansive-soil' },
+          { text: 'Why Foundations Move', href: '/why-foundations-move' },
+        ],
+      },
+      {
+        q: 'Horizontal cracks in foundation or basement wall',
+        whatsHappening:
+          "Lateral soil pressure against the wall — the most structurally significant crack pattern in foundation walls. Horizontal cracking means the wall is being pushed inward.",
+        needsRepair: 'Yes, evaluate promptly. Horizontal cracks are a different category from diagonal or vertical cracking. Active inward movement requires attention.',
+        nmContext:
+          'Expansive clays exert significant lateral pressure after monsoon saturation. Poorly drained sites in the Rio Grande Valley and Four Corners are highest risk.',
+        links: [
+          { text: 'FAQ: Cracks', href: '/foundation-repair-faq#signs' },
+          { text: 'Expansive Soils', href: '/expansive-soil' },
+          { text: 'Why Foundations Move', href: '/why-foundations-move' },
+        ],
+      },
+      {
+        q: 'Ceiling cracks or gaps at ceiling-wall junction',
+        whatsHappening:
+          'Differential movement between the wall and ceiling plane — framing settling unevenly, or the wall moving relative to the roof structure above.',
+        needsRepair: 'Hairline ceiling cracks are common and usually cosmetic. A gap opening between the ceiling and wall — especially if progressive — warrants investigation.',
+        nmContext:
+          'Seasonal moisture cycling in clay soils produces cyclical movement that opens and closes ceiling gaps over the course of a year. Document with photos and dates before calling anyone.',
+        links: [
+          { text: 'FAQ: Cracks', href: '/foundation-repair-faq#cracking' },
+          { text: 'Why Foundations Move', href: '/why-foundations-move' },
+        ],
+      },
+      {
+        q: 'Cracks in concrete slab or garage floor',
+        whatsHappening: 'Concrete shrinkage, restraint cracking, curing stress, or soil movement beneath the slab.',
+        needsRepair: "Most are cosmetic. If cracks are widening, if one side is higher than the other, or if you can feel a lip underfoot, evaluate.",
+        nmContext:
+          "New Mexico's extreme drying cycles accelerate concrete shrinkage cracking — more so than in humid climates. Not every slab crack is a foundation crack.",
+        links: [
+          { text: 'FAQ: Slabs', href: '/foundation-repair-faq#cracking' },
+          { text: 'Foam Injection', href: '/foundation-repair-methods#foam-injection' },
+        ],
+      },
+      {
+        q: 'Stucco cracks on exterior walls',
+        whatsHappening: 'Curing shrinkage, thermal movement, or substrate movement. Most stucco cracks are not foundation cracks.',
+        needsRepair: 'Most are cosmetic. Widening cracks, cracks with displacement, or cracks that correlate with interior symptoms warrant investigation.',
+        nmContext:
+          'High desert temperature swings — often 40°F in a single day — cause significant stucco movement. Evaluate interior symptoms alongside exterior cracking before concluding the cause.',
+        links: [
+          { text: 'FAQ: Exterior', href: '/foundation-repair-faq#cracking' },
+          { text: 'Why Foundations Move', href: '/why-foundations-move' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'doors-windows',
+    label: 'Doors & Windows',
+    items: [
+      {
+        q: "Doors that stick, bind, or won't latch",
+        whatsHappening: 'The door frame has racked — meaning the opening is no longer square. This happens when one corner of the structure moves relative to another.',
+        needsRepair:
+          "Note whether it's seasonal or constant. A door that sticks only in summer and frees up in winter is often responding to humidity or soil cycling, not structural failure.",
+        nmContext:
+          'Seasonal clay soil movement — wet season expansion, dry season contraction — is the most common cause of sticking doors in New Mexico. Document the pattern before calling anyone.',
+        links: [
+          { text: 'FAQ: Signs', href: '/foundation-repair-faq#signs' },
+          { text: 'Heave vs. Settlement', href: '/foundation-repair-faq#heave' },
+          { text: 'Why Foundations Move', href: '/why-foundations-move' },
+        ],
+      },
+      {
+        q: "Windows that stick, won't open, or won't close fully",
+        whatsHappening: 'Same mechanism as sticking doors — the rough opening has racked out of square. Windows are less forgiving than doors because the frame tolerances are tighter.',
+        needsRepair:
+          'Check whether multiple windows on the same wall are affected, or if the pattern correlates with doors sticking on the same side of the house. Isolated window issues are often installation or expansion — multiple affected openings on one side suggest soil movement.',
+        nmContext:
+          'One side of a house affected, the other side fine — a common New Mexico pattern indicating differential soil movement under one corner or edge of the foundation.',
+        links: [
+          { text: 'FAQ: Signs', href: '/foundation-repair-faq#signs' },
+          { text: 'Why Foundations Move', href: '/why-foundations-move' },
+        ],
+      },
+      {
+        q: 'Gaps at the top or bottom of door frames',
+        whatsHappening:
+          'The door frame has moved relative to the door — the opening has become parallelogram-shaped rather than rectangular. Visible daylight at corners or an uneven gap across the top of the door.',
+        needsRepair: "A gap that has been stable for years is different from one that is growing. Photograph and measure. If it's changing, investigate.",
+        nmContext:
+          'A diagonal gap — wide at one corner, tight at the other — is a classic differential movement signature. Which corner is tight tells you the direction of movement.',
+        links: [
+          { text: 'FAQ: Signs', href: '/foundation-repair-faq#signs' },
+          { text: 'Heave vs. Settlement', href: '/foundation-repair-faq#heave' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'floors-walls',
+    label: 'Uneven Floors & Walls',
+    items: [
+      {
+        q: 'Sloping, uneven, or sinking floors',
+        whatsHappening: 'Foundation settlement, collapsible soil subsidence, or framing deflection. The floor is following the foundation.',
+        needsRepair: 'Monitor whether the slope is changing. A static slope that has been there for years is often normal; a progressive one warrants investigation.',
+        nmContext:
+          "Collapsible soils are widespread across New Mexico's basin floors — the West Mesa, Estancia Valley, and river corridors. They can collapse rapidly when moisture is introduced for the first time.",
+        links: [
+          { text: 'FAQ: Do I Need Repair?', href: '/foundation-repair-faq#need-repair' },
+          { text: 'Collapsible Soils', href: '/collapsible-soil' },
+          { text: 'Why Foundations Move', href: '/why-foundations-move' },
+        ],
+      },
+      {
+        q: 'Gaps between walls and floors or ceilings',
+        whatsHappening:
+          'The wall has moved relative to the floor or ceiling plane — or the floor has dropped, or the ceiling has lifted. Separation at the junction is visible evidence of differential movement.',
+        needsRepair:
+          'A gap that is stable and has been present for years is different from one that is opening. If you can track the change over weeks or months, document it and get an evaluation.',
+        nmContext:
+          'Gaps that open in spring and close in fall — or vice versa — are often seasonal soil cycling, not progressive structural movement. The pattern matters as much as the gap itself.',
+        links: [
+          { text: 'FAQ: Signs', href: '/foundation-repair-faq#signs' },
+          { text: 'Why Foundations Move', href: '/why-foundations-move' },
+        ],
+      },
+      {
+        q: 'Cabinets or countertops pulling away from walls',
+        whatsHappening:
+          'The wall has moved relative to the cabinet or countertop mounting — or the floor below has settled, pulling the base cabinet down and away from the wall above.',
+        needsRepair:
+          'A small gap that has been stable is often just settling. A gap that is growing, or that appeared suddenly, is worth investigating — particularly if other symptoms are present in the same area of the house.',
+        nmContext:
+          'Kitchen and bath areas are often first indicators of localized movement — plumbing leaks beneath slabs in these areas are a common trigger for sudden soil changes.',
+        links: [
+          { text: 'FAQ: Plumbing Leaks', href: '/foundation-repair-faq#plumbing-leak' },
+          { text: 'FAQ: Signs', href: '/foundation-repair-faq#signs' },
+        ],
+      },
+      {
+        q: 'Bowed or leaning foundation wall',
+        whatsHappening: 'Lateral soil pressure, expansive clay heave, or hydrostatic pressure pushing against the foundation wall from outside.',
+        needsRepair:
+          'Active inward movement warrants evaluation. Some walls stabilize once drainage is corrected. The rate of movement matters — slow and stable is different from progressive.',
+        nmContext:
+          'Expansive clay exerts significant lateral pressure after monsoon saturation. Poorly drained sites in the Rio Grande Valley and Four Corners are highest risk for wall bowing.',
+        links: [
+          { text: 'FAQ: Walls', href: '/foundation-repair-faq#signs' },
+          { text: 'Expansive Soils', href: '/expansive-soil' },
+          { text: 'Repair Methods', href: '/foundation-repair-methods' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'foundation',
+    label: 'The Foundation Itself',
+    items: [
+      {
+        q: 'Visible cracks in the stem wall or foundation',
+        whatsHappening: 'The foundation itself is cracking — either from shrinkage during curing, differential settlement, heave, or lateral pressure.',
+        needsRepair:
+          'Hairline cracks in cured concrete are common and usually stable. Cracks wider than 1/4 inch, cracks with displacement (one side higher than the other), or cracks that are actively growing warrant evaluation.',
+        nmContext:
+          'Photograph and measure any foundation crack. A crack that has been unchanged for five years is a different situation from one that has doubled in width over six months. The record you create now is the evidence that matters later.',
+        links: [
+          { text: 'FAQ: Cracking', href: '/foundation-repair-faq#cracking' },
+          { text: 'Why Foundations Move', href: '/why-foundations-move' },
+        ],
+      },
+      {
+        q: 'Gap between foundation and house framing',
+        whatsHappening:
+          'The sill plate or mudsill — the wood framing member that sits on top of the foundation — has separated from the concrete below. Either the foundation has dropped, or the framing has lifted.',
+        needsRepair: 'A visible gap at the foundation-to-framing connection is worth evaluating. It affects both structural integrity and pest and moisture intrusion.',
+        nmContext:
+          'Heave lifting the interior slab while perimeter walls settle — or vice versa — is a common New Mexico pattern that creates gaps at the foundation perimeter. The direction of the gap tells part of the story.',
+        links: [
+          { text: 'Heave vs. Settlement', href: '/foundation-repair-faq#heave' },
+          { text: 'Why Foundations Move', href: '/why-foundations-move' },
+        ],
+      },
+      {
+        q: 'Soil pulling away from the foundation perimeter',
+        whatsHappening:
+          'Soil shrinkage during dry cycles, or settlement of fill soil placed during construction. The gap exposes the foundation and allows water to pond directly against the concrete during rain events.',
+        needsRepair:
+          "The gap itself is worth filling to prevent water infiltration. More importantly, it's a sign of active soil shrinkage — which means the same soil is likely shrinking beneath the foundation as well.",
+        nmContext:
+          'This is extremely common across New Mexico during drought cycles. The visible gap is the surface expression of what is happening at depth. Backfill the gap and monitor for recurrence — recurring gaps indicate ongoing active soil volume change.',
+        links: [
+          { text: 'FAQ: Drainage', href: '/foundation-repair-faq#drainage' },
+          { text: 'Expansive Soils', href: '/expansive-soil' },
+          { text: 'Why Foundations Move', href: '/why-foundations-move' },
+        ],
+      },
+      {
+        q: 'Chimney leaning or separating from the house',
+        whatsHappening:
+          'The chimney foundation is settling or moving independently from the main house foundation. Chimneys are often built on their own footing, which may behave differently from the main slab.',
+        needsRepair:
+          'A chimney that is visibly leaning or has opened a gap at the house connection warrants evaluation. Beyond aesthetics, a separating chimney affects flashing, roofing, and weathertightness.',
+        nmContext:
+          'Adobe and older masonry construction with separate chimney footings is common in historic Santa Fe, Taos, and Albuquerque properties. Differential movement between the chimney and the main structure is a frequent finding in these homes.',
+        links: [
+          { text: 'FAQ: Signs', href: '/foundation-repair-faq#signs' },
+          { text: 'Northern NM Soils', href: '/northern-new-mexico' },
+          { text: 'Central NM Soils', href: '/central-new-mexico' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'water',
+    label: 'Water & Drainage Issues',
+    items: [
+      {
+        q: 'Water pooling near the foundation',
+        whatsHappening: 'Negative site drainage, improper grade, or irrigation runoff collecting against the foundation instead of draining away from it.',
+        needsRepair: 'Fix drainage first. Correcting grade often eliminates the need for structural repair entirely — the moisture trigger is removed and the soil stabilizes.',
+        nmContext:
+          'Moisture is the critical trigger for both expansive soil heave and collapsible soil collapse. Moisture migration is frequently the most important repair a New Mexico homeowner can make — and the least expensive.',
+        links: [
+          { text: 'FAQ: Drainage', href: '/foundation-repair-faq#drainage' },
+          { text: 'Drainage Correction', href: '/foundation-repair-methods#drainage-correction' },
+          { text: "Why NM's Different", href: '/our-approach' },
+        ],
+      },
+      {
+        q: 'Foundation symptoms appearing after a plumbing change',
+        whatsHappening:
+          'A plumbing leak — supply line or waste line — has introduced moisture to soil that may have been dry since the home was built. In collapsible soils, that first wetting event can cause rapid settlement. In expansive clays, a localized leak can trigger heave directly above it.',
+        needsRepair:
+          'Rule out plumbing before scheduling any foundation evaluation. A pressure test on both supply and waste lines is the right first step when symptoms appeared suddenly or are concentrated in one area.',
+        nmContext:
+          'Waste line leaks cause more foundation damage than supply line leaks in our experience — they introduce water continuously and go undetected longer. Both sides need to be tested.',
+        links: [
+          { text: 'FAQ: Plumbing Leaks', href: '/foundation-repair-faq#plumbing-leak' },
+          { text: 'Collapsible Soils', href: '/collapsible-soil' },
+        ],
+      },
+      {
+        q: 'Crawlspace moisture or sagging floors',
+        whatsHappening:
+          'Poor site drainage, inadequate ventilation, or foundation movement affecting the floor system. Moisture in a crawlspace accelerates wood decay and can affect floor framing independently of the foundation.',
+        needsRepair:
+          'Address moisture source first. If the floor framing is sagging, investigate the foundation below it. The two problems can coexist — moisture damage to framing and soil movement beneath it — and both need to be evaluated.',
+        nmContext:
+          'Monsoon season can saturate crawlspaces quickly in low-lying areas. Proper drainage and vapor management are critical — especially in older Albuquerque South Valley and Santa Fe homes near acequias.',
+        links: [
+          { text: 'FAQ: Drainage', href: '/foundation-repair-faq#drainage' },
+          { text: "Why NM's Different", href: '/our-approach' },
+        ],
+      },
+    ],
+  },
+];
+
+const regions = [
+  { name: 'Central New Mexico', url: '/central-new-mexico' },
+  { name: 'Northern New Mexico', url: '/northern-new-mexico' },
+  { name: 'Four Corners', url: '/four-corners' },
+  { name: 'Eastern New Mexico', url: '/eastern-new-mexico' },
+  { name: 'Southern New Mexico', url: '/southern-new-mexico' },
+];
+
+const allSymptoms = categories.flatMap((c) => c.items);
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: allSymptoms.map((s) => ({
+      '@type': 'Question',
+      name: s.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${s.whatsHappening} ${s.needsRepair}`,
+      },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'Reference', item: 'https://www.tlsfoundations.com/foundation-repair-faq' },
+      { '@type': 'ListItem', position: 3, name: 'Symptom Guide', item: 'https://www.tlsfoundations.com/symptom-guide' },
+    ],
+  },
+];
+---
+
+<Layout title={title} description={description} schema={schema} footer="minimal">
+  <div class="sg-page">
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <span class="hero-eyebrow">Resources · Reference</span>
+        <h1>Foundation <em>Symptom Guide</em></h1>
+        <p class="page-hero-sub">See something? Here's what it means — and how New Mexico soils affect it.</p>
+      </div>
+    </section>
+
+    <div class="page">
+      <div class="diagnostic-note">
+        <p>
+          These are the most common signs New Mexico homeowners notice when something feels off with their
+          foundation. For each one, here's what's typically happening and whether it usually warrants
+          attention. Soil conditions, site drainage, and how long something has been changing all matter —
+          this is a <strong>starting point, not a diagnosis</strong>. If you're seeing signs that concern
+          you, <a href="/contact-us">call us</a>. You reach the owner, not a scheduler.
+          <a href="/common-concerns" class="body-link">If you have questions about cost, timing, or contractors, see our Common Concerns page.</a>
+        </p>
+      </div>
+
+      <div class="region-finder" id="regionFinder">
+        <span class="region-finder-label">Where are you in New Mexico?</span>
+        <div class="region-finder-row">
+          <select id="regionSelect" aria-label="Select your region">
+            <option value="">Select your region</option>
+            {regions.map((r) => <option value={r.url}>{r.name}</option>)}
+          </select>
+          <button id="regionSave" type="button">Remember my area →</button>
+        </div>
+        <p class="region-finder-current" id="regionCurrent" hidden>
+          Showing regional links for <strong id="regionCurrentName"></strong> ·
+          <button type="button" id="regionChange">change</button>
+        </p>
+      </div>
+
+      <div class="filter-bar">
+        <input type="search" id="symptomSearch" placeholder="Search symptoms — e.g. &quot;sticking door&quot;" aria-label="Search symptoms" />
+        <div class="filter-chips" id="filterChips">
+          <button type="button" class="chip active" data-filter="all">All</button>
+          {categories.map((c) => (
+            <button type="button" class="chip" data-filter={c.id}>{c.label}</button>
+          ))}
+        </div>
+      </div>
+
+      {categories.map((cat) => (
+        <div class="category-group" id={cat.id} data-category={cat.id}>
+          <div class="category-label">{cat.label}</div>
+          <div class="symptom-list">
+            {cat.items.map((s) => (
+              <article class="symptom" data-search={s.q.toLowerCase()}>
+                <h3>{s.q}</h3>
+                <p class="whats-happening"><strong>What's happening:</strong> {s.whatsHappening}</p>
+                <p class="needs-repair"><strong>Does it need repair?</strong> {s.needsRepair}</p>
+                <p class="nm-note">NM context: {s.nmContext}</p>
+                <div class="symptom-links">
+                  {s.links.map((l) => (
+                    <a href={l.href} class="symptom-link">{l.text} →</a>
+                  ))}
+                  <a href="/new-mexico-soil-conditions" class="symptom-link region-link" data-region-link>
+                    Explore regional soil pages →
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      <div class="contact-footer">
+        <p><strong>Nothing beats talking through what you're seeing.</strong></p>
+        <p><a href="tel:5059914180">(505) 991-4180</a> · <a href="/contact-us">Send a message</a></p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const STORAGE_KEY = 'tls-region';
+  const regionSelect = document.getElementById('regionSelect') as HTMLSelectElement;
+  const regionSave = document.getElementById('regionSave') as HTMLButtonElement;
+  const regionCurrent = document.getElementById('regionCurrent') as HTMLElement;
+  const regionCurrentName = document.getElementById('regionCurrentName') as HTMLElement;
+  const regionChange = document.getElementById('regionChange') as HTMLButtonElement;
+  const finder = document.getElementById('regionFinder') as HTMLElement;
+
+  function applyRegion(url: string, name: string) {
+    document.querySelectorAll<HTMLAnchorElement>('[data-region-link]').forEach((a) => {
+      a.href = url;
+      a.textContent = `See ${name} soil context →`;
+    });
+    regionCurrentName.textContent = name;
+    regionCurrent.hidden = false;
+    finder.classList.add('is-set');
+  }
+
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    try {
+      const { url, name } = JSON.parse(saved);
+      applyRegion(url, name);
+      regionSelect.value = url;
+    } catch {
+      /* ignore malformed storage */
+    }
+  }
+
+  regionSave.addEventListener('click', () => {
+    const url = regionSelect.value;
+    const name = regionSelect.options[regionSelect.selectedIndex]?.textContent || '';
+    if (!url) return;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ url, name }));
+    applyRegion(url, name);
+  });
+
+  regionChange.addEventListener('click', () => {
+    localStorage.removeItem(STORAGE_KEY);
+    regionCurrent.hidden = true;
+    finder.classList.remove('is-set');
+    regionSelect.value = '';
+    document.querySelectorAll<HTMLAnchorElement>('[data-region-link]').forEach((a) => {
+      a.href = '/new-mexico-soil-conditions';
+      a.textContent = 'Explore regional soil pages →';
+    });
+  });
+
+  // Search + category filter
+  const search = document.getElementById('symptomSearch') as HTMLInputElement;
+  const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
+  const groups = document.querySelectorAll<HTMLElement>('.category-group');
+  let activeCategory = 'all';
+
+  function applyFilters() {
+    const q = search.value.trim().toLowerCase();
+    groups.forEach((group) => {
+      const catId = group.dataset.category;
+      const categoryMatches = activeCategory === 'all' || activeCategory === catId;
+      let anyVisible = false;
+      group.querySelectorAll<HTMLElement>('.symptom').forEach((item) => {
+        const textMatches = !q || item.dataset.search!.includes(q) || item.textContent!.toLowerCase().includes(q);
+        const visible = categoryMatches && textMatches;
+        item.hidden = !visible;
+        if (visible) anyVisible = true;
+      });
+      group.hidden = !anyVisible;
+    });
+  }
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => {
+      chips.forEach((c) => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeCategory = chip.dataset.filter || 'all';
+      applyFilters();
+    });
+  });
+  search.addEventListener('input', applyFilters);
+</script>
+
+<style>
+  .sg-page {
+    --blue: #1b3a5c;
+    --blue-dark: #0d2238;
+    --blue-mid: #2a5480;
+    --gold: #b8860b;
+    --gold-light: #d4a017;
+    --sand: #f5efe6;
+    --stone: #e0d5c5;
+    --slate: #4a5568;
+    --muted: #7a8694;
+    --white: #ffffff;
+    --cream: #fdfaf6;
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--cream);
+    color: #1a1a1a;
+    font-size: 18px;
+    line-height: 1.9;
+    font-weight: 300;
+  }
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 64px 80px;
+  }
+  .page-hero {
+    background: var(--blue);
+    padding: 52px 64px 44px;
+    border-bottom: 2px solid var(--gold);
+  }
+  .page-hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 46px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .page-hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.8;
+    max-width: 600px;
+  }
+  .diagnostic-note {
+    background: var(--sand);
+    border-left: 4px solid var(--gold);
+    padding: 20px 28px;
+    margin: 40px 0 32px;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--slate);
+  }
+  .diagnostic-note strong {
+    color: var(--blue);
+  }
+  .diagnostic-note a,
+  .sg-page .body-link {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--gold);
+  }
+
+  /* ── Region finder: one picker, remembered ── */
+  .region-finder {
+    background: var(--white);
+    border: 1px solid var(--stone);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+  .region-finder-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .region-finder-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .region-finder select {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--blue);
+    background: var(--cream);
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    padding: 10px 14px;
+    cursor: pointer;
+    flex: 1;
+    min-width: 200px;
+  }
+  .region-finder button {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--gold);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 18px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .region-finder button:hover {
+    background: var(--gold-light);
+  }
+  .region-finder.is-set {
+    border-color: rgba(184, 134, 11, 0.4);
+  }
+  .region-finder-current {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: var(--slate);
+  }
+  .region-finder-current strong {
+    color: var(--blue);
+  }
+  .region-finder-current button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--gold);
+    text-decoration: underline;
+    cursor: pointer;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.8rem;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  /* ── Search + filter ── */
+  .filter-bar {
+    margin-bottom: 40px;
+  }
+  #symptomSearch {
+    width: 100%;
+    font-family: 'Source Serif 4', serif;
+    font-size: 16px;
+    padding: 14px 18px;
+    border: 1px solid var(--stone);
+    border-radius: 8px;
+    background: var(--white);
+    margin-bottom: 14px;
+  }
+  #symptomSearch:focus {
+    outline: none;
+    border-color: var(--gold);
+  }
+  .filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--slate);
+    background: var(--white);
+    border: 1px solid var(--stone);
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .chip:hover {
+    border-color: var(--gold);
+  }
+  .chip.active {
+    background: var(--blue);
+    border-color: var(--blue);
+    color: var(--white);
+  }
+
+  /* ── Categories & symptoms (always visible, no accordion) ── */
+  .category-group {
+    margin-bottom: 56px;
+    scroll-margin-top: 80px;
+  }
+  .category-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--stone);
+  }
+  .symptom-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .symptom {
+    background: var(--white);
+    border: 1px solid var(--stone);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+  .symptom h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--blue);
+    margin: 0 0 14px;
+    line-height: 1.3;
+  }
+  .symptom p {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--slate);
+    margin: 0 0 10px;
+  }
+  .symptom .needs-repair {
+    background: var(--sand);
+    border-left: 3px solid var(--gold);
+    padding: 10px 14px;
+    color: var(--blue);
+    border-radius: 0 6px 6px 0;
+  }
+  .symptom .nm-note {
+    font-size: 0.82rem;
+    color: var(--muted);
+    border-left: 3px solid var(--gold);
+    padding-left: 12px;
+    font-style: italic;
+    margin-bottom: 0;
+  }
+  .symptom-links {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--stone);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .symptom-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+  }
+  .symptom-link:hover {
+    color: var(--gold);
+  }
+  .symptom-link.region-link {
+    color: var(--gold);
+    border-bottom-style: solid;
+  }
+
+  .contact-footer {
+    margin-top: 60px;
+    text-align: center;
+    padding: 32px;
+    background: var(--sand);
+    border-left: 4px solid var(--gold);
+  }
+  .contact-footer p {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--slate);
+  }
+  .contact-footer a {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--gold);
+  }
+
+  @media (max-width: 768px) {
+    .page {
+      padding: 0 24px 60px;
+    }
+    .page-hero {
+      padding: 40px 24px 36px;
+    }
+  }
+  @media (max-width: 640px) {
+    .page-hero h1 {
+      font-size: 2rem;
+    }
+    .region-finder-row {
+      flex-direction: column;
+    }
+    .region-finder select {
+      width: 100%;
+    }
+  }
+</style>
