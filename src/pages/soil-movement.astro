@@ -1,0 +1,354 @@
+---
+// Soil & Movement (In Depth series). Built verbatim from the user-pasted
+// code block: a 3-episode YouTube video series with VideoObject +
+// BreadcrumbList JSON-LD schema.
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Why Foundations Move in New Mexico — In Depth Series | TLS Foundations';
+const description =
+  'Three short films on the forces that move foundations across New Mexico -- what causes them, how to tell them apart, and what honest evaluation looks like before any repair is considered.';
+
+const videoSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: 'Foundation Movement in New Mexico — Why Soil Moisture Is the Real Cause',
+    description:
+      'Most foundation problems in New Mexico trace back to one thing: moisture change in the soil. This film introduces the first principle of foundation evaluation — before any repair is considered, understand what the soil is doing and why. Covers expansive clays across Albuquerque, Santa Fe, Las Cruces, Farmington, and Gallup.',
+    thumbnailUrl: 'https://img.youtube.com/vi/jSzdnNljb1k/maxresdefault.jpg',
+    uploadDate: '2026-04-08',
+    embedUrl: 'https://www.youtube.com/embed/jSzdnNljb1k',
+    url: 'https://www.youtube.com/watch?v=jSzdnNljb1k',
+    publisher: { '@type': 'Organization', name: 'TLS Foundations', url: 'https://tlsfoundations.com' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: 'Foundation Heave vs. Settlement — New Mexico Homeowner Guide',
+    description:
+      'Heave and settlement look almost identical from inside a home but have opposite causes and opposite fixes. This film explains the difference across New Mexico soils — expansive clays in Albuquerque and Santa Fe, collapsible soils near Las Cruces, and Mancos Shale in Farmington and Gallup.',
+    thumbnailUrl: 'https://img.youtube.com/vi/APzC1wZ-MaY/maxresdefault.jpg',
+    uploadDate: '2026-04-08',
+    embedUrl: 'https://www.youtube.com/embed/APzC1wZ-MaY',
+    url: 'https://www.youtube.com/watch?v=APzC1wZ-MaY',
+    publisher: { '@type': 'Organization', name: 'TLS Foundations', url: 'https://tlsfoundations.com' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: 'When Foundation Repair Is Not the Answer — What New Mexico Homeowners Should Know First',
+    description:
+      'Not every foundation problem needs structural repair. Underpinning addresses settlement — it does not address the moisture conditions that caused the movement. For homeowners across New Mexico in Albuquerque, Santa Fe, Las Cruces, Farmington, and Gallup, the most common early intervention is drainage correction, not piers.',
+    thumbnailUrl: 'https://img.youtube.com/vi/l_evW9Q5Px0/maxresdefault.jpg',
+    uploadDate: '2026-04-08',
+    embedUrl: 'https://www.youtube.com/embed/l_evW9Q5Px0',
+    url: 'https://www.youtube.com/watch?v=l_evW9Q5Px0',
+    publisher: { '@type': 'Organization', name: 'TLS Foundations', url: 'https://tlsfoundations.com' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'In Depth', item: 'https://tlsfoundations.com/in-depth' },
+      { '@type': 'ListItem', position: 3, name: 'Soil & Movement', item: 'https://tlsfoundations.com/soil-movement' },
+    ],
+  },
+];
+---
+
+<Layout title={title} description={description} footer="minimal" schema={videoSchema}>
+  <div class="tls-body">
+    <section class="tls-series-hero">
+      <span class="eyebrow">A Three-Part Series</span>
+      <h1>Why Foundations Move</h1>
+      <h1 class="gold">in New Mexico</h1>
+      <hr class="tls-hero-rule" />
+      <p>Three short films on the forces that move foundations across New Mexico — what causes them, how to tell them apart, and what honest evaluation looks like before any repair is considered.</p>
+      <div class="tls-episode-list">
+        <div class="tls-episode-list-item">
+          <span class="numeral">I</span>
+          <span class="ep-name">The First Principle</span>
+        </div>
+        <div class="tls-ep-divider"></div>
+        <div class="tls-episode-list-item">
+          <span class="numeral">II</span>
+          <span class="ep-name">Heave vs. Settlement</span>
+        </div>
+        <div class="tls-ep-divider"></div>
+        <div class="tls-episode-list-item">
+          <span class="numeral">III</span>
+          <span class="ep-name">When Underpinning Isn't the Answer</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="tls-episode">
+      <div class="tls-episode-inner">
+        <span class="ep-label">Episode 1 of 3</span>
+        <h2>The First Principle</h2>
+        <div class="tls-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/jSzdnNljb1k"
+            title="Foundation Movement in New Mexico — Why Soil Moisture Is the Real Cause"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p>Most foundation problems in New Mexico trace back to one thing: moisture change in the soil. Not age. Not poor construction. Moisture. When New Mexico soils — particularly the expansive clays common across Albuquerque, Santa Fe, and much of the Rio Grande corridor — absorb water, they swell. When they dry out, they shrink. That cycle, repeated over years and seasons, is what moves foundations.</p>
+        <p>This film introduces the first principle of foundation evaluation in New Mexico: before any repair is considered, understand what the soil is doing and why. Homeowners in Albuquerque, Santa Fe, Las Cruces, Farmington, and Gallup are dealing with some of the most active soils in the country. The principle doesn't change across regions. The soil types do.</p>
+      </div>
+    </section>
+
+    <section class="tls-episode">
+      <div class="tls-episode-inner">
+        <span class="ep-label">Episode 2 of 3</span>
+        <h2>Heave vs. Settlement</h2>
+        <div class="tls-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/APzC1wZ-MaY"
+            title="Foundation Heave vs. Settlement — New Mexico Homeowner Guide"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p>Heave and settlement look almost identical from inside a home. Cracks in the drywall. Doors that stick. Floors that feel uneven. But they have opposite causes and opposite fixes. Misdiagnose one for the other and the repair makes things worse — not better.</p>
+        <p>This film explains the difference and why it matters across New Mexico. Expansive soils in the Albuquerque metro, the Santa Fe basin, and the Four Corners region behave differently from the collapsible soils found in parts of eastern New Mexico and the Tularosa Basin near Las Cruces. Drainage is usually the first repair that needs to happen — before structural work is on the table. In Farmington and Gallup, Mancos Shale adds another layer of complexity. The right answer starts with understanding which force is actually at work beneath the foundation.</p>
+      </div>
+    </section>
+
+    <section class="tls-episode">
+      <div class="tls-episode-inner">
+        <span class="ep-label">Episode 3 of 3</span>
+        <h2>When Underpinning Is Not the Answer</h2>
+        <div class="tls-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/l_evW9Q5Px0"
+            title="When Foundation Repair Is Not the Answer — What New Mexico Homeowners Should Know First"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p>Not every foundation problem needs structural repair. Underpinning — helical piers, push piers, any pier system — addresses settlement. It does not address the moisture conditions that caused the movement. If those conditions aren't corrected first, the problem continues regardless of what's been installed beneath the foundation.</p>
+        <p>For homeowners across New Mexico — in Albuquerque, Santa Fe, Las Cruces, Farmington, and Gallup — the most common early intervention is drainage correction, not piers. Downspouts, grade, irrigation patterns, hardscape directing water toward the foundation. These are usually the first things that need attention. Structural repair may follow. It may not. The goal is the right answer — for the home, for the soil conditions, for the homeowner. Not the largest invoice.</p>
+      </div>
+    </section>
+
+    <section class="tls-related">
+      <span class="eyebrow">Related</span>
+      <div class="tls-related-links">
+        <a href="/why-foundations-move">Why Foundations Move</a>
+        <span class="dot">·</span>
+        <a href="/common-concerns">Common Concerns</a>
+        <span class="dot">·</span>
+        <a href="/symptom-guide">Symptom Guide</a>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .tls-body {
+    --navy: #1b3a5c;
+    --navy-dark: #0d2238;
+    --tls-gold: #b8860b;
+    --tls-sand: #f5efe6;
+    --tls-stone: #e0d5c5;
+    --tls-slate: #4a5568;
+    --tls-cream: #fdfaf6;
+    font-family: 'Source Serif 4', Georgia, serif;
+    color: #1a1a1a;
+  }
+
+  .tls-series-hero {
+    background: var(--navy-dark);
+    padding: 80px 64px 72px;
+    border-bottom: 3px solid var(--tls-gold);
+  }
+  .tls-series-hero .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    display: block;
+    margin-bottom: 24px;
+  }
+  .tls-series-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 56px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.1;
+    margin: 0 0 12px;
+    letter-spacing: -0.3px;
+  }
+  .tls-series-hero h1.gold {
+    color: var(--tls-gold);
+    font-style: italic;
+    margin-bottom: 32px;
+  }
+  .tls-hero-rule {
+    width: 60px;
+    height: 2px;
+    background: var(--tls-gold);
+    opacity: 0.6;
+    margin: 0 0 32px;
+    border: none;
+  }
+  .tls-series-hero p {
+    font-size: 16px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.9;
+    max-width: 560px;
+    margin: 0 0 52px;
+  }
+  .tls-episode-list {
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+  }
+  .tls-episode-list-item {
+    display: flex;
+    flex-direction: column;
+  }
+  .tls-episode-list-item .numeral {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    color: #fff;
+    font-weight: 400;
+    line-height: 1;
+  }
+  .tls-episode-list-item .ep-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    margin-top: 8px;
+  }
+  .tls-ep-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(184, 134, 11, 0.3);
+    margin-top: 4px;
+  }
+
+  .tls-episode {
+    padding: 80px 64px;
+    border-bottom: 1px solid var(--tls-stone);
+    background: var(--tls-cream);
+  }
+  .tls-episode:nth-child(even) {
+    background: var(--tls-sand);
+  }
+  .tls-episode-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .tls-episode .ep-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .tls-episode h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: 400;
+    color: var(--navy);
+    line-height: 1.2;
+    margin: 0 0 32px;
+  }
+
+  .tls-video-wrap {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    background: #000;
+    margin-bottom: 36px;
+  }
+  .tls-video-wrap iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .tls-episode p {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.9;
+    margin: 0 0 20px;
+    max-width: 720px;
+  }
+  .tls-episode p:last-child {
+    margin-bottom: 0;
+  }
+
+  .tls-related {
+    background: var(--navy-dark);
+    padding: 56px 64px;
+    border-top: 3px solid var(--tls-gold);
+  }
+  .tls-related .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(184, 134, 11, 0.5);
+    display: block;
+    margin-bottom: 20px;
+  }
+  .tls-related-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .tls-related-links a {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+    padding-bottom: 1px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .tls-related-links a:hover {
+    color: rgba(255, 255, 255, 0.9);
+    border-bottom-color: rgba(184, 134, 11, 0.7);
+  }
+  .tls-related-links .dot {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(184, 134, 11, 0.3);
+  }
+
+  @media (max-width: 640px) {
+    .tls-series-hero {
+      padding: 56px 24px 48px;
+    }
+    .tls-episode {
+      padding: 56px 24px;
+    }
+    .tls-related {
+      padding: 48px 24px;
+    }
+    .tls-episode-list {
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+  }
+</style>

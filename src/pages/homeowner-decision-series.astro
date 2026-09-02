@@ -1,0 +1,556 @@
+---
+// Homeowner Decision Series (In Depth series). Built verbatim from the
+// user-pasted code block: a 4-episode YouTube video series with
+// VideoObject + BreadcrumbList JSON-LD schema.
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Homeowner Decision Series | TLS Foundations';
+const description =
+  "Four films about the decisions homeowners face when foundation movement shows up. No sales pitch, no urgency -- fifty-five combined years working New Mexico soils, said plainly.";
+
+const videoSchema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: 'What to Do When You First Notice Foundation Problems — New Mexico Homeowner Guide',
+    description:
+      'You noticed something. A crack in the drywall. A door that used to latch and doesn\'t anymore. This episode covers what to document, what to watch, and how to put yourself in a better position before anyone sets foot in your home. From TLS Foundations — 55 years working New Mexico soils.',
+    thumbnailUrl: 'https://img.youtube.com/vi/q3VZ3WvHQ5k/maxresdefault.jpg',
+    uploadDate: '2026-04-08',
+    embedUrl: 'https://www.youtube.com/embed/q3VZ3WvHQ5k',
+    url: 'https://www.youtube.com/watch?v=q3VZ3WvHQ5k',
+    publisher: { '@type': 'Organization', name: 'TLS Foundations', url: 'https://tlsfoundations.com' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: 'Is a Free Foundation Inspection Really Free? — What New Mexico Homeowners Should Know',
+    description:
+      'Free foundation inspections are the standard offer in this industry — they\'re also sales calls. This episode explains how free inspections work economically, why the inspector must sell to survive, and what that means for homeowners in Albuquerque and across New Mexico.',
+    thumbnailUrl: 'https://img.youtube.com/vi/VWGmU2P1bLY/maxresdefault.jpg',
+    uploadDate: '2026-04-08',
+    embedUrl: 'https://www.youtube.com/embed/VWGmU2P1bLY',
+    url: 'https://www.youtube.com/watch?v=VWGmU2P1bLY',
+    publisher: { '@type': 'Organization', name: 'TLS Foundations', url: 'https://tlsfoundations.com' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: 'How Do I Know If My Foundation Problem Is Serious? — New Mexico Field Experience',
+    description:
+      'Sticking doors, diagonal cracks at window corners, floors that slope toward an exterior wall — these mean different things depending on when they appeared and how fast they\'re changing. 55 combined years working New Mexico soils, from the Albuquerque metro to Mancos Shale country around Farmington.',
+    thumbnailUrl: 'https://img.youtube.com/vi/mx5OtjSfOf0/maxresdefault.jpg',
+    uploadDate: '2026-04-08',
+    embedUrl: 'https://www.youtube.com/embed/mx5OtjSfOf0',
+    url: 'https://www.youtube.com/watch?v=mx5OtjSfOf0',
+    publisher: { '@type': 'Organization', name: 'TLS Foundations', url: 'https://tlsfoundations.com' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: 'When Monitoring Is the Right Answer — Foundation Watch and Wait Guide for New Mexico',
+    description:
+      'Not every foundation concern needs repair. This episode explains what intelligent monitoring looks like — what to measure, how often, and what a genuine change in the pattern means versus normal seasonal movement in New Mexico soils across Albuquerque, Santa Fe, Gallup, and beyond.',
+    thumbnailUrl: 'https://img.youtube.com/vi/oPiWN_I39W0/maxresdefault.jpg',
+    uploadDate: '2026-04-08',
+    embedUrl: 'https://www.youtube.com/embed/oPiWN_I39W0',
+    url: 'https://www.youtube.com/watch?v=oPiWN_I39W0',
+    publisher: { '@type': 'Organization', name: 'TLS Foundations', url: 'https://tlsfoundations.com' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'In Depth', item: 'https://tlsfoundations.com/in-depth' },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: 'Homeowner Decision Series',
+        item: 'https://tlsfoundations.com/homeowner-decision-series',
+      },
+    ],
+  },
+];
+---
+
+<Layout title={title} description={description} footer="minimal" schema={videoSchema}>
+  <div class="tls-hds-page">
+    <div class="tls-hds-hero">
+      <div class="tls-hds-corner-bl"></div>
+      <div class="tls-hds-corner-br"></div>
+      <div class="tls-hds-hero-inner">
+        <span class="tls-hds-eyebrow">TLS Foundations</span>
+        <h1 class="tls-hds-title">Homeowner<br />Decision Series</h1>
+        <hr class="tls-hds-rule" />
+        <p class="tls-hds-tagline">The goal is the right answer. Not the largest invoice.</p>
+      </div>
+    </div>
+
+    <div class="tls-hds-intro">
+      <span class="tls-hds-intro-sentence"
+        >Four films about the decisions homeowners face when foundation movement shows up. No sales pitch. No
+        urgency. Just what we've learned in fifty-five years working New Mexico soils — said plainly.</span
+      >
+      <ul class="tls-hds-index">
+        <li>
+          <a href="#hds-ep1">
+            <span class="tls-hds-index-num">I</span>
+            <span class="tls-hds-index-title">What to Do When You First Notice Foundation Problems</span>
+            <span class="tls-hds-index-arrow">↓</span>
+          </a>
+        </li>
+        <li>
+          <a href="#hds-ep2">
+            <span class="tls-hds-index-num">II</span>
+            <span class="tls-hds-index-title">Is a Free Foundation Inspection Really Free?</span>
+            <span class="tls-hds-index-arrow">↓</span>
+          </a>
+        </li>
+        <li>
+          <a href="#hds-ep3">
+            <span class="tls-hds-index-num">III</span>
+            <span class="tls-hds-index-title">How Do I Know If My Foundation Problem Is Serious?</span>
+            <span class="tls-hds-index-arrow">↓</span>
+          </a>
+        </li>
+        <li>
+          <a href="#hds-ep4">
+            <span class="tls-hds-index-num">IV</span>
+            <span class="tls-hds-index-title">When Monitoring Is the Right Answer</span>
+            <span class="tls-hds-index-arrow">↓</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <section class="tls-hds-episode" id="hds-ep1">
+      <div class="tls-hds-ep-accent"></div>
+      <div class="tls-hds-episode-inner">
+        <div class="tls-hds-ep-header">
+          <div class="tls-hds-ep-header-left">
+            <span class="tls-hds-ep-label">Episode 1 of 4</span>
+            <h2>What to Do When You First Notice Foundation Problems</h2>
+          </div>
+          <div class="tls-hds-ep-numeral">1</div>
+        </div>
+        <div class="tls-hds-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/q3VZ3WvHQ5k"
+            title="What to Do When You First Notice Foundation Problems — New Mexico Homeowner Guide"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p>You noticed something. A crack in the drywall. A door that used to latch and doesn't anymore. A floor with a slope you don't remember being there. The instinct is to start making calls. This episode suggests a different first move: slow down.</p>
+        <p>What to document. What to watch. How to put yourself in a better position before anyone sets foot in your home. Foundations across New Mexico — in Albuquerque, Santa Fe, Las Cruces — move for different reasons at different times of year. Understanding what you're seeing before you call anyone is the first step toward getting the right answer.</p>
+      </div>
+    </section>
+
+    <section class="tls-hds-episode" id="hds-ep2">
+      <div class="tls-hds-ep-accent"></div>
+      <div class="tls-hds-episode-inner">
+        <div class="tls-hds-ep-header">
+          <div class="tls-hds-ep-header-left">
+            <span class="tls-hds-ep-label">Episode 2 of 4</span>
+            <h2>Is a Free Foundation Inspection Really Free?</h2>
+          </div>
+          <div class="tls-hds-ep-numeral">2</div>
+        </div>
+        <div class="tls-hds-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/VWGmU2P1bLY"
+            title="Is a Free Foundation Inspection Really Free? — What New Mexico Homeowners Should Know"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p>Within minutes of searching, you're seeing the same offer everywhere: free foundation inspection. No charge. Here's what most homeowners don't realize — that inspector isn't paid to inspect. He's paid to sell. That's not a character flaw. It's the model.</p>
+        <p>Homeowners in Albuquerque and across New Mexico deserve to understand the structure of that conversation before it starts. The better question isn't who will come look for free. It's who can afford to tell you that you don't need anything.</p>
+      </div>
+    </section>
+
+    <section class="tls-hds-episode" id="hds-ep3">
+      <div class="tls-hds-ep-accent"></div>
+      <div class="tls-hds-episode-inner">
+        <div class="tls-hds-ep-header">
+          <div class="tls-hds-ep-header-left">
+            <span class="tls-hds-ep-label">Episode 3 of 4</span>
+            <h2>How Do I Know If My Foundation Problem Is Serious?</h2>
+          </div>
+          <div class="tls-hds-ep-numeral">3</div>
+        </div>
+        <div class="tls-hds-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/mx5OtjSfOf0"
+            title="How Do I Know If My Foundation Problem Is Serious? — New Mexico Field Experience"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p>A brand new homeowner reads a hairline crack completely differently than someone who's lived in the same house for twenty years and just noticed something new. Same crack. Completely different meaning.</p>
+        <p>Sticking doors, diagonal cracks at window corners, floors that slope toward an exterior wall — these mean different things depending on when they appeared and how fast they're changing. Fifty-five combined years working New Mexico soils, from the expansive clays in the Albuquerque metro to the Mancos Shale country around Farmington. Here's what slow looks like. Here's what fast looks like. Here's why the difference matters before any repair decision is made.</p>
+      </div>
+    </section>
+
+    <section class="tls-hds-episode" id="hds-ep4">
+      <div class="tls-hds-ep-accent"></div>
+      <div class="tls-hds-episode-inner">
+        <div class="tls-hds-ep-header">
+          <div class="tls-hds-ep-header-left">
+            <span class="tls-hds-ep-label">Episode 4 of 4</span>
+            <h2>When Monitoring Is the Right Answer</h2>
+          </div>
+          <div class="tls-hds-ep-numeral">4</div>
+        </div>
+        <div class="tls-hds-video-wrap">
+          <iframe
+            src="https://www.youtube.com/embed/oPiWN_I39W0"
+            title="When Monitoring Is the Right Answer — Foundation Watch and Wait Guide for New Mexico"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <p>Not every foundation concern needs repair. Some conditions are best understood over time — documented, watched, and measured before any decision makes sense. Monitoring isn't inaction. It's information.</p>
+        <p>This episode explains what intelligent monitoring looks like: what to measure, how often, and what a genuine change in the pattern means versus normal seasonal movement. Common across New Mexico, where expansive soils shrink and swell with the seasons in Albuquerque, Santa Fe, Gallup, and beyond. Download the free crack monitoring guide and use it at your home.</p>
+      </div>
+    </section>
+
+    <section class="tls-hds-related">
+      <span class="tls-hds-rel-eyebrow">Related</span>
+      <div class="tls-hds-related-links">
+        <a href="/why-foundations-move">Why Foundations Move</a>
+        <span class="tls-hds-dot">·</span>
+        <a href="/common-concerns">Common Concerns</a>
+        <span class="tls-hds-dot">·</span>
+        <a href="/symptom-guide">Symptom Guide</a>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .tls-hds-page {
+    --gold: #b8860b;
+    --navy: #1b3a5c;
+    --navy-dk: #0d2238;
+    --sand: #f5efe6;
+    --stone: #e0d5c5;
+    --slate: #4a5568;
+    --ink: #2c2218;
+    --warm-bg: #fafaf8;
+    font-family: 'Source Serif 4', Georgia, serif;
+    color: #1a1a1a;
+  }
+
+  .tls-hds-hero {
+    background: var(--warm-bg);
+    position: relative;
+    padding: 72px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 220px;
+    border-bottom: 1px solid var(--stone);
+  }
+  .tls-hds-hero::before,
+  .tls-hds-hero::after,
+  .tls-hds-corner-bl,
+  .tls-hds-corner-br {
+    content: '';
+    position: absolute;
+    width: 32px;
+    height: 32px;
+  }
+  .tls-hds-hero::before {
+    top: 20px;
+    left: 20px;
+    border-top: 1.5px solid var(--ink);
+    border-left: 1.5px solid var(--ink);
+  }
+  .tls-hds-hero::after {
+    top: 20px;
+    right: 20px;
+    border-top: 1.5px solid var(--ink);
+    border-right: 1.5px solid var(--ink);
+  }
+  .tls-hds-corner-bl {
+    bottom: 20px;
+    left: 20px;
+    border-bottom: 1.5px solid var(--ink);
+    border-left: 1.5px solid var(--ink);
+  }
+  .tls-hds-corner-br {
+    bottom: 20px;
+    right: 20px;
+    border-bottom: 1.5px solid var(--ink);
+    border-right: 1.5px solid var(--ink);
+  }
+  .tls-hds-hero-inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .tls-hds-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #8b7355;
+    margin: 0 0 16px;
+    display: block;
+  }
+  .tls-hds-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.15;
+    margin: 0 0 20px;
+    letter-spacing: -0.2px;
+  }
+  .tls-hds-rule {
+    width: 200px;
+    height: 1px;
+    background: var(--gold);
+    border: none;
+    margin: 0 0 18px;
+    opacity: 0.7;
+  }
+  .tls-hds-tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #8b7355;
+    margin: 0;
+  }
+
+  .tls-hds-intro {
+    background: var(--sand);
+    border-bottom: 3px solid var(--stone);
+    padding: 52px 80px 56px;
+  }
+  .tls-hds-intro-sentence {
+    font-family: 'Source Serif 4', serif;
+    font-size: 16px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--slate);
+    line-height: 1.9;
+    margin: 0 auto 40px;
+    text-align: center;
+    max-width: 600px;
+    display: block;
+  }
+  .tls-hds-index {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    border-top: 1px solid var(--stone);
+    max-width: 760px;
+  }
+  .tls-hds-index li {
+    border-bottom: 1px solid var(--stone);
+  }
+  .tls-hds-index a {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    padding: 18px 0;
+    text-decoration: none;
+    transition: opacity 0.15s ease;
+  }
+  .tls-hds-index a:hover {
+    opacity: 0.65;
+  }
+  .tls-hds-index-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--gold);
+    flex-shrink: 0;
+    width: 24px;
+  }
+  .tls-hds-index-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.4;
+    flex: 1;
+  }
+  .tls-hds-index-arrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(184, 134, 11, 0.5);
+    flex-shrink: 0;
+    letter-spacing: 1px;
+  }
+
+  .tls-hds-episode {
+    background: #ffffff;
+    border-bottom: 1px solid var(--stone);
+    padding: 72px 64px;
+    position: relative;
+  }
+  .tls-hds-episode-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .tls-hds-ep-accent {
+    position: absolute;
+    left: 0;
+    top: 72px;
+    bottom: 72px;
+    width: 3px;
+    background: var(--gold);
+    opacity: 0.35;
+  }
+  .tls-hds-ep-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 32px;
+  }
+  .tls-hds-ep-header-left {
+    flex: 1;
+    padding-right: 32px;
+  }
+  .tls-hds-ep-numeral {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(56px, 7vw, 88px);
+    font-weight: 400;
+    color: #eae4dc;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .tls-hds-ep-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .tls-hds-episode h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.8vw, 32px);
+    font-weight: 400;
+    color: var(--navy);
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  .tls-hds-video-wrap {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    background: #000;
+    margin-bottom: 36px;
+  }
+  .tls-hds-video-wrap iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  .tls-hds-episode p {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--slate);
+    line-height: 1.9;
+    margin: 0 0 20px;
+  }
+  .tls-hds-episode p:last-child {
+    margin-bottom: 0;
+  }
+
+  .tls-hds-related {
+    background: var(--navy-dk);
+    padding: 56px 80px;
+    border-top: 3px solid var(--gold);
+  }
+  .tls-hds-rel-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(184, 134, 11, 0.5);
+    display: block;
+    margin-bottom: 20px;
+  }
+  .tls-hds-related-links {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .tls-hds-related-links a {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+    padding-bottom: 1px;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .tls-hds-related-links a:hover {
+    color: rgba(255, 255, 255, 0.9);
+    border-bottom-color: rgba(184, 134, 11, 0.7);
+  }
+  .tls-hds-dot {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: rgba(184, 134, 11, 0.3);
+  }
+
+  @media (max-width: 640px) {
+    .tls-hds-hero {
+      padding: 56px 28px;
+      min-height: 180px;
+    }
+    .tls-hds-hero::before,
+    .tls-hds-hero::after,
+    .tls-hds-corner-bl,
+    .tls-hds-corner-br {
+      width: 24px;
+      height: 24px;
+    }
+    .tls-hds-rule {
+      width: 140px;
+    }
+    .tls-hds-intro {
+      padding: 40px 24px 44px;
+    }
+    .tls-hds-episode {
+      padding: 48px 24px;
+    }
+    .tls-hds-ep-accent {
+      top: 48px;
+      bottom: 48px;
+    }
+    .tls-hds-ep-numeral {
+      font-size: 48px;
+    }
+    .tls-hds-episode p {
+      font-size: 15px;
+    }
+    .tls-hds-related {
+      padding: 48px 24px;
+    }
+    .tls-hds-index a {
+      gap: 12px;
+    }
+  }
+</style>
