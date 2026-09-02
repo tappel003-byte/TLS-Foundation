@@ -1,0 +1,980 @@
+---
+// Foundation Repair FAQ page. Built verbatim from the user-pasted code
+// block (sticky sidebar layout, 5 FAQ groups of accordion items, scroll-spy
+// sidebar highlighting), plus the shared ReferenceNav cross-link band.
+import Layout from '../layouts/Layout.astro';
+import ReferenceNav from '../components/ReferenceNav.astro';
+
+const title = 'Foundation Repair FAQ | TLS Foundations, New Mexico';
+const description =
+  'Honest answers to foundation repair questions in New Mexico -- when repair is needed, when it isn\'t, how we work, and what sets a real evaluation apart.';
+---
+
+<Layout title={title} description={description} footer="minimal">
+  <div class="tls-faq" id="top">
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <span class="hero-eyebrow">Resources · Reference</span>
+        <h1>Questions we hear often.<br /><em>Answers we give straight.</em></h1>
+        <p class="page-hero-sub">Foundation repair in New Mexico is not a simple subject — and any company that treats it as one is not doing you a service.</p>
+      </div>
+    </section>
+
+    <div class="page-body">
+      <aside class="page-sidebar">
+        <div class="sidebar-section">
+          <span class="sidebar-label">On this page</span>
+          <ul class="sidebar-links">
+            <li><a href="#understanding">Understanding the problem</a></li>
+            <li><a href="#when-needed">When repair is needed</a></li>
+            <li><a href="#how-we-work">How we work</a></li>
+            <li><a href="#practical">Practical questions</a></li>
+            <li><a href="#choosing">Choosing a contractor</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-section">
+          <span class="sidebar-label">Also in resources</span>
+          <ul class="sidebar-links">
+            <li><a href="/foundation-repair-faq" class="active">FAQ</a></li>
+            <li><a href="/glossary">Glossary</a></li>
+            <li><a href="/expansive-soil">Expansive Soils</a></li>
+            <li><a href="/collapsible-soil">Collapsible Soils</a></li>
+            <li><a href="/symptom-guide">Symptom Guide</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <main class="page-content">
+        <div class="content-intro">
+          <p>Foundation repair in New Mexico is not a simple subject — and any company that treats it as one is not doing you a service. The soil conditions in this state vary dramatically by region, by neighborhood, by decade of construction. What looks like a serious problem in one context is routine movement in another. What appears minor in some formations can signal something worth investigating in others.</p>
+          <p>These answers are written to give you a clear picture of how we think about foundation problems — and how that differs from the standard industry approach. We have told homeowners their foundation did not need repair. We will tell you too, if that is the honest answer. <a href="/common-concerns" class="body-link">Looking for quick answers to common search terms? See our Common Concerns page.</a></p>
+        </div>
+
+        <!-- UNDERSTANDING THE PROBLEM -->
+        <div class="faq-group" id="understanding">
+          <span class="faq-group-label">Understanding the problem</span>
+          <div class="faq-list">
+            <div class="faq-item" id="failure-term">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Is "foundation failure" an accurate term?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Rarely. Actual structural failure — where a foundation loses its ability to support the building above it — is uncommon. What most homeowners encounter is soil movement: the material beneath the foundation expanding, contracting, or consolidating in response to moisture, load, or geological conditions. The foundation moves because the soil moves.</p>
+                  <p>The word "failure" is often used because it creates urgency. A foundation in distress is a more alarming concept than a foundation responding to soil behavior — and urgency is useful when your business model depends on closing a repair sale. Understanding what is actually happening beneath your home is a more reliable starting point than the language used to describe it.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="signs">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">What are common signs of foundation problems?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>The signs that typically prompt a call: cracks in walls or ceilings — especially diagonal cracks at door and window corners; doors or windows that stick, bind, or no longer operate smoothly; gaps between walls and ceilings or floors; floors that feel uneven underfoot; visible cracking in the foundation itself.</p>
+                  <p>These signs are worth understanding — not automatically worth repairing. Many of them reflect movement that occurred years ago and has since stabilized. Others indicate active change that warrants investigation. The difference matters, and it cannot be determined from a visual inspection alone. <a href="/symptom-guide" class="body-link">See our Symptom Guide for a detailed walkthrough of each sign.</a></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="causes">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">What causes foundation problems in New Mexico?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>New Mexico spans sixteen geologically distinct regions, and the causes of foundation movement vary significantly across them. <a href="/new-mexico-soil-conditions" class="body-link">Mancos Shale</a> in the San Juan Basin near Farmington expands dramatically when it absorbs moisture — a heave problem that is frequently misdiagnosed as settlement, with costly consequences when the wrong repair is applied. Gypsum deposits in the Tularosa Basin dissolve slowly over time, creating voids beneath foundations that no visual inspection will find. <a href="/collapsible-soil#what-is" class="body-link">Collapsible soils</a> across the Jornada del Muerto corridor are stable until they get wet — often for the first time in years after a plumbing leak or irrigation change — and then consolidate rapidly.</p>
+                  <p>Closer to Albuquerque, caliche depth and character vary block by block across the <a href="/central-new-mexico" class="body-link">Albuquerque Basin</a>, with the East Mesa, South Valley, and Rio Rancho tract developments each presenting different conditions and different failure patterns. In Santa Fe and the Española Basin, Tesuque Formation variability means two borings on the same property can encounter completely different soil profiles. Adobe foundation behavior in older historic construction follows its own rules entirely.</p>
+                  <p>These are not generic soil problems with generic solutions. Correct evaluation requires knowing which conditions you are dealing with before recommending anything.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="caliche">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">What is caliche, and does it affect my foundation?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Caliche is a hardened calcium carbonate layer found throughout New Mexico soils — formed over thousands of years as mineral-rich water evaporated near the surface. It varies dramatically across the state. In some neighborhoods it sits two feet down and is thick enough to complicate pier drilling. In others it is thin, inconsistent, or absent entirely.</p>
+                  <p>Caliche is often assumed to be good news — solid ground means stable foundation. That is sometimes true. A thick, continuous caliche layer can provide reliable bearing. But a thin caliche layer over loose or collapsible soil below is not a stable foundation — it is a hard ceiling over a soft floor. The caliche itself may not move, but the material beneath it can. Evaluation needs to account for what is below the caliche, not just its presence.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="cracking">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Is foundation cracking always serious?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>No. Many cracks reflect historic movement that has stabilized over time. A crack that opened during a drought cycle ten years ago and has not changed since is a record of past conditions, not evidence of an ongoing problem.</p>
+                  <p>What distinguishes a crack worth acting on from one worth monitoring is whether it reflects active movement. Width alone is not a reliable indicator. More useful signals: whether the crack is growing, whether it has fresh edges or dust in the opening, whether it correlates with other signs of current movement in the structure. Establishing a baseline — photographing and measuring cracks, noting their location and orientation — gives you a reference point to evaluate change over time. That is often the right first step, not an immediate repair call.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="heave">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">What's the difference between heave and settlement?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p><strong>Heave</strong> is upward movement of a foundation caused by expanding soil beneath it. <strong>Settlement</strong> is downward movement caused by compression or consolidation of the soil.</p>
+                  <p>The critical issue: they look nearly identical on the surface — diagonal cracks, sticking doors, uneven floors — but require opposite repairs. Installing settlement piers on a heaving foundation makes the problem worse, pinning the structure while the surrounding soil continues to push up.</p>
+                  <p>In New Mexico, heave is common in expansive clay areas like the Four Corners (Mancos Shale) and parts of the Rio Grande Valley. Settlement is common in collapsible soil areas like the West Mesa and Jornada del Muerto. Proper evaluation determines which you're dealing with.</p>
+                  <div class="pull">
+                    <p>Heave until proven settlement. That is the diagnostic standard in areas with expansive clay.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ Back to top</a>
+
+        <!-- WHEN REPAIR IS AND ISN'T NEEDED -->
+        <div class="faq-group" id="when-needed">
+          <span class="faq-group-label">When repair is and isn't needed</span>
+          <div class="faq-list">
+            <div class="faq-item" id="need-repair">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Do I need foundation repair right now?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>That depends entirely on what the soil is doing and why. Understanding why movement is occurring is more important than assuming repair is required. Many situations that appear urgent on a visual inspection — cracking, sticking doors, uneven floors — reflect historic movement that has stabilized, seasonal soil response that reverses on its own, or conditions that a drainage correction can address far more effectively than structural repair.</p>
+                  <p>If you are seeing active, progressive movement — measurements that change over weeks, new cracking that is widening, structural elements under visible stress — that is a different conversation. Start with a real evaluation before committing to any course of action.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="plumbing-leak">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Could a plumbing leak be causing my foundation problem?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Yes — and it is more common than most homeowners expect. A slow leak beneath a slab introduces moisture to soil that may have been dry since the home was built. In collapsible soils, that first wetting event can cause rapid settlement. In expansive clays, it can trigger localized heave directly above the leak. In both cases the foundation symptoms — cracking, uneven floors, sticking doors — look identical to movement from any other cause.</p>
+                  <p>Both domestic water lines and waste lines need to be checked. In our experience, waste line leaks cause more foundation damage than supply line leaks — a slow sewer leak introduces water continuously and often goes undetected far longer than a pressurized supply line failure. A pressure test on both the supply and waste sides is the right starting point before any structural evaluation begins.</p>
+                  <p>If foundation symptoms appeared suddenly rather than gradually, or are concentrated in one area of the home rather than distributed across it, plumbing is worth ruling out first. It is significantly less expensive than foundation repair and the right call when the pattern suggests it.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="first-step">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">What should I do first when I notice foundation symptoms?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Document what you are seeing before you call anyone. Photograph every crack — note its location, orientation, and approximate width. Check whether doors or windows that are sticking are doing so consistently or only seasonally. Mark crack edges with pencil and a date so you have a reference point to measure change over time.</p>
+                  <p>This baseline matters more than most homeowners realize. A crack that has been stable for years is a different conversation than one that opened last month. Documentation gives any evaluator — contractor, engineer, or geotechnical investigator — a starting point grounded in evidence rather than impression. It also protects you: you will know whether conditions change between the time you notice something and the time someone comes to look at it.</p>
+                  <p>If you are seeing rapid, progressive change — cracks widening over days, doors that suddenly will not close, visible structural distress — that is a different situation and warrants a call sooner rather than later.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="drainage">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Can grading and drainage improvements help?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Often, yes — and more than most homeowners expect. The majority of foundation movement in New Mexico is moisture-driven. When water pools against a foundation, saturates the soil unevenly, or concentrates seasonal moisture in one area of the perimeter, the soil responds. Correcting the drainage pattern removes the trigger.</p>
+                  <p>Grading the soil away from the foundation, extending downspouts, and redirecting surface flow can resolve or substantially reduce movement that a <a href="/foundation-repair-methods#drainage-correction" class="body-link">structural repair</a> would not address at all — because structural repair does not change what the water is doing. In many cases it is the correct first intervention, and significantly less expensive than pier installation.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="drainage-limits">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">When are grading and drainage improvements not enough?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>When the soil beneath the foundation has already lost its bearing capacity and will not recover. Settlement that has progressed to the point where the foundation is no longer supported by competent material — where soils have consolidated, collapsed, or been displaced — cannot be reversed by managing surface moisture. The foundation needs to be transferred to deeper, stable material.</p>
+                  <p>Similarly, drainage correction does not address <a href="/new-mexico-soil-conditions" class="body-link">Mancos Shale heave</a>, karst dissolution voids in the <a href="/southern-new-mexico" class="body-link">Pecos Valley</a>, or mine subsidence in the <a href="/northern-new-mexico" class="body-link">Raton Basin</a>. Those are geological conditions that require geological investigation before any recommendation is appropriate.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="monitoring">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Can foundation movement be monitored instead of repaired?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Yes — and it is sometimes the right recommendation. Monitoring means establishing a documented baseline: measuring and recording crack widths, elevation readings, and movement indicators at regular intervals to determine whether a situation is stable, seasonal, or progressive. A foundation showing small historic movement with no evidence of recent change may warrant nothing more than a baseline and a return visit in six months.</p>
+                  <p>Most companies do not offer monitoring as a recommendation because it does not generate immediate revenue. We recommend it when that is the honest answer.</p>
+                  <div class="pull">
+                    <p>Immediate repair is not always the best solution. We have recommended monitoring when that was the honest answer.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="watering">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Will watering my foundation help?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Short answer, no. This is not a good idea without a recommendation from a licensed New Mexico Geotechnical Engineer. Consistent moisture can reduce clay shrinkage. In others, it triggers heave. Do not start a watering regimen without understanding your soil type.</p>
+                  <p>If you have <strong>expansive clay</strong> (common in the Four Corners, parts of Albuquerque and Santa Fe), over-watering can cause the soil to swell and push your foundation up — heave. If you have <strong>collapsible soil</strong> (common on the West Mesa, Estancia Valley, Jornada del Muerto), adding water can cause sudden settlement as the soil structure collapses.</p>
+                  <div class="pull">
+                    <p>Without knowing your soil, watering can cause the very problem you're trying to prevent. Get the soil data first.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ Back to top</a>
+
+        <!-- HOW WE WORK -->
+        <div class="faq-group" id="how-we-work">
+          <span class="faq-group-label">How we work</span>
+          <div class="faq-list">
+            <div class="faq-item" id="engineer">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Do I need a structural engineer or a foundation company?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>A free inspection is a sales call. An engineer's investigation is independent of repair sales. If you're making a larger financial decision, an independent assessment matters.</p>
+                  <p>Our affiliate Sandia GEO does geotechnical investigation separate from repair sales — investigation revenue is intentionally separate. We can refer you to a structural engineer when that level of analysis is warranted, and we work with engineers regularly. <a href="/our-approach" class="body-link">See why our approach is different in New Mexico.</a></p>
+                  <p>The person inspecting your home for a free inspection is compensated to sell repairs. That's the business model — not a criticism, just a fact worth understanding before you make a large financial decision.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="inspections">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Is a free foundation inspection really free?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>The inspection is free because the business model recoups the cost on the repair. It's a sales presentation, not an independent assessment. Ask who inspects your home.</p>
+                  <p>A paid geotechnical investigation produces an independent report. The distinction matters when you're making a financial decision. The 'free inspection' is the industry's lead‑gen machine. The person showing up works for the company proposing the repair. Every visit that doesn't end in a sale is a loss. That structure shapes every recommendation.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="choose">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">How do I choose a foundation repair company in New Mexico?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Ask: Who inspects? Licensed professional or commissioned salesperson? Can you recommend monitoring? Have you worked in my specific soil type and region?</p>
+                  <p>The answers tell you more than any review count. Does the company know NM soils? The best question you can ask: 'Can you recommend an independent structural engineer before you give me a proposal?' A company that says yes is different. A company that hesitates is telling you something.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="repair-failure">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Can foundation repairs fail?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Yes. The most common cause is misdiagnosis — applying a repair designed for one condition to a different one. Installing <a href="/glossary#push-pier" class="body-link">push piers</a> to arrest settlement on a foundation that is being heaved upward by <a href="/expansive-soil#what-is" class="body-link">expansive soil</a> makes the problem worse, not better. The repair works against the movement rather than resolving it.</p>
+                  <p>Repairs can also underperform when pier depths are insufficient to reach stable bearing material, when drainage problems that drove the original movement are not corrected, or when the soil profile was not adequately investigated before work began. This is why the evaluation matters as much as the installation — and why we do not skip it.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="wrong-repair">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">What happens if the wrong repair method is used?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Installing settlement piers on a heaving foundation makes it worse. Misdiagnosis is real. Investigation before repair is the only protection.</p>
+                  <p>Heave is common in New Mexico but symptoms look like settlement. Getting the wrong repair is expensive. This is the risk the industry never discusses. A misdiagnosed foundation — heave treated as settlement — can be actively damaged by the repair. Investigation is not optional.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="financing-warranty">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Do you offer financing and warranties?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Warranties on foundation repair are worth understanding carefully. A warranty covers the installation — whether the pier was installed correctly, whether the bracket transferred load properly. It does not cover what the soil does next. If the drainage problem that drove the original movement is not corrected, the soil will continue to move. The warranty does not change that.</p>
+                  <p>We stand behind our installations. We are also honest about what a warranty can and cannot guarantee — which is more useful than a lifetime warranty on a repair that did not address the cause. Call us to discuss financing options for your specific project.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="method-follows-diagnosis">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">We offer the same tools as sales-driven companies — we just don't sell them before understanding your building.</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>The methods are not proprietary. Helical piers, push piers, micropiles, compaction grouting, foam injection — these are industry-standard approaches available to any contractor. The difference is not the tool. The difference is whether the tool is selected before or after the soil is understood.</p>
+                  <p>A company with one system evaluates every problem through that system. We carry a broad enough toolkit that the method genuinely follows the diagnosis — and when no standard method fits, we design around the problem rather than force a fit.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="rising-tide">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Are you worried that competitors will use your educational content to become better at their jobs?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>No. A rising tide lifts all boats. If the content on this site makes any contractor — including a competitor — think more carefully about soil conditions before recommending a repair method, homeowners benefit. That is the point.</p>
+                  <p>The knowledge that makes TLS different is not in a document. It is in the people who have spent decades in New Mexico soils, building the kind of field library that cannot be read or downloaded. That does not transfer.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ Back to top</a>
+
+        <!-- PRACTICAL QUESTIONS -->
+        <div class="faq-group" id="practical">
+          <span class="faq-group-label">Practical questions</span>
+          <div class="faq-list">
+            <div class="faq-item" id="cost">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">How much does foundation repair cost in New Mexico?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>The honest answer is: it depends on what the soil requires, and anyone who gives you a number before seeing the site is making assumptions that may not hold. Pier cost is not just a function of how many piers — it is a function of how deep they need to go to reach stable bearing material. In a 40-foot problem, a pier seated at 20 feet has not solved anything. Depth is not a variable to minimize.</p>
+                  <p>If a company is quoting per-pier pricing over the phone without a soil investigation, that is the tell. The price reflects the system they sell, not the problem you have. Call us and we will give you an honest picture of what an evaluation reveals and what it typically indicates for cost.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="timeline">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">How long does foundation repair take?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Helical piers: Depends on the scope of work — two to three piers a day should be completed. Drainage correction varies. Depends on scope. We tell you before we start, not after.</p>
+                  <p>Soil complexity can affect timeline — reaching bearing in some formations takes longer than national averages. A company that gives you a firm timeline before investigating your soil is guessing. Depth requirements vary. Access matters. We tell you after we know what we're working with.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="soil-types">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">What types of soil cause foundation problems in New Mexico?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>New Mexico has two primary soil hazards:</p>
+                  <p><strong>Expansive clay soils</strong> — like Mancos Shale in the Four Corners and the clay deposits in the Rio Grande Valley — swell when wet and shrink when dry, causing foundations to heave upward and crack.</p>
+                  <p><strong>Collapsible soils</strong> — common on the West Mesa, Estancia Valley, and Jornada del Muerto — are stable when dry but collapse when water infiltrates, causing sudden settlement.</p>
+                  <p>Other hazards include gypsum dissolution in the Tularosa Basin, karst voids in the Pecos Valley, and mine subsidence in the Raton Basin. <a href="/new-mexico-soil-conditions" class="body-link">See our regional soil guide for more detail →</a></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="repair-methods">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">What are the different foundation repair methods?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p><a href="/foundation-repair-methods#helical-piers" class="body-link">Helical piers</a>, <a href="/foundation-repair-methods#push-piers" class="body-link">push piers</a>, <a href="/foundation-repair-methods#micropiles" class="body-link">micropiles</a>, compaction grouting, poly foam, drainage correction, etc. The method follows the investigation. No method is selected before we know the soil.</p>
+                  <p>Helical piers are appropriate where piers are warranted. Push piers often don't work for residential weight in NM soils. Every company promotes the method they sell. The honest answer: the method follows the investigation. If someone is selling you a method before they've seen your soil, they're selling a product, not a solution.</p>
+                  <p><a href="/foundation-repair-methods" class="body-link">See detailed explanations of each method →</a></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="first-contact">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">What should I expect from a first contact with TLS?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>A conversation with someone who knows your neighborhood. Text or call (505) 991-4180 — the owners answer. Not a scheduler, not a call center. Within a few exchanges you will be talking with someone who can speak directly to the soil conditions in your area, what problems are common in your formation, and whether what you are describing sounds like something worth investigating now or something worth watching.</p>
+                  <p>That conversation is free. It is also substantively different from what you will get from a national company — and the difference will be apparent before the first question is answered.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="sell">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Can I sell my house with foundation problems in New Mexico?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Yes, but disclosure laws apply. Repair or sell as‑is depends on severity. We give you the honest picture of what the problem is.</p>
+                  <p>Disclosure requirements vary by county. Know what you're required to disclose. You can sell a home with foundation issues. Whether repair improves your net position depends on severity, buyer pool, and market conditions. Get the honest picture of what the problem is before anyone tells you what you have to do.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="insurance">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Does homeowners insurance cover foundation repair?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Almost never for soil movement — settlement, heave, expansive clay are excluded. Possible for sudden plumbing breaks, but rare. Don't make decisions expecting coverage.</p>
+                  <p>Standard policies exclude earth movement. Read your policy before you call anyone. Insurance coverage for foundation problems is rarely what homeowners hope it will be. Understand your policy before anyone else shapes the conversation.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="insurance-leak-detection">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Can my insurance help pay for leak detection or a sewer line inspection?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Possibly — and it is worth checking before you pay out of pocket. Standard homeowners policies typically exclude foundation repair caused by soil movement, but many do cover the cost of locating and accessing a sudden, accidental plumbing leak. That can include leak detection services when the goal is finding an active leak rather than general maintenance.</p>
+                  <p>Read your policy or call your agent before scheduling any work. Ask specifically whether locating a sudden plumbing leak is covered. The answer varies by policy and carrier, but the question costs nothing to ask — and coverage, when it exists, can offset a meaningful portion of the investigation cost.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="geotech-vs-contractor">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">What is the difference between a geotechnical investigation and a contractor inspection?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>A contractor inspection is performed by someone whose business depends on repair sales. The evaluation is real — an experienced contractor can identify significant problems — but the business model creates an inherent conflict of interest. Every visit that does not end in a proposal is a cost. That structure shapes recommendations, even unconsciously.</p>
+                  <p>A geotechnical investigation is performed by a licensed geotechnical engineer whose fee is paid for the investigation itself, not the repair that follows. The report is independent. It documents soil conditions, identifies the mechanism driving movement, and recommends a course of action without a financial stake in what that action is. When the decision involves significant money — or when you are not sure whether you need repair at all — an independent investigation is the more reliable starting point.</p>
+                  <p>Our affiliate Sandia GEO provides geotechnical investigation separate from repair sales. We can also refer you to independent structural engineers when that level of analysis is warranted.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="all-counties">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">Do you work across all of New Mexico?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Yes. All 33 counties, all five regions. <a href="/central-new-mexico" class="body-link">Central New Mexico</a>, <a href="/northern-new-mexico" class="body-link">Northern New Mexico</a>, <a href="/southern-new-mexico" class="body-link">Southern New Mexico</a>, <a href="/four-corners" class="body-link">Four Corners</a>, <a href="/eastern-new-mexico" class="body-link">Eastern New Mexico</a>. Albuquerque is home base. The state is the office.</p>
+                  <p>The million miles on the truck are not a marketing line. They are what it takes to build the soil knowledge that makes an evaluation in Farmington as informed as one in the South Valley.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="faq-item" id="realestate">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">What should I know about selling a home with foundation issues?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>New Mexico law requires sellers to disclose known material defects, including foundation issues. The key is having accurate information about what the problem actually is — not just what it looks like.</p>
+                  <p>A documented evaluation from a geotechnical investigation carries more weight than a contractor's sales inspection. If the foundation movement is historic and stable, that matters. If it's active, that also matters. Buyers and their inspectors will want to know. We help sellers get the honest picture before listing.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CHOOSING A CONTRACTOR -->
+        <div class="faq-group" id="choosing">
+          <span class="faq-group-label">Choosing a contractor</span>
+          <div class="faq-list">
+            <div class="faq-item" id="how-to-choose">
+              <button class="faq-question" data-faq>
+                <span class="faq-question-text">How do I choose a foundation repair company in New Mexico?</span>
+                <svg class="faq-chevron" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 8 10 13 15 8"></polyline></svg>
+              </button>
+              <div class="faq-answer">
+                <div class="faq-answer-inner">
+                  <p>Ask these questions before you sign anything:</p>
+                  <p><strong>Who inspects my home?</strong> Is it a licensed professional or a commissioned salesperson? The person evaluating your foundation should not have a financial interest in the outcome.</p>
+                  <p><strong>Can you recommend monitoring if that's the right answer?</strong> A company that cannot afford to recommend monitoring is a sales organization, not an evaluation firm.</p>
+                  <p><strong>Have you worked in my specific soil type and region?</strong> New Mexico's soils vary dramatically. Experience in the South Valley does not prepare someone for Mancos Shale in Farmington.</p>
+                  <p><strong>Can you recommend an independent structural engineer before giving me a proposal?</strong> A company that says yes is different. A company that hesitates is telling you something.</p>
+                  <div class="pull">
+                    <p>The best contractor is one who can afford to tell you you don't need repair.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <ReferenceNav />
+</Layout>
+
+<script>
+  function initFAQ() {
+    document.querySelectorAll<HTMLButtonElement>('[data-faq]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        if (!item) return;
+        const answer = item.querySelector('.faq-answer');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach((openItem) => {
+          if (openItem !== item) {
+            openItem.classList.remove('open');
+            openItem.querySelector('.faq-answer')?.classList.remove('open');
+          }
+        });
+        item.classList.toggle('open', !isOpen);
+        answer?.classList.toggle('open', !isOpen);
+      });
+    });
+
+    const groups = document.querySelectorAll<HTMLElement>('.faq-group');
+    const sidebarLinks = document.querySelectorAll<HTMLAnchorElement>('.page-sidebar .sidebar-links a[href^="#"]');
+    window.addEventListener(
+      'scroll',
+      () => {
+        let current = '';
+        groups.forEach((g) => {
+          if (window.scrollY >= g.offsetTop - 120) current = g.id;
+        });
+        sidebarLinks.forEach((a) => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+        });
+      },
+      { passive: true },
+    );
+  }
+  document.addEventListener('DOMContentLoaded', initFAQ);
+</script>
+
+<style>
+  .tls-faq {
+    --blue: #1b3a5c;
+    --blue-dark: #0d2238;
+    --blue-mid: #2a5480;
+    --tls-gold: #b8860b;
+    --gold-light: #d4a017;
+    --tls-sand: #f5efe6;
+    --tls-stone: #e0d5c5;
+    --tls-slate: #4a5568;
+    --muted: #7a8694;
+    --white: #ffffff;
+    --tls-cream: #fdfaf6;
+    --gutter: 64px;
+    --content-max: 1200px;
+    --col: 720px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px;
+    background: var(--tls-cream);
+    color: #1a1a1a;
+    line-height: 1.9;
+  }
+  .page-hero {
+    background: var(--blue);
+    padding: 80px var(--gutter) 72px;
+    border-bottom: 3px solid var(--tls-gold);
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--tls-gold), transparent);
+  }
+  .page-hero::after {
+    content: '?';
+    position: absolute;
+    bottom: -40px;
+    right: 5%;
+    font-family: 'Playfair Display', serif;
+    font-size: 240px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.03);
+    pointer-events: none;
+    line-height: 1;
+  }
+  .page-hero-inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 24px;
+  }
+  .page-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 24px;
+    max-width: 800px;
+  }
+  .page-hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .page-hero-sub {
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.8;
+    max-width: 600px;
+    border-left: 3px solid var(--tls-gold);
+    padding-left: 28px;
+  }
+  .page-body {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 60px var(--gutter) 80px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 60px;
+  }
+  .page-sidebar {
+    position: sticky;
+    top: 40px;
+    height: fit-content;
+    padding-right: 20px;
+  }
+  .sidebar-section {
+    margin-bottom: 48px;
+  }
+  .sidebar-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    display: block;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .sidebar-label::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: var(--tls-gold);
+    opacity: 0.3;
+  }
+  .sidebar-links {
+    list-style: none;
+  }
+  .sidebar-links li {
+    margin-bottom: 12px;
+  }
+  .sidebar-links a {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    text-decoration: none;
+    transition: all 0.2s;
+    line-height: 1.5;
+    display: block;
+    border-left: 2px solid transparent;
+    padding-left: 16px;
+  }
+  .sidebar-links a:hover {
+    color: var(--blue);
+    border-left-color: var(--tls-gold);
+    padding-left: 20px;
+  }
+  .sidebar-links a.active {
+    color: var(--tls-gold);
+    font-weight: 400;
+    border-left-color: var(--tls-gold);
+  }
+  .page-content {
+    min-width: 0;
+  }
+  .content-intro {
+    max-width: var(--col);
+    margin-bottom: 60px;
+    padding-bottom: 48px;
+    border-bottom: 2px solid var(--tls-stone);
+    position: relative;
+  }
+  .content-intro::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100px;
+    height: 2px;
+    background: var(--tls-gold);
+  }
+  .content-intro p {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.9;
+    margin-bottom: 24px;
+  }
+  .content-intro p:last-child {
+    margin-bottom: 0;
+  }
+  .faq-group {
+    margin-bottom: 72px;
+  }
+  .faq-group:last-of-type {
+    margin-bottom: 0;
+  }
+  .faq-group-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    display: block;
+    margin-bottom: 36px;
+    position: relative;
+    padding-bottom: 16px;
+  }
+  .faq-group-label::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--tls-gold);
+    opacity: 0.5;
+  }
+  .faq-list {
+    max-width: var(--col);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .faq-item {
+    background: white;
+    border: 1px solid var(--tls-stone);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    scroll-margin-top: 100px;
+  }
+  .faq-item:hover {
+    border-color: var(--tls-gold);
+    box-shadow: 0 8px 20px -16px var(--blue);
+  }
+  .faq-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 0;
+    background: var(--tls-gold);
+    transition: height 0.3s;
+  }
+  .faq-item:hover::before,
+  .faq-item.open::before {
+    height: 100%;
+  }
+  .faq-item.open {
+    border-color: var(--tls-gold);
+    box-shadow: 0 12px 24px -20px var(--blue);
+  }
+  .faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    text-align: left;
+  }
+  .faq-question-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--blue);
+    line-height: 1.4;
+    flex: 1;
+    transition: color 0.2s;
+  }
+  .faq-item.open .faq-question-text {
+    color: var(--tls-gold);
+  }
+  .faq-chevron {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--tls-gold);
+    transition: transform 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  .faq-item.open .faq-chevron {
+    transform: rotate(180deg);
+  }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.33, 1, 0.68, 1);
+    background: var(--tls-cream);
+  }
+  .faq-answer.open {
+    max-height: 2000px;
+  }
+  .faq-answer-inner {
+    padding: 0 32px 32px 32px;
+  }
+  .faq-answer-inner p {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+  .faq-answer-inner p:last-child {
+    margin-bottom: 0;
+  }
+  .pull {
+    padding: 28px 36px;
+    border-left: 4px solid var(--tls-gold);
+    background: var(--tls-sand);
+    margin: 28px 0 20px;
+    border-radius: 0 8px 8px 0;
+    position: relative;
+  }
+  .pull::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 60px;
+    color: var(--tls-gold);
+    opacity: 0.2;
+  }
+  .pull p {
+    font-size: 18px !important;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--blue) !important;
+    line-height: 1.7 !important;
+    margin-bottom: 0 !important;
+    position: relative;
+    z-index: 2;
+  }
+  .body-link {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--tls-gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .body-link:hover {
+    color: var(--tls-gold);
+  }
+  .back-to-top {
+    display: block;
+    text-align: right;
+    max-width: var(--col);
+    margin: 0 0 56px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .back-to-top:hover {
+    color: var(--tls-gold);
+  }
+
+  @media (max-width: 900px) {
+    .tls-faq {
+      --gutter: 32px;
+    }
+    .page-body {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .page-sidebar {
+      position: static;
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--tls-stone);
+    }
+    .sidebar-section {
+      margin-bottom: 0;
+    }
+  }
+  @media (max-width: 600px) {
+    .tls-faq {
+      --gutter: 24px;
+    }
+    .page-hero h1 {
+      font-size: 32px;
+    }
+    .faq-question {
+      padding: 24px 20px;
+    }
+    .faq-question-text {
+      font-size: 17px;
+    }
+    .faq-answer-inner {
+      padding: 0 20px 24px 20px;
+    }
+    .pull {
+      padding: 20px 24px;
+    }
+  }
+</style>
