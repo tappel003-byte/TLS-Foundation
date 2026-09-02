@@ -1,0 +1,304 @@
+---
+// New Mexico Soil Conditions ("Soil Roadmap"). Built from user-pasted code
+// blocks: hero (a Bugs Bunny "left turn at Albuquerque" gag as the sub),
+// intro + 5-region card grid body, and a page-specific footer service-area
+// paragraph.
+import Layout from '../layouts/Layout.astro';
+
+const title = 'New Mexico Soil Conditions — Soil Roadmap | TLS Foundations';
+const description =
+  'All 33 New Mexico counties. Five regions organized by soil behavior and geological character -- the roadmap to how foundation repair should be approached in each.';
+
+const serviceAreaText = `TLS Foundations provides foundation repair and geotechnical investigation across all five geological regions of New Mexico. We diagnose and repair foundation movement caused by expansive clay, Mancos Shale heave, montmorillonite swelling, collapsible soil settlement, hydrocompaction, caliche bearing failure, karst dissolution voids, evaporite subsidence, gypsum dissolution, aquifer compaction, lacustrine clay, alluvial fan deposits, soil piping, and cut-and-fill differential settlement. We work across the Rio Grande Rift corridor, the San Juan Basin, the Permian Basin, the Tularosa Basin, the Estancia Basin, the Mimbres Basin, the Jornada del Muerto, the Española Basin, the Raton Basin, and the High Plains of eastern New Mexico. All 33 counties. Every formation. The soil roadmap on this page exists because a contractor who doesn't understand the ground has no business recommending what to do with it.`;
+---
+
+<Layout
+  title={title}
+  description={description}
+  footer="full"
+  footerProps={{ serviceAreaLabel: 'New Mexico soils. All of them.', serviceAreaText }}
+>
+  <section class="hero">
+    <img class="hero-photo" src="/images/new-mexico-soil-conditions-hero.webp" alt="New Mexico high desert road and mesa" />
+    <div class="hero-overlay"></div>
+    <div class="tls-hero-wrap">
+      <div class="tls-hero-box">
+        <span class="tls-hero-sub">"I knew I shoulda taken that left turn at Albuquerque"</span>
+        <span class="tls-hero-sub">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Bugs Bunny 1953</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="tls-body">
+    <section class="intro-section">
+      <div class="page-body">
+        <p>Most foundation contractors work from a national playbook. The same methods, the same sales pitch, the same repair sequence — applied regardless of what the soil is actually doing. That works fine in places with predictable geology. New Mexico is not one of those places.</p>
+
+        <p>The state spans sixteen geologically distinct basins. <a href="/expansive-soil">Expansive clays</a> that heave upward in wet cycles. <a href="/collapsible-soil">Collapsible soils</a> that compress suddenly when saturated. <a href="/glossary#karst">Karst dissolution voids</a> beneath the surface. <a href="/glossary#evaporite-dissolution">Gypsum deposits that dissolve</a> over time. Each formation has its own failure mode, its own diagnostic requirements, and its own appropriate response.</p>
+
+        <div class="pull-quote">
+          <p>A repair method that works in one basin can make conditions worse in another.</p>
+        </div>
+
+        <p>The difference between <a href="/glossary#heave">heave</a> and <a href="/glossary#settlement">settlement</a> — soil pushing up versus soil pulling down — determines everything about how to respond. Getting that diagnosis wrong is consequential. We built our diagnostic standard around this: heave until proven settlement. The soil tells you what it's doing. You have to know how to read it.</p>
+
+        <p>
+          <a href="/why-foundations-move">For the full range of causes behind foundation movement, see Why Foundations Move →</a><br />
+          <a href="/symptom-guide">Not sure what you're seeing? See our Symptom Guide →</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="regions-section" id="regions">
+      <div class="page-body">
+        <div class="section-heading">Service regions</div>
+        <h2>Where we work in New Mexico</h2>
+        <p class="regions-intro">All 33 New Mexico counties. Five regions organized by soil behavior and geological character.</p>
+
+        <div class="region-grid">
+          <a href="/central-new-mexico" class="region-card">
+            <div class="region-card-label">Central New Mexico</div>
+            <h3>Rio Grande Rift Country</h3>
+            <p>Albuquerque, Rio Rancho, Belen, Bernalillo. Expansive clays, rift basin alluvium, volcanic formations. The most geologically complex urban corridor in the state.</p>
+            <div class="region-card-arrow">Explore region →</div>
+          </a>
+
+          <a href="/northern-new-mexico" class="region-card">
+            <div class="region-card-label">Northern New Mexico</div>
+            <h3>High Country &amp; Historic Basins</h3>
+            <p>Santa Fe, Taos, Española, Las Vegas. Adobe construction, historic neighborhoods, high-altitude soils, Española Basin geology.</p>
+            <div class="region-card-arrow">Explore region →</div>
+          </a>
+
+          <a href="/four-corners" class="region-card">
+            <div class="region-card-label">Four Corners</div>
+            <h3>Mancos Shale Territory</h3>
+            <p>Farmington, Aztec, Bloomfield, Gallup. Mancos Shale — one of the most expansive soil formations in the American West. Significant diagnostic discipline required.</p>
+            <div class="region-card-arrow">Explore region →</div>
+          </a>
+
+          <a href="/eastern-new-mexico" class="region-card">
+            <div class="region-card-label">Eastern New Mexico</div>
+            <h3>Plains &amp; Karst Country</h3>
+            <p>Roswell, Carlsbad, Artesia, Clovis, Portales. Permian karst dissolution, Pecos Valley alluvium, dissolution voids. High plains soils behave differently than rift basin formations.</p>
+            <div class="region-card-arrow">Explore region →</div>
+          </a>
+
+          <a href="/southern-new-mexico" class="region-card">
+            <div class="region-card-label">Southern New Mexico</div>
+            <h3>Tularosa &amp; Rio Grande South</h3>
+            <p>Las Cruces, Alamogordo, Deming, Silver City, Truth or Consequences. Gypsum deposits, Tularosa Basin, Jornada del Muerto collapsible soils, desert alluvium.</p>
+            <div class="region-card-arrow">Explore region →</div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: -4%;
+    width: 108%;
+    height: 108%;
+    object-fit: cover;
+    object-position: center;
+    animation: kenburns 20s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns {
+    0% {
+      transform: scale(1) translate(1%, 0);
+    }
+    100% {
+      transform: scale(1.06) translate(-1%, 0.5%);
+    }
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 34, 56, 0.15);
+  }
+  .tls-hero-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    background: transparent;
+    padding: 0 clamp(20px, 5vw, 80px);
+  }
+  .tls-hero-box {
+    display: inline-block;
+    background: rgba(13, 34, 56, 0.65);
+    padding: 28px 40px 32px;
+  }
+  .tls-hero-sub {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(15px, 1.8vw, 18px);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.75);
+    font-style: italic;
+    margin-top: 12px;
+    display: block;
+  }
+  .tls-hero-sub:first-child {
+    margin-top: 0;
+    font-size: clamp(20px, 3vw, 28px);
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #fff;
+  }
+
+  /* ── PAGE BODY ── */
+  .tls-body {
+    --blue: #1b3a5c;
+    --blue-dark: #0d2238;
+    --blue-mid: #2a5480;
+    --tls-gold: #b8860b;
+    --gold-light: #d4a017;
+    --tls-sand: #f5efe6;
+    --tls-stone: #e0d5c5;
+    --tls-slate: #4a5568;
+    --tls-cream: #fdfaf6;
+    --gutter: clamp(20px, 5vw, 80px);
+    --content-max: 860px;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 300;
+    background: var(--tls-cream);
+    color: #2d2d2d;
+  }
+  .page-body {
+    max-width: calc(var(--content-max) + var(--gutter) * 2);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  .tls-body :global(a) {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--tls-gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .tls-body :global(a):hover {
+    color: var(--tls-gold);
+  }
+
+  .intro-section {
+    padding: 64px 0 48px;
+  }
+  .intro-section :global(p) {
+    font-size: clamp(16px, 2vw, 18px);
+    line-height: 1.8;
+    color: #3a3a3a;
+    margin-bottom: 24px;
+    max-width: var(--content-max);
+  }
+  .pull-quote {
+    border-left: 3px solid var(--tls-gold);
+    padding: 16px 0 16px 28px;
+    margin: 36px 0;
+    max-width: 680px;
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 2.5vw, 22px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--blue);
+    margin: 0;
+  }
+
+  .regions-section {
+    padding: 48px 0 64px;
+    border-top: 2px solid var(--tls-gold);
+  }
+  .section-heading {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    margin-bottom: 12px;
+  }
+  .regions-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3.5vw, 34px);
+    font-weight: 400;
+    color: var(--blue-dark);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .regions-intro {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--tls-slate);
+    margin-bottom: 40px;
+    max-width: 600px;
+  }
+  .region-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 32px;
+  }
+  .region-card {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--tls-stone);
+    border-top: 3px solid var(--blue);
+    padding: 28px 28px 24px;
+    text-decoration: none !important;
+    transition: border-top-color 0.2s, box-shadow 0.2s;
+  }
+  .region-card:hover {
+    border-top-color: var(--tls-gold);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  .region-card-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    margin-bottom: 10px;
+  }
+  .region-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--blue-dark);
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+  .region-card p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--tls-slate);
+    margin-bottom: 20px;
+  }
+  .region-card-arrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--blue);
+    transition: color 0.2s;
+  }
+  .region-card:hover .region-card-arrow {
+    color: var(--tls-gold);
+  }
+
+  @media (max-width: 767px) {
+    .region-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

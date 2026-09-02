@@ -1,0 +1,415 @@
+---
+// Four Corners regional soil page. Built from user-pasted code blocks: hero,
+// intro + single-basin accordion body (San Juan Basin / Mancos Shale), and
+// the shared RegionalNav cross-link band.
+import Layout from '../layouts/Layout.astro';
+import RegionalNav from '../components/RegionalNav.astro';
+
+const title = 'Four Corners New Mexico Soil Conditions | TLS Foundations';
+const description =
+  'San Juan Basin & Mancos Shale -- the most misdiagnosed foundation environment in New Mexico. Heave that looks like settlement, and collapsible river deposits along the San Juan corridor.';
+---
+
+<Layout title={title} description={description} footer="minimal">
+  <section class="hero">
+    <img class="hero-photo" src="/images/four-corners-hero.webp" alt="Four Corners New Mexico high desert" />
+    <div class="hero-overlay"></div>
+    <div class="tls-hero-wrap">
+      <div class="tls-hero-box">
+        <span class="tls-hero-headline">Four Corners</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="tls-body">
+    <section class="intro-section">
+      <div class="page-body">
+        <p>The Four Corners region of New Mexico is dominated geologically by the San Juan Basin and its most significant soil hazard: the <a href="/glossary#mancos-shale">Mancos Shale</a>. This Cretaceous marine shale contains <a href="/glossary#montmorillonite">sodium montmorillonite</a> — one of the most <a href="/expansive-soil">expansive clay minerals</a> known — and it underlies or outcrops across a wide area from Farmington south through Gallup and east toward the basin margins.</p>
+        <p>The soil movement here is both <a href="/glossary#heave">heave</a>, and <a href="/glossary#settlement">settlement</a>. Both are very common. When the Mancos Shale absorbs moisture, it expands — 10 to 15 percent volume change is documented. When it dries, it contracts. Foundations in this environment are moving up and down with the wet and dry cycles, and the visible damage looks almost identical to what settlement produces. Most contractors diagnose it as settlement and recommend piers. Piers installed into heaving soil do not fix the problem. In some configurations they make it worse.</p>
+        <div class="pull-quote">
+          <p>Heave until proven settlement. That is the TLS FOUNDATIONS standard in the San Juan Basin. Assuming settlement without ruling out heave first is how expensive mistakes get made.</p>
+        </div>
+        <p>
+          <a href="/new-mexico-soil-conditions">Back to the New Mexico Soil Roadmap →</a><br />
+          <a href="/symptom-guide">Not sure what you're seeing? See our Symptom Guide →</a><br />
+          <a href="/why-foundations-move">For the full range of causes, see Why Foundations Move →</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="basins-section">
+      <div class="page-body">
+        <div class="section-heading">Basin field notes</div>
+        <h2>One basin. One hazard that requires precision.</h2>
+        <p class="basins-intro">The San Juan Basin is geologically unified — one dominant shale formation, one primary failure mode, one diagnostic standard that applies across the region.</p>
+        <div class="accordion">
+          <div class="accordion-item" id="san-juan-basin">
+            <button class="accordion-trigger" data-acc aria-expanded="false">
+              <div>
+                <div class="accordion-title">San Juan Basin</div>
+                <div class="accordion-cities">Farmington · Aztec · Bloomfield · Kirtland · Gallup · Grants · Shiprock · Zuni</div>
+              </div>
+              <div class="accordion-arrow">▾</div>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p class="basin-tagline"><a href="/glossary#mancos-shale">Mancos Shale</a> — the most misdiagnosed foundation environment in New Mexico. The damage looks like settlement. It is <a href="/glossary#heave">heave</a>. Getting that backwards is an expensive mistake.</p>
+                <div class="field-block">
+                  <span class="field-block-label">What we see when we drive up</span>
+                  <p>Driving into Farmington from the south, the terrain changes character around Bloomfield. The hills take on a gray-green color — the Mancos Shale outcropping and weathering at the surface. The soil is dark gray to olive in cut areas, with a greasy texture when wet that tells you immediately what you are dealing with. In residential areas, you see the evidence before you see the foundation: driveways that have humped up, sidewalks that have cracked and heaved, garage floors that are not flat. The pattern repeats throughout the Farmington, Aztec, and Bloomfield area.</p>
+                </div>
+                <div class="field-block">
+                  <span class="field-block-label">What this geology does to foundations</span>
+                  <p>The Mancos Shale contains smectite clay minerals — specifically sodium montmorillonite — that expand dramatically when they absorb water. Volume changes of 10 to 15 percent are documented. In a dry year, the soil shrinks and foundations settle. In a wet year or when irrigation is introduced, the soil swells and foundations heave. The cycle repeats. Most visible foundation damage in the San Juan Basin is from heave, not settlement — but because heaving soil eventually drops back when it dries, the visible pattern often looks like settlement to the untrained eye. This distinction matters enormously for repair decisions. Swell potential testing is the only way to confirm the mechanism.</p>
+                  <p>In Bloomfield and along the San Juan River corridor, the picture is more complex — river terrace and alluvial fan deposits sit above or adjacent to the shale, and these materials are collapsible. The first significant wetting event can produce rapid hydrocompaction in soil that has been stable for decades. Two hazards, same basin, opposite mechanisms.</p>
+                </div>
+                <div class="hazard-callout">
+                  <span class="hazard-callout-label">What TLS sees and repairs most in this basin</span>
+                  <p><strong>Mancos Shale heave</strong> — The defining hazard of the San Juan Basin. Mancos Shale contains sodium montmorillonite that expands 10 to 15 percent under moisture. Foundations heave in wet cycles and drop in dry ones. The visible damage looks like settlement. It is not. Getting that distinction wrong leads directly to the wrong repair.</p>
+                  <p><strong>Collapsible river deposits — Bloomfield and the San Juan corridor</strong> — San Juan River terrace and alluvial fan deposits in and around Bloomfield are collapsible. Stable under dry conditions, vulnerable to rapid hydrocompaction when moisture finds them. Coexists with Mancos Shale heave in the same basin — two opposite mechanisms requiring two different responses.</p>
+                  <p><strong>Misdiagnosis risk</strong> — This is the most consistently misdiagnosed foundation environment in New Mexico. Piers installed into actively heaving soil do not fix the problem. In some configurations they make it worse. Evaluation must establish which mechanism is active before any repair is specified. Swell potential testing is the starting point.</p>
+                  <p><strong>Drainage and moisture management</strong> — Because the Mancos Shale responds so dramatically to moisture, controlling the moisture envelope around a foundation is often the most important intervention. Irrigation management, drainage correction, and moisture stabilization before any structural repair is considered.</p>
+                </div>
+                <div class="communities-block">
+                  <span class="communities-label">Communities we serve in this basin</span>
+                  <p class="communities-list">Farmington · Aztec · Bloomfield · Kirtland · Flora Vista · Cedar Hill · Fruitland · Upper Fruitland · La Plata · Blanco · Navajo Dam · Nageezi · Shiprock · Gallup · Church Rock · Thoreau · Crownpoint · Grants · Milan · Lybrook · Counselor · Laguna · Laguna Pueblo · Acoma Pueblo · San Rafael · Prewitt · Bluewater · Rehoboth · Tohatchi · Twin Lakes · Yah-ta-hey · Zuni</p>
+                </div>
+                <div class="accordion-cta">
+                  <p class="accordion-cta-text">Seeing movement in the Farmington or Gallup area?</p>
+                  <a href="tel:5059914180" class="btn-inline">Call (505) 991-4180</a>
+                  <a href="sms:5059914180" class="btn-inline">Send a Text</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <RegionalNav />
+</Layout>
+
+<script>
+  function initAccordions() {
+    document.querySelectorAll<HTMLButtonElement>('.accordion-trigger[data-acc]').forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const item = trigger.closest('.accordion-item');
+        if (!item) return;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.accordion-item.open').forEach((el) => el.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const item = document.getElementById(hash);
+      if (item) {
+        item.classList.add('open');
+        setTimeout(() => item.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      }
+    }
+  }
+  document.addEventListener('DOMContentLoaded', initAccordions);
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: -4%;
+    width: 108%;
+    height: 108%;
+    object-fit: cover;
+    object-position: center;
+    animation: kenburns 20s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns {
+    0% {
+      transform: scale(1) translate(1%, 0);
+    }
+    100% {
+      transform: scale(1.06) translate(-1%, 0.5%);
+    }
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 34, 56, 0.15);
+  }
+  .tls-hero-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 0 clamp(20px, 5vw, 80px) clamp(40px, 6vw, 80px);
+  }
+  .tls-hero-box {
+    display: inline-block;
+    background: rgba(13, 34, 56, 0.65);
+    padding: 28px 40px 32px;
+  }
+  .tls-hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    display: block;
+  }
+
+  .tls-body {
+    --blue: #1b3a5c;
+    --blue-dark: #0d2238;
+    --blue-mid: #2a5480;
+    --tls-gold: #b8860b;
+    --tls-sand: #f5efe6;
+    --tls-stone: #e0d5c5;
+    --tls-slate: #4a5568;
+    --tls-cream: #fdfaf6;
+    --gutter: clamp(20px, 5vw, 80px);
+    --content-max: 860px;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 300;
+    background: var(--tls-cream);
+    color: #2d2d2d;
+  }
+  .page-body {
+    max-width: calc(var(--content-max) + var(--gutter) * 2);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  .tls-body :global(a) {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--tls-gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .tls-body :global(a):hover {
+    color: var(--tls-gold);
+  }
+  .intro-section {
+    padding: 64px 0 48px;
+  }
+  .intro-section :global(p) {
+    font-size: clamp(16px, 2vw, 18px);
+    line-height: 1.8;
+    color: #3a3a3a;
+    margin-bottom: 24px;
+    max-width: var(--content-max);
+  }
+  .pull-quote {
+    border-left: 3px solid var(--tls-gold);
+    padding: 16px 0 16px 28px;
+    margin: 36px 0;
+    max-width: 680px;
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 2.5vw, 22px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--blue);
+    margin: 0;
+  }
+
+  .basins-section {
+    padding: 48px 0 64px;
+    border-top: 2px solid var(--tls-gold);
+  }
+  .section-heading {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    margin-bottom: 12px;
+  }
+  .basins-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3.5vw, 34px);
+    font-weight: 400;
+    color: var(--blue-dark);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .basins-intro {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--tls-slate);
+    margin-bottom: 40px;
+    max-width: 600px;
+  }
+  .accordion {
+    border-top: 1px solid var(--tls-stone);
+    max-width: var(--content-max);
+  }
+  .accordion-item {
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .accordion-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    text-align: left;
+    font-family: inherit;
+  }
+  .accordion-trigger:hover .accordion-title {
+    color: var(--tls-gold);
+  }
+  .accordion-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--blue-dark);
+    transition: color 0.2s;
+  }
+  .accordion-cities {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--tls-slate);
+    margin-top: 4px;
+  }
+  .accordion-arrow {
+    font-size: 18px;
+    color: var(--tls-gold);
+    flex-shrink: 0;
+    transition: transform 0.25s;
+    line-height: 1;
+  }
+  .accordion-item.open .accordion-arrow {
+    transform: rotate(180deg);
+  }
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .accordion-item.open .accordion-body {
+    max-height: 3000px;
+  }
+  .accordion-body-inner {
+    padding: 0 0 36px;
+  }
+  .basin-tagline {
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--tls-slate);
+    margin-bottom: 28px;
+    max-width: 680px;
+  }
+  .field-block {
+    margin-bottom: 24px;
+  }
+  .field-block-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    display: block;
+    margin-bottom: 10px;
+  }
+  .field-block p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #3a3a3a;
+    max-width: var(--content-max);
+  }
+  .hazard-callout {
+    background: var(--tls-sand);
+    border-left: 3px solid var(--tls-gold);
+    padding: 20px 24px;
+    margin: 28px 0;
+    max-width: var(--content-max);
+  }
+  .hazard-callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .hazard-callout p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--blue-dark);
+    margin-bottom: 12px;
+  }
+  .hazard-callout p:last-child {
+    margin-bottom: 0;
+  }
+  .communities-block {
+    margin-top: 24px;
+  }
+  .communities-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tls-slate);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .communities-list {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--tls-slate);
+  }
+  .accordion-cta {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--tls-stone);
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .accordion-cta-text {
+    font-size: 15px;
+    color: var(--tls-slate);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .btn-inline {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue);
+    text-decoration: none;
+    border: 1px solid var(--blue);
+    padding: 10px 20px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-inline:hover {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  @media (max-width: 767px) {
+    .accordion-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

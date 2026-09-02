@@ -1,0 +1,492 @@
+---
+// Northern New Mexico regional soil page. Built from user-pasted code blocks:
+// hero, intro + 3-basin accordion body (Taos Plateau, Mora Valley, Raton
+// Basin), the shared RegionalNav cross-link band, and a minimal footer
+// (no distinct footer/contact-close block was provided for this page).
+import Layout from '../layouts/Layout.astro';
+import RegionalNav from '../components/RegionalNav.astro';
+
+const title = 'Northern New Mexico Soil Conditions | TLS Foundations';
+const description =
+  'Taos Plateau, Mora Valley, and Raton Basin -- frost heave at elevation, basalt-derived montmorillonite clays, and coal mine subsidence unique to the Raton Basin.';
+---
+
+<Layout title={title} description={description} footer="minimal">
+  <section class="hero">
+    <img class="hero-photo" src="/images/northern-new-mexico-hero.webp" alt="Northern New Mexico mountain landscape" />
+    <div class="hero-overlay"></div>
+    <div class="tls-hero-wrap">
+      <div class="tls-hero-box">
+        <span class="tls-hero-headline">Northern New Mexico</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="tls-body">
+    <section class="intro-section">
+      <div class="page-body">
+        <p>Northern New Mexico is the part of the state where elevation becomes the dominant variable. At 7,000 feet on the Taos Plateau, basalt has weathered into <a href="/glossary#montmorillonite">montmorillonite clays</a> that behave very differently from the alluvial soils of the Rio Grande basin below. Frost penetrates 24 inches or more every winter and the soil swells and contracts in ways that foundations have to accommodate or suffer.</p>
+        <p>The Mora Valley is quieter and less visited, but it has the deepest frost penetration in the state — 36 to 48 inches — and valley floor organic soils that compress under load in ways that look like settlement but require a different response. The Raton Basin adds something no other part of New Mexico has: underground <a href="/glossary#settlement">coal mine subsidence</a>, a legacy of early 20th century extraction that has not finished expressing itself at the surface.</p>
+        <div class="pull-quote">
+          <p>In northern New Mexico, frost is a foundation force. Knowing the frost line for a specific elevation is not optional — it is the starting point for any evaluation.</p>
+        </div>
+        <p>
+          <a href="/new-mexico-soil-conditions">Back to the New Mexico Soil Roadmap →</a><br />
+          <a href="/symptom-guide">Not sure what you're seeing? See our Symptom Guide →</a><br />
+          <a href="/why-foundations-move">For the full range of causes, see Why Foundations Move →</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="basins-section">
+      <div class="page-body">
+        <div class="section-heading">Basin field notes</div>
+        <h2>Three basins. Three distinct hazard profiles.</h2>
+        <p class="basins-intro">Select a basin to read field observations, hazard profiles, and the communities we serve within it.</p>
+        <div class="accordion">
+          <div class="accordion-item" id="taos-plateau">
+            <button class="accordion-trigger" data-acc aria-expanded="false">
+              <div>
+                <div class="accordion-title">Taos Plateau</div>
+                <div class="accordion-cities">Taos · Ranchos de Taos · Arroyo Seco · Questa · Red River · Ojo Caliente · Peñasco</div>
+              </div>
+              <div class="accordion-arrow">▾</div>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p class="basin-tagline">Basalt flows over a rift basin — the volcanic cap weathers into clay minerals that move with moisture, and the elevation means frost works the soil from November through April.</p>
+                <div class="field-block">
+                  <span class="field-block-label">What we see when we drive up</span>
+                  <p>Driving onto the Taos Plateau from the south, the terrain opens up dramatically. The soil is dark — darker than most of New Mexico — because the basalt weathers into iron-rich clay. The Rio Grande Gorge cuts invisibly through this plateau; from the road you see only flat open land until you are suddenly at the rim. In the Taos valley proper, old adobe construction tells you how the soil has behaved for centuries. Cracked walls that have been plastered over many times. <a href="/glossary#acequia">Acequia</a> corridors with heavy clay that has been wet for generations.</p>
+                </div>
+                <div class="field-block">
+                  <span class="field-block-label">What this geology does to foundations</span>
+                  <p>The basalt-derived soils contain <a href="/glossary#montmorillonite">montmorillonite</a> — one of the most <a href="/expansive-soil">expansive clay</a> minerals. It swells significantly when wet and shrinks when dry. At Taos elevation (around 7,000 feet), frost penetration reaches 24 inches or more, which adds a seasonal heave cycle on top of the moisture-driven expansion. Foundations that are not deep enough for frost — or that were built in the adobe tradition without continuous footings — move with every season. The pattern is often mistaken for settlement when it is actually <a href="/glossary#heave">heave</a>. Shrink-swell behavior is the signature of these soils.</p>
+                </div>
+                <div class="hazard-callout">
+                  <span class="hazard-callout-label">What TLS sees and repairs most in this basin</span>
+                  <p><strong>Basalt-derived montmorillonite clays</strong> — The Taos Plateau weathers basalt into montmorillonite, one of the most expansive clay minerals. Foundations heave in wet seasons and drop in dry ones. The seasonal pattern is consistent and consequential. Expansive soil is the primary driver.</p>
+                  <p><strong>Frost heave at elevation</strong> — At 7,000 feet, frost penetrates 24 inches or more. Footings that do not reach below that depth lift every winter. Combined with clay expansion, the seasonal movement is significant. The two forces compound each other.</p>
+                  <p><strong>Acequia moisture migration</strong> — The old acequia corridors in the Taos valley have kept soils wet for generations. Clay that has been repeatedly wetted and dried is not the same as clay in its natural state. Moisture migration from irrigation history shapes what we find beneath these foundations.</p>
+                </div>
+                <div class="communities-block">
+                  <span class="communities-label">Communities we serve in this basin</span>
+                  <p class="communities-list">Taos · Ranchos de Taos · El Prado · Arroyo Seco · Arroyo Hondo · Taos Ski Valley · Questa · Red River · Costilla · Amalia · Tres Piedras · Ojo Caliente · Peñasco · Chamisal · Rio Lucio · Vadito · Picuris Pueblo · Taos Pueblo · San Cristobal · Cerro · Carson · Lama · El Rito · Valdez · Llano · Los Cordovas</p>
+                </div>
+                <div class="accordion-cta">
+                  <p class="accordion-cta-text">Seeing movement in the Taos area?</p>
+                  <a href="tel:5059914180" class="btn-inline">Call (505) 991-4180</a>
+                  <a href="sms:5059914180" class="btn-inline">Send a Text</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" id="mora-valley">
+            <button class="accordion-trigger" data-acc aria-expanded="false">
+              <div>
+                <div class="accordion-title">Mora Valley</div>
+                <div class="accordion-cities">Mora · Wagon Mound · Chacon · Cleveland · Guadalupita · Roy · Rociada</div>
+              </div>
+              <div class="accordion-arrow">▾</div>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p class="basin-tagline">High mountain valley terrain where frost penetrates deep, snowmelt concentrates in valley floors, and organic soils compress under load in ways that surprise people expecting solid mountain ground.</p>
+                <div class="field-block">
+                  <span class="field-block-label">What we see when we drive up</span>
+                  <p>Mora Valley is off the usual routes — you have to intend to go there. When you arrive, the terrain is beautiful and the foundations are often quietly troubled. The valley floor soils are dark and organic from millennia of wet meadow conditions. The surrounding slopes are rocky and competent, which creates a false sense that the whole area is solid ground. Old structures on the valley floor have often been settling slowly for decades. Spring snowmelt concentrates moisture in the lowest areas precisely where structures tend to be built.</p>
+                </div>
+                <div class="field-block">
+                  <span class="field-block-label">What this geology does to foundations</span>
+                  <p>Frost depth in the Mora Valley reaches 36 to 48 inches at elevation, which is the deepest in New Mexico. Footings that do not reach below that depth will heave. Valley floor organic soils compress under load — slowly, unevenly, and often in ways that look like differential settlement because the organic content varies across a site. The combination of frost heave and organic compression can be hard to distinguish without proper evaluation: one pushes up, the other pulls down, and the foundation can show both patterns at different corners. Settlement from organic compression is a slow, ongoing process.</p>
+                </div>
+                <div class="hazard-callout">
+                  <span class="hazard-callout-label">What TLS sees and repairs most in this basin</span>
+                  <p><strong>Frost heave — deepest in New Mexico</strong> — Frost penetrates 36 to 48 inches in the Mora Valley. Footings that don't reach below that depth move every winter. This is not settlement — it is uplift, and it requires a different response.</p>
+                  <p><strong>Organic valley floor compression</strong> — Valley floor soils with high organic content compress under load slowly and unevenly. What looks like differential settlement is often organic compression varying across the site. The foundation follows the soil.</p>
+                  <p>Combined frost and compression — The two hazards work in opposite directions — one pushes up, one pulls down — and can appear simultaneously at different corners of the same foundation. Distinguishing them requires evaluation, not visual inspection.</p>
+                </div>
+                <div class="communities-block">
+                  <span class="communities-label">Communities we serve in this basin</span>
+                  <p class="communities-list">Mora · Wagon Mound · Chacon · Cleveland · Guadalupita · La Cueva · Ledoux · Lucero · Mills · Ocate · Optimo · Roy · Solano · Watrous · Gascon · Rociada · Sapello · Tramperos</p>
+                </div>
+                <div class="accordion-cta">
+                  <p class="accordion-cta-text">Seeing movement in the Mora Valley area?</p>
+                  <a href="tel:5059914180" class="btn-inline">Call (505) 991-4180</a>
+                  <a href="sms:5059914180" class="btn-inline">Send a Text</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" id="raton-basin">
+            <button class="accordion-trigger" data-acc aria-expanded="false">
+              <div>
+                <div class="accordion-title">Raton Basin</div>
+                <div class="accordion-cities">Raton · Springer · Angel Fire · Cimarron · Eagle Nest · Maxwell</div>
+              </div>
+              <div class="accordion-arrow">▾</div>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p class="basin-tagline">Coal country — the Raton Basin has a foundation hazard that does not exist anywhere else in New Mexico. What's underground here has been mined, and some of it has not finished moving.</p>
+                <div class="field-block">
+                  <span class="field-block-label">What we see when we drive up</span>
+                  <p>Raton is a working town at the base of Raton Pass. The older neighborhoods near the historic coal mining areas have a characteristic pattern: walls that have cracked and been repaired multiple times, structures that lean slightly, ground that has a subtle undulation if you look at it from the right angle. Not every structure has mine influence — the town extends beyond the old workings — but in the affected zones the evidence accumulates. The surrounding country is Cretaceous shale and sandstone country, and the Pierre and Niobrara shales are expansive.</p>
+                </div>
+                <div class="field-block">
+                  <span class="field-block-label">What this geology does to foundations</span>
+                  <p>Underground coal mines from the early 20th century — some mapped, some not — create subsidence risk in portions of the Raton area. As unmaintained mines deteriorate, surface subsidence can be gradual or abrupt. Separately, the Pierre and Niobrara shale formations that outcrop in the region contain smectite clay minerals that expand significantly under moisture. Expansive soil behavior throughout the broader basin is independent of mine influence. Angel Fire and the mountain communities do not have the mine hazard but do have frost depth and some shale expansion.</p>
+                </div>
+                <div class="hazard-callout">
+                  <span class="hazard-callout-label">What TLS sees and repairs most in this basin</span>
+                  <p><strong>Underground mine subsidence</strong> — Early 20th century coal mines, some unmapped, create ongoing subsidence risk in portions of Raton. As unmaintained workings deteriorate, surface expression can be gradual or abrupt. This hazard does not exist anywhere else in New Mexico.</p>
+                  <p><strong>Expansive shale soils</strong> — The Pierre and Niobrara shales contain smectite clay minerals that expand significantly under moisture. Expansive soil behavior throughout the broader basin, independent of mine influence.</p>
+                  <p><strong>Frost heave in mountain communities</strong> — Angel Fire and the surrounding mountain communities do not carry the mine hazard but do carry significant frost depth. Footings must account for elevation-specific frost penetration.</p>
+                </div>
+                <div class="communities-block">
+                  <span class="communities-label">Communities we serve in this basin</span>
+                  <p class="communities-list">Raton · Springer · Angel Fire · Cimarron · Eagle Nest · Maxwell · Ute Park · Brilliant · Koehler · Sugarite · Colmor · Rayado · Miami · Elizabethtown · French · Gardiner · Dillon · Colfax · Abbott · Taylor Springs · Black Lake · Capitan Hill</p>
+                </div>
+                <div class="accordion-cta">
+                  <p class="accordion-cta-text">Seeing movement in the Raton or Angel Fire area?</p>
+                  <a href="tel:5059914180" class="btn-inline">Call (505) 991-4180</a>
+                  <a href="sms:5059914180" class="btn-inline">Send a Text</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <RegionalNav />
+</Layout>
+
+<script>
+  function initAccordions() {
+    document.querySelectorAll<HTMLButtonElement>('.accordion-trigger[data-acc]').forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const item = trigger.closest('.accordion-item');
+        if (!item) return;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.accordion-item.open').forEach((el) => el.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const item = document.getElementById(hash);
+      if (item) {
+        item.classList.add('open');
+        setTimeout(() => item.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      }
+    }
+  }
+  document.addEventListener('DOMContentLoaded', initAccordions);
+</script>
+
+<style>
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: -4%;
+    width: 108%;
+    height: 108%;
+    object-fit: cover;
+    object-position: center;
+    animation: kenburns 20s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns {
+    0% {
+      transform: scale(1) translate(1%, 0);
+    }
+    100% {
+      transform: scale(1.06) translate(-1%, 0.5%);
+    }
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 34, 56, 0.15);
+  }
+  .tls-hero-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 0 clamp(20px, 5vw, 80px) clamp(40px, 6vw, 80px);
+  }
+  .tls-hero-box {
+    display: inline-block;
+    background: rgba(13, 34, 56, 0.65);
+    padding: 28px 40px 32px;
+  }
+  .tls-hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    display: block;
+  }
+
+  /* ── PAGE BODY ── */
+  .tls-body {
+    --blue: #1b3a5c;
+    --blue-dark: #0d2238;
+    --blue-mid: #2a5480;
+    --tls-gold: #b8860b;
+    --tls-sand: #f5efe6;
+    --tls-stone: #e0d5c5;
+    --tls-slate: #4a5568;
+    --tls-cream: #fdfaf6;
+    --gutter: clamp(20px, 5vw, 80px);
+    --content-max: 860px;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 300;
+    background: var(--tls-cream);
+    color: #2d2d2d;
+  }
+  .page-body {
+    max-width: calc(var(--content-max) + var(--gutter) * 2);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  .tls-body :global(a) {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--tls-gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .tls-body :global(a):hover {
+    color: var(--tls-gold);
+  }
+  .intro-section {
+    padding: 64px 0 48px;
+  }
+  .intro-section :global(p) {
+    font-size: clamp(16px, 2vw, 18px);
+    line-height: 1.8;
+    color: #3a3a3a;
+    margin-bottom: 24px;
+    max-width: var(--content-max);
+  }
+  .pull-quote {
+    border-left: 3px solid var(--tls-gold);
+    padding: 16px 0 16px 28px;
+    margin: 36px 0;
+    max-width: 680px;
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 2.5vw, 22px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--blue);
+    margin: 0;
+  }
+
+  .basins-section {
+    padding: 48px 0 64px;
+    border-top: 2px solid var(--tls-gold);
+  }
+  .section-heading {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    margin-bottom: 12px;
+  }
+  .basins-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3.5vw, 34px);
+    font-weight: 400;
+    color: var(--blue-dark);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .basins-intro {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--tls-slate);
+    margin-bottom: 40px;
+    max-width: 600px;
+  }
+  .accordion {
+    border-top: 1px solid var(--tls-stone);
+    max-width: var(--content-max);
+  }
+  .accordion-item {
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .accordion-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    text-align: left;
+    font-family: inherit;
+  }
+  .accordion-trigger:hover .accordion-title {
+    color: var(--tls-gold);
+  }
+  .accordion-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--blue-dark);
+    transition: color 0.2s;
+  }
+  .accordion-cities {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--tls-slate);
+    margin-top: 4px;
+  }
+  .accordion-arrow {
+    font-size: 18px;
+    color: var(--tls-gold);
+    flex-shrink: 0;
+    transition: transform 0.25s;
+    line-height: 1;
+  }
+  .accordion-item.open .accordion-arrow {
+    transform: rotate(180deg);
+  }
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .accordion-item.open .accordion-body {
+    max-height: 3000px;
+  }
+  .accordion-body-inner {
+    padding: 0 0 36px;
+  }
+  .basin-tagline {
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--tls-slate);
+    margin-bottom: 28px;
+    max-width: 680px;
+  }
+  .field-block {
+    margin-bottom: 24px;
+  }
+  .field-block-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    display: block;
+    margin-bottom: 10px;
+  }
+  .field-block p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #3a3a3a;
+    max-width: var(--content-max);
+  }
+  .hazard-callout {
+    background: var(--tls-sand);
+    border-left: 3px solid var(--tls-gold);
+    padding: 20px 24px;
+    margin: 28px 0;
+    max-width: var(--content-max);
+  }
+  .hazard-callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .hazard-callout p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--blue-dark);
+    margin-bottom: 12px;
+  }
+  .hazard-callout p:last-child {
+    margin-bottom: 0;
+  }
+  .communities-block {
+    margin-top: 24px;
+  }
+  .communities-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tls-slate);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .communities-list {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--tls-slate);
+  }
+  .accordion-cta {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--tls-stone);
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .accordion-cta-text {
+    font-size: 15px;
+    color: var(--tls-slate);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .btn-inline {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue);
+    text-decoration: none;
+    border: 1px solid var(--blue);
+    padding: 10px 20px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-inline:hover {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  @media (max-width: 767px) {
+    .accordion-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

@@ -1,0 +1,89 @@
+---
+// Shared cross-link band at the bottom of the reference pages
+// (FAQ/glossary/expansive-soil/collapsible-soil/symptom-guide). Confirmed
+// identical markup pasted verbatim, reused as-is here. Highlights the
+// current page via a client-side path check, matching the source script.
+---
+
+<div class="reference-nav">
+  <div class="reference-nav-inner">
+    <span class="reference-nav-label">Explore Reference Resources</span>
+    <div class="reference-nav-buttons">
+      <a href="/foundation-repair-faq">FAQ</a>
+      <a href="/glossary">Glossary</a>
+      <a href="/expansive-soil">Expansive Soils</a>
+      <a href="/collapsible-soil">Collapsible Soils</a>
+      <a href="/symptom-guide">Symptom Guide</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const path = window.location.pathname.replace(/\/$/, '');
+    document.querySelectorAll<HTMLAnchorElement>('.reference-nav-buttons a').forEach((a) => {
+      const href = a.getAttribute('href')!.replace(/\/$/, '');
+      if (path === href) a.classList.add('current');
+    });
+  })();
+</script>
+
+<style>
+  .reference-nav {
+    background: #0d2238;
+    padding: 40px 80px;
+    border-top: 2px solid #b8860b;
+  }
+  .reference-nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .reference-nav-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #b8860b;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .reference-nav-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .reference-nav-buttons a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    border: 1px solid rgba(184, 134, 11, 0.4);
+    padding: 12px 24px;
+    transition: all 0.2s;
+  }
+  .reference-nav-buttons a:hover {
+    color: #d4a017;
+    border-color: #b8860b;
+    background: rgba(184, 134, 11, 0.06);
+  }
+  .reference-nav-buttons a.current {
+    color: #d4a017;
+    border-color: #b8860b;
+    background: rgba(184, 134, 11, 0.12);
+    cursor: default;
+    pointer-events: none;
+  }
+  @media (max-width: 640px) {
+    .reference-nav {
+      padding: 40px 24px;
+    }
+    .reference-nav-buttons {
+      flex-direction: column;
+    }
+    .reference-nav-buttons a {
+      text-align: center;
+    }
+  }
+</style>

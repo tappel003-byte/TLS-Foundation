@@ -1,0 +1,489 @@
+---
+// Central New Mexico regional soil page. Built from user-pasted code blocks:
+// hero, intro + 3-basin accordion body (Albuquerque, Española, Estancia
+// basins), and the shared RegionalNav cross-link band.
+import Layout from '../layouts/Layout.astro';
+import RegionalNav from '../components/RegionalNav.astro';
+
+const title = 'Central New Mexico Soil Conditions | TLS Foundations';
+const description =
+  'Albuquerque, Española, and Estancia basins -- collapsible West Mesa soils, expansive river clays, Tesuque Formation variability, and evaporite dissolution in the closed Estancia basin.';
+---
+
+<Layout title={title} description={description} footer="minimal">
+  <section class="hero">
+    <img class="hero-photo" src="/images/central-new-mexico-hero.webp" alt="Central New Mexico Rio Grande valley" />
+    <div class="hero-overlay"></div>
+    <div class="tls-hero-wrap">
+      <div class="tls-hero-box">
+        <span class="tls-hero-headline">Central New Mexico</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="tls-body">
+    <section class="intro-section">
+      <div class="page-body">
+        <p>Central New Mexico sits on top of the <a href="/glossary#rio-grande-rift">Rio Grande Rift</a> — one of the most geologically active continental rifts in North America. The rift is still spreading. The basins it created fill with sediment from surrounding mountains, and that sediment is what most foundations in this region are built on.</p>
+        <div class="pull-quote">
+          <p>The rift produced the basins. The basins produced the soils. The soils produce the foundation problems. You have to understand all three to read any of them correctly.</p>
+        </div>
+        <p>We have worked in all three basins in this region. The soil in each one has a different character, a different failure mode, and a different appropriate response when something goes wrong. <a href="/collapsible-soil">Collapsible soils</a> and <a href="/expansive-soil">expansive clays</a> are the primary hazards — but they appear in different parts of the basin and require different responses.</p>
+        <p>
+          <a href="/new-mexico-soil-conditions">Back to the New Mexico Soil Roadmap →</a><br />
+          <a href="/symptom-guide">Not sure what you're seeing? See our Symptom Guide →</a><br />
+          <a href="/why-foundations-move">For the full range of causes, see Why Foundations Move →</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="basins-section">
+      <div class="page-body">
+        <div class="section-heading">Basin field notes</div>
+        <h2>Three basins. Three different soil stories.</h2>
+        <p class="basins-intro">Select a basin to read field observations, hazard profiles, and the communities we serve within it.</p>
+        <div class="accordion">
+          <div class="accordion-item" id="albuquerque">
+            <button class="accordion-trigger" data-acc aria-expanded="false">
+              <div>
+                <div class="accordion-title">Albuquerque Basin</div>
+                <div class="accordion-cities">Albuquerque · Rio Rancho · Corrales · Bernalillo · Los Lunas · Belen · Bosque Farms</div>
+              </div>
+              <div class="accordion-arrow">▾</div>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p class="basin-tagline">The Rio Grande Rift's most populated expression — alluvial fans, river terraces, and mesa edges, each with different soil behavior within a few miles of each other.</p>
+                <div class="field-block">
+                  <span class="field-block-label">What we see when we drive up</span>
+                  <p>It depends entirely on where in the basin you are. On the West Mesa, the soil is brown-tan alluvium — looks stable, often is not. The caliche layers tell you where moisture has been sitting for a long time. In the North Valley and South Valley, the soil gets darker and heavier as you approach the river — old floodplain material with clay that moves when it gets wet. In the East Mountains and foothills, the alluvial fans coming off the Sandias have their own character: loose upper fan material over harder cemented zones. You can read the job before you get out of the truck if you know what to look for.</p>
+                </div>
+                <div class="field-block">
+                  <span class="field-block-label">What this geology does to foundations</span>
+                  <p>The West Mesa is classic <a href="/collapsible-soil">collapsible soil</a> country. Dry, it bears load fine. Wet — from irrigation, a broken line, or a wet year — it consolidates and the foundation follows it down. The Valley floor is the opposite problem: <a href="/expansive-soil">expansive clays</a> that push up when wet and shrink when dry. Seasonal movement, crack patterns that open and close with the year. The foothills introduce alluvial fan differential bearing — dense cemented zones next to loose material, which means one corner of a house can settle while another stays put. We see all three patterns within the same city.</p>
+                </div>
+                <div class="hazard-callout">
+                  <span class="hazard-callout-label">What TLS sees and repairs most in this basin</span>
+                  <p><strong>Collapsible alluvial soils</strong> — West Mesa, Pajarito Mesa, and the developing edges of Rio Rancho. Stable for decades until moisture finds them. When they go, they go fast.</p>
+                  <p><strong>Expansive river clays</strong> — South Valley, North Valley, Corrales, and the old floodplain neighborhoods. Foundations that heave in wet years and crack in dry ones. Seasonal pattern is the tell.</p>
+                  <p><strong>Alluvial fan differential bearing</strong> — Foothills and East Mountains. One corner of a house on dense cemented material, another corner on loose fan sediment. The differential movement is structural even when neither soil is "bad."</p>
+                </div>
+                <div class="communities-block">
+                  <span class="communities-label">Communities we serve in this basin</span>
+                  <p class="communities-list">Albuquerque · Los Ranchos de Albuquerque · Rio Rancho · Tijeras · Edgewood · Corrales · Bernalillo · Placitas · Belen · Los Lunas · Bosque Farms · Peralta · Rio Communities · Adelino · Jarales · Los Chavez · Tome · South Valley · North Valley · Sandia Heights · Sandia Park · Cedar Crest · Carnuel · Isleta · Paradise Hills · Pajarito Mesa · San Antonito · Algodones · San Felipe Pueblo · Santa Ana Pueblo · Santo Domingo Pueblo · Pueblo of Sandia Village</p>
+                </div>
+                <div class="accordion-cta">
+                  <p class="accordion-cta-text">Seeing movement in the Albuquerque area?</p>
+                  <a href="tel:5059914180" class="btn-inline">Call (505) 991-4180</a>
+                  <a href="sms:5059914180" class="btn-inline">Send a Text</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" id="espanola">
+            <button class="accordion-trigger" data-acc aria-expanded="false">
+              <div>
+                <div class="accordion-title">Española Basin</div>
+                <div class="accordion-cities">Santa Fe · Española · Los Alamos · White Rock · Pojoaque · Chimayó · Pecos</div>
+              </div>
+              <div class="accordion-arrow">▾</div>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p class="basin-tagline">The upper Rio Grande corridor — where ancient lake sediments and volcanic ash meet centuries of acequia irrigation, and the soil remembers all of it.</p>
+                <div class="field-block">
+                  <span class="field-block-label">What we see when we drive up</span>
+                  <p>The Tesuque Formation has a visual signature you learn quickly: the exposures in the cut banks and arroyos vary from sandy and loose to heavy clay-bearing within short distances. The color shifts from pale tan to orange-red to dark gray depending on which member you are looking at. In the pueblos and along the old acequia corridors, centuries of irrigation have altered soil moisture content in ways that no geological map captures. The land looks flat and stable. The subsurface often is not.</p>
+                </div>
+                <div class="field-block">
+                  <span class="field-block-label">What this geology does to foundations</span>
+                  <p>The Tesuque Formation is laterally inconsistent — the fine-grained members are expansive, the coarser members are not, and they are often stacked and interbedded. This creates differential settlement within a single foundation footprint. Houses that have been irrigated for decades or that sit near old acequias have been wetted and dried repeatedly — the soil has often already compressed what it will compress, but lateral variability still produces differential movement. Los Alamos sits on Bandelier Tuff at the canyon rim, which introduces a different hazard: shallow rock with variable depth to competent bearing.</p>
+                </div>
+                <div class="hazard-callout">
+                  <span class="hazard-callout-label">What TLS sees and repairs most in this basin</span>
+                  <p><strong>Tesuque Formation lateral variability</strong> — Expansive clay members and non-expansive sand members stacked and interbedded, sometimes within the same foundation footprint. One corner heaves, another stays put. The differential is the problem, not either soil alone. Lateral variability is the signature hazard here.</p>
+                  <p><strong>Expansive clay in the fine-grained members</strong> — Where the Tesuque runs heavy with clay, foundations move with moisture. Santa Fe and the upper basin neighborhoods built into hillsides see this most. Expansive clay is the mechanism.</p>
+                  <p><strong>Acequia moisture migration</strong> — Centuries of irrigation have altered soil moisture in ways no geological map captures. Homes near old acequia corridors sit on soils that have been repeatedly wetted and dried. The equilibrium looks stable until something changes it. Moisture migration is the ongoing process.</p>
+                </div>
+                <div class="communities-block">
+                  <span class="communities-label">Communities we serve in this basin</span>
+                  <p class="communities-list">Santa Fe · Española · Los Alamos · White Rock · Pojoaque · Nambé · Tesuque · Chimayó · Alcalde · Dixon · Velarde · Hernandez · Chamita · Abiquiu · El Rito · Medanales · Truchas · Cordova · Ojo Sarco · San Ildefonso Pueblo · Nambé Pueblo · Pojoaque Pueblo · Tesuque Pueblo · Ohkay Owingeh · Santa Clara Pueblo · Jacona · Jaconita · La Cienega · La Bajada · Agua Fria · Galisteo · Pecos · Glorieta · Lamy</p>
+                </div>
+                <div class="accordion-cta">
+                  <p class="accordion-cta-text">Seeing movement in the Santa Fe or Española area?</p>
+                  <a href="tel:5059914180" class="btn-inline">Call (505) 991-4180</a>
+                  <a href="sms:5059914180" class="btn-inline">Send a Text</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item" id="estancia">
+            <button class="accordion-trigger" data-acc aria-expanded="false">
+              <div>
+                <div class="accordion-title">Estancia Basin</div>
+                <div class="accordion-cities">Estancia · Moriarty · Mountainair · Willard · McIntosh · Edgewood</div>
+              </div>
+              <div class="accordion-arrow">▾</div>
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p class="basin-tagline">A closed basin with no outlet to the sea — what goes in stays in, and so does the chemistry. Lake Estancia dried up thousands of years ago but its legacy is still in the soil.</p>
+                <div class="field-block">
+                  <span class="field-block-label">What we see when we drive up</span>
+                  <p>The Estancia Basin sits at around 6,000 feet elevation on the Estancia Plains, east of the Manzano and Sandia ranges. The soil is pale — light tan to whitish in the lower basin areas where evaporite minerals concentrate. You see caliche everywhere, sometimes as a thick hardpan just below grade that looks like competent bearing but fractures unpredictably. The playas — dry lake bed remnants — are visually flat and featureless. They are also where the worst soil behavior concentrates.</p>
+                </div>
+                <div class="field-block">
+                  <span class="field-block-label">What this geology does to foundations</span>
+                  <p>The lacustrine clays deposited by Lake Estancia are highly expansive in places. The evaporite minerals — gypsum and halite from thousands of years of evaporation — can dissolve under sustained moisture, creating voids in the subsurface. Caliche layers that look like good bearing can be underlain by soft compressible material. The basin is closed, meaning seasonal moisture from snowmelt and summer rains has nowhere to go except down or into the soil — shrink-swell cycles are pronounced in wet years. The collapsible potential of some deposits adds another layer of complexity.</p>
+                </div>
+                <div class="hazard-callout">
+                  <span class="hazard-callout-label">What TLS sees and repairs most in this basin</span>
+                  <p><strong>Expansive lacustrine clays</strong> — The legacy of Lake Estancia. In the lower basin especially, these lacustrine clays shrink and swell with the seasons. Closed basin hydrology means moisture builds up with nowhere to go — the wet-dry cycles are pronounced.</p>
+                  <p><strong>Evaporite dissolution</strong> — Gypsum and halite deposits from thousands of years of evaporation. Sustained moisture dissolves them at depth, creating voids beneath foundations with no surface warning. Evaporite dissolution is the invisible hazard.</p>
+                  <p><strong>Caliche variability</strong> — Looks like competent bearing. Sometimes is. A thin caliche layer over soft compressible material below is not a stable foundation — it is a hard ceiling over a soft floor.</p>
+                </div>
+                <div class="communities-block">
+                  <span class="communities-label">Communities we serve in this basin</span>
+                  <p class="communities-list">Estancia · Moriarty · Mountainair · Willard · McIntosh · Edgewood · Encino · Duran · Manzano · Tajique · Torreon · Punta de Agua · Clines Corners · Gran Quivira · Lucy · Deer Canyon · Abo</p>
+                </div>
+                <div class="accordion-cta">
+                  <p class="accordion-cta-text">Seeing movement in the Estancia Valley area?</p>
+                  <a href="tel:5059914180" class="btn-inline">Call (505) 991-4180</a>
+                  <a href="sms:5059914180" class="btn-inline">Send a Text</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <RegionalNav />
+</Layout>
+
+<script>
+  function initAccordions() {
+    document.querySelectorAll<HTMLButtonElement>('.accordion-trigger[data-acc]').forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const item = trigger.closest('.accordion-item');
+        if (!item) return;
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.accordion-item.open').forEach((el) => el.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const item = document.getElementById(hash);
+      if (item) {
+        item.classList.add('open');
+        setTimeout(() => item.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      }
+    }
+  }
+  document.addEventListener('DOMContentLoaded', initAccordions);
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: -4%;
+    width: 108%;
+    height: 108%;
+    object-fit: cover;
+    object-position: center;
+    animation: kenburns 20s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns {
+    0% {
+      transform: scale(1) translate(1%, 0);
+    }
+    100% {
+      transform: scale(1.06) translate(-1%, 0.5%);
+    }
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 34, 56, 0.15);
+  }
+  .tls-hero-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 0 clamp(20px, 5vw, 80px) clamp(40px, 6vw, 80px);
+  }
+  .tls-hero-box {
+    display: inline-block;
+    background: rgba(13, 34, 56, 0.65);
+    padding: 28px 40px 32px;
+  }
+  .tls-hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    display: block;
+  }
+
+  .tls-body {
+    --blue: #1b3a5c;
+    --blue-dark: #0d2238;
+    --blue-mid: #2a5480;
+    --tls-gold: #b8860b;
+    --tls-sand: #f5efe6;
+    --tls-stone: #e0d5c5;
+    --tls-slate: #4a5568;
+    --tls-cream: #fdfaf6;
+    --gutter: clamp(20px, 5vw, 80px);
+    --content-max: 860px;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 300;
+    background: var(--tls-cream);
+    color: #2d2d2d;
+  }
+  .page-body {
+    max-width: calc(var(--content-max) + var(--gutter) * 2);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  .tls-body :global(a) {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--tls-gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .tls-body :global(a):hover {
+    color: var(--tls-gold);
+  }
+  .intro-section {
+    padding: 64px 0 48px;
+  }
+  .intro-section :global(p) {
+    font-size: clamp(16px, 2vw, 18px);
+    line-height: 1.8;
+    color: #3a3a3a;
+    margin-bottom: 24px;
+    max-width: var(--content-max);
+  }
+  .pull-quote {
+    border-left: 3px solid var(--tls-gold);
+    padding: 16px 0 16px 28px;
+    margin: 36px 0;
+    max-width: 680px;
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 2.5vw, 22px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--blue);
+    margin: 0;
+  }
+
+  .basins-section {
+    padding: 48px 0 64px;
+    border-top: 2px solid var(--tls-gold);
+  }
+  .section-heading {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    margin-bottom: 12px;
+  }
+  .basins-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3.5vw, 34px);
+    font-weight: 400;
+    color: var(--blue-dark);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+  .basins-intro {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--tls-slate);
+    margin-bottom: 40px;
+    max-width: 600px;
+  }
+  .accordion {
+    border-top: 1px solid var(--tls-stone);
+    max-width: var(--content-max);
+  }
+  .accordion-item {
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .accordion-trigger {
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    text-align: left;
+    font-family: inherit;
+  }
+  .accordion-trigger:hover .accordion-title {
+    color: var(--tls-gold);
+  }
+  .accordion-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--blue-dark);
+    transition: color 0.2s;
+  }
+  .accordion-cities {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--tls-slate);
+    margin-top: 4px;
+  }
+  .accordion-arrow {
+    font-size: 18px;
+    color: var(--tls-gold);
+    flex-shrink: 0;
+    transition: transform 0.25s;
+    line-height: 1;
+  }
+  .accordion-item.open .accordion-arrow {
+    transform: rotate(180deg);
+  }
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+  }
+  .accordion-item.open .accordion-body {
+    max-height: 3000px;
+  }
+  .accordion-body-inner {
+    padding: 0 0 36px;
+  }
+  .basin-tagline {
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--tls-slate);
+    margin-bottom: 28px;
+    max-width: 680px;
+  }
+  .field-block {
+    margin-bottom: 24px;
+  }
+  .field-block-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    display: block;
+    margin-bottom: 10px;
+  }
+  .field-block p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #3a3a3a;
+    max-width: var(--content-max);
+  }
+  .hazard-callout {
+    background: var(--tls-sand);
+    border-left: 3px solid var(--tls-gold);
+    padding: 20px 24px;
+    margin: 28px 0;
+    max-width: var(--content-max);
+  }
+  .hazard-callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .hazard-callout p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--blue-dark);
+    margin-bottom: 12px;
+  }
+  .hazard-callout p:last-child {
+    margin-bottom: 0;
+  }
+  .communities-block {
+    margin-top: 24px;
+  }
+  .communities-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tls-slate);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .communities-list {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--tls-slate);
+  }
+  .accordion-cta {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--tls-stone);
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .accordion-cta-text {
+    font-size: 15px;
+    color: var(--tls-slate);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .btn-inline {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--blue);
+    text-decoration: none;
+    border: 1px solid var(--blue);
+    padding: 10px 20px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-inline:hover {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  @media (max-width: 767px) {
+    .accordion-cta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
