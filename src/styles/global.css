@@ -6,11 +6,12 @@
 */
 
 /*
-  Google Fonts is loaded via a <link rel="stylesheet"> in Layout.astro's
-  <head> (paired with the preconnect tags already there), not an @import
-  here -- @import is render-blocking in a way the browser can't discover
-  until it's already parsed this file, which delays font discovery.
+  Fonts are self-hosted (see fonts.css) rather than pulled from Google
+  Fonts at request time -- no third-party request in the critical
+  render path, no dependency on that domain being reachable/fast for
+  a given visitor.
 */
+@import './fonts.css';
 
 /* ── SKIP LINK (keyboard/screen-reader users bypass the nav) ── */
 .skip-link {
