@@ -242,6 +242,8 @@ const videoSchema = [
 <style>
   .tls-hds-page {
     --gold: #b8860b;
+    /* gold-text: darkened gold for text on sand/white/cream -- --gold itself only clears WCAG AA on dark backgrounds */
+    --gold-text: #7d5c08;
     --navy: #1b3a5c;
     --navy-dk: #0d2238;
     --sand: #f5efe6;
@@ -379,7 +381,7 @@ const videoSchema = [
     font-family: 'Playfair Display', serif;
     font-size: 14px;
     font-weight: 400;
-    color: var(--gold);
+    color: var(--gold-text);
     flex-shrink: 0;
     width: 24px;
   }
@@ -442,7 +444,7 @@ const videoSchema = [
     font-size: 10px;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--gold-text);
     display: block;
     margin-bottom: 12px;
   }
