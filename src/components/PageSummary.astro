@@ -145,7 +145,7 @@ const { summary, pageName, nextPage } = Astro.props;
     font-size: 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--gold-text, #7d5c08);
   }
   #tls-summarize-close {
     background: none;
@@ -158,7 +158,7 @@ const { summary, pageName, nextPage } = Astro.props;
     padding: 0;
   }
   #tls-summarize-close:hover {
-    color: var(--gold);
+    color: var(--gold-text, #7d5c08);
   }
   .tls-summarize-panel-inner p {
     font-family: 'Source Serif 4', Georgia, serif;
@@ -181,7 +181,7 @@ const { summary, pageName, nextPage } = Astro.props;
     font-size: 10px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: var(--muted, #7a8694);
+    color: var(--muted, #54626f);
   }
   .tls-summarize-phone {
     font-family: 'Playfair Display', serif;
@@ -191,19 +191,19 @@ const { summary, pageName, nextPage } = Astro.props;
     letter-spacing: 0.2px;
   }
   .tls-summarize-phone:hover {
-    color: var(--gold);
+    color: var(--gold-text, #7d5c08);
   }
   .tls-summarize-text-link {
     font-family: 'Source Serif 4', Georgia, serif;
     font-style: italic;
     font-size: 14px;
-    color: var(--muted, #7a8694);
+    color: var(--muted, #54626f);
     text-decoration: underline;
     text-decoration-color: rgba(184, 134, 11, 0.4);
     text-underline-offset: 3px;
   }
   .tls-summarize-text-link:hover {
-    color: var(--gold);
+    color: var(--gold-text, #7d5c08);
   }
   .tls-summarize-cta-sub {
     display: block;
@@ -212,7 +212,7 @@ const { summary, pageName, nextPage } = Astro.props;
     font-size: 9px;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: var(--muted, #7a8694);
+    color: var(--muted, #54626f);
     opacity: 0.7;
   }
   .tls-summarize-next {
@@ -226,7 +226,7 @@ const { summary, pageName, nextPage } = Astro.props;
     text-decoration: none;
   }
   .tls-summarize-next:hover {
-    color: var(--gold);
+    color: var(--gold-text, #7d5c08);
   }
 
   @media (max-width: 640px) {
