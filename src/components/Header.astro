@@ -151,9 +151,9 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     list-style: none;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 18px;
-    flex-wrap: nowrap;
+    justify-content: flex-end;
+    gap: 8px 22px;
+    flex-wrap: wrap;
     width: 100%;
   }
   .site-nav-list > li > a,
@@ -182,6 +182,18 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   }
   .has-dropdown {
     position: relative;
+    z-index: 1;
+  }
+  .has-dropdown:hover,
+  .has-dropdown:focus-within {
+    /*
+     * On the wrapped 2-row nav (below ~1536px), a dropdown panel can
+     * physically overlap the row below it. Without this, later-DOM
+     * folders (e.g. "In Depth") would paint over an earlier folder's
+     * open panel (e.g. "City Pages") since both are position:relative
+     * at the same stacking level. Elevate only the open one.
+     */
+    z-index: 50;
   }
   .dropdown-panel {
     list-style: none;
@@ -302,13 +314,13 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
   /*
    * The full inline nav has 10 items (6 top-level + 4 dropdown folders)
-   * plus the logo and phone number -- that genuinely doesn't fit
-   * comfortably before ~1500px. Below that, use the mobile hamburger
-   * menu instead of cramming/overflowing the inline nav (tested: it
-   * pushed items and the phone number off-screen entirely at
-   * 1024-1440px before this breakpoint was raised).
+   * plus the logo and phone number -- that doesn't fit on one line
+   * before ~1500px. Below that, .site-nav-list wraps to a second row
+   * (flex-wrap: wrap above) rather than overflowing. Reserved for real
+   * laptop/desktop widths -- true mobile/tablet still gets the
+   * hamburger menu, which is the better touch UI at that size anyway.
    */
-  @media (min-width: 1500px) {
+  @media (min-width: 1024px) {
     .site-nav {
       display: block;
     }
