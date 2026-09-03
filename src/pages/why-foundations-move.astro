@@ -9,6 +9,8 @@
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Why Foundations Move in New Mexico — TLS Foundations';
+const summary =
+  "Every foundation problem traces back to one of three things: the soil's behavior changed, the moisture regime changed, or the load on the foundation changed -- often more than one at once. Which driver is at work determines whether underpinning helps or makes things worse, and that can't be read off the surface symptoms alone, since heave and settlement often look identical. The Cause Library below catalogs 26 specific causes across six mechanisms -- from lost soil support to deep geologic hazards -- because the right response depends entirely on which one is actually happening.";
 const description =
   "Foundations move because soil moves, and in New Mexico no two soils move the same way. The full reference on causes, symptoms, and when underpinning isn't the answer.";
 
@@ -51,6 +53,7 @@ const faqSchema = {
   description={description}
   footer="full"
   ogImage="/images/why-foundations-move-hero.webp"
+  summary={summary}
   footerProps={{ serviceAreaLabel: "That's a lot of ways a home can move", serviceAreaText }}
   schema={[faqSchema]}
 >

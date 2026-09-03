@@ -5,6 +5,8 @@ import Layout from '../layouts/Layout.astro';
 import ReferenceNav from '../components/ReferenceNav.astro';
 
 const title = 'Expansive Soils in New Mexico | TLS Foundations';
+const summary =
+  "Expansive clay carries a molecular structure that pulls water into the spaces between its layers, physically swelling when wet and shrinking when it dries -- generating uplift pressure that can exceed 3,000 pounds per square foot, well past what a residential slab is built to resist. Which formation you're dealing with varies by region (Mancos Shale in the Four Corners, the Santa Fe Group along the Rio Grande corridor), but even within one formation the clay content can vary block to block. It can't be read off a geological map -- the only way to know what's under a specific foundation is to get into the ground at that location.";
 const description =
   'Why foundations move with the seasons in New Mexico -- the science of expansive clay soils, how they damage foundations, and what a real evaluation looks at.';
 
@@ -30,7 +32,7 @@ const schema = [
 ];
 ---
 
-<Layout title={title} description={description} footer="minimal" schema={schema}>
+<Layout title={title} description={description} footer="minimal" schema={schema} summary={summary}>
   <div class="tls-article">
     <section class="page-hero">
       <div class="page-hero-inner">

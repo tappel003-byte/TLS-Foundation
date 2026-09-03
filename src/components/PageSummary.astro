@@ -1,0 +1,183 @@
+---
+// Floating "Summarize this page" pill + popup panel. Only renders when a
+// page passes a `summary` prop -- pages without one simply don't get the
+// pill, so this can roll out page by page rather than all at once.
+interface Props {
+  summary: string;
+}
+const { summary } = Astro.props;
+---
+
+<button id="tls-summarize-btn" aria-haspopup="dialog" aria-controls="tls-summarize-panel">
+  Summarize this page
+</button>
+
+<div id="tls-summarize-overlay" role="presentation"></div>
+<div id="tls-summarize-panel" role="dialog" aria-modal="true" aria-labelledby="tls-summarize-heading">
+  <div class="tls-summarize-panel-inner">
+    <div class="tls-summarize-header">
+      <span id="tls-summarize-heading">The short version</span>
+      <button id="tls-summarize-close" aria-label="Close summary">×</button>
+    </div>
+    <p>{summary}</p>
+  </div>
+</div>
+
+<style>
+  #tls-summarize-btn {
+    position: fixed;
+    bottom: 28px;
+    left: 28px;
+    background: var(--blue);
+    color: #fff;
+    border: 2px solid var(--gold);
+    border-radius: 999px;
+    padding: 12px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s, background 0.2s;
+    pointer-events: none;
+  }
+  #tls-summarize-btn.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  #tls-summarize-btn:hover {
+    background: var(--gold);
+  }
+
+  #tls-summarize-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 34, 56, 0.55);
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  #tls-summarize-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  #tls-summarize-panel {
+    position: fixed;
+    left: 50%;
+    bottom: 0;
+    top: auto;
+    transform: translate(-50%, 20px);
+    width: min(560px, calc(100% - 48px));
+    max-height: 80vh;
+    overflow-y: auto;
+    background: var(--cream, #fdfaf6);
+    border: 2px solid var(--gold);
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+    z-index: 10001;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    box-shadow: 0 -12px 40px rgba(13, 34, 56, 0.25);
+  }
+  #tls-summarize-panel.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    pointer-events: auto;
+  }
+  .tls-summarize-panel-inner {
+    padding: 28px 32px 36px;
+  }
+  .tls-summarize-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+  }
+  #tls-summarize-heading {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  #tls-summarize-close {
+    background: none;
+    border: none;
+    font-size: 26px;
+    line-height: 1;
+    color: var(--blue);
+    cursor: pointer;
+    padding: 0;
+  }
+  #tls-summarize-close:hover {
+    color: var(--gold);
+  }
+  .tls-summarize-panel-inner p {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.75;
+    color: #1a1a1a;
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    #tls-summarize-btn {
+      bottom: 20px;
+      left: 20px;
+      padding: 10px 16px;
+      font-size: 10px;
+    }
+    .tls-summarize-panel-inner {
+      padding: 22px 22px 28px;
+    }
+  }
+</style>
+
+<script>
+  const btn = document.getElementById('tls-summarize-btn');
+  const overlay = document.getElementById('tls-summarize-overlay');
+  const panel = document.getElementById('tls-summarize-panel');
+  const closeBtn = document.getElementById('tls-summarize-close');
+
+  let ticking = false;
+  function updateVisibility() {
+    const y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    btn?.classList.toggle('show', y > 400);
+    ticking = false;
+  }
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateVisibility);
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+
+  function openPanel() {
+    overlay?.classList.add('show');
+    panel?.classList.add('show');
+  }
+  function closePanel() {
+    overlay?.classList.remove('show');
+    panel?.classList.remove('show');
+  }
+
+  btn?.addEventListener('click', openPanel);
+  closeBtn?.addEventListener('click', closePanel);
+  overlay?.addEventListener('click', closePanel);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closePanel();
+  });
+</script>
