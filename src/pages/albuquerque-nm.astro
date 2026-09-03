@@ -175,7 +175,7 @@ const schema = [
                 <p><mark class="key">Bearing capacity can vary significantly from one neighborhood to the next, and sometimes from one lot to the next.</mark> This is why generic inspection and one-size-fits-all repair recommendations fail in Albuquerque more often than anywhere else in the state.</p>
                 <p>In 1706, Spanish settlers named this place La Villa de Alburquerque after Francisco Fernández de la Cueva, the 10th Duke of Alburquerque. The extra "r" dropped over time. The ground didn't change at all.</p>
               </div>
-              <div>
+              <div class="sticky-col">
                 <div class="basin-stat reveal">
                   <div class="basin-stat-item">
                     <span class="basin-stat-num" data-target="1706">0</span>
@@ -1298,6 +1298,17 @@ const schema = [
     grid-template-columns: 1.2fr 1fr;
     gap: 96px;
   }
+  /*
+   * The shorter column in a two-col-wide pairing (here, the stat block +
+   * fact box) would otherwise leave a large blank void once the reader
+   * scrolls past its natural height while the longer text column keeps
+   * going. Pin it in place instead, so the space stays used.
+   */
+  .sticky-col {
+    align-self: start;
+    position: sticky;
+    top: 40px;
+  }
 
   /* ── FACT BOX ── */
   .fact-box {
@@ -2010,6 +2021,9 @@ const schema = [
     .west-mesa-layout {
       grid-template-columns: 1fr;
       gap: 40px;
+    }
+    .sticky-col {
+      position: static;
     }
     .abq-page p {
       max-width: 100%;

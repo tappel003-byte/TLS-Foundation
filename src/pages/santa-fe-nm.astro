@@ -157,7 +157,7 @@ const schema = [
             <span class="eyebrow">What We See</span>
             <h2 class="section-heading reveal">Foundation repair in Santa Fe, NM — <em>what's actually happening under your home</em></h2>
             <div class="two-col-wide">
-              <div class="reveal">
+              <div class="reveal sticky-col">
                 <p class="lede">Most of what the foundation repair industry knows was built for concrete and wood frame. Santa Fe has both — and 400 years of adobe that behaves completely differently under stress.</p>
                 <p>Heave and settlement express themselves differently in adobe walls than in concrete slabs. A crack pattern that means one thing in a slab can mean something entirely different in an earthen wall. Getting it wrong causes more damage, not less. <mark class="key">A contractor who learned their trade in Dallas or Denver hasn't seen what we've seen in Santa Fe, New Mexico.</mark></p>
                 <p>Foundation inspection in Santa Fe requires someone who understands this city's construction history — not a national franchise running the same checklist they use in Phoenix and Tulsa with the city name swapped out.</p>
@@ -1032,6 +1032,16 @@ const schema = [
     gap: 120px;
     align-items: start;
   }
+  /*
+   * In section 01 the left (text) column is much shorter than the right
+   * (12-item concern accordion) -- without this, the text column ends
+   * and leaves a large blank void below it while the accordion keeps
+   * going. Pin it in place instead, so the space stays used.
+   */
+  .sticky-col {
+    position: sticky;
+    top: 40px;
+  }
   .pull {
     font-family: 'Playfair Display', serif;
     font-size: clamp(20px, 2.3vw, 26px);
@@ -1515,6 +1525,9 @@ const schema = [
     .two-col-wide {
       grid-template-columns: 1fr;
       gap: 48px;
+    }
+    .sticky-col {
+      position: static;
     }
     .sf-page p {
       max-width: 100%;
