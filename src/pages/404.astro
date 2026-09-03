@@ -1,0 +1,127 @@
+---
+// 404 page. Not in the sitemap (Astro excludes it from @astrojs/sitemap
+// by convention), served for any unmatched route.
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Page Not Found — TLS Foundations';
+const description = 'That page moved or never existed. Here is where the real answers live.';
+---
+
+<Layout title={title} description={description} footer="minimal">
+  <section class="notfound">
+    <div class="notfound-inner">
+      <span class="notfound-eyebrow">404</span>
+      <h1 class="notfound-headline">That page settled.</h1>
+      <p class="notfound-sub">The link that brought you here is broken or out of date — not you. Here's where the real answers are.</p>
+
+      <div class="notfound-grid">
+        <a href="/" class="notfound-card">
+          <span class="notfound-card-title">Home</span>
+          <span class="notfound-card-desc">Start over from the top.</span>
+        </a>
+        <a href="/symptom-guide" class="notfound-card">
+          <span class="notfound-card-title">Symptom Guide</span>
+          <span class="notfound-card-desc">See something? Find out what it usually means.</span>
+        </a>
+        <a href="/common-concerns" class="notfound-card">
+          <span class="notfound-card-title">Common Concerns</span>
+          <span class="notfound-card-desc">Cost, timing, contractors — answered honestly.</span>
+        </a>
+        <a href="/contact-us" class="notfound-card">
+          <span class="notfound-card-title">Contact Us</span>
+          <span class="notfound-card-desc">Text or call — you reach the owner.</span>
+        </a>
+      </div>
+
+      <p class="notfound-direct">Or call <a href="tel:5059914180">(505) 991-4180</a> — someone who knows New Mexico soil will pick up.</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .notfound {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    padding: 96px clamp(20px, 5vw, 80px);
+    background: var(--cream);
+  }
+  .notfound-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .notfound-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 20px;
+  }
+  .notfound-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400;
+    color: var(--blue);
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .notfound-sub {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--slate);
+    line-height: 1.8;
+    max-width: 480px;
+    margin: 0 auto 56px;
+  }
+  .notfound-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    text-align: left;
+  }
+  .notfound-card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 1px solid var(--stone);
+    border-left: 4px solid transparent;
+    padding: 24px;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .notfound-card:hover {
+    border-left-color: var(--gold);
+    box-shadow: 0 16px 28px -20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+  }
+  .notfound-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+  .notfound-card-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+  .notfound-direct {
+    margin-top: 48px;
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .notfound-direct a {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--gold);
+  }
+  @media (max-width: 560px) {
+    .notfound-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
