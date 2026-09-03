@@ -25,6 +25,13 @@ const { summary, nextPage } = Astro.props;
       <button id="tls-summarize-close" aria-label="Close summary">×</button>
     </div>
     <p>{summary}</p>
+
+    <div class="tls-summarize-cta">
+      <span class="tls-summarize-cta-label">Questions about your own situation?</span>
+      <a href="tel:5059914180" class="tls-summarize-phone">(505) 991-4180</a>
+      <span class="tls-summarize-cta-sub">You reach the owner(s)</span>
+    </div>
+
     {
       nextPage && (
         <a class="tls-summarize-next" href={`${nextPage.path}?summarize=1`}>
@@ -143,11 +150,45 @@ const { summary, nextPage } = Astro.props;
     color: #1a1a1a;
     margin: 0;
   }
+  .tls-summarize-cta {
+    margin-top: 24px;
+    padding: 20px 24px;
+    background: var(--blue);
+    border-radius: 8px;
+    text-align: center;
+  }
+  .tls-summarize-cta-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 10px;
+  }
+  .tls-summarize-phone {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+  }
+  .tls-summarize-phone:hover {
+    color: var(--gold);
+  }
+  .tls-summarize-cta-sub {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 8px;
+  }
   .tls-summarize-next {
     display: inline-block;
-    margin-top: 24px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(184, 134, 11, 0.3);
+    margin-top: 20px;
     font-family: 'DM Mono', monospace;
     font-size: 11px;
     letter-spacing: 1.5px;
