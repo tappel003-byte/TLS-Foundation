@@ -1,0 +1,51 @@
+name: Scheduled rebuild
+
+# Job Notes articles (src/content/articles/) go live by date, not by push --
+# each article's publishDate gates whether src/pages/job-notes builds a page
+# for it at all (see src/content.config.ts). A static site only picks up
+# "today" at build time, so on a day nobody happens to push a commit, a
+# dated article would just silently stay unpublished. This workflow makes
+# an empty commit once a day so Cloudflare's existing git-integration
+# deploy (the same one that already rebuilds on every push to this branch)
+# runs anyway, with today's date, and anything newly due goes live.
+#
+# Nothing here touches Cloudflare directly and no new secrets are needed --
+# it only pushes a commit and lets the existing deploy hookup do its job.
+#
+# IMPORTANT: `branches` below targets claude/transcript-review-uu7irt
+# because that's the branch Cloudflare is currently deploying from (this
+# repo has no separate main). If that ever changes -- a merge to a real
+# main, a branch rename -- update the `ref` and push target below to match,
+# or this workflow will keep quietly rebuilding a branch nothing serves
+# from.
+
+on:
+  schedule:
+    # 13:00 UTC daily -- ~6-7am Mountain Time depending on DST.
+    - cron: '0 13 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: claude/transcript-review-uu7irt
+
+      - name: Skip if no articles exist yet
+        id: check
+        run: |
+          count=$(find src/content/articles -name '*.md' 2>/dev/null | wc -l)
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger deploy via empty commit
+        if: steps.check.outputs.count != '0'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty -m "Scheduled rebuild ($(date -u +%Y-%m-%d))"
+          git push origin claude/transcript-review-uu7irt
