@@ -50,19 +50,6 @@ const folders = [
       { text: 'Homeowner Decision Series', href: '/homeowner-decision-series' },
     ],
   },
-  // TEMPORARY -- side-by-side comparison for the regional-page restyle
-  // Tim asked for. Delete this whole folder object (and the pages it
-  // points to) once a direction is picked; nothing else references it.
-  {
-    title: 'Draft (temp)',
-    items: [
-      { text: 'Central New Mexico — v2', href: '/central-new-mexico-v2' },
-      { text: 'Northern New Mexico — v2', href: '/northern-new-mexico-v2' },
-      { text: 'Four Corners — v2', href: '/four-corners-v2' },
-      { text: 'Eastern New Mexico — v2', href: '/eastern-new-mexico-v2' },
-      { text: 'Southern New Mexico — v2', href: '/southern-new-mexico-v2' },
-    ],
-  },
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';

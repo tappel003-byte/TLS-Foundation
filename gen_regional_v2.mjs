@@ -62,22 +62,58 @@ function renderPage(cfg) {
   const zonesHtml = cfg.zones.map((z, i) => renderZoneSection(z, i + 2, i + 1)).join('\n');
   const navLinks = renderNavLinks(cfg.zones);
 
+  const majorCitiesHtml = cfg.majorCities
+    .map((c) => (c.href ? `<a href="${c.href}">${c.name}</a>` : c.name))
+    .join(' · ');
+
   return `---
-// PROTOTYPE -- side-by-side comparison for restyling the regional soil
-// pages in the same "magazine" visual language as the 3 city pages
-// (sticky left nav, numbered sections, zone treatment) instead of the
-// current accordion layout. Content below is the SAME real content
-// already on /${cfg.slug} -- restructured, not invented. Linked from a
-// temporary "Draft (temp)" nav folder in Header.astro; delete both
-// together once a direction is picked.
+// Regional soil page -- restyled in the magazine visual language shared
+// with the 3 city pages (sticky left nav, numbered sections, zone
+// treatment) instead of the previous single-accordion layout. Generated
+// by gen_regional_v2.mjs, which is the source of truth for this file's
+// shell (hero/nav/script/CSS shared across all 5 regional pages) --
+// edit the generator's per-region data and re-run it, don't hand-edit
+// the generated section content directly.
 import Layout from '../layouts/Layout.astro';
 import RegionalNav from '../components/RegionalNav.astro';
 
-const title = '${cfg.title} Soil Conditions (Draft v2) | TLS Foundations';
+const title = '${cfg.title} Soil Conditions | TLS Foundations';
+const summary = ${JSON.stringify(cfg.summary)};
 const description = ${JSON.stringify(cfg.description)};
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: '${cfg.title} Soil Conditions',
+    description,
+    about: description,
+    author: { '@type': 'Organization', name: 'TLS Foundations' },
+    publisher: { '@type': 'Organization', name: 'TLS Foundations' },
+    url: 'https://www.tlsfoundations.com/${cfg.slug}',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'New Mexico Soil Conditions', item: 'https://www.tlsfoundations.com/new-mexico-soil-conditions' },
+      { '@type': 'ListItem', position: 3, name: '${cfg.title}', item: 'https://www.tlsfoundations.com/${cfg.slug}' },
+    ],
+  },
+];
 ---
 
-<Layout title={title} description={description} footer="minimal" ogImage="/images/${cfg.heroImage}">
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={schema}
+  ogImage="/images/${cfg.heroImage}"
+  summary={summary}
+  pageName="${cfg.title}"
+  nextPage={{ path: '${cfg.nextPage.path}', name: '${cfg.nextPage.name}' }}
+>
   <div class="cnm-page">
     <!-- HERO -->
     <div class="hero">
@@ -93,7 +129,7 @@ const description = ${JSON.stringify(cfg.description)};
         </p>
         <div class="hero-cta">
           <span class="hero-cities-label">Major cities in this region</span>
-          <p class="hero-aside">${cfg.majorCities}</p>
+          <p class="hero-aside" set:html={${JSON.stringify(majorCitiesHtml)}} />
         </div>
       </div>
     </div>
@@ -326,6 +362,22 @@ ${zonesHtml}
     font-size: 13px;
     letter-spacing: 0.3px;
     color: rgba(255, 255, 255, 0.85);
+  }
+  /*
+    :global() -- the city links are injected via set:html (built from a
+    JS array at generation time), so they never get Astro's scoped
+    data-astro-cid attribute and a plain scoped ".hero-aside a" rule
+    silently doesn't match them, leaving default blue link color.
+  */
+  .hero-aside :global(a) {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: underline;
+    text-decoration-color: var(--gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .hero-aside :global(a):hover {
+    color: var(--gold);
   }
   @media (max-width: 767px) {
     .hero-content { padding: 0 24px 40px; }
@@ -664,7 +716,16 @@ const northern = {
     "Elevation is the dominant variable here -- frost, basalt-derived clays, and coal mine subsidence unique to the Raton Basin. Not just a colder version of the same problems found elsewhere.",
   description:
     'Taos Plateau, Mora Valley, and Raton Basin -- frost heave at elevation, montmorillonite clays, and coal mine subsidence unique to Raton.',
-  majorCities: 'Taos · Angel Fire · Red River · Raton · Springer',
+  summary:
+    "Northern New Mexico spans the Taos Plateau, Mora Valley, and Raton Basin: frost heave at elevation, basalt-derived montmorillonite clays that expand aggressively, and coal mine subsidence unique to the Raton Basin. Elevation and mining history make this region's causes meaningfully different from the rest of the state -- not just a colder version of the same problems found elsewhere.",
+  nextPage: { path: '/four-corners', name: 'Four Corners' },
+  majorCities: [
+    { name: 'Taos' },
+    { name: 'Angel Fire' },
+    { name: 'Red River' },
+    { name: 'Raton' },
+    { name: 'Springer' },
+  ],
   overviewEyebrow: 'Elevation & Frost',
   overviewHeading: 'Northern New Mexico soils — <em>elevation changes everything</em>',
   overviewParas: [
@@ -771,7 +832,16 @@ const fourCorners = {
     "New Mexico's most misdiagnosed foundation environment. Heave that looks like settlement, and collapsible river deposits along the San Juan corridor.",
   description:
     "San Juan Basin & Mancos Shale -- New Mexico's most misdiagnosed foundation environment. Heave that looks like settlement, plus collapsible river deposits.",
-  majorCities: 'Farmington · Aztec · Bloomfield · Gallup · Grants',
+  summary:
+    "The Four Corners region is built on the San Juan Basin and Mancos Shale -- widely the most misdiagnosed foundation environment in New Mexico, because the heave this shale produces looks identical to settlement on the surface while requiring the opposite repair. Collapsible river deposits along the San Juan corridor add a second, unrelated cause to the same region.",
+  nextPage: { path: '/eastern-new-mexico', name: 'Eastern New Mexico' },
+  majorCities: [
+    { name: 'Farmington' },
+    { name: 'Aztec' },
+    { name: 'Bloomfield' },
+    { name: 'Gallup' },
+    { name: 'Grants' },
+  ],
   overviewEyebrow: 'San Juan Basin',
   overviewHeading: 'Four Corners soils — <em>one basin, one hazard that requires precision</em>',
   overviewParas: [
@@ -828,7 +898,16 @@ const eastern = {
     'Four basins, four different soil hazards -- expansive wind-deposited clays, Permian evaporite dissolution, aquifer subsidence, and collapsible alluvium. Treating them the same is a mistake.',
   description:
     'High Plains, Pecos Valley, Mimbres and Lordsburg basins -- expansive clays, Permian evaporite dissolution, aquifer subsidence, and collapsible alluvium.',
-  majorCities: 'Clovis · Portales · Roswell · Carlsbad · Deming',
+  summary:
+    "Eastern New Mexico covers the High Plains, Pecos Valley, Mimbres Basin, and Lordsburg Basin: expansive wind-deposited clays, Permian-age evaporite dissolution, aquifer compaction subsidence from decades of agricultural pumping, and collapsible fan alluvium. Several of these mechanisms -- subsidence especially -- aren't things foundation repair can reverse; they change what an honest evaluation even recommends.",
+  nextPage: { path: '/southern-new-mexico', name: 'Southern New Mexico' },
+  majorCities: [
+    { name: 'Clovis' },
+    { name: 'Portales' },
+    { name: 'Roswell' },
+    { name: 'Carlsbad' },
+    { name: 'Deming' },
+  ],
   overviewEyebrow: 'High Plains to the Bootheel',
   overviewHeading: 'Eastern New Mexico soils — <em>four basins, four different hazards</em>',
   overviewParas: [
@@ -961,7 +1040,16 @@ const southern = {
     "Basin-and-range country, five distinct soil stories -- and a common thread of collapsibility that activates the first time moisture finds soil that's been dry for decades.",
   description:
     'Mesilla, Hatch-Rincon, Tularosa, Sacramento Mountains, and Jornada del Muerto -- collapsible La Mesa soils, gypsum dissolution, and first-wetting collapse.',
-  majorCities: 'Las Cruces · Alamogordo · Ruidoso · Socorro · Truth or Consequences',
+  summary:
+    "Southern New Mexico covers Mesilla, Hatch-Rincon, Tularosa, the Sacramento Mountains, and Jornada del Muerto: collapsible La Mesa soils, gypsum dissolution, differential rock-and-soil bearing, and first-wetting collapse, where soil that's been stable for decades can settle suddenly the first time it gets wet.",
+  nextPage: { path: '/albuquerque-nm', name: 'Albuquerque' },
+  majorCities: [
+    { name: 'Las Cruces' },
+    { name: 'Alamogordo' },
+    { name: 'Ruidoso' },
+    { name: 'Socorro' },
+    { name: 'Truth or Consequences' },
+  ],
   overviewEyebrow: 'Basin & Range',
   overviewHeading: 'Southern New Mexico soils — <em>five basins, one common thread</em>',
   overviewParas: [
@@ -1109,11 +1197,132 @@ const southern = {
   ],
 };
 
-// ── Write files ──────────────────────────────────────────────────────
+const central = {
+  slug: 'central-new-mexico',
+  title: 'Central New Mexico',
+  heroImage: 'central-new-mexico-hero.webp',
+  heroLine1: 'Central',
+  heroLine2: 'New Mexico.',
+  heroSub:
+    'Three basins along the Rio Grande Rift. Three different soil stories -- and a repair approach calibrated for one can be the wrong call two miles away, in another part of the same region.',
+  description:
+    'Albuquerque, Española, and Estancia basins -- collapsible West Mesa soils, river clays, Tesuque Formation shifts, and evaporite dissolution.',
+  summary:
+    "Central New Mexico spans the Albuquerque, Española, and Estancia basins, and the soil character changes meaningfully between them: collapsible soils on the West Mesa, expansive river clays along the Rio Grande corridor, unpredictable Tesuque Formation variability in the Española Basin, and evaporite dissolution in the closed Estancia Basin. A repair approach calibrated for one of these conditions can be the wrong call two miles away, in another part of the same region.",
+  nextPage: { path: '/northern-new-mexico', name: 'Northern New Mexico' },
+  majorCities: [
+    { name: 'Albuquerque', href: '/albuquerque-nm' },
+    { name: 'Rio Rancho', href: '/rio-rancho-nm' },
+    { name: 'Santa Fe', href: '/santa-fe-nm' },
+    { name: 'Los Alamos' },
+    { name: 'Moriarty' },
+  ],
+  overviewEyebrow: 'Rio Grande Rift',
+  overviewHeading: 'Central New Mexico soils — <em>three basins, three different stories</em>',
+  overviewParas: [
+    'Central New Mexico sits on top of the Rio Grande Rift -- one of the most geologically active continental rifts in North America. The rift is still spreading. The basins it created fill with sediment from surrounding mountains, and that sediment is what most foundations in this region are built on.',
+    'We have worked in all three basins in this region. The soil in each one has a different character, a different way it moves, and a different appropriate response when something goes wrong. Collapsible soils and expansive clays are the primary hazards -- but they appear in different parts of the basin and require different responses.',
+  ],
+  statDesc: 'Albuquerque, Española, and Estancia -- each with its own soil behavior',
+  relatedReading: [
+    '<a href="/collapsible-soil">Collapsible soils</a> -- the West Mesa\'s dominant hazard.',
+    '<a href="/expansive-soil">Expansive clays</a> -- the Valley floor and Tesuque Formation\'s dominant hazard.',
+    '<a href="/symptom-guide">Symptom Guide</a> -- not sure what you\'re seeing?',
+  ],
+  zones: [
+    {
+      id: 'albuquerque-basin',
+      title: 'Albuquerque Basin',
+      citiesShort: 'Albuquerque · Rio Rancho · Corrales · Bernalillo · Los Lunas · Belen',
+      tagline:
+        "The Rio Grande Rift's most populated expression -- alluvial fans, river terraces, and mesa edges, each with different soil behavior within a few miles of each other.",
+      whatWeSee:
+        'It depends entirely on where in the basin you are. On the West Mesa, the soil is brown-tan alluvium -- looks stable, often is not. In the North Valley and South Valley, the soil gets darker and heavier as you approach the river -- old floodplain material with clay that moves when it gets wet. In the East Mountains foothills, alluvial fans off the Sandias have loose upper material over harder cemented zones.',
+      whatItDoes:
+        'The West Mesa is classic collapsible soil country -- dry, it bears load fine; wet, from irrigation or a broken line, it consolidates and the foundation follows it down. The Valley floor is the opposite problem: expansive clays that push up when wet and shrink when dry. The foothills introduce differential bearing -- dense cemented zones next to loose material, so one corner of a house can settle while another stays put.',
+      hazards: [
+        {
+          title: 'Collapsible alluvial soils',
+          desc: 'West Mesa, Pajarito Mesa, and the developing edges of Rio Rancho. Stable for decades until moisture finds them. When they go, they go fast.',
+        },
+        {
+          title: 'Expansive river clays',
+          desc: 'South Valley, North Valley, Corrales, and the old floodplain neighborhoods. Foundations that heave in wet years and crack in dry ones. Seasonal pattern is the tell.',
+        },
+        {
+          title: 'Alluvial fan differential bearing',
+          desc: 'Foothills and East Mountains. One corner of a house on dense cemented material, another on loose fan sediment. The differential movement is structural even when neither soil is "bad."',
+        },
+      ],
+      communities:
+        'Albuquerque · Los Ranchos de Albuquerque · Rio Rancho · Tijeras · Edgewood · Corrales · Bernalillo · Placitas · Belen · Los Lunas · Bosque Farms · Peralta · South Valley · North Valley · Sandia Heights · Cedar Crest · Isleta · Pajarito Mesa · Algodones',
+    },
+    {
+      id: 'espanola-basin',
+      title: 'Española Basin',
+      citiesShort: 'Santa Fe · Española · Los Alamos · White Rock · Pojoaque · Chimayó',
+      tagline:
+        'The upper Rio Grande corridor -- where ancient lake sediments and volcanic ash meet centuries of acequia irrigation, and the soil remembers all of it.',
+      whatWeSee:
+        'The Tesuque Formation has a visual signature you learn quickly: exposures in the cut banks and arroyos vary from sandy and loose to heavy clay-bearing within short distances. In the pueblos and along the old acequia corridors, centuries of irrigation have altered soil moisture content in ways no geological map captures. The land looks flat and stable. The subsurface often is not.',
+      whatItDoes:
+        'The Tesuque Formation is laterally inconsistent -- fine-grained expansive members and coarser non-expansive members, often stacked and interbedded, creating differential settlement within a single foundation footprint. Los Alamos sits on Bandelier Tuff at the canyon rim, introducing a different hazard: shallow rock with variable depth to competent bearing.',
+      hazards: [
+        {
+          title: 'Tesuque Formation lateral variability',
+          desc: 'Expansive clay members and non-expansive sand members stacked and interbedded, sometimes within the same foundation footprint. Lateral variability is the signature hazard here.',
+        },
+        {
+          title: 'Expansive clay in the fine-grained members',
+          desc: 'Where the Tesuque runs heavy with clay, foundations move with moisture. Santa Fe and the upper basin neighborhoods built into hillsides see this most.',
+        },
+        {
+          title: 'Acequia moisture migration',
+          desc: 'Centuries of irrigation have altered soil moisture in ways no geological map captures. Homes near old acequia corridors sit on soils repeatedly wetted and dried.',
+        },
+      ],
+      communities:
+        'Santa Fe · Española · Los Alamos · White Rock · Pojoaque · Nambé · Tesuque · Chimayó · Alcalde · Dixon · Velarde · Abiquiu · El Rito · Truchas · La Cienega · Galisteo · Pecos · Glorieta · Lamy',
+    },
+    {
+      id: 'estancia-basin',
+      title: 'Estancia Basin',
+      citiesShort: 'Estancia · Moriarty · Mountainair · Willard · McIntosh · Edgewood',
+      tagline:
+        "A closed basin with no outlet to the sea -- what goes in stays in, and so does the chemistry. Lake Estancia dried up thousands of years ago but its legacy is still in the soil.",
+      whatWeSee:
+        'The Estancia Basin sits around 6,000 feet elevation, east of the Manzano and Sandia ranges. The soil is pale -- light tan to whitish where evaporite minerals concentrate. Caliche shows up everywhere, sometimes as a thick hardpan just below grade that looks like competent bearing but fractures unpredictably. The playas -- dry lake bed remnants -- are visually flat and featureless. They\'re also where the worst soil behavior concentrates.',
+      whatItDoes:
+        'The lacustrine clays deposited by Lake Estancia are highly expansive in places. Gypsum and halite from thousands of years of evaporation can dissolve under sustained moisture, creating voids in the subsurface. The basin is closed, meaning seasonal moisture has nowhere to go except down or into the soil -- shrink-swell cycles are pronounced in wet years.',
+      hazards: [
+        {
+          title: 'Expansive lacustrine clays',
+          desc: 'The legacy of Lake Estancia. Closed basin hydrology means moisture builds up with nowhere to go -- the wet-dry cycles are pronounced, especially in the lower basin.',
+        },
+        {
+          title: 'Evaporite dissolution',
+          desc: 'Gypsum and halite deposits from thousands of years of evaporation. Sustained moisture dissolves them at depth, creating voids beneath foundations with no surface warning.',
+        },
+        {
+          title: 'Caliche variability',
+          desc: 'Looks like competent bearing. Sometimes is. A thin caliche layer over soft compressible material below is a hard ceiling over a soft floor, not a stable foundation.',
+        },
+      ],
+      communities:
+        'Estancia · Moriarty · Mountainair · Willard · McIntosh · Edgewood · Encino · Duran · Manzano · Tajique · Torreon · Clines Corners · Gran Quivira',
+    },
+  ],
+};
 
-const regions = [northern, fourCorners, eastern, southern];
+// ── Write files ──────────────────────────────────────────────────────
+// Writing directly to the live regional-page filenames (no "-v2" suffix)
+// -- these are promoted to production, replacing the previous
+// single-accordion layout at the same URLs. No slug/URL changes, so no
+// redirect or re-indexing concerns.
+
+const regions = [central, northern, fourCorners, eastern, southern];
 for (const r of regions) {
-  const outPath = `src/pages/${r.slug}-v2.astro`;
+  const outPath = `src/pages/${r.slug}.astro`;
   fs.writeFileSync(outPath, renderPage(r));
   console.log('wrote', outPath, `(${r.zones.length} zones)`);
 }
