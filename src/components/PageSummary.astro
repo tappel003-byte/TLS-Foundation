@@ -8,9 +8,10 @@
 // having to find and click the pill again on each page.
 interface Props {
   summary: string;
+  pageName?: string;
   nextPage?: { path: string; name: string };
 }
-const { summary, nextPage } = Astro.props;
+const { summary, pageName, nextPage } = Astro.props;
 ---
 
 <button id="tls-summarize-btn" aria-haspopup="dialog" aria-controls="tls-summarize-panel">
@@ -21,7 +22,10 @@ const { summary, nextPage } = Astro.props;
 <div id="tls-summarize-panel" role="dialog" aria-modal="true" aria-labelledby="tls-summarize-heading">
   <div class="tls-summarize-panel-inner">
     <div class="tls-summarize-header">
-      <span id="tls-summarize-heading">The short version</span>
+      <div class="tls-summarize-header-text">
+        {pageName && <span class="tls-summarize-page">{pageName}</span>}
+        <span id="tls-summarize-heading">The short version</span>
+      </div>
       <button id="tls-summarize-close" aria-label="Close summary">×</button>
     </div>
     <p>{summary}</p>
@@ -124,6 +128,17 @@ const { summary, nextPage } = Astro.props;
     margin-bottom: 16px;
     padding-bottom: 14px;
     border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+  }
+  .tls-summarize-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .tls-summarize-page {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--blue);
   }
   #tls-summarize-heading {
     font-family: 'DM Mono', monospace;
