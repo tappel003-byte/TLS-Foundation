@@ -10,12 +10,51 @@ const description =
   'We match the repair method to the problem, not the other way around. Helical piers, push piers, grouting, drainage -- all based on a proper diagnosis.';
 
 const serviceAreaText = `TLS Foundations is a New Mexico foundation repair contractor serving residential and commercial clients across the state. We install helical piers, push piers, and micropiles for deep foundation support. We perform compaction grouting and foam injection for void fill and soil densification. We correct drainage and surface grading when moisture is the problem — which in New Mexico, it usually is. We recommend monitoring when repair is premature. We design custom solutions when the soil profile requires something the standard toolkit doesn't cover. Eight methods on this page. The one we recommend is the one the soil warrants — not the one that generates the largest invoice. A company that sells a system evaluates every problem through the lens of that system. We carry a broad enough toolkit that the method genuinely follows the diagnosis. That is the difference.`;
+
+const methods = [
+  { id: 'helical-piers', name: 'Helical Piers', description: 'Steel piers with helical plates, rotated into the ground to reach competent bearing soil. Installed where deeper support is needed for homes with shallow foundations, expansive clay, or variable soil conditions.' },
+  { id: 'push-piers', name: 'Push Piers', description: 'Steel piers driven into the ground using the weight of the structure as reaction force. Used for commercial buildings, multi-storey homes, and heavy structures where a driven deep-support system is the right approach.' },
+  { id: 'micropiles', name: 'Micropiles', description: 'Small-diameter drilled and grouted deep foundation elements. Used where access is limited or the soil profile requires reaching bearing at significant depth through hard material.' },
+  { id: 'compaction-grouting', name: 'Compaction Grouting', description: 'Low-slump grout injected under pressure to densify loose soil and fill voids. Used for settled slabs, voids under foundations, collapsible soil, or loose zones that need densification.' },
+  { id: 'foam-injection', name: 'Foam Injection', description: 'Expanding polyurethane foam injected beneath slabs to lift and fill light voids. Used for sunken driveways, sidewalks, light interior slabs, or small voids under concrete.' },
+  { id: 'drainage-correction', name: 'Drainage and Grading Correction', description: "Correcting grading, gutters, and surface drainage to direct water away from the foundation. Often the correct first intervention, since most New Mexico foundation movement is moisture-driven -- though it has real limits once soil has already lost bearing capacity or the cause is geological." },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Foundation Repair Methods',
+    itemListElement: methods.map((m, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Service',
+        name: m.name,
+        description: m.description,
+        url: `https://www.tlsfoundations.com/foundation-repair-methods#${m.id}`,
+        provider: { '@type': 'LocalBusiness', name: 'TLS Foundations' },
+        areaServed: { '@type': 'State', name: 'New Mexico' },
+        serviceType: 'Foundation repair',
+      },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'Foundation Repair Methods', item: 'https://www.tlsfoundations.com/foundation-repair-methods' },
+    ],
+  },
+];
 ---
 
 <Layout
   title={title}
   description={description}
   footer="full"
+  schema={schema}
   footerProps={{
     serviceAreaLabel: "Six methods (not to mention a couple others we have up our sleeves). The right one depends on your soil.",
     serviceAreaText,

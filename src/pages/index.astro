@@ -11,9 +11,39 @@ import Layout from '../layouts/Layout.astro';
 const title = 'TLS Foundations — New Mexico Foundation Repair';
 const description =
   "We don't guess a fix and work backward; we read the site and let the remedy follow. 55 combined years of New Mexico foundation repair and geotechnical experience.";
+
+const services = [
+  { id: 'helical-piers', name: 'Helical Piers', description: 'A steel shaft with helical plates, rotated into the ground by torque -- not by pushing against the structure. The correct pier solution for most New Mexico residential foundations.' },
+  { id: 'push-piers', name: 'Push Piers', description: "Installed by jacking against the structure's dead load. Appropriate for commercial and heavy structures. Not the right solution for most NM wood-frame residential homes." },
+  { id: 'micropiles', name: 'Micropiles', description: 'Small-diameter drilled and grouted piers -- used when hard rock, cobbles, or dense caliche prevents helical installation, or when bearing depth is significant.' },
+  { id: 'compaction-grouting', name: 'Compaction Grouting', description: 'Pressure-injected grout that densifies loose or collapsible soils beneath a structure. Appropriate for specific soil conditions -- not a universal fix.' },
+  { id: 'foam-injection', name: 'Foam Injection', description: 'Void filling and slab stabilization using expanding polyurethane foam. Used where underlying soil conditions are understood and appropriate for the method.' },
+  { id: 'drainage-correction', name: 'Surface & Drainage Correction', description: 'Many New Mexico foundation problems are moisture problems. Correcting drainage and surface grade is sometimes the complete repair -- not a consolation prize.' },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Foundation Repair Services',
+    itemListElement: services.map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Service',
+        name: s.name,
+        description: s.description,
+        url: `https://www.tlsfoundations.com/foundation-repair-methods#${s.id}`,
+        provider: { '@type': 'LocalBusiness', name: 'TLS Foundations' },
+        areaServed: { '@type': 'State', name: 'New Mexico' },
+        serviceType: 'Foundation repair',
+      },
+    })),
+  },
+];
 ---
 
-<Layout title={title} description={description} footer="full">
+<Layout title={title} description={description} footer="full" schema={schema}>
   <section class="hero">
     <img class="hero-photo" src="/images/home-hero.webp" alt="Sandia Mountains sunrise, New Mexico" />
     <div class="hero-overlay"></div>
