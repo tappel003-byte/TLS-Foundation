@@ -11,12 +11,56 @@ const description =
   "New Mexico has more soil variation than most states. Thirty-three counties, sixteen geologic basins -- and a repair approach built around that variation, not around a national playbook.";
 
 const serviceAreaText = `New Mexico has more geological variation than most states combined — and that variation determines everything about how foundation repair should be approached here. TLS Foundations was built by people who chose New Mexico, stayed in New Mexico, and have spent their working lives learning this specific place. Thirty-three counties. Sixteen geologic basins. One contractor who knows the difference between what the ground does in the South Valley versus Rio Rancho versus Corrales — and why that difference matters before a single pier gets specified. Foundation repair looks different when the contractor has spent decades in the same formations, across the same moisture cycles, in the same communities. The method follows the diagnosis. The recommendation follows the evidence. TLS Foundations was built around that sequence — investigation before recommendation, monitoring when repair is premature, drainage correction when drainage is the problem, and a straight answer when the foundation does not need repair at all. The six operational differences on this page are not marketing language. They are the reason an honest evaluation is possible here when it is not possible at companies built around sales volume. We fix foundations. We just make sure yours needs fixing first.`;
+
+const accordionFaqs = [
+  {
+    q: 'New Mexico has more soil variation than most states -- how does that affect foundation repair?',
+    a: "The Rio Grande Rift runs the length of the state, filling long basins with sediment ranging from expansive clays to collapsible desert silts to alluvial river gravels, sometimes within a few miles of each other. A repair method that works reliably in the South Valley may be the wrong choice in Rio Rancho two miles away. A national company operating from a standardized playbook cannot account for that variation -- the method gets selected before the soil is understood.",
+  },
+  {
+    q: 'Why does regional geotechnical knowledge matter, and why can\'t it be onboarded?',
+    a: "Regional geotechnical knowledge takes decades to build. It accumulates from working the same formations, in the same climate, across multiple construction eras and moisture cycles, until the site reads before the boring goes in. That kind of knowledge lives in the people who have done the work in this state, in these soils -- it isn't in a training manual and can't be acquired quickly.",
+  },
+  {
+    q: "If the repair methods aren't proprietary, what makes TLS Foundations different?",
+    a: 'The methods -- helical piers, push piers, micropiles, compaction grouting, foam injection -- are industry-standard and available to any contractor. The difference is not the tool. The difference is whether the tool is selected before or after the soil is understood. A company with one system evaluates every problem through that system; TLS carries a broad enough toolkit that the method genuinely follows the diagnosis.',
+  },
+  {
+    q: "What's the difference between a contractor inspection and a geotechnical investigation?",
+    a: 'A contractor inspection is performed by someone whose business depends on repair sales, which creates an inherent conflict of interest even when the evaluation itself is accurate. A geotechnical investigation is performed by a licensed geotechnical engineer whose fee is paid for the investigation itself, not the repair that follows, so the report and recommendation carry no financial stake in the outcome. When the decision involves significant money, or you are not sure whether you need repair at all, an independent investigation is the more reliable starting point.',
+  },
+  {
+    q: 'Are you worried competitors will use this website to get better at their jobs?',
+    a: 'No. A rising tide lifts all boats -- if the content on this site makes any contractor, including a competitor, think more carefully about soil conditions before recommending a repair method, homeowners benefit. And the knowledge that makes TLS different is not in a document; it is in the people who have spent decades in New Mexico soils, which does not transfer by reading a page.',
+  },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: accordionFaqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'Our Approach', item: 'https://www.tlsfoundations.com/our-approach' },
+    ],
+  },
+];
 ---
 
 <Layout
   title={title}
   description={description}
   footer="full"
+  schema={schema}
   footerProps={{ serviceAreaLabel: "NM is different, but so are we.", serviceAreaText }}
 >
   <section class="hero">
