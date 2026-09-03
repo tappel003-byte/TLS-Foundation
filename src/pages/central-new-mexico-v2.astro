@@ -30,12 +30,8 @@ const description =
           calibrated for one can be the wrong call two miles away, in another part of the same region.
         </p>
         <div class="hero-cta">
-          <div>
-            <a href="tel:5059914180" class="hero-phone">(505) 991-4180</a>
-            <span class="hero-note">You reach the owner(s)</span>
-          </div>
-          <div class="hero-sep"></div>
-          <p class="hero-aside">Albuquerque · Española · Estancia basins.</p>
+          <span class="hero-cities-label">Major cities in this region</span>
+          <p class="hero-aside">Albuquerque · Rio Rancho · Santa Fe · Los Alamos · Moriarty</p>
         </div>
       </div>
     </div>
@@ -402,40 +398,24 @@ const description =
   }
   .hero-cta {
     display: flex;
-    align-items: center;
-    gap: 24px;
+    flex-direction: column;
+    gap: 6px;
   }
-  .hero-phone {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(22px, 2.5vw, 28px);
-    color: var(--white);
-    text-decoration: none;
-  }
-  .hero-phone:hover { color: var(--gold); }
-  .hero-note {
-    display: block;
+  .hero-cities-label {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.6);
-    margin-top: 4px;
-  }
-  .hero-sep {
-    width: 1px;
-    height: 34px;
-    background: rgba(255, 255, 255, 0.25);
+    color: var(--gold);
   }
   .hero-aside {
     font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    color: rgba(255, 255, 255, 0.75);
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    color: rgba(255, 255, 255, 0.85);
   }
   @media (max-width: 767px) {
     .hero-content { padding: 0 24px 40px; }
-    .hero-cta { flex-direction: column; align-items: flex-start; gap: 14px; }
-    .hero-sep { display: none; }
   }
 
   .gold-rule {
