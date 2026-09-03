@@ -2,10 +2,15 @@
 // Floating "Summarize this page" pill + popup panel. Only renders when a
 // page passes a `summary` prop -- pages without one simply don't get the
 // pill, so this can roll out page by page rather than all at once.
+//
+// Optional `nextPage` lets someone chain straight from one summary to the
+// next page's summary (auto-opens there via a ?summarize=1 param) without
+// having to find and click the pill again on each page.
 interface Props {
   summary: string;
+  nextPage?: { path: string; name: string };
 }
-const { summary } = Astro.props;
+const { summary, nextPage } = Astro.props;
 ---
 
 <button id="tls-summarize-btn" aria-haspopup="dialog" aria-controls="tls-summarize-panel">
@@ -20,6 +25,13 @@ const { summary } = Astro.props;
       <button id="tls-summarize-close" aria-label="Close summary">×</button>
     </div>
     <p>{summary}</p>
+    {
+      nextPage && (
+        <a class="tls-summarize-next" href={`${nextPage.path}?summarize=1`}>
+          Next: {nextPage.name} →
+        </a>
+      )
+    }
   </div>
 </div>
 
@@ -28,11 +40,14 @@ const { summary } = Astro.props;
     position: fixed;
     bottom: 28px;
     left: 28px;
+    height: 48px;
+    display: flex;
+    align-items: center;
     background: var(--blue);
     color: #fff;
     border: 2px solid var(--gold);
     border-radius: 999px;
-    padding: 12px 20px;
+    padding: 0 20px;
     font-family: 'DM Mono', monospace;
     font-size: 11px;
     letter-spacing: 1px;
@@ -74,8 +89,9 @@ const { summary } = Astro.props;
     top: auto;
     transform: translate(-50%, 20px);
     width: min(560px, calc(100% - 48px));
-    max-height: 80vh;
+    max-height: 92vh;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     background: var(--cream, #fdfaf6);
     border: 2px solid var(--gold);
     border-bottom: none;
@@ -128,12 +144,26 @@ const { summary } = Astro.props;
     color: #1a1a1a;
     margin: 0;
   }
+  .tls-summarize-next {
+    display: inline-block;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(184, 134, 11, 0.3);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    text-decoration: none;
+  }
+  .tls-summarize-next:hover {
+    color: var(--gold);
+  }
 
   @media (max-width: 640px) {
     #tls-summarize-btn {
-      bottom: 20px;
       left: 20px;
-      padding: 10px 16px;
+      padding: 0 16px;
       font-size: 10px;
     }
     .tls-summarize-panel-inner {
@@ -166,6 +196,7 @@ const { summary } = Astro.props;
   );
 
   function openPanel() {
+    btn?.classList.add('show');
     overlay?.classList.add('show');
     panel?.classList.add('show');
   }
@@ -180,4 +211,14 @@ const { summary } = Astro.props;
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closePanel();
   });
+
+  // Arriving from another page's "Next" link -- open straight away and
+  // strip the param so a refresh or share of the URL doesn't re-trigger it.
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('summarize') === '1') {
+    openPanel();
+    params.delete('summarize');
+    const cleanUrl = window.location.pathname + (params.toString() ? `?${params}` : '') + window.location.hash;
+    window.history.replaceState(null, '', cleanUrl);
+  }
 </script>

@@ -24,9 +24,11 @@ interface Props {
   ogImage?: string;
   /** Short hand-written summary shown in the "Summarize this page" popup. Omit to skip the pill entirely on this page. */
   summary?: string;
+  /** Chains to the next page's summary popup (adds a "Next: X" link, auto-opens there). Only meaningful alongside `summary`. */
+  nextPage?: { path: string; name: string };
 }
 
-const { title, description, schema = [], footer = 'minimal', footerProps = {}, ogImage = '/images/home-hero.webp', summary } = Astro.props;
+const { title, description, schema = [], footer = 'minimal', footerProps = {}, ogImage = '/images/home-hero.webp', summary, nextPage } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(ogImage, Astro.site);
 
@@ -108,6 +110,6 @@ const websiteSchema = {
     <slot />
     {footer === 'full' ? <Footer {...footerProps} /> : <MinimalFooter />}
     <BackToTop />
-    {summary && <PageSummary summary={summary} />}
+    {summary && <PageSummary summary={summary} nextPage={nextPage} />}
   </body>
 </html>
