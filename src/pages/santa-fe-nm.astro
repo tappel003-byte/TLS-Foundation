@@ -516,7 +516,9 @@ const schema = [
       back.style.transform = '';
       back.style.visibility = '';
     });
-    maxH = Math.max(maxH, 280);
+    // Cap card height so a single long back-face paragraph doesn't stretch
+    // every card in the row -- .flip-back scrolls internally past this.
+    maxH = Math.min(Math.max(maxH, 280), 480);
     cards.forEach((card) => {
       card.style.height = maxH + 'px';
       (card.querySelector('.flip-card-inner') as HTMLElement).style.height = maxH + 'px';
@@ -1217,6 +1219,7 @@ const schema = [
     transform: rotateY(180deg);
     position: absolute;
     inset: 0;
+    overflow-y: auto;
   }
   .flip-num {
     font-family: 'Playfair Display', serif;

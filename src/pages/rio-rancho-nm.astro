@@ -1205,6 +1205,7 @@ const schema = [
     cursor: pointer;
     perspective: 1000px;
     align-self: stretch;
+    height: 480px;
   }
   .flip-card-inner {
     position: relative;
@@ -1236,6 +1237,7 @@ const schema = [
     border: 1px solid var(--stone);
     border-top: 3px solid var(--gold);
     transform: rotateY(180deg);
+    overflow-y: auto;
   }
   .flip-num {
     font-family: 'Playfair Display', serif;
@@ -1695,9 +1697,11 @@ const schema = [
     }
     .flip-card {
       perspective: none;
+      height: auto;
     }
     .flip-card-inner {
       transform: none !important;
+      height: auto;
     }
     .flip-front,
     .flip-back {
