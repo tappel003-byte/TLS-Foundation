@@ -29,6 +29,7 @@ const { summary, nextPage } = Astro.props;
     <div class="tls-summarize-cta">
       <span class="tls-summarize-cta-label">Questions about your own situation?</span>
       <a href="tel:5059914180" class="tls-summarize-phone">(505) 991-4180</a>
+      <a href="sms:5059914180" class="tls-summarize-text-link">or text</a>
       <span class="tls-summarize-cta-sub">You reach the owner(s)</span>
     </div>
 
@@ -175,6 +176,18 @@ const { summary, nextPage } = Astro.props;
     letter-spacing: 0.2px;
   }
   .tls-summarize-phone:hover {
+    color: var(--gold);
+  }
+  .tls-summarize-text-link {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted, #7a8694);
+    text-decoration: underline;
+    text-decoration-color: rgba(184, 134, 11, 0.4);
+    text-underline-offset: 3px;
+  }
+  .tls-summarize-text-link:hover {
     color: var(--gold);
   }
   .tls-summarize-cta-sub {
