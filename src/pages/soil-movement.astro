@@ -61,8 +61,7 @@ const videoSchema = [
   <div class="tls-body">
     <section class="tls-series-hero">
       <span class="eyebrow">A Three-Part Series</span>
-      <h1>Why Foundations Move</h1>
-      <h1 class="gold">in New Mexico</h1>
+      <h1>Why Foundations Move <span class="gold">in New Mexico</span></h1>
       <hr class="tls-hero-rule" />
       <p>Three short films on the forces that move foundations across New Mexico — what causes them, how to tell them apart, and what honest evaluation looks like before any repair is considered.</p>
       <div class="tls-episode-list">
@@ -180,13 +179,14 @@ const videoSchema = [
     font-weight: 400;
     color: #fff;
     line-height: 1.1;
-    margin: 0 0 12px;
+    margin: 0 0 32px;
     letter-spacing: -0.3px;
   }
-  .tls-series-hero h1.gold {
+  .tls-series-hero h1 .gold {
+    display: block;
     color: var(--tls-gold);
     font-style: italic;
-    margin-bottom: 32px;
+    margin-top: 12px;
   }
   .tls-hero-rule {
     width: 60px;

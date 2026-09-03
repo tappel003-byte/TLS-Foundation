@@ -23,6 +23,7 @@ const serviceAreaText = `TLS Foundations provides foundation repair and geotechn
     <div class="hero-overlay"></div>
     <div class="tls-hero-wrap">
       <div class="tls-hero-box">
+        <h1 class="tls-hero-headline">New Mexico Soil Conditions</h1>
         <span class="tls-hero-sub">"I knew I shoulda taken that left turn at Albuquerque"</span>
         <span class="tls-hero-sub">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- Bugs Bunny 1953</span>
       </div>
@@ -139,6 +140,15 @@ const serviceAreaText = `TLS Foundations provides foundation repair and geotechn
     background: rgba(13, 34, 56, 0.65);
     padding: 28px 40px 32px;
   }
+  .tls-hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 60px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    display: block;
+    margin-bottom: 20px;
+  }
   .tls-hero-sub {
     font-family: 'Source Serif 4', serif;
     font-size: clamp(15px, 1.8vw, 18px);
@@ -148,7 +158,7 @@ const serviceAreaText = `TLS Foundations provides foundation repair and geotechn
     margin-top: 12px;
     display: block;
   }
-  .tls-hero-sub:first-child {
+  .tls-hero-sub:first-of-type {
     margin-top: 0;
     font-size: clamp(20px, 3vw, 28px);
     font-family: 'Playfair Display', serif;
