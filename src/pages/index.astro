@@ -28,6 +28,46 @@ const description =
   </section>
 
   <main class="tls-home">
+    <section class="notice-router">
+      <div class="notice-inner">
+        <span class="notice-eyebrow">Not sure where to start?</span>
+        <h2 class="notice-headline">What are you noticing?</h2>
+        <p class="notice-sub">Pick what's going on. Every card below leads to a real answer — not a contact form.</p>
+        <div class="notice-grid">
+          <a href="/symptom-guide" class="notice-card">
+            <span class="notice-card-title">Cracks, sticking doors, uneven floors</span>
+            <span class="notice-card-desc">See what it usually means, and how New Mexico soil factors in.</span>
+            <span class="notice-card-arrow">→</span>
+          </a>
+          <a href="/foundation-repair-methods#drainage-correction" class="notice-card">
+            <span class="notice-card-title">Water pooling, drainage, moisture</span>
+            <span class="notice-card-desc">Often the most important — and least expensive — first step.</span>
+            <span class="notice-card-arrow">→</span>
+          </a>
+          <a href="/foundation-repair-methods" class="notice-card">
+            <span class="notice-card-title">Already have a repair recommendation</span>
+            <span class="notice-card-desc">Understand the method before you commit to it.</span>
+            <span class="notice-card-arrow">→</span>
+          </a>
+          <a href="/our-approach#investigation" class="notice-card">
+            <span class="notice-card-title">Want a real investigation, not a sales visit</span>
+            <span class="notice-card-desc">The difference between a contractor inspection and a geotechnical one.</span>
+            <span class="notice-card-arrow">→</span>
+          </a>
+          <a href="/why-foundations-move" class="notice-card">
+            <span class="notice-card-title">Wondering why this is happening now</span>
+            <span class="notice-card-desc">The soil science behind foundation movement in New Mexico.</span>
+            <span class="notice-card-arrow">→</span>
+          </a>
+          <a href="/contact-us" class="notice-card notice-card-urgent">
+            <span class="notice-card-title">Something's changing fast</span>
+            <span class="notice-card-desc">Text or call — you reach the owner, not a scheduler.</span>
+            <span class="notice-card-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <section class="story">
       <div class="story-inner">
         <p>
@@ -344,6 +384,107 @@ const description =
   .body-link:hover {
     color: var(--gold);
   }
+  /* ── NOTICE ROUTER ── */
+  .notice-router {
+    padding: 80px var(--gutter);
+    border-bottom: 1px solid var(--stone);
+    background: var(--sand);
+  }
+  .notice-inner {
+    max-width: var(--acc-max);
+    margin: 0 auto;
+    text-align: center;
+  }
+  .notice-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .notice-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 400;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+  .notice-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--slate);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .notice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+    text-align: left;
+  }
+  .notice-card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 1px solid var(--stone);
+    border-left: 4px solid transparent;
+    padding: 28px 24px;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .notice-card:hover {
+    border-left-color: var(--gold);
+    box-shadow: 0 16px 28px -20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+  }
+  .notice-card-urgent {
+    background: var(--blue);
+    border-color: var(--blue);
+  }
+  .notice-card-urgent:hover {
+    border-left-color: var(--gold-light);
+  }
+  .notice-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--blue);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .notice-card-urgent .notice-card-title {
+    color: white;
+  }
+  .notice-card-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--slate);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .notice-card-urgent .notice-card-desc {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .notice-card-arrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--gold);
+    margin-top: 16px;
+  }
+  @media (max-width: 900px) {
+    .notice-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 640px) {
+    .notice-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .story {
     padding: 64px var(--gutter);
     border-bottom: 1px solid var(--stone);
