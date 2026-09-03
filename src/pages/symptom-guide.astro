@@ -447,7 +447,7 @@ const schema = [
           <div class="symptom-list">
             {cat.items.map((s) => (
               <article class="symptom" data-search={s.q.toLowerCase()}>
-                <h3>{s.q}</h3>
+                <h2>{s.q}</h2>
                 <p class="whats-happening"><strong>What's happening:</strong> {s.whatsHappening}</p>
                 <p class="needs-repair"><strong>Does it need repair?</strong> {s.needsRepair}</p>
                 <p class="nm-note">NM context: {s.nmContext}</p>
@@ -884,7 +884,7 @@ const schema = [
     border-radius: 12px;
     padding: 24px 28px;
   }
-  .symptom h3 {
+  .symptom h2 {
     font-family: 'Playfair Display', serif;
     font-size: 1.2rem;
     font-weight: 600;
