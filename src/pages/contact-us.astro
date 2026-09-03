@@ -72,6 +72,21 @@ const serviceAreaText = `Albuquerque · Rio Rancho · Santa Fe · Las Cruces · 
           so that when we evaluate your foundation, the recommendation follows the evidence, not the invoice.
         </p>
       </div>
+
+      <div class="expect-grid">
+        <div class="expect-item">
+          <span class="expect-label">First contact</span>
+          <p>A conversation with someone who knows your neighborhood — not a scheduler, not a call center. Within a few exchanges you're talking with an owner who can speak directly to your area's soil conditions and whether what you're describing is worth investigating now or worth watching.</p>
+        </div>
+        <div class="expect-item">
+          <span class="expect-label">Coverage</span>
+          <p>All 33 counties, all five regions of New Mexico. Albuquerque is home base — the state is the office. The miles on the truck are what it takes to make an evaluation in Farmington as informed as one in the South Valley.</p>
+        </div>
+        <div class="expect-item">
+          <span class="expect-label">Financing &amp; warranties</span>
+          <p>We stand behind our installations, and we're honest about what a warranty can and can't guarantee — a warranty covers the work, not what the soil does next if the moisture source isn't fixed. Ask us about financing for your project.</p>
+        </div>
+      </div>
     </div>
   </section>
 </Layout>
@@ -254,6 +269,31 @@ const serviceAreaText = `Albuquerque · Rio Rancho · Santa Fe · Las Cruces · 
     border-color: var(--gold);
   }
 
+  .expect-grid {
+    max-width: 960px;
+    margin: 56px auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    text-align: left;
+  }
+  .expect-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  .expect-item p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--muted);
+    line-height: 1.85;
+    margin: 0;
+  }
+
   @media (max-width: 640px) {
     .contact-section {
       padding: 64px 24px;
@@ -277,6 +317,11 @@ const serviceAreaText = `Albuquerque · Rio Rancho · Santa Fe · Las Cruces · 
     }
     .sandia-note {
       padding-top: 32px;
+    }
+    .expect-grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-top: 40px;
     }
   }
 </style>

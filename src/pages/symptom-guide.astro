@@ -273,11 +273,11 @@ const categories: Category[] = [
         whatsHappening:
           'A plumbing leak — supply line or waste line — has introduced moisture to soil that may have been dry since the home was built. In collapsible soils, that first wetting event can cause rapid settlement. In expansive clays, a localized leak can trigger heave directly above it.',
         needsRepair:
-          'Rule out plumbing before scheduling any foundation evaluation. A pressure test on both supply and waste lines is the right first step when symptoms appeared suddenly or are concentrated in one area.',
+          'Rule out plumbing before scheduling any foundation evaluation. A pressure test on both supply and waste lines is the right first step when symptoms appeared suddenly or are concentrated in one area — significantly less expensive than foundation repair, and the right call when the pattern suggests it.',
         nmContext:
-          'Waste line leaks cause more foundation damage than supply line leaks in our experience — they introduce water continuously and go undetected longer. Both sides need to be tested.',
+          "Waste line leaks cause more foundation damage than supply line leaks in our experience — they introduce water continuously and go undetected longer. Both sides need to be tested. Worth checking before you pay out of pocket: many homeowners policies cover locating a sudden, accidental leak even though they exclude the resulting soil movement — read your policy or call your agent and ask specifically.",
         links: [
-          { text: 'FAQ: Plumbing Leaks', href: '/foundation-repair-faq#plumbing-leak' },
+          { text: 'Common Concerns: Insurance', href: '/common-concerns#insurance' },
           { text: 'Collapsible Soils', href: '/collapsible-soil' },
         ],
       },
@@ -350,9 +350,70 @@ const schema = [
           foundation. For each one, here's what's typically happening and whether it usually warrants
           attention. Soil conditions, site drainage, and how long something has been changing all matter —
           this is a <strong>starting point, not a diagnosis</strong>. If you're seeing signs that concern
-          you, <a href="/contact-us">call us</a>. You reach the owner, not a scheduler.
+          you, <a href="/contact-us">call us</a>. You reach the owner, not a scheduler.{' '}
           <a href="/common-concerns" class="body-link">If you have questions about cost, timing, or contractors, see our Common Concerns page.</a>
         </p>
+        <p>
+          <strong>Before you call anyone, document what you're seeing.</strong> Photograph every crack — note
+          its location, orientation, and approximate width. Check whether doors or windows that are sticking
+          are doing so consistently or only seasonally. Mark crack edges with pencil and a date so you have a
+          reference point to measure change over time. A crack that's been stable for years is a different
+          conversation than one that opened last month, and documentation gives any evaluator — us, an
+          engineer, a geotechnical investigator — a starting point grounded in evidence rather than
+          impression. If you're seeing rapid, progressive change instead — cracks widening over days, doors
+          that suddenly won't close, visible structural distress — that's a different situation and warrants
+          a call sooner rather than later.
+        </p>
+      </div>
+
+      <div class="myth-section">
+        <span class="myth-label">Quick answers, before you dig in</span>
+        <div class="myth-grid">
+          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
+            <div class="myth-card-inner">
+              <div class="myth-front">
+                <div class="myth-title">Is it "foundation failure"?</div>
+                <span class="myth-hint">Tap to see</span>
+              </div>
+              <div class="myth-back">
+                <p>Rarely. Most of what homeowners call failure is soil movement — the ground moving, not the structure losing its ability to stand. "Failure" is urgency language more than an accurate description.</p>
+              </div>
+            </div>
+          </div>
+          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
+            <div class="myth-card-inner">
+              <div class="myth-front">
+                <div class="myth-title">Is every crack serious?</div>
+                <span class="myth-hint">Tap to see</span>
+              </div>
+              <div class="myth-back">
+                <p>No. Many reflect historic movement that already stabilized years ago. What matters is whether it's growing now — not whether it exists.</p>
+              </div>
+            </div>
+          </div>
+          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
+            <div class="myth-card-inner">
+              <div class="myth-front">
+                <div class="myth-title">Do I need repair right now?</div>
+                <span class="myth-hint">Tap to see</span>
+              </div>
+              <div class="myth-back">
+                <p>Depends on why it's moving, not on how alarming it looks. Some situations call for acting now; a lot of them call for documenting and watching first.</p>
+              </div>
+            </div>
+          </div>
+          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
+            <div class="myth-card-inner">
+              <div class="myth-front">
+                <div class="myth-title">Can a repair itself fail?</div>
+                <span class="myth-hint">Tap to see</span>
+              </div>
+              <div class="myth-back">
+                <p>Yes — usually from misdiagnosis, not bad material. The most common cause is a repair designed for settlement applied to a foundation that's actually heaving.</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="region-finder" id="regionFinder">
@@ -413,6 +474,16 @@ const schema = [
 </Layout>
 
 <script>
+  document.querySelectorAll<HTMLElement>('.myth-card').forEach((card) => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.classList.toggle('flipped');
+      }
+    });
+  });
+
   const STORAGE_KEY = 'tls-region';
   const regionSelect = document.getElementById('regionSelect') as HTMLSelectElement;
   const regionSave = document.getElementById('regionSave') as HTMLButtonElement;
@@ -565,6 +636,9 @@ const schema = [
     line-height: 1.7;
     color: var(--slate);
   }
+  .diagnostic-note p + p {
+    margin-top: 16px;
+  }
   .diagnostic-note strong {
     color: var(--blue);
   }
@@ -573,6 +647,96 @@ const schema = [
     color: var(--blue);
     text-decoration: underline;
     text-decoration-color: var(--gold);
+  }
+
+  /* ── Myth/reality flip cards ── */
+  .myth-section {
+    margin-bottom: 40px;
+  }
+  .myth-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+  .myth-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .myth-card {
+    perspective: 1000px;
+    cursor: pointer;
+    height: 120px;
+  }
+  .myth-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+  }
+  .myth-card.flipped .myth-card-inner {
+    transform: rotateY(180deg);
+  }
+  .myth-front,
+  .myth-back {
+    grid-area: 1 / 1 / 2 / 2;
+    padding: 20px;
+    border-radius: 4px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .myth-front {
+    background: var(--white);
+    border: 1px solid var(--stone);
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .myth-card:hover .myth-front {
+    border-color: rgba(184, 134, 11, 0.3);
+    box-shadow: 0 2px 16px rgba(13, 34, 56, 0.06);
+  }
+  .myth-back {
+    background: var(--blue-dark);
+    border: 1px solid rgba(184, 134, 11, 0.3);
+    transform: rotateY(180deg);
+  }
+  .myth-back p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .myth-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--blue);
+    line-height: 1.3;
+  }
+  .myth-hint {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 8px;
+    opacity: 0.6;
+  }
+  @media (max-width: 640px) {
+    .myth-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .myth-card {
+      height: 140px;
+    }
   }
 
   /* ── Region finder: one picker, remembered ── */
