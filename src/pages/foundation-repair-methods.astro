@@ -543,11 +543,13 @@ const schema = [
     --navy: #0d2238;
     --blue: #1b3a5c;
     --gold: #b8860b;
+    /* gold-text: darkened gold for text on cream/sand/white -- --gold itself only clears WCAG AA on dark backgrounds */
+    --gold-text: #7d5c08;
     --stone: #ddd5c8;
     --stone-warm: #e8dfce;
     --cream-label: #ece0c8;
     --slate: #2c3a4a;
-    --muted: #6b7685;
+    --muted: #54626f;
     --cream: #fdfaf6;
     --white: #ffffff;
     font-family: 'Source Serif 4', Georgia, serif;
@@ -684,7 +686,7 @@ const schema = [
     display: block;
   }
   .stat-num span {
-    color: var(--gold);
+    color: var(--gold-text);
   }
   .stat-label {
     font-family: 'DM Mono', monospace;
@@ -711,7 +713,7 @@ const schema = [
   }
   .stat-connector em {
     font-style: italic;
-    color: var(--gold);
+    color: var(--gold-text);
   }
 
   .section {
@@ -739,7 +741,7 @@ const schema = [
     font-size: 12px;
     letter-spacing: 5px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--gold-text);
   }
   .section h2 {
     font-family: 'Playfair Display', serif;
@@ -753,7 +755,7 @@ const schema = [
   }
   .section h2 em {
     font-style: italic;
-    color: var(--gold);
+    color: var(--gold-text);
   }
   .section > .tlsfrm-container > p {
     font-size: 18px;
@@ -782,7 +784,7 @@ const schema = [
   .process-step.active {
     background: var(--stone-warm);
     transform: translateY(-6px);
-    border-top-color: var(--gold);
+    border-top-color: var(--gold-text);
     box-shadow: 0 14px 34px rgba(13, 34, 56, 0.28);
   }
   .process-step .step-number {
@@ -822,7 +824,7 @@ const schema = [
   .process-arrow {
     font-family: 'DM Mono', monospace;
     font-size: 20px;
-    color: var(--gold);
+    color: var(--gold-text);
     padding: 0 12px;
     opacity: 0.4;
     align-self: center;
@@ -860,7 +862,7 @@ const schema = [
     font-family: 'DM Mono', monospace;
     font-size: 14px;
     letter-spacing: 2px;
-    color: var(--gold);
+    color: var(--gold-text);
     flex-shrink: 0;
     margin-top: 2px;
     opacity: 0.5;
@@ -876,7 +878,7 @@ const schema = [
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 1.5px;
-    color: var(--gold);
+    color: var(--gold-text);
     display: block;
     margin-top: 2px;
     opacity: 0.6;
@@ -891,7 +893,7 @@ const schema = [
   .method-expand-icon {
     font-family: 'DM Mono', monospace;
     font-size: 18px;
-    color: var(--gold);
+    color: var(--gold-text);
     margin-left: auto;
     flex-shrink: 0;
     opacity: 0.5;
@@ -936,7 +938,7 @@ const schema = [
     margin-top: 16px;
   }
   .method-body .method-fit strong {
-    color: var(--gold);
+    color: var(--gold-text);
     font-weight: 600;
   }
 
@@ -1015,7 +1017,7 @@ const schema = [
     font-size: 10px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--gold-text);
     margin-top: 8px;
     opacity: 0.5;
   }
