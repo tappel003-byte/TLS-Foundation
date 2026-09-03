@@ -7,9 +7,30 @@ import ReferenceNav from '../components/ReferenceNav.astro';
 const title = 'Expansive Soils in New Mexico | TLS Foundations';
 const description =
   'Why foundations move with the seasons in New Mexico -- the science of expansive clay soils, how they damage foundations, and what a real evaluation looks at.';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Expansive Soils in New Mexico',
+    description,
+    about: description,
+    author: { '@type': 'Organization', name: 'TLS Foundations' },
+    publisher: { '@type': 'Organization', name: 'TLS Foundations' },
+    url: 'https://www.tlsfoundations.com/expansive-soil',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'Expansive Soils in New Mexico', item: 'https://www.tlsfoundations.com/expansive-soil' },
+    ],
+  },
+];
 ---
 
-<Layout title={title} description={description} footer="minimal">
+<Layout title={title} description={description} footer="minimal" schema={schema}>
   <div class="tls-article">
     <section class="page-hero">
       <div class="page-hero-inner">

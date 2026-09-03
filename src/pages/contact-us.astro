@@ -18,12 +18,45 @@ const serviceAreaText = `Albuquerque · Rio Rancho · Santa Fe · Las Cruces · 
       Sunland Park · Anthony · Chaparral · North Valley · South Valley ·
       Rio Communities · Edgewood · Tijeras · Moriarty · Estancia ·
       Tucumcari · Clayton · Raton · Cimarron · Angel Fire · Taos Ski Valley`;
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: title,
+    description,
+    url: 'https://www.tlsfoundations.com/contact-us',
+    mainEntity: {
+      '@type': 'LocalBusiness',
+      name: 'TLS Foundations',
+      telephone: '+15059914180',
+      email: 'TLSfoundationsNM@gmail.com',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '5048 Edith Blvd NE, Suite E',
+        addressLocality: 'Albuquerque',
+        addressRegion: 'NM',
+        postalCode: '87107',
+        addressCountry: 'US',
+      },
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'Contact Us', item: 'https://www.tlsfoundations.com/contact-us' },
+    ],
+  },
+];
 ---
 
 <Layout
   title={title}
   description={description}
   footer="full"
+  schema={schema}
   footerProps={{ serviceAreaLabel: 'Fixing foundations in the following cities:', serviceAreaText }}
 >
   <section class="contact-hero">

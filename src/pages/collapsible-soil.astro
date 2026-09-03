@@ -7,9 +7,30 @@ import ReferenceNav from '../components/ReferenceNav.astro';
 const title = 'Collapsible Soils in New Mexico | TLS Foundations';
 const description =
   "Collapsible soils are New Mexico's most deceptive foundation hazard -- stable for decades, then gone in a season. Understanding the mechanism is the first step.";
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Collapsible Soils in New Mexico',
+    description,
+    about: description,
+    author: { '@type': 'Organization', name: 'TLS Foundations' },
+    publisher: { '@type': 'Organization', name: 'TLS Foundations' },
+    url: 'https://www.tlsfoundations.com/collapsible-soil',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'Collapsible Soils in New Mexico', item: 'https://www.tlsfoundations.com/collapsible-soil' },
+    ],
+  },
+];
 ---
 
-<Layout title={title} description={description} footer="minimal">
+<Layout title={title} description={description} footer="minimal" schema={schema}>
   <div class="tls-article">
     <section class="page-hero">
       <div class="page-hero-inner">

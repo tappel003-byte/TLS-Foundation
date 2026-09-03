@@ -9,9 +9,31 @@ import RegionalNav from '../components/RegionalNav.astro';
 const title = 'Northern New Mexico Soil Conditions | TLS Foundations';
 const description =
   'Taos Plateau, Mora Valley, and Raton Basin -- frost heave at elevation, basalt-derived montmorillonite clays, and coal mine subsidence unique to the Raton Basin.';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Northern New Mexico Soil Conditions',
+    description,
+    about: description,
+    author: { '@type': 'Organization', name: 'TLS Foundations' },
+    publisher: { '@type': 'Organization', name: 'TLS Foundations' },
+    url: 'https://www.tlsfoundations.com/northern-new-mexico',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'New Mexico Soil Conditions', item: 'https://www.tlsfoundations.com/new-mexico-soil-conditions' },
+      { '@type': 'ListItem', position: 3, name: 'Northern New Mexico', item: 'https://www.tlsfoundations.com/northern-new-mexico' },
+    ],
+  },
+];
 ---
 
-<Layout title={title} description={description} footer="minimal">
+<Layout title={title} description={description} footer="minimal" schema={schema}>
   <section class="hero">
     <img class="hero-photo" src="/images/northern-new-mexico-hero.webp" alt="Northern New Mexico mountain landscape" />
     <div class="hero-overlay"></div>

@@ -9,6 +9,46 @@ const title = 'New Mexico Soil Conditions — Soil Roadmap | TLS Foundations';
 const description =
   'All 33 New Mexico counties. Five regions organized by soil behavior and geological character -- the roadmap to how foundation repair should be approached in each.';
 
+const regions = [
+  { name: 'Central New Mexico', url: '/central-new-mexico' },
+  { name: 'Northern New Mexico', url: '/northern-new-mexico' },
+  { name: 'Four Corners', url: '/four-corners' },
+  { name: 'Eastern New Mexico', url: '/eastern-new-mexico' },
+  { name: 'Southern New Mexico', url: '/southern-new-mexico' },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'New Mexico Soil Conditions — Soil Roadmap',
+    description,
+    about: description,
+    author: { '@type': 'Organization', name: 'TLS Foundations' },
+    publisher: { '@type': 'Organization', name: 'TLS Foundations' },
+    url: 'https://www.tlsfoundations.com/new-mexico-soil-conditions',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: "New Mexico's five geological soil regions",
+    itemListElement: regions.map((r, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: r.name,
+      url: `https://www.tlsfoundations.com${r.url}`,
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'New Mexico Soil Conditions', item: 'https://www.tlsfoundations.com/new-mexico-soil-conditions' },
+    ],
+  },
+];
+
 const serviceAreaText = `TLS Foundations provides foundation repair and geotechnical investigation across all five geological regions of New Mexico. We diagnose and repair foundation movement caused by expansive clay, Mancos Shale heave, montmorillonite swelling, collapsible soil settlement, hydrocompaction, caliche bearing failure, karst dissolution voids, evaporite subsidence, gypsum dissolution, aquifer compaction, lacustrine clay, alluvial fan deposits, soil piping, and cut-and-fill differential settlement. We work across the Rio Grande Rift corridor, the San Juan Basin, the Permian Basin, the Tularosa Basin, the Estancia Basin, the Mimbres Basin, the Jornada del Muerto, the Española Basin, the Raton Basin, and the High Plains of eastern New Mexico. All 33 counties. Every formation. The soil roadmap on this page exists because a contractor who doesn't understand the ground has no business recommending what to do with it.`;
 ---
 
@@ -16,6 +56,7 @@ const serviceAreaText = `TLS Foundations provides foundation repair and geotechn
   title={title}
   description={description}
   footer="full"
+  schema={schema}
   footerProps={{ serviceAreaLabel: 'New Mexico soils. All of them.', serviceAreaText }}
 >
   <section class="hero">
