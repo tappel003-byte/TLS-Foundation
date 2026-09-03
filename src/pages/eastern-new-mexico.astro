@@ -443,6 +443,20 @@ const schema = [
     letter-spacing: 4px;
     text-transform: uppercase;
     color: var(--gold);
+    /*
+      A crisp, tight shadow -- not the blurry wide-radius kind removed
+      elsewhere this session. This is thin, widely-tracked monospace text
+      sitting directly on a photo (no background box, unlike hero-sub),
+      and different hero photos put very different things behind it --
+      Central's warm sunset gives gold enough contrast on its own, but
+      Northern/Four Corners/Eastern/Rio Rancho/Santa Fe all have pale sky
+      or white cloud right where this label sits, and gold nearly
+      vanishes there. A plain white swap doesn't fix it either -- white
+      washes out against white clouds just as badly. A tight dark rim
+      around the letters reads clearly against any of them without
+      changing the label's color or looking hazy up close.
+    */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95), 0 0 6px rgba(0, 0, 0, 0.6);
     display: block;
     margin-bottom: 20px;
   }
