@@ -3,18 +3,17 @@
 // pages in the same "magazine" visual language as the 3 city pages
 // (sticky left nav, numbered sections, zone treatment) instead of the
 // current accordion layout. Content below is the SAME real content
-// already on /central-new-mexico -- restructured, not invented. Linked
-// from a temporary "Draft (temp)" nav folder in Header.astro; delete
-// both together once a direction is picked.
+// already on /eastern-new-mexico -- restructured, not invented. Linked from a
+// temporary "Draft (temp)" nav folder in Header.astro; delete both
+// together once a direction is picked.
 import Layout from '../layouts/Layout.astro';
 import RegionalNav from '../components/RegionalNav.astro';
 
-const title = 'Central New Mexico Soil Conditions (Draft v2) | TLS Foundations';
-const description =
-  'Albuquerque, Española, and Estancia basins -- collapsible West Mesa soils, river clays, Tesuque Formation shifts, and evaporite dissolution.';
+const title = 'Eastern New Mexico Soil Conditions (Draft v2) | TLS Foundations';
+const description = "High Plains, Pecos Valley, Mimbres and Lordsburg basins -- expansive clays, Permian evaporite dissolution, aquifer subsidence, and collapsible alluvium.";
 ---
 
-<Layout title={title} description={description} footer="minimal" ogImage="/images/central-new-mexico-hero.webp">
+<Layout title={title} description={description} footer="minimal" ogImage="/images/eastern-new-mexico-hero.webp">
   <div class="cnm-page">
     <!-- HERO -->
     <div class="hero">
@@ -23,15 +22,14 @@ const description =
       <div class="hero-content">
         <span class="hero-eyebrow">New Mexico Soil Conditions</span>
         <h1 class="hero-h1">
-          <span class="w1">Central</span><span class="w2">New Mexico.</span>
+          <span class="w1">Eastern</span><span class="w2">New Mexico.</span>
         </h1>
         <p class="hero-sub">
-          Three basins along the Rio Grande Rift. Three different soil stories -- and a repair approach
-          calibrated for one can be the wrong call two miles away, in another part of the same region.
+          Four basins, four different soil hazards -- expansive wind-deposited clays, Permian evaporite dissolution, aquifer subsidence, and collapsible alluvium. Treating them the same is a mistake.
         </p>
         <div class="hero-cta">
           <span class="hero-cities-label">Major cities in this region</span>
-          <p class="hero-aside">Albuquerque · Rio Rancho · Santa Fe · Los Alamos · Moriarty</p>
+          <p class="hero-aside">Clovis · Portales · Roswell · Carlsbad · Deming</p>
         </div>
       </div>
     </div>
@@ -42,12 +40,13 @@ const description =
       <!-- LEFT NAV -->
       <nav class="left-nav">
         <div class="nav-progress"><div class="nav-progress-fill" id="progressFill"></div></div>
-        <span class="nav-brand">TLS Foundations · Central NM</span>
+        <span class="nav-brand">TLS Foundations · Eastern New Mexico</span>
         <ul class="nav-links">
           <li><a href="#overview"><span class="nav-dot"></span>Overview</a></li>
-          <li><a href="#albuquerque-basin"><span class="nav-dot"></span>Albuquerque Basin</a></li>
-          <li><a href="#espanola-basin"><span class="nav-dot"></span>Española Basin</a></li>
-          <li><a href="#estancia-basin"><span class="nav-dot"></span>Estancia Basin</a></li>
+          <li><a href="#high-plains"><span class="nav-dot"></span>High Plains</a></li>
+          <li><a href="#pecos-valley"><span class="nav-dot"></span>Pecos Valley</a></li>
+          <li><a href="#mimbres-basin"><span class="nav-dot"></span>Mimbres Basin</a></li>
+          <li><a href="#lordsburg-basin"><span class="nav-dot"></span>Lordsburg Basin</a></li>
         </ul>
         <div class="nav-contact">
           <span class="nav-contact-label">Ready to talk</span>
@@ -61,75 +60,66 @@ const description =
         <section class="section" id="overview">
           <span class="section-num">01</span>
           <div class="section-inner">
-            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Central New Mexico · Rio Grande Rift</span></div>
-            <h2 class="section-heading reveal">Central New Mexico soils — <em>three basins, three different stories</em></h2>
+            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Eastern New Mexico · High Plains to the Bootheel</span></div>
+            <h2 class="section-heading reveal">Eastern New Mexico soils — <em>four basins, four different hazards</em></h2>
 
             <div class="two-col-wide reveal">
               <div>
-                <p class="lede">Central New Mexico sits on top of the Rio Grande Rift -- one of the most geologically active continental rifts in North America. The rift is still spreading. The basins it created fill with sediment from surrounding mountains, and that sediment is what most foundations in this region are built on.</p>
-                <p><mark class="key">The rift produced the basins. The basins produced the soils. The soils produce the foundation problems. You have to understand all three to read any of them correctly.</mark></p>
-                <p>We have worked in all three basins in this region. The soil in each one has a different character, a different way it moves, and a different appropriate response when something goes wrong. Collapsible soils and expansive clays are the primary hazards -- but they appear in different parts of the basin and require different responses.</p>
+                <p>East of the mountain ranges, New Mexico opens onto a different landscape entirely -- the High Plains to the north, the Pecos Valley running south through Roswell and Carlsbad, and the remote basins of the southwest corner that most of the state never thinks about. Each of these environments has its own subsurface character and its own foundation hazard.</p>
+                <p>The High Plains carries the legacy of the Dust Bowl in its soil -- wind-deposited smectite clays that shrink and swell with moisture. The Pecos Valley sits on Permian evaporite geology, the same formation that produced Carlsbad Caverns. The Mimbres Basin near Deming is experiencing aquifer compaction subsidence as decades of irrigation pumping lower the water table. The Lordsburg Basin has collapsible fan alluvium in a setting remote enough that problems go unaddressed for years.</p>
               </div>
               <div>
                 <div class="basin-stat reveal">
                   <div class="basin-stat-item">
-                    <span class="basin-stat-num">3</span>
+                    <span class="basin-stat-num">4</span>
                     <span class="basin-stat-label">Basins</span>
-                    <p class="basin-stat-desc">Albuquerque, Española, and Estancia -- each with its own soil behavior</p>
-                  </div>
-                  <div class="basin-stat-divider"></div>
-                  <div class="basin-stat-item">
-                    <span class="basin-stat-num">2</span>
-                    <span class="basin-stat-label">Primary Hazards</span>
-                    <p class="basin-stat-desc">Collapsible soils and expansive clays, in different places</p>
+                    <p class="basin-stat-desc">High Plains, Pecos Valley, Mimbres, and Lordsburg basins</p>
                   </div>
                 </div>
 
                 <div class="fact-box reveal">
                   <span class="fact-box-label">Related reading</span>
-                  <p><a href="/collapsible-soil">Collapsible soils</a> -- the West Mesa's dominant hazard.</p>
-                  <p><a href="/expansive-soil">Expansive clays</a> -- the Valley floor and Tesuque Formation's dominant hazard.</p>
-                  <p><a href="/symptom-guide">Symptom Guide</a> -- not sure what you're seeing?</p>
+                  <p><a href="/glossary#evaporite-dissolution">Evaporite dissolution</a> -- the mechanism behind Pecos Valley subsidence.</p>
+                  <p><a href="/collapsible-soil">Collapsible Soil</a> -- the Lordsburg Basin's primary hazard.</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- 02 ALBUQUERQUE BASIN -->
-        <section class="section" id="albuquerque-basin">
+        <!-- 02 HIGH PLAINS -->
+        <section class="section" id="high-plains">
           <span class="section-num">02</span>
           <div class="section-inner">
             <div class="zone-strip reveal">
               <div class="zone-strip-num"><span>01</span></div>
               <div class="zone-strip-content">
-                <div class="zone-strip-title">Albuquerque Basin</div>
-                <div class="zone-strip-tag">Albuquerque · Rio Rancho · Corrales · Bernalillo · Los Lunas · Belen</div>
+                <div class="zone-strip-title">High Plains</div>
+                <div class="zone-strip-tag">Clovis · Portales · Tucumcari · Fort Sumner · Santa Rosa · Clayton</div>
               </div>
             </div>
 
             <div class="two-col reveal">
               <div>
-                <p class="basin-tagline">The Rio Grande Rift's most populated expression -- alluvial fans, river terraces, and mesa edges, each with different soil behavior within a few miles of each other.</p>
-                <p><span class="field-label">What we see when we drive up</span> It depends entirely on where in the basin you are. On the West Mesa, the soil is brown-tan alluvium -- looks stable, often is not. In the North Valley and South Valley, the soil gets darker and heavier as you approach the river -- old floodplain material with clay that moves when it gets wet. In the East Mountains foothills, alluvial fans off the Sandias have loose upper material over harder cemented zones.</p>
-                <p><mark class="key">You can read the job before you get out of the truck if you know what to look for.</mark></p>
-                <p><span class="field-label">What this geology does to foundations</span> The West Mesa is classic collapsible soil country -- dry, it bears load fine; wet, from irrigation or a broken line, it consolidates and the foundation follows it down. The Valley floor is the opposite problem: expansive clays that push up when wet and shrink when dry. The foothills introduce differential bearing -- dense cemented zones next to loose material, so one corner of a house can settle while another stays put.</p>
+                <p class="basin-tagline">Dust Bowl country -- the aeolian clays that blew in from the west during the 1930s are still here, still in the soil, and still moving when moisture finds them.</p>
+                <p><span class="field-label">What we see when we drive up</span> East of the Estancia Basin escarpment, New Mexico flattens out dramatically onto the High Plains. The soil here is the Blackwater Draw Formation: wind-deposited silts and clays that accumulated over tens of thousands of years. The playas -- shallow closed depressions -- are scattered across the landscape, filling briefly after rain and draining by evaporation. They are also where the heaviest clay concentrations settle out over time.</p>
+                <p><span class="field-label">What this geology does to foundations</span> The Blackwater Draw Formation contains smectite clays that shrink and swell with moisture changes. The High Plains receives erratic rainfall, and the playas concentrate moisture in local wet-dry cycles more extreme than the surrounding ground. Foundations on or near playa margins see the most movement. In the Clovis area, the combination of expansive soils and a shallow water table in some areas keeps the soil in a near-saturated expanded state.</p>
               </div>
               <div>
                 <div class="zone-warnings">
                   <span class="zone-warning-label">What TLS sees and repairs most here</span>
                   <ul class="warning-list">
                     <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Collapsible alluvial soils</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">West Mesa, Pajarito Mesa, and the developing edges of Rio Rancho. Stable for decades until moisture finds them. When they go, they go fast.</div></div>
+                      <button class="warning-trigger"><span class="warning-trigger-text">Expansive aeolian clays</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Wind-deposited smectite clay that shrinks and swells with moisture. Swell potential varies by location -- evaluation establishes what you are actually dealing with.</div></div>
                     </li>
                     <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Expansive river clays</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">South Valley, North Valley, Corrales, and the old floodplain neighborhoods. Foundations that heave in wet years and crack in dry ones. Seasonal pattern is the tell.</div></div>
+                      <button class="warning-trigger"><span class="warning-trigger-text">Playa margin movement</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Foundations on or near playa depressions see the most movement. Closed drainage means moisture stays in the soil or evaporates -- it does not run off.</div></div>
                     </li>
                     <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Alluvial fan differential bearing</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">Foothills and East Mountains. One corner of a house on dense cemented material, another on loose fan sediment. The differential movement is structural even when neither soil is "bad."</div></div>
+                      <button class="warning-trigger"><span class="warning-trigger-text">Irrigation moisture patterns</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">In the Clovis area, irrigation agriculture has altered subsurface moisture conditions. Soil that has been near-saturated for decades behaves differently from soil in its natural arid state.</div></div>
                     </li>
                   </ul>
                 </div>
@@ -138,45 +128,44 @@ const description =
 
             <div class="communities-band reveal">
               <span class="communities-band-label">Communities we serve in this basin</span>
-              <p>Albuquerque · Los Ranchos de Albuquerque · Rio Rancho · Tijeras · Edgewood · Corrales · Bernalillo · Placitas · Belen · Los Lunas · Bosque Farms · Peralta · South Valley · North Valley · Sandia Heights · Cedar Crest · Isleta · Pajarito Mesa · Algodones</p>
+              <p>Clovis · Portales · Tucumcari · Fort Sumner · Santa Rosa · Vaughn · Logan · Grady · Melrose · Texico · Elida · Dora · Floyd · Mosquero · San Jon · Clayton · Folsom · Grenville · Des Moines · Roy · Wagon Mound</p>
             </div>
           </div>
         </section>
 
-        <!-- 03 ESPAÑOLA BASIN -->
-        <section class="section" id="espanola-basin">
+        <!-- 03 PECOS VALLEY -->
+        <section class="section" id="pecos-valley">
           <span class="section-num">03</span>
           <div class="section-inner">
             <div class="zone-strip reveal">
               <div class="zone-strip-num"><span>02</span></div>
               <div class="zone-strip-content">
-                <div class="zone-strip-title">Española Basin</div>
-                <div class="zone-strip-tag">Santa Fe · Española · Los Alamos · White Rock · Pojoaque · Chimayó</div>
+                <div class="zone-strip-title">Pecos Valley</div>
+                <div class="zone-strip-tag">Roswell · Artesia · Carlsbad · Dexter · Hagerman · Loving</div>
               </div>
             </div>
 
             <div class="two-col reveal">
               <div>
-                <p class="basin-tagline">The upper Rio Grande corridor -- where ancient lake sediments and volcanic ash meet centuries of acequia irrigation, and the soil remembers all of it.</p>
-                <p><span class="field-label">What we see when we drive up</span> The Tesuque Formation has a visual signature you learn quickly: exposures in the cut banks and arroyos vary from sandy and loose to heavy clay-bearing within short distances. In the pueblos and along the old acequia corridors, centuries of irrigation have altered soil moisture content in ways no geological map captures. The land looks flat and stable. The subsurface often is not.</p>
-                <p><span class="field-label">What this geology does to foundations</span> The Tesuque Formation is laterally inconsistent -- fine-grained expansive members and coarser non-expansive members, often stacked and interbedded, creating differential settlement within a single foundation footprint. Los Alamos sits on Bandelier Tuff at the canyon rim, introducing a different hazard: shallow rock with variable depth to competent bearing.</p>
-                <p><mark class="key">One corner heaves, another stays put. The differential is the problem, not either soil alone.</mark></p>
+                <p class="basin-tagline">Permian evaporite country -- the same geology that formed Carlsbad Caverns is present in the subsurface throughout this valley, and dissolution does not announce itself before it affects a foundation.</p>
+                <p><span class="field-label">What we see when we drive up</span> The Pecos Valley is productive agricultural country -- dairy operations, alfalfa fields, orchards in the Roswell area, irrigated for over a century. Below the surface, Permian evaporite formations -- gypsum, anhydrite, halite -- are close to the surface in places and deeper in others. Carlsbad Caverns is the most visible expression of what this geology can do when water and time dissolve the evaporite rock, but the same process operates on a smaller scale throughout the valley.</p>
+                <p><span class="field-label">What this geology does to foundations</span> Subsurface dissolution of evaporite minerals creates voids that can cause foundation settlement -- gradually as the void grows, or suddenly if the roof of the void collapses. The risk is highest where evaporite formations are close to the surface and where groundwater or irrigation has introduced sustained moisture. Century-long irrigation in the Roswell and Carlsbad areas has altered subsurface moisture conditions significantly from natural baseline -- foundations that were stable for 50 years can begin moving as dissolution progresses.</p>
               </div>
               <div>
                 <div class="zone-warnings">
                   <span class="zone-warning-label">What TLS sees and repairs most here</span>
                   <ul class="warning-list">
                     <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Tesuque Formation lateral variability</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">Expansive clay members and non-expansive sand members stacked and interbedded, sometimes within the same foundation footprint. Lateral variability is the signature hazard here.</div></div>
+                      <button class="warning-trigger"><span class="warning-trigger-text">Permian evaporite dissolution</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Evaporite minerals dissolve slowly under sustained moisture, creating voids beneath foundations with no surface warning. The same process that formed Carlsbad Caverns operates on a smaller scale throughout this valley.</div></div>
                     </li>
                     <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Expansive clay in the fine-grained members</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">Where the Tesuque runs heavy with clay, foundations move with moisture. Santa Fe and the upper basin neighborhoods built into hillsides see this most.</div></div>
+                      <button class="warning-trigger"><span class="warning-trigger-text">Void-driven settlement</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">As evaporite voids grow, settlement can be gradual or sudden depending on void size and roof thickness. Investigation is the only way to characterize subsurface void presence.</div></div>
                     </li>
                     <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Acequia moisture migration</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">Centuries of irrigation have altered soil moisture in ways no geological map captures. Homes near old acequia corridors sit on soils repeatedly wetted and dried. The equilibrium looks stable until something changes it.</div></div>
+                      <button class="warning-trigger"><span class="warning-trigger-text">Century-long irrigation effects</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Over 100 years of agricultural irrigation in the Roswell and Carlsbad areas has altered subsurface moisture conditions far from natural baseline, accelerating evaporite dissolution.</div></div>
                     </li>
                   </ul>
                 </div>
@@ -185,44 +174,44 @@ const description =
 
             <div class="communities-band reveal">
               <span class="communities-band-label">Communities we serve in this basin</span>
-              <p>Santa Fe · Española · Los Alamos · White Rock · Pojoaque · Nambé · Tesuque · Chimayó · Alcalde · Dixon · Velarde · Abiquiu · El Rito · Truchas · La Cienega · Galisteo · Pecos · Glorieta · Lamy</p>
+              <p>Roswell · Artesia · Carlsbad · Dexter · Hagerman · Lake Arthur · Loving · Malaga · Whites City · Atoka · Hope · Lakewood · Otis · Queen · Berrendo · Eddy</p>
             </div>
           </div>
         </section>
 
-        <!-- 04 ESTANCIA BASIN -->
-        <section class="section" id="estancia-basin">
+        <!-- 04 MIMBRES BASIN -->
+        <section class="section" id="mimbres-basin">
           <span class="section-num">04</span>
           <div class="section-inner">
             <div class="zone-strip reveal">
               <div class="zone-strip-num"><span>03</span></div>
               <div class="zone-strip-content">
-                <div class="zone-strip-title">Estancia Basin</div>
-                <div class="zone-strip-tag">Estancia · Moriarty · Mountainair · Willard · McIntosh · Edgewood</div>
+                <div class="zone-strip-title">Mimbres Basin</div>
+                <div class="zone-strip-tag">Deming · Silver City · Bayard · Columbus · Hurley</div>
               </div>
             </div>
 
             <div class="two-col reveal">
               <div>
-                <p class="basin-tagline">A closed basin with no outlet to the sea -- what goes in stays in, and so does the chemistry. Lake Estancia dried up thousands of years ago but its legacy is still in the soil.</p>
-                <p><span class="field-label">What we see when we drive up</span> The Estancia Basin sits around 6,000 feet elevation, east of the Manzano and Sandia ranges. The soil is pale -- light tan to whitish where evaporite minerals concentrate. Caliche shows up everywhere, sometimes as a thick hardpan just below grade that looks like competent bearing but fractures unpredictably. The playas -- dry lake bed remnants -- are visually flat and featureless. They're also where the worst soil behavior concentrates.</p>
-                <p><span class="field-label">What this geology does to foundations</span> The lacustrine clays deposited by Lake Estancia are highly expansive in places. Gypsum and halite from thousands of years of evaporation can dissolve under sustained moisture, creating voids in the subsurface. The basin is closed, meaning seasonal moisture has nowhere to go except down or into the soil -- shrink-swell cycles are pronounced in wet years.</p>
+                <p class="basin-tagline">A closed basin in the southwestern corner of the state where irrigation agriculture has drawn down an aquifer for decades -- and where aquifer depletion is beginning to show up as ground subsidence.</p>
+                <p><span class="field-label">What we see when we drive up</span> Deming sits in the middle of a dry agricultural plain that, until recently, was intensively irrigated from the Mimbres Valley aquifer. The soil is pale and alkaline -- caliche is visible in any excavation. Silver City to the north is on different terrain entirely -- older, harder formations in the upper Mimbres drainage with a mountain-town character. The two communities are in the same basin geologically but present different foundation environments.</p>
+                <p><span class="field-label">What this geology does to foundations</span> In the Deming area, decades of aquifer pumping have removed water from the subsurface, allowing compressible sediments to consolidate under their own weight -- aquifer compaction subsidence. This produces gradual, relatively uniform ground settlement across large areas, slow and often unnoticed until the cumulative effect becomes visible. Buried Lake Palomas lacustrine clays in the deeper subsurface are expansive and complicate the picture. In Silver City, the upper Mimbres drainage terrain introduces shallow rock and mine-related subsidence in older areas.</p>
               </div>
               <div>
                 <div class="zone-warnings">
                   <span class="zone-warning-label">What TLS sees and repairs most here</span>
                   <ul class="warning-list">
                     <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Expansive lacustrine clays</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">The legacy of Lake Estancia. Closed basin hydrology means moisture builds up with nowhere to go -- the wet-dry cycles are pronounced, especially in the lower basin.</div></div>
+                      <button class="warning-trigger"><span class="warning-trigger-text">Aquifer depletion subsidence — Deming area</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Decades of irrigation pumping have removed water from the subsurface, allowing compressible sediments to consolidate under their own weight. Slow and cumulative -- often unnoticed until the effect becomes visible.</div></div>
                     </li>
                     <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Evaporite dissolution</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">Gypsum and halite deposits from thousands of years of evaporation. Sustained moisture dissolves them at depth, creating voids beneath foundations with no surface warning.</div></div>
+                      <button class="warning-trigger"><span class="warning-trigger-text">Expansive lacustrine clays at depth</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Buried Lake Palomas lacustrine clays in the deeper subsurface are expansive and complicate the subsidence picture -- two mechanisms operating at different depths in the same foundation.</div></div>
                     </li>
                     <li class="warning-item">
                       <button class="warning-trigger"><span class="warning-trigger-text">Caliche variability</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">Looks like competent bearing. Sometimes is. A thin caliche layer over soft compressible material below is a hard ceiling over a soft floor, not a stable foundation.</div></div>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Caliche is visible in any excavation in the Deming area. Looks like competent bearing. A thin layer over loose or compressible material below is a hard ceiling over a soft floor.</div></div>
                     </li>
                   </ul>
                 </div>
@@ -231,10 +220,57 @@ const description =
 
             <div class="communities-band reveal">
               <span class="communities-band-label">Communities we serve in this basin</span>
-              <p>Estancia · Moriarty · Mountainair · Willard · McIntosh · Edgewood · Encino · Duran · Manzano · Tajique · Torreon · Clines Corners · Gran Quivira</p>
+              <p>Deming · Silver City · Bayard · Hurley · Santa Clara · Columbus · Mimbres · Arenas Valley · Central · Faywood · Pinos Altos · Tyrone · Hanover · Cliff · Gila</p>
             </div>
           </div>
         </section>
+
+        <!-- 05 LORDSBURG BASIN -->
+        <section class="section" id="lordsburg-basin">
+          <span class="section-num">05</span>
+          <div class="section-inner">
+            <div class="zone-strip reveal">
+              <div class="zone-strip-num"><span>04</span></div>
+              <div class="zone-strip-content">
+                <div class="zone-strip-title">Lordsburg Basin</div>
+                <div class="zone-strip-tag">Lordsburg · Animas · Hachita · Rodeo · Playas</div>
+              </div>
+            </div>
+
+            <div class="two-col reveal">
+              <div>
+                <p class="basin-tagline">The far southwestern corner -- sparse, hot, and geologically active in ways that have not been as thoroughly documented as the basins with larger populations.</p>
+                <p><span class="field-label">What we see when we drive up</span> Lordsburg is a small community at the junction of I-10 and the old Route 66 country, surrounded by bajada terrain -- the broad alluvial aprons that grade from the surrounding mountain ranges down to the basin floor. The soil on the upper fans is loose, granular, and collapsible. The Animas Valley to the south is even more remote -- ranching country where foundation problems tend to go unaddressed for years before anyone calls.</p>
+                <p><span class="field-label">What this geology does to foundations</span> The upper fan alluvium is collapsible under first wetting -- the same mechanism as the Jornada del Muerto and other dry alluvial basins in southern New Mexico. Lower fan and basin floor material has higher clay content and some expansive potential, but the primary hazard in Lordsburg is collapsibility on the fan surfaces where most development sits. The Gila River floodplain at Virden is a different environment -- floodplain clays with overbank deposits that respond to the river's wet and dry cycles.</p>
+              </div>
+              <div>
+                <div class="zone-warnings">
+                  <span class="zone-warning-label">What TLS sees and repairs most here</span>
+                  <ul class="warning-list">
+                    <li class="warning-item">
+                      <button class="warning-trigger"><span class="warning-trigger-text">Collapsible upper fan alluvium</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Dry-deposited alluvial fan material that consolidates under first wetting. The same hazard mechanism as the Jornada del Muerto and other southern New Mexico dry basins.</div></div>
+                    </li>
+                    <li class="warning-item">
+                      <button class="warning-trigger"><span class="warning-trigger-text">Remote setting — problems accumulate</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">In a community this size and this remote, foundation problems often go unaddressed for years before anyone calls. Early evaluation is more important here, not less.</div></div>
+                    </li>
+                    <li class="warning-item">
+                      <button class="warning-trigger"><span class="warning-trigger-text">Gila floodplain — Virden</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">The Gila River floodplain at Virden is a different environment from the basin fans. Floodplain clays with overbank deposits respond to the river's wet and dry cycles.</div></div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="communities-band reveal">
+              <span class="communities-band-label">Communities we serve in this basin</span>
+              <p>Lordsburg · Animas · Hachita · Playas · Rodeo · Cotton City · Granite Gap · Cloverdale · Antelope Wells</p>
+            </div>
+          </div>
+        </section>
+
       </div>
     </div>
 
@@ -339,7 +375,7 @@ const description =
   .hero-photo {
     position: absolute;
     inset: -4%;
-    background-image: url('/images/central-new-mexico-hero.webp');
+    background-image: url('/images/eastern-new-mexico-hero.webp');
     background-size: cover;
     background-position: center 50%;
     animation: kenburns 20s ease-in-out infinite alternate;

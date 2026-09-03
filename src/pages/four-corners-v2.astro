@@ -3,18 +3,17 @@
 // pages in the same "magazine" visual language as the 3 city pages
 // (sticky left nav, numbered sections, zone treatment) instead of the
 // current accordion layout. Content below is the SAME real content
-// already on /central-new-mexico -- restructured, not invented. Linked
-// from a temporary "Draft (temp)" nav folder in Header.astro; delete
-// both together once a direction is picked.
+// already on /four-corners -- restructured, not invented. Linked from a
+// temporary "Draft (temp)" nav folder in Header.astro; delete both
+// together once a direction is picked.
 import Layout from '../layouts/Layout.astro';
 import RegionalNav from '../components/RegionalNav.astro';
 
-const title = 'Central New Mexico Soil Conditions (Draft v2) | TLS Foundations';
-const description =
-  'Albuquerque, Española, and Estancia basins -- collapsible West Mesa soils, river clays, Tesuque Formation shifts, and evaporite dissolution.';
+const title = 'Four Corners Soil Conditions (Draft v2) | TLS Foundations';
+const description = "San Juan Basin & Mancos Shale -- New Mexico's most misdiagnosed foundation environment. Heave that looks like settlement, plus collapsible river deposits.";
 ---
 
-<Layout title={title} description={description} footer="minimal" ogImage="/images/central-new-mexico-hero.webp">
+<Layout title={title} description={description} footer="minimal" ogImage="/images/four-corners-hero.webp">
   <div class="cnm-page">
     <!-- HERO -->
     <div class="hero">
@@ -23,15 +22,14 @@ const description =
       <div class="hero-content">
         <span class="hero-eyebrow">New Mexico Soil Conditions</span>
         <h1 class="hero-h1">
-          <span class="w1">Central</span><span class="w2">New Mexico.</span>
+          <span class="w1">Four</span><span class="w2">Corners.</span>
         </h1>
         <p class="hero-sub">
-          Three basins along the Rio Grande Rift. Three different soil stories -- and a repair approach
-          calibrated for one can be the wrong call two miles away, in another part of the same region.
+          New Mexico's most misdiagnosed foundation environment. Heave that looks like settlement, and collapsible river deposits along the San Juan corridor.
         </p>
         <div class="hero-cta">
           <span class="hero-cities-label">Major cities in this region</span>
-          <p class="hero-aside">Albuquerque · Rio Rancho · Santa Fe · Los Alamos · Moriarty</p>
+          <p class="hero-aside">Farmington · Aztec · Bloomfield · Gallup · Grants</p>
         </div>
       </div>
     </div>
@@ -42,12 +40,10 @@ const description =
       <!-- LEFT NAV -->
       <nav class="left-nav">
         <div class="nav-progress"><div class="nav-progress-fill" id="progressFill"></div></div>
-        <span class="nav-brand">TLS Foundations · Central NM</span>
+        <span class="nav-brand">TLS Foundations · Four Corners</span>
         <ul class="nav-links">
           <li><a href="#overview"><span class="nav-dot"></span>Overview</a></li>
-          <li><a href="#albuquerque-basin"><span class="nav-dot"></span>Albuquerque Basin</a></li>
-          <li><a href="#espanola-basin"><span class="nav-dot"></span>Española Basin</a></li>
-          <li><a href="#estancia-basin"><span class="nav-dot"></span>Estancia Basin</a></li>
+          <li><a href="#san-juan-basin"><span class="nav-dot"></span>San Juan Basin</a></li>
         </ul>
         <div class="nav-contact">
           <span class="nav-contact-label">Ready to talk</span>
@@ -61,75 +57,70 @@ const description =
         <section class="section" id="overview">
           <span class="section-num">01</span>
           <div class="section-inner">
-            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Central New Mexico · Rio Grande Rift</span></div>
-            <h2 class="section-heading reveal">Central New Mexico soils — <em>three basins, three different stories</em></h2>
+            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Four Corners · San Juan Basin</span></div>
+            <h2 class="section-heading reveal">Four Corners soils — <em>one basin, one hazard that requires precision</em></h2>
 
             <div class="two-col-wide reveal">
               <div>
-                <p class="lede">Central New Mexico sits on top of the Rio Grande Rift -- one of the most geologically active continental rifts in North America. The rift is still spreading. The basins it created fill with sediment from surrounding mountains, and that sediment is what most foundations in this region are built on.</p>
-                <p><mark class="key">The rift produced the basins. The basins produced the soils. The soils produce the foundation problems. You have to understand all three to read any of them correctly.</mark></p>
-                <p>We have worked in all three basins in this region. The soil in each one has a different character, a different way it moves, and a different appropriate response when something goes wrong. Collapsible soils and expansive clays are the primary hazards -- but they appear in different parts of the basin and require different responses.</p>
+                <p>The Four Corners region of New Mexico is dominated geologically by the San Juan Basin and its most significant soil hazard: the Mancos Shale. This Cretaceous marine shale contains sodium montmorillonite -- one of the most expansive clay minerals known -- and it underlies or outcrops across a wide area from Farmington south through Gallup and east toward the basin margins.</p>
+                <p>The soil movement here is both heave and settlement, and both are very common. When the Mancos Shale absorbs moisture, it expands -- 10 to 15 percent volume change is documented. When it dries, it contracts. Most contractors diagnose the damage as settlement and recommend piers. Piers installed into heaving soil do not fix the problem. In some configurations they make it worse.</p>
               </div>
               <div>
                 <div class="basin-stat reveal">
                   <div class="basin-stat-item">
-                    <span class="basin-stat-num">3</span>
-                    <span class="basin-stat-label">Basins</span>
-                    <p class="basin-stat-desc">Albuquerque, Española, and Estancia -- each with its own soil behavior</p>
-                  </div>
-                  <div class="basin-stat-divider"></div>
-                  <div class="basin-stat-item">
-                    <span class="basin-stat-num">2</span>
-                    <span class="basin-stat-label">Primary Hazards</span>
-                    <p class="basin-stat-desc">Collapsible soils and expansive clays, in different places</p>
+                    <span class="basin-stat-num">1</span>
+                    <span class="basin-stat-label">Basin</span>
+                    <p class="basin-stat-desc">The San Juan Basin -- geologically unified, one dominant hazard</p>
                   </div>
                 </div>
 
                 <div class="fact-box reveal">
                   <span class="fact-box-label">Related reading</span>
-                  <p><a href="/collapsible-soil">Collapsible soils</a> -- the West Mesa's dominant hazard.</p>
-                  <p><a href="/expansive-soil">Expansive clays</a> -- the Valley floor and Tesuque Formation's dominant hazard.</p>
-                  <p><a href="/symptom-guide">Symptom Guide</a> -- not sure what you're seeing?</p>
+                  <p><a href="/glossary#mancos-shale">Mancos Shale</a> -- the formation behind the region's signature heave.</p>
+                  <p><a href="/expansive-soil">Expansive Soil</a> -- how sodium montmorillonite behaves.</p>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- 02 ALBUQUERQUE BASIN -->
-        <section class="section" id="albuquerque-basin">
+        <!-- 02 SAN JUAN BASIN -->
+        <section class="section" id="san-juan-basin">
           <span class="section-num">02</span>
           <div class="section-inner">
             <div class="zone-strip reveal">
               <div class="zone-strip-num"><span>01</span></div>
               <div class="zone-strip-content">
-                <div class="zone-strip-title">Albuquerque Basin</div>
-                <div class="zone-strip-tag">Albuquerque · Rio Rancho · Corrales · Bernalillo · Los Lunas · Belen</div>
+                <div class="zone-strip-title">San Juan Basin</div>
+                <div class="zone-strip-tag">Farmington · Aztec · Bloomfield · Kirtland · Gallup · Grants · Shiprock</div>
               </div>
             </div>
 
             <div class="two-col reveal">
               <div>
-                <p class="basin-tagline">The Rio Grande Rift's most populated expression -- alluvial fans, river terraces, and mesa edges, each with different soil behavior within a few miles of each other.</p>
-                <p><span class="field-label">What we see when we drive up</span> It depends entirely on where in the basin you are. On the West Mesa, the soil is brown-tan alluvium -- looks stable, often is not. In the North Valley and South Valley, the soil gets darker and heavier as you approach the river -- old floodplain material with clay that moves when it gets wet. In the East Mountains foothills, alluvial fans off the Sandias have loose upper material over harder cemented zones.</p>
-                <p><mark class="key">You can read the job before you get out of the truck if you know what to look for.</mark></p>
-                <p><span class="field-label">What this geology does to foundations</span> The West Mesa is classic collapsible soil country -- dry, it bears load fine; wet, from irrigation or a broken line, it consolidates and the foundation follows it down. The Valley floor is the opposite problem: expansive clays that push up when wet and shrink when dry. The foothills introduce differential bearing -- dense cemented zones next to loose material, so one corner of a house can settle while another stays put.</p>
+                <p class="basin-tagline">Mancos Shale -- the most misdiagnosed foundation environment in New Mexico. The damage looks like settlement. It is heave. Getting that backwards is an expensive mistake.</p>
+                <p><span class="field-label">What we see when we drive up</span> Driving into Farmington from the south, the terrain changes character around Bloomfield -- the hills take on a gray-green color as the Mancos Shale outcrops and weathers at the surface. In residential areas, you see the evidence before you see the foundation: driveways that have humped up, sidewalks that have cracked and heaved, garage floors that are not flat. The pattern repeats throughout the Farmington, Aztec, and Bloomfield area.</p>
+                <p><span class="field-label">What this geology does to foundations</span> The Mancos Shale contains sodium montmorillonite that expands dramatically when it absorbs water -- volume changes of 10 to 15 percent are documented. In a dry year, the soil shrinks and foundations settle. In a wet year, the soil swells and foundations heave. Most visible foundation damage in the San Juan Basin is from heave, not settlement -- but because heaving soil eventually drops back when it dries, the visible pattern often looks like settlement to the untrained eye. In Bloomfield and along the San Juan River corridor, river terrace and alluvial fan deposits sit above or adjacent to the shale, and these materials are collapsible -- two hazards, same basin, opposite mechanisms.</p>
               </div>
               <div>
                 <div class="zone-warnings">
                   <span class="zone-warning-label">What TLS sees and repairs most here</span>
                   <ul class="warning-list">
                     <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Collapsible alluvial soils</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">West Mesa, Pajarito Mesa, and the developing edges of Rio Rancho. Stable for decades until moisture finds them. When they go, they go fast.</div></div>
+                      <button class="warning-trigger"><span class="warning-trigger-text">Mancos Shale heave</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">The defining hazard of the San Juan Basin. Mancos Shale contains sodium montmorillonite that expands 10 to 15 percent under moisture. The visible damage looks like settlement. It is not. Getting that distinction wrong leads directly to the wrong repair.</div></div>
                     </li>
                     <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Expansive river clays</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">South Valley, North Valley, Corrales, and the old floodplain neighborhoods. Foundations that heave in wet years and crack in dry ones. Seasonal pattern is the tell.</div></div>
+                      <button class="warning-trigger"><span class="warning-trigger-text">Collapsible river deposits — Bloomfield and the San Juan corridor</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">San Juan River terrace and alluvial fan deposits in and around Bloomfield are collapsible. Stable under dry conditions, vulnerable to rapid hydrocompaction when moisture finds them.</div></div>
                     </li>
                     <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Alluvial fan differential bearing</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">Foothills and East Mountains. One corner of a house on dense cemented material, another on loose fan sediment. The differential movement is structural even when neither soil is "bad."</div></div>
+                      <button class="warning-trigger"><span class="warning-trigger-text">Misdiagnosis risk</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">The most consistently misdiagnosed foundation environment in New Mexico. Piers installed into actively heaving soil do not fix the problem -- in some configurations they make it worse. Swell potential testing is the starting point.</div></div>
+                    </li>
+                    <li class="warning-item">
+                      <button class="warning-trigger"><span class="warning-trigger-text">Drainage and moisture management</span><span class="warning-trigger-icon">+</span></button>
+                      <div class="warning-drawer"><div class="warning-drawer-inner">Because the Mancos Shale responds so dramatically to moisture, controlling the moisture envelope around a foundation is often the most important intervention, before any structural repair is considered.</div></div>
                     </li>
                   </ul>
                 </div>
@@ -138,103 +129,11 @@ const description =
 
             <div class="communities-band reveal">
               <span class="communities-band-label">Communities we serve in this basin</span>
-              <p>Albuquerque · Los Ranchos de Albuquerque · Rio Rancho · Tijeras · Edgewood · Corrales · Bernalillo · Placitas · Belen · Los Lunas · Bosque Farms · Peralta · South Valley · North Valley · Sandia Heights · Cedar Crest · Isleta · Pajarito Mesa · Algodones</p>
+              <p>Farmington · Aztec · Bloomfield · Kirtland · Flora Vista · Cedar Hill · Fruitland · La Plata · Blanco · Navajo Dam · Nageezi · Shiprock · Gallup · Church Rock · Thoreau · Crownpoint · Grants · Milan · Laguna Pueblo · Acoma Pueblo · San Rafael · Rehoboth · Tohatchi · Zuni</p>
             </div>
           </div>
         </section>
 
-        <!-- 03 ESPAÑOLA BASIN -->
-        <section class="section" id="espanola-basin">
-          <span class="section-num">03</span>
-          <div class="section-inner">
-            <div class="zone-strip reveal">
-              <div class="zone-strip-num"><span>02</span></div>
-              <div class="zone-strip-content">
-                <div class="zone-strip-title">Española Basin</div>
-                <div class="zone-strip-tag">Santa Fe · Española · Los Alamos · White Rock · Pojoaque · Chimayó</div>
-              </div>
-            </div>
-
-            <div class="two-col reveal">
-              <div>
-                <p class="basin-tagline">The upper Rio Grande corridor -- where ancient lake sediments and volcanic ash meet centuries of acequia irrigation, and the soil remembers all of it.</p>
-                <p><span class="field-label">What we see when we drive up</span> The Tesuque Formation has a visual signature you learn quickly: exposures in the cut banks and arroyos vary from sandy and loose to heavy clay-bearing within short distances. In the pueblos and along the old acequia corridors, centuries of irrigation have altered soil moisture content in ways no geological map captures. The land looks flat and stable. The subsurface often is not.</p>
-                <p><span class="field-label">What this geology does to foundations</span> The Tesuque Formation is laterally inconsistent -- fine-grained expansive members and coarser non-expansive members, often stacked and interbedded, creating differential settlement within a single foundation footprint. Los Alamos sits on Bandelier Tuff at the canyon rim, introducing a different hazard: shallow rock with variable depth to competent bearing.</p>
-                <p><mark class="key">One corner heaves, another stays put. The differential is the problem, not either soil alone.</mark></p>
-              </div>
-              <div>
-                <div class="zone-warnings">
-                  <span class="zone-warning-label">What TLS sees and repairs most here</span>
-                  <ul class="warning-list">
-                    <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Tesuque Formation lateral variability</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">Expansive clay members and non-expansive sand members stacked and interbedded, sometimes within the same foundation footprint. Lateral variability is the signature hazard here.</div></div>
-                    </li>
-                    <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Expansive clay in the fine-grained members</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">Where the Tesuque runs heavy with clay, foundations move with moisture. Santa Fe and the upper basin neighborhoods built into hillsides see this most.</div></div>
-                    </li>
-                    <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Acequia moisture migration</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">Centuries of irrigation have altered soil moisture in ways no geological map captures. Homes near old acequia corridors sit on soils repeatedly wetted and dried. The equilibrium looks stable until something changes it.</div></div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="communities-band reveal">
-              <span class="communities-band-label">Communities we serve in this basin</span>
-              <p>Santa Fe · Española · Los Alamos · White Rock · Pojoaque · Nambé · Tesuque · Chimayó · Alcalde · Dixon · Velarde · Abiquiu · El Rito · Truchas · La Cienega · Galisteo · Pecos · Glorieta · Lamy</p>
-            </div>
-          </div>
-        </section>
-
-        <!-- 04 ESTANCIA BASIN -->
-        <section class="section" id="estancia-basin">
-          <span class="section-num">04</span>
-          <div class="section-inner">
-            <div class="zone-strip reveal">
-              <div class="zone-strip-num"><span>03</span></div>
-              <div class="zone-strip-content">
-                <div class="zone-strip-title">Estancia Basin</div>
-                <div class="zone-strip-tag">Estancia · Moriarty · Mountainair · Willard · McIntosh · Edgewood</div>
-              </div>
-            </div>
-
-            <div class="two-col reveal">
-              <div>
-                <p class="basin-tagline">A closed basin with no outlet to the sea -- what goes in stays in, and so does the chemistry. Lake Estancia dried up thousands of years ago but its legacy is still in the soil.</p>
-                <p><span class="field-label">What we see when we drive up</span> The Estancia Basin sits around 6,000 feet elevation, east of the Manzano and Sandia ranges. The soil is pale -- light tan to whitish where evaporite minerals concentrate. Caliche shows up everywhere, sometimes as a thick hardpan just below grade that looks like competent bearing but fractures unpredictably. The playas -- dry lake bed remnants -- are visually flat and featureless. They're also where the worst soil behavior concentrates.</p>
-                <p><span class="field-label">What this geology does to foundations</span> The lacustrine clays deposited by Lake Estancia are highly expansive in places. Gypsum and halite from thousands of years of evaporation can dissolve under sustained moisture, creating voids in the subsurface. The basin is closed, meaning seasonal moisture has nowhere to go except down or into the soil -- shrink-swell cycles are pronounced in wet years.</p>
-              </div>
-              <div>
-                <div class="zone-warnings">
-                  <span class="zone-warning-label">What TLS sees and repairs most here</span>
-                  <ul class="warning-list">
-                    <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Expansive lacustrine clays</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">The legacy of Lake Estancia. Closed basin hydrology means moisture builds up with nowhere to go -- the wet-dry cycles are pronounced, especially in the lower basin.</div></div>
-                    </li>
-                    <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Evaporite dissolution</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">Gypsum and halite deposits from thousands of years of evaporation. Sustained moisture dissolves them at depth, creating voids beneath foundations with no surface warning.</div></div>
-                    </li>
-                    <li class="warning-item">
-                      <button class="warning-trigger"><span class="warning-trigger-text">Caliche variability</span><span class="warning-trigger-icon">+</span></button>
-                      <div class="warning-drawer"><div class="warning-drawer-inner">Looks like competent bearing. Sometimes is. A thin caliche layer over soft compressible material below is a hard ceiling over a soft floor, not a stable foundation.</div></div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <div class="communities-band reveal">
-              <span class="communities-band-label">Communities we serve in this basin</span>
-              <p>Estancia · Moriarty · Mountainair · Willard · McIntosh · Edgewood · Encino · Duran · Manzano · Tajique · Torreon · Clines Corners · Gran Quivira</p>
-            </div>
-          </div>
-        </section>
       </div>
     </div>
 
@@ -339,7 +238,7 @@ const description =
   .hero-photo {
     position: absolute;
     inset: -4%;
-    background-image: url('/images/central-new-mexico-hero.webp');
+    background-image: url('/images/four-corners-hero.webp');
     background-size: cover;
     background-position: center 50%;
     animation: kenburns 20s ease-in-out infinite alternate;
