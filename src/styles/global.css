@@ -37,22 +37,6 @@ html {
   scroll-padding-top: 100px;
 }
 
-/*
-  Horizontal-scroll guard, applied at the true root instead of on individual
-  page wrappers. Setting overflow-x: hidden on a page-level div (as several
-  of the pasted city-page code blocks did) forces the browser to compute
-  overflow-y: auto on that div too -- which makes it a "scroll container"
-  for CSS purposes and silently breaks position: sticky on any descendant
-  (e.g. the city pages' left-nav table of contents), since the sticky
-  element's offset then gets measured against a container that never
-  actually scrolls. html/body has no sticky descendants of its own, so the
-  same guard is safe here.
-*/
-html,
-body {
-  overflow-x: hidden;
-}
-
 @media (max-width: 768px) {
   html {
     scroll-padding-top: 120px;
