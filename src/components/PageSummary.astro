@@ -85,22 +85,21 @@ const { summary, nextPage } = Astro.props;
   #tls-summarize-panel {
     position: fixed;
     left: 50%;
-    bottom: 0;
+    bottom: 24px;
     top: auto;
     transform: translate(-50%, 20px);
     width: min(560px, calc(100% - 48px));
-    max-height: 92vh;
+    max-height: min(78vh, 78dvh);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     background: var(--cream, #fdfaf6);
     border: 2px solid var(--gold);
-    border-bottom: none;
-    border-radius: 12px 12px 0 0;
+    border-radius: 16px;
     z-index: 10001;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s, transform 0.25s;
-    box-shadow: 0 -12px 40px rgba(13, 34, 56, 0.25);
+    box-shadow: 0 12px 40px rgba(13, 34, 56, 0.3);
   }
   #tls-summarize-panel.show {
     opacity: 1;
