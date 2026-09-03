@@ -657,11 +657,13 @@ const schema = [
     --blue: #1b3a5c;
     --gold: #b8860b;
     --gold-lt: #d4a017;
+    /* gold-text: darkened gold for text on cream/sand/white -- --gold itself only clears WCAG AA on dark backgrounds */
+    --gold-text: #7d5c08;
     --sand: #f5efe6;
     --stone: #ddd5c8;
     --stone-warm: #e8dfce;
     --slate: #2c3a4a;
-    --muted: #6b7685;
+    --muted: #54626f;
     --cream: #fdfaf6;
     --white: #ffffff;
     font-family: 'Source Serif 4', Georgia, serif;
@@ -857,7 +859,7 @@ const schema = [
     font-size: clamp(32px, 5vw, 56px);
     font-weight: 700;
     font-style: italic;
-    color: var(--gold);
+    color: var(--gold-text);
     line-height: 1.05;
     letter-spacing: -1.5px;
     display: block;
@@ -977,7 +979,7 @@ const schema = [
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--gold-text);
     display: block;
     margin-bottom: 12px;
   }
@@ -992,7 +994,7 @@ const schema = [
     line-height: 1.3;
   }
   .nav-contact a:hover {
-    color: var(--gold);
+    color: var(--gold-text);
   }
   .nav-contact-sub {
     font-family: 'DM Mono', monospace;
@@ -1053,7 +1055,7 @@ const schema = [
     font-size: 12px;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--gold-text);
   }
   .section-heading {
     font-family: 'Playfair Display', serif;
@@ -1067,7 +1069,7 @@ const schema = [
   }
   .section-heading em {
     font-style: italic;
-    color: var(--gold);
+    color: var(--gold-text);
   }
   .rr-page h3 {
     font-family: 'Playfair Display', serif;
@@ -1138,7 +1140,7 @@ const schema = [
   }
   .rr-page mark.key {
     background: none;
-    color: var(--gold);
+    color: var(--gold-text);
     font-weight: 700;
     font-style: normal;
   }
@@ -1169,7 +1171,7 @@ const schema = [
     display: block;
   }
   .stat-num span {
-    color: var(--gold);
+    color: var(--gold-text);
   }
   .stat-label {
     font-family: 'DM Mono', monospace;
@@ -1272,7 +1274,7 @@ const schema = [
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--gold-text);
   }
   .flip-card.abc .flip-num {
     font-size: 80px;
@@ -1301,7 +1303,7 @@ const schema = [
     font-size: 11px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--gold-text);
     display: block;
     margin-bottom: 36px;
   }
@@ -1564,14 +1566,14 @@ const schema = [
   }
   .seo-trigger-text::before {
     content: '— ';
-    color: var(--gold);
+    color: var(--gold-text);
     font-family: 'DM Mono', monospace;
     font-size: 12px;
   }
   .seo-trigger-icon {
     font-family: 'DM Mono', monospace;
     font-size: 18px;
-    color: var(--gold);
+    color: var(--gold-text);
     flex-shrink: 0;
     transition: transform 0.3s;
   }

@@ -39,10 +39,21 @@
   --blue-mid: #2a5480;
   --gold: #b8860b;
   --gold-light: #d4a017;
+  /*
+    --gold-text: same gold family, darkened for text on light backgrounds
+    (cream/sand/white). --gold itself only clears WCAG AA (4.5:1) against
+    dark backgrounds (navy: 4.95:1) -- against cream it's 3.13:1 and
+    against sand 2.85:1, real failures for the small uppercase labels
+    used sitewide. Use --gold/--gold-light for anything on a dark
+    background (hero overlays, navy boxes, nav on the blue header) where
+    they already pass; use --gold-text for gold-colored text sitting on
+    cream/sand/white.
+  */
+  --gold-text: #7d5c08;
   --sand: #f5efe6;
   --stone: #e0d5c5;
   --slate: #4a5568;
-  --muted: #7a8694;
+  --muted: #54626f;
   --dark: #1a1a1a;
   --white: #ffffff;
   --cream: #fdfaf6;
