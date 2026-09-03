@@ -323,7 +323,6 @@ ${zonesHtml}
     letter-spacing: 4px;
     text-transform: uppercase;
     color: var(--gold);
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 2px 10px rgba(0, 0, 0, 0.5);
     display: block;
     margin-bottom: 20px;
   }
