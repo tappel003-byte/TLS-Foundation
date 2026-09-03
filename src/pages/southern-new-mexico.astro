@@ -431,10 +431,20 @@ const schema = [
     --navy: #0d2238;
     --blue: #1b3a5c;
     --gold: #b8860b;
+    /*
+      --gold-text: the same gold family but darkened for text sitting on
+      light backgrounds (cream/sand/white) -- the original --gold only
+      clears WCAG AA (4.5:1) against dark backgrounds like navy (4.95:1);
+      against cream it's 3.13:1 and against sand 2.85:1, both real
+      failures for small label text. --gold stays as-is for text/accents
+      already on a dark background (hero overlay, the basin-stat number)
+      where it already passes and darkening would look muddy there.
+    */
+    --gold-text: #7d5c08;
     --sand: #f5efe6;
     --stone: #ddd5c8;
     --slate: #2c3a4a;
-    --muted: #6b7685;
+    --muted: #54626f;
     --cream: #fdfaf6;
     --white: #ffffff;
     font-family: 'Source Serif 4', Georgia, serif;
@@ -636,7 +646,7 @@ const schema = [
     font-size: 9px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--gold-text);
   }
   .nav-contact a {
     font-family: 'Playfair Display', serif;
@@ -681,7 +691,7 @@ const schema = [
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--gold-text);
   }
   .section-heading {
     font-family: 'Playfair Display', serif;
@@ -692,7 +702,7 @@ const schema = [
     margin-bottom: 32px;
     max-width: 760px;
   }
-  .section-heading em { color: var(--gold); font-style: italic; }
+  .section-heading em { color: var(--gold-text); font-style: italic; }
 
   .two-col { display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; }
   .two-col-wide { display: grid; grid-template-columns: 1.5fr 1fr; gap: 56px; }
@@ -708,7 +718,7 @@ const schema = [
     font-size: 10px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--gold-text);
     margin-bottom: 8px;
   }
   mark.key {
@@ -737,7 +747,7 @@ const schema = [
   .zone-strip-num {
     font-family: 'DM Mono', monospace;
     font-size: 12px;
-    color: var(--gold);
+    color: var(--gold-text);
     border: 1px solid var(--gold);
     border-radius: 50%;
     width: 34px;
@@ -789,7 +799,7 @@ const schema = [
     font-family: 'Source Serif 4', serif;
   }
   .warning-trigger-text { font-size: 15px; color: var(--blue); font-weight: 600; }
-  .warning-trigger-icon { color: var(--gold); font-size: 16px; flex-shrink: 0; }
+  .warning-trigger-icon { color: var(--gold-text); font-size: 16px; flex-shrink: 0; }
   .warning-drawer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
   .warning-drawer-inner { font-size: 14px; line-height: 1.75; color: var(--muted); padding-bottom: 18px; }
 
@@ -804,7 +814,7 @@ const schema = [
     font-size: 10px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--gold-text);
     margin-bottom: 10px;
   }
   .communities-band p {
@@ -832,13 +842,30 @@ const schema = [
   .basin-stat-label {
     display: block;
     font-family: 'DM Mono', monospace;
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.7);
-    margin: 8px 0 6px;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 10px 0 8px;
   }
-  .basin-stat-desc { font-size: 12px; color: rgba(255, 255, 255, 0.6); line-height: 1.5; }
+  /*
+    15px/0.9 opacity, up from 12px/0.6 -- the contrast ratio here already
+    cleared WCAG AA (6.6:1) even at the old values, so this box's problem
+    wasn't contrast math, it was that 12px is small for anyone reading
+    without their glasses on. Bumped for readability, not compliance.
+  */
+  /*
+    ".basin-stat-item .basin-stat-desc" (not just ".basin-stat-desc") --
+    the single-class selector was silently losing to ".section-inner p"
+    (class+element beats class alone), so this rule's font-size was
+    never actually taking effect; the box was rendering at the generic
+    17px body size the whole time. Confirmed via computed style, not
+    assumed. Fixing the selector so this is an intentional declaration
+    instead of an accident. Contrast was already fine at 6.6:1 (WCAG AA)
+    even before this change -- the real improvement here is opacity
+    0.6 -> 0.9, closer to true white for a wider margin above minimum.
+  */
+  .basin-stat-item .basin-stat-desc { font-size: 16px; color: rgba(255, 255, 255, 0.9); line-height: 1.6; }
   .basin-stat-divider { width: 1px; background: rgba(255, 255, 255, 0.15); margin: 0 20px; }
 
   .fact-box {
@@ -852,7 +879,7 @@ const schema = [
     font-size: 10px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--gold-text);
     margin-bottom: 12px;
   }
   .fact-box p { font-size: 14px !important; margin-bottom: 8px !important; }
