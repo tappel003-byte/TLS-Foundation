@@ -9,6 +9,8 @@
 import Layout from '../layouts/Layout.astro';
 
 const title = 'TLS Foundations — New Mexico Foundation Repair';
+const summary =
+  "TLS Foundations is an owner-operated New Mexico foundation repair contractor with 55 combined years working the state's soils. The core position: the repair method should follow a real diagnosis, not the other way around, and TLS's affiliate Sandia GEO keeps investigation and repair as separate revenue streams so the recommendation isn't shaped by what gets sold. Six repair methods are carried -- helical piers, push piers, micropiles, compaction grouting, foam injection, and drainage correction -- because carrying a broad enough toolkit is what actually lets the diagnosis lead. The rest of the site exists to explain that reasoning in detail, region by region and question by question, rather than asking for trust upfront.";
 const description =
   "We don't guess a fix and work backward; we read the site and let the remedy follow. 55 combined years of New Mexico foundation repair and geotechnical experience.";
 
@@ -43,7 +45,14 @@ const schema = [
 ];
 ---
 
-<Layout title={title} description={description} footer="full" schema={schema}>
+<Layout
+  title={title}
+  description={description}
+  footer="full"
+  schema={schema}
+  summary={summary}
+  nextPage={{ path: '/our-approach', name: 'Our Approach' }}
+>
   <section class="hero">
     <img class="hero-photo" src="/images/home-hero.webp" alt="Sandia Mountains sunrise, New Mexico" />
     <div class="hero-overlay"></div>

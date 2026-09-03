@@ -6,6 +6,8 @@ import Layout from '../layouts/Layout.astro';
 import RegionalNav from '../components/RegionalNav.astro';
 
 const title = 'Central New Mexico Soil Conditions | TLS Foundations';
+const summary =
+  "Central New Mexico spans the Albuquerque, Española, and Estancia basins, and the soil character changes meaningfully between them: collapsible soils on the West Mesa, expansive river clays along the Rio Grande corridor, unpredictable Tesuque Formation variability in the Española Basin, and evaporite dissolution in the closed Estancia Basin. A repair approach calibrated for one of these conditions can be the wrong call two miles away, in another part of the same region.";
 const description =
   'Albuquerque, Española, and Estancia basins -- collapsible West Mesa soils, expansive river clays, Tesuque Formation variability, and evaporite dissolution in the closed Estancia basin.';
 
@@ -32,7 +34,15 @@ const schema = [
 ];
 ---
 
-<Layout title={title} description={description} footer="minimal" schema={schema} ogImage="/images/central-new-mexico-hero.webp">
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={schema}
+  ogImage="/images/central-new-mexico-hero.webp"
+  summary={summary}
+  nextPage={{ path: '/northern-new-mexico', name: 'Northern New Mexico' }}
+>
   <section class="hero">
     <img class="hero-photo" src="/images/central-new-mexico-hero.webp" alt="Central New Mexico Rio Grande valley" />
     <div class="hero-overlay"></div>

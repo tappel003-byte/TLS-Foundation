@@ -5,6 +5,8 @@
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Why Foundations Move in New Mexico — In Depth Series | TLS Foundations';
+const summary =
+  "Three short films: the first principle behind why foundations move at all, the difference between heave and settlement (and why getting that distinction wrong makes things worse, not better), and when underpinning genuinely isn't the right answer. The same subject as the Why Foundations Move reference page, told on camera instead of in prose.";
 const description =
   'Three short films on the forces that move foundations across New Mexico -- what causes them, how to tell them apart, and what honest evaluation looks like before any repair is considered.';
 
@@ -57,7 +59,14 @@ const videoSchema = [
 ];
 ---
 
-<Layout title={title} description={description} footer="minimal" schema={videoSchema}>
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={videoSchema}
+  summary={summary}
+  nextPage={{ path: '/glossary', name: 'Glossary' }}
+>
   <div class="tls-body">
     <section class="tls-series-hero">
       <span class="eyebrow">A Three-Part Series</span>

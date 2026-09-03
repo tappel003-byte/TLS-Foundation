@@ -6,6 +6,8 @@ import Layout from '../layouts/Layout.astro';
 import RegionalNav from '../components/RegionalNav.astro';
 
 const title = 'Four Corners New Mexico Soil Conditions | TLS Foundations';
+const summary =
+  "The Four Corners region is built on the San Juan Basin and Mancos Shale -- widely the most misdiagnosed foundation environment in New Mexico, because the heave this shale produces looks identical to settlement on the surface while requiring the opposite repair. Collapsible river deposits along the San Juan corridor add a second, unrelated failure mode to the same region.";
 const description =
   'San Juan Basin & Mancos Shale -- the most misdiagnosed foundation environment in New Mexico. Heave that looks like settlement, and collapsible river deposits along the San Juan corridor.';
 
@@ -32,7 +34,15 @@ const schema = [
 ];
 ---
 
-<Layout title={title} description={description} footer="minimal" schema={schema} ogImage="/images/four-corners-hero.webp">
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={schema}
+  ogImage="/images/four-corners-hero.webp"
+  summary={summary}
+  nextPage={{ path: '/eastern-new-mexico', name: 'Eastern New Mexico' }}
+>
   <section class="hero">
     <img class="hero-photo" src="/images/four-corners-hero.webp" alt="Four Corners New Mexico high desert" />
     <div class="hero-overlay"></div>

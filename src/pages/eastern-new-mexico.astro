@@ -8,6 +8,8 @@ import Layout from '../layouts/Layout.astro';
 import RegionalNav from '../components/RegionalNav.astro';
 
 const title = 'Eastern New Mexico Soil Conditions | TLS Foundations';
+const summary =
+  "Eastern New Mexico covers the High Plains, Pecos Valley, Mimbres Basin, and Lordsburg Basin: expansive wind-deposited clays, Permian-age evaporite dissolution, aquifer compaction subsidence from decades of agricultural pumping, and collapsible fan alluvium. Several of these mechanisms -- subsidence especially -- aren't things foundation repair can reverse; they change what an honest evaluation even recommends.";
 const description =
   'High Plains, Pecos Valley, Mimbres Basin, and Lordsburg Basin -- expansive aeolian clays, Permian evaporite dissolution, aquifer compaction subsidence, and collapsible fan alluvium.';
 
@@ -34,7 +36,15 @@ const schema = [
 ];
 ---
 
-<Layout title={title} description={description} footer="minimal" schema={schema} ogImage="/images/eastern-new-mexico-hero.webp">
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={schema}
+  ogImage="/images/eastern-new-mexico-hero.webp"
+  summary={summary}
+  nextPage={{ path: '/southern-new-mexico', name: 'Southern New Mexico' }}
+>
   <section class="hero">
     <img class="hero-photo" src="/images/eastern-new-mexico-hero.webp" alt="Eastern New Mexico high plains" />
     <div class="hero-overlay"></div>

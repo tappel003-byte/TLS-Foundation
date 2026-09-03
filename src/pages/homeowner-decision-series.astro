@@ -5,6 +5,8 @@
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Homeowner Decision Series | TLS Foundations';
+const summary =
+  "Four short videos, no sales pitch: what to document and watch before anyone sets foot in your home, how free inspections actually work economically and what that means for the advice you get, how to read crack patterns and timing to judge whether something is serious, and what intelligent monitoring looks like when repair isn't yet the right answer. 55 combined years of New Mexico soil experience, said plainly on camera instead of over the phone.";
 const description =
   "Four films about the decisions homeowners face when foundation movement shows up. No sales pitch, no urgency -- fifty-five combined years working New Mexico soils, said plainly.";
 
@@ -74,7 +76,14 @@ const videoSchema = [
 ];
 ---
 
-<Layout title={title} description={description} footer="minimal" schema={videoSchema}>
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={videoSchema}
+  summary={summary}
+  nextPage={{ path: '/soil-movement', name: 'Why Foundations Move: The Series' }}
+>
   <div class="tls-hds-page">
     <div class="tls-hds-hero">
       <div class="tls-hds-corner-bl"></div>

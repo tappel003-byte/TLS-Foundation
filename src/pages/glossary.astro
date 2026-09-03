@@ -6,6 +6,8 @@ import Layout from '../layouts/Layout.astro';
 import ReferenceNav from '../components/ReferenceNav.astro';
 
 const title = 'Foundation Repair Glossary | TLS Foundations New Mexico';
+const summary =
+  "86 plain-language definitions covering foundation repair and New Mexico soil science, from acequia to workmanship warranty -- searchable, browsable by letter, with related terms just a click away. Useful on its own when an engineer or a report hands you a word you don't recognize, and useful as a reference the rest of this site links back to whenever a technical term shows up in context.";
 const description =
   "Plain-language definitions of foundation repair and soil science terms -- from acequia to underpinning. Browse and link directly to any term.";
 
@@ -118,7 +120,14 @@ const definedTermSetSchema = {
 };
 ---
 
-<Layout title={title} description={description} footer="minimal" schema={[definedTermSetSchema]}>
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={[definedTermSetSchema]}
+  summary={summary}
+  nextPage={{ path: '/contact-us', name: 'Contact Us' }}
+>
   <div class="tls-glossary" id="top">
     <section class="page-hero">
       <div class="page-hero-inner">

@@ -7,6 +7,8 @@ import Layout from '../layouts/Layout.astro';
 import RegionalNav from '../components/RegionalNav.astro';
 
 const title = 'Northern New Mexico Soil Conditions | TLS Foundations';
+const summary =
+  "Northern New Mexico spans the Taos Plateau, Mora Valley, and Raton Basin: frost heave at elevation, basalt-derived montmorillonite clays that expand aggressively, and coal mine subsidence unique to the Raton Basin. Elevation and mining history make this region's causes meaningfully different from the rest of the state -- not just a colder version of the same problems found elsewhere.";
 const description =
   'Taos Plateau, Mora Valley, and Raton Basin -- frost heave at elevation, basalt-derived montmorillonite clays, and coal mine subsidence unique to the Raton Basin.';
 
@@ -33,7 +35,15 @@ const schema = [
 ];
 ---
 
-<Layout title={title} description={description} footer="minimal" schema={schema} ogImage="/images/northern-new-mexico-hero.webp">
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={schema}
+  ogImage="/images/northern-new-mexico-hero.webp"
+  summary={summary}
+  nextPage={{ path: '/four-corners', name: 'Four Corners' }}
+>
   <section class="hero">
     <img class="hero-photo" src="/images/northern-new-mexico-hero.webp" alt="Northern New Mexico mountain landscape" />
     <div class="hero-overlay"></div>

@@ -6,6 +6,8 @@
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Foundation Repair Methods | TLS Foundations New Mexico';
+const summary =
+  "Eight tools, not one system: helical piers, push piers, and micropiles for deep support; compaction grouting and foam injection for loose soil and voids; drainage correction when moisture is the actual problem; monitoring when repair would be premature; and custom solutions when nothing standard fits. None of these methods are proprietary -- any contractor can offer them. The difference is whether the method gets picked before or after the soil is actually understood. A company that sells one system evaluates every problem through that system; carrying the full toolkit means the method follows the diagnosis instead of the other way around.";
 const description =
   'We match the repair method to the problem, not the other way around. Helical piers, push piers, grouting, drainage -- all based on a proper diagnosis.';
 
@@ -56,6 +58,8 @@ const schema = [
   footer="full"
   schema={schema}
   ogImage="/images/foundation-repair-methods-hero.jpg"
+  summary={summary}
+  nextPage={{ path: '/new-mexico-soil-conditions', name: 'New Mexico Soil Conditions' }}
   footerProps={{
     serviceAreaLabel: "Six methods (not to mention a couple others we have up our sleeves). The right one depends on your soil.",
     serviceAreaText,

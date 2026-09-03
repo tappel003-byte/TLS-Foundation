@@ -5,6 +5,8 @@ import Layout from '../layouts/Layout.astro';
 import ReferenceNav from '../components/ReferenceNav.astro';
 
 const title = 'Collapsible Soils in New Mexico | TLS Foundations';
+const summary =
+  "Collapsible soil holds a loose, open particle structure that stays stable only as long as moisture stays low -- grains stacked against each other, held by capillary tension. When water finally reaches it, a swamp cooler leak, years of misdirected runoff, a new irrigation system, the bonds dissolve and the particles settle into a denser arrangement, a largely irreversible process. It's common on the alluvial fans extending from New Mexico's mountain ranges (the West Mesa, the Bernalillo corridor, southern basin bajadas), and in subdivisions from the 1970s-90s where fill was placed without proper compaction testing. Forty years of stability doesn't mean the soil was competent -- it may just mean it had never been wet.";
 const description =
   "Collapsible soils are New Mexico's most deceptive foundation hazard -- stable for decades, then gone in a season. Understanding the mechanism is the first step.";
 
@@ -30,7 +32,14 @@ const schema = [
 ];
 ---
 
-<Layout title={title} description={description} footer="minimal" schema={schema}>
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={schema}
+  summary={summary}
+  nextPage={{ path: '/symptom-guide', name: 'Symptom Guide' }}
+>
   <div class="tls-article">
     <section class="page-hero">
       <div class="page-hero-inner">

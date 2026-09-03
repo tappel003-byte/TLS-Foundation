@@ -7,6 +7,8 @@
 import Layout from '../layouts/Layout.astro';
 
 const title = "Why NM's Different — TLS Foundations";
+const summary =
+  "New Mexico's soil variation is extreme enough that a repair method chosen for one neighborhood can be the wrong choice two miles away -- which is the whole argument against a national playbook and the reason TLS was built around decades of regional field experience instead. Five accordions unpack what that means in practice: the ground's real variability, why regional knowledge can't be shortcut, why the same industry-standard tools produce different outcomes depending on when they're picked, the real difference between a contractor inspection and an independent geotechnical investigation, and an honest answer to whether teaching competitors this stuff is a problem (it isn't).";
 const description =
   "New Mexico has more soil variation than most states. Thirty-three counties, sixteen geologic basins -- and a repair approach built around that variation, not around a national playbook.";
 
@@ -62,6 +64,8 @@ const schema = [
   footer="full"
   schema={schema}
   ogImage="/images/our-approach-hero.webp"
+  summary={summary}
+  nextPage={{ path: '/why-foundations-move', name: 'Why Foundations Move' }}
   footerProps={{ serviceAreaLabel: "NM is different, but so are we.", serviceAreaText }}
 >
   <section class="hero">

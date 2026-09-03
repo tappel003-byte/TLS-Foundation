@@ -8,6 +8,8 @@ import Layout from '../layouts/Layout.astro';
 const title = 'Foundation Repair in Albuquerque, NM — The Duke City | TLS Foundations';
 const description =
   "Where you live in Albuquerque determines what's wrong with your foundation — and what fixes it. West Mesa, North Valley, South Valley, East Side, the Heights. 55 years of New Mexico soil experience. You reach the owners.";
+const summary =
+  "Where you live in Albuquerque determines what's actually wrong with your foundation: the West Mesa, North Valley, South Valley, East Side, and the Heights each sit on different soil, and each produces a different failure pattern -- not a citywide generic one. 55 combined years working these specific neighborhoods means recognizing which local condition is driving a given problem before proposing a fix, rather than applying one answer across a city that doesn't behave like one.";
 
 const schema = [
   {
@@ -86,7 +88,15 @@ const schema = [
 ];
 ---
 
-<Layout title={title} description={description} schema={schema} footer="minimal" ogImage="/images/albuquerque-hero.jpg">
+<Layout
+  title={title}
+  description={description}
+  schema={schema}
+  footer="minimal"
+  ogImage="/images/albuquerque-hero.jpg"
+  summary={summary}
+  nextPage={{ path: '/rio-rancho-nm', name: 'Rio Rancho' }}
+>
   <div class="abq-page">
     <!-- HERO -->
     <div class="hero">

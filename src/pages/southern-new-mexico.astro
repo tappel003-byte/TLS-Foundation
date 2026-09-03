@@ -7,6 +7,8 @@ import Layout from '../layouts/Layout.astro';
 import RegionalNav from '../components/RegionalNav.astro';
 
 const title = 'Southern New Mexico Soil Conditions | TLS Foundations';
+const summary =
+  "Southern New Mexico covers Mesilla, Hatch-Rincon, Tularosa, the Sacramento Mountains, and Jornada del Muerto: collapsible La Mesa soils, gypsum dissolution, differential rock-and-soil bearing, and first-wetting collapse, where soil that's been stable for decades can settle suddenly the first time it gets wet.";
 const description =
   'Mesilla, Hatch-Rincon, Tularosa, Sacramento Mountains, and Jornada del Muerto -- collapsible La Mesa soils, gypsum dissolution, differential rock-and-soil bearing, and first-wetting collapse.';
 
@@ -33,7 +35,15 @@ const schema = [
 ];
 ---
 
-<Layout title={title} description={description} footer="minimal" schema={schema} ogImage="/images/southern-new-mexico-hero.jpg">
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={schema}
+  ogImage="/images/southern-new-mexico-hero.jpg"
+  summary={summary}
+  nextPage={{ path: '/albuquerque-nm', name: 'Albuquerque' }}
+>
   <section class="hero">
     <img class="hero-photo" src="/images/southern-new-mexico-hero.jpg" alt="Southern New Mexico desert basin" />
     <div class="hero-overlay"></div>

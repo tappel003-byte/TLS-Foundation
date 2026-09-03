@@ -6,6 +6,8 @@
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Common Concerns — TLS Foundations';
+const summary =
+  "\"Foundation repair Albuquerque,\" \"foundation repair cost,\" \"free foundation inspection\" -- these are among the most expensive search terms in New Mexico, because contractors pay for them knowing homeowners search when they're worried and don't know where to turn. This page answers the eighteen questions behind those searches directly -- cost, warning signs, settlement vs. heave, insurance coverage, warranties, how to choose a company -- instead of routing that worry into a sales call. Click any question to see the honest answer, no contact form required first.";
 const description =
   "Eighteen questions New Mexico homeowners actually search for. Answered honestly -- cost, signs, settlement vs. heave, insurance, warranties, and more.";
 
@@ -42,6 +44,8 @@ const faqSchema = {
   description={description}
   footer="full"
   ogImage="/images/common-concerns-hero.webp"
+  summary={summary}
+  nextPage={{ path: '/foundation-repair-methods', name: 'Foundation Repair Methods' }}
   footerProps={{
     serviceAreaLabel: "Six methods (not to mention a couple others we have up our sleeves). The right one depends on your soil.",
     serviceAreaText,
