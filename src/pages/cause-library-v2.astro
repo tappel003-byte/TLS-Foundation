@@ -694,11 +694,6 @@ const verdictDefs: Record<string, string> = {
       <div class="page-hero-inner">
         <span class="hero-eyebrow">Interactive Guides · Differential Diagnosis</span>
         <h1>The Cause <em>Library</em></h1>
-        <p class="page-hero-lede">
-          Below are the 26 most common causes of foundation problems in New Mexico. Check what applies to your
-          building and this list ranks itself — most likely for your situation first, least likely last. Not a
-          diagnosis, just information.
-        </p>
         <p class="page-hero-sub">
           <a href="/symptom-guide-v2">Symptom Guide</a> is what you notice — the crack, the sticking door, the floor
           that dips. This is what's underneath. A symptom doesn't diagnose itself — the twenty-six causes below are
@@ -709,6 +704,12 @@ const verdictDefs: Record<string, string> = {
     </section>
 
     <div class="page">
+      <p class="cause-lede">
+        Below are the 26 most common causes of foundation problems in New Mexico. Check what applies to your
+        building and this list ranks itself — most likely for your situation first, least likely last. Not a
+        diagnosis, just information.
+      </p>
+
       <!-- CHECK ALL THAT APPLY -->
       <div class="facet-panel" id="facetPanel">
         <div class="facet-panel-head">
@@ -1390,20 +1391,20 @@ const verdictDefs: Record<string, string> = {
   }
   .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 46px); font-weight: 400; color: var(--white); line-height: 1.15; margin-bottom: 16px; }
   .page-hero h1 em { font-style: italic; color: var(--gold-light); }
-  .page-hero-lede {
+  .page-hero-sub { font-size: 17px; font-weight: 300; color: rgba(255, 255, 255, 0.6); line-height: 1.8; max-width: 680px; }
+  .page-hero-sub a { color: var(--gold-light); text-decoration: underline; }
+  .cause-lede {
     font-family: 'Source Serif 4', serif;
     font-size: clamp(19px, 2.2vw, 24px);
     font-weight: 400;
-    color: var(--white);
+    color: var(--blue);
     line-height: 1.55;
     max-width: 760px;
-    margin-bottom: 20px;
+    margin: 40px 0 24px;
   }
-  .page-hero-sub { font-size: 17px; font-weight: 300; color: rgba(255, 255, 255, 0.6); line-height: 1.8; max-width: 680px; }
-  .page-hero-sub a { color: var(--gold-light); text-decoration: underline; }
 
   /* ── Check-all-that-apply panel (shared with symptom-guide-v2) ── */
-  .facet-panel { background: var(--white); border: 1px solid var(--stone); border-radius: 12px; padding: 28px 28px 20px; margin: 40px 0 24px; }
+  .facet-panel { background: var(--white); border: 1px solid var(--stone); border-radius: 12px; padding: 28px 28px 20px; margin-bottom: 24px; }
   .facet-panel-head { margin-bottom: 20px; }
   .facet-panel-label {
     display: block;
