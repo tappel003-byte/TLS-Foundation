@@ -120,6 +120,8 @@ const schema = [
         </div>
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
+
+        <p class="closing-link"><a href="/contact-us" class="body-link">Seeing this pattern in your own home? Talk to us.</a></p>
       </article>
     </div>
   </div>
@@ -319,6 +321,20 @@ const schema = [
     transition: color 0.2s;
   }
   .back-to-top:hover {
+    color: var(--gold-text);
+  }
+  .closing-link {
+    margin-top: 32px;
+    font-size: 17px;
+  }
+  .tls-article :global(.body-link) {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--tls-gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .tls-article :global(.body-link):hover {
     color: var(--gold-text);
   }
 

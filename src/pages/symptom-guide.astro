@@ -9,6 +9,7 @@
 // "Most Common Foundation Concerns in New Mexico" (a different page's
 // title) instead of anything about symptoms.
 import Layout from '../layouts/Layout.astro';
+import ReferenceNav from '../components/ReferenceNav.astro';
 
 const title = 'Foundation Symptom Guide — What Cracks, Sticking Doors & Uneven Floors Mean | TLS Foundations';
 const summary =
@@ -478,9 +479,15 @@ const schema = [
       <div class="contact-footer">
         <p><strong>Nothing beats talking through what you're seeing.</strong></p>
         <p><a href="tel:5059914180">(505) 991-4180</a> · <a href="/contact-us">Send a message</a></p>
+        <p class="contact-footer-sub">
+          Not ready to call yet? <a href="/homeowner-decision-series">Homeowner Decision Series</a> covers what to
+          document and watch for first, on camera.
+        </p>
       </div>
     </div>
   </div>
+
+  <ReferenceNav />
 </Layout>
 
 <script>
@@ -966,6 +973,11 @@ const schema = [
     color: var(--blue);
     text-decoration: underline;
     text-decoration-color: var(--gold-text);
+  }
+  .contact-footer-sub {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: var(--muted);
   }
 
   @media (max-width: 768px) {
