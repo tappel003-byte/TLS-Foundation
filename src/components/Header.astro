@@ -172,6 +172,12 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     padding: 8px 0;
     white-space: nowrap;
   }
+  .dropdown-trigger {
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 0;
+    text-align: left;
+  }
   .site-nav-list > li > a:hover,
   .site-nav-list > li > a[aria-current='page'],
   .dropdown-trigger:hover {
@@ -274,15 +280,19 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
   .mobile-folder-trigger {
+    appearance: none;
+    -webkit-appearance: none;
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: none;
     border: none;
+    border-radius: 0;
     font-family: 'Source Serif 4', serif;
     font-weight: 300;
     font-size: 18px;
+    text-align: left;
     color: rgba(255, 255, 255, 0.85);
     padding: 14px 28px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
