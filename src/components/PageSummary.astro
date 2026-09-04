@@ -51,7 +51,13 @@ const { summary, pageName, nextPage } = Astro.props;
   #tls-summarize-btn {
     position: fixed;
     bottom: 28px;
-    left: 28px;
+    /* Sits beside the back-to-top arrow (#tls-btt: 48px wide, right: 28px)
+       on desktop -- left: 28px collided with the sticky left-nav sidebar's
+       own bottom contact block on the 5 regional pages. Reverts to
+       bottom-left on mobile (that sidebar is hidden there anyway, and two
+       fixed buttons crowd a narrow screen less if they're in opposite
+       corners rather than stacked next to each other). */
+    right: 88px;
     height: 48px;
     display: flex;
     align-items: center;
@@ -232,6 +238,7 @@ const { summary, pageName, nextPage } = Astro.props;
   @media (max-width: 640px) {
     #tls-summarize-btn {
       left: 20px;
+      right: auto;
       padding: 0 16px;
       font-size: 10px;
     }
