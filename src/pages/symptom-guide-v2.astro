@@ -355,23 +355,58 @@ const categories: Category[] = [
   },
 ];
 
-const regions = [
-  { name: 'Central New Mexico', url: '/central-new-mexico' },
-  { name: 'Northern New Mexico', url: '/northern-new-mexico' },
-  { name: 'Four Corners', url: '/four-corners' },
-  { name: 'Eastern New Mexico', url: '/eastern-new-mexico' },
-  { name: 'Southern New Mexico', url: '/southern-new-mexico' },
-];
-
-// Optional, finer-grained than region -- purely a "where are our visitors
-// coming from" signal (tracked via GA4), not tied to any content
-// personalization the way region is.
-const cities = [
-  'Alamogordo', 'Albuquerque', 'Artesia', 'Belen', 'Bernalillo', 'Carlsbad',
-  'Clovis', 'Deming', 'Espanola', 'Farmington', 'Gallup', 'Grants', 'Hobbs',
-  'Las Cruces', 'Las Vegas, NM', 'Los Alamos', 'Los Lunas', 'Portales',
-  'Rio Rancho', 'Roswell', 'Ruidoso', 'Santa Fe', 'Silver City', 'Socorro',
-  'Taos', 'Other / not listed',
+// One combined "where are you" picker instead of separate region + city
+// dropdowns -- region alone doesn't personalize anything on this page
+// anymore (that link-rewriting was removed when the per-card links got
+// pruned), so asking the same question twice added nothing. City lists
+// are the real ones already published on each regional soil page's zone
+// strips, not a separate guessed list -- one optgroup per region,
+// flattened across that region's zones.
+const regionCities = [
+  {
+    region: 'Four Corners',
+    url: '/four-corners',
+    cities: ['Farmington', 'Aztec', 'Bloomfield', 'Kirtland', 'Gallup', 'Grants', 'Shiprock'],
+  },
+  {
+    region: 'Northern New Mexico',
+    url: '/northern-new-mexico',
+    cities: [
+      'Taos', 'Ranchos de Taos', 'Arroyo Seco', 'Questa', 'Red River', 'Ojo Caliente',
+      'Mora', 'Wagon Mound', 'Chacon', 'Cleveland', 'Guadalupita', 'Roy',
+      'Raton', 'Springer', 'Angel Fire', 'Cimarron', 'Eagle Nest', 'Maxwell',
+    ],
+  },
+  {
+    region: 'Central New Mexico',
+    url: '/central-new-mexico',
+    cities: [
+      'Albuquerque', 'Rio Rancho', 'Corrales', 'Bernalillo', 'Los Lunas', 'Belen',
+      'Santa Fe', 'Española', 'Los Alamos', 'White Rock', 'Pojoaque', 'Chimayó',
+      'Estancia', 'Moriarty', 'Mountainair', 'Willard', 'McIntosh', 'Edgewood',
+    ],
+  },
+  {
+    region: 'Eastern New Mexico',
+    url: '/eastern-new-mexico',
+    cities: [
+      'Clovis', 'Portales', 'Tucumcari', 'Fort Sumner', 'Santa Rosa', 'Clayton',
+      'Roswell', 'Artesia', 'Carlsbad', 'Dexter', 'Hagerman', 'Loving',
+      'Deming', 'Silver City', 'Bayard', 'Columbus', 'Hurley',
+      'Lordsburg', 'Animas', 'Hachita', 'Rodeo', 'Playas',
+    ],
+  },
+  {
+    region: 'Southern New Mexico',
+    url: '/southern-new-mexico',
+    cities: [
+      'Las Cruces', 'Mesilla', 'Doña Ana', 'Anthony', 'Sunland Park', 'Organ',
+      'Hatch', 'Rincon', 'Garfield', 'Arrey', 'Derry',
+      'Alamogordo', 'Tularosa', 'La Luz', 'Holloman AFB', 'Three Rivers',
+      'Ruidoso', 'Cloudcroft', 'Alto', 'Capitan', 'Carrizozo',
+      'Socorro', 'Truth or Consequences', 'Magdalena', 'Elephant Butte',
+    ],
+  },
 ];
 
 const allSymptoms = categories.flatMap((c) => c.items);
@@ -492,17 +527,19 @@ const schema = [
         <fieldset class="facet-group">
           <legend>Where are you in New Mexico?</legend>
           <div class="region-row">
-            <select id="regionSelect" aria-label="Select your region">
-              <option value="">Select your region (optional)</option>
-              {regions.map((r) => <option value={r.url}>{r.name}</option>)}
-            </select>
-          </div>
-          <div class="region-row">
             <select id="citySelect" aria-label="Select your city or town (optional)">
               <option value="">Select your city or town (optional)</option>
-              {cities.map((c) => <option value={c}>{c}</option>)}
+              {regionCities.map((r) => (
+                <optgroup label={r.region}>
+                  {r.cities.map((c) => (
+                    <option value={c} data-region={r.region} data-region-url={r.url}>{c}</option>
+                  ))}
+                </optgroup>
+              ))}
+              <option value="Other / not listed">Other / not listed</option>
             </select>
           </div>
+          <p class="facet-tip" id="regionLinkTip" hidden></p>
         </fieldset>
 
         <fieldset class="facet-group">
@@ -644,9 +681,6 @@ const schema = [
 </Layout>
 
 <script>
-  // Remembers the reader's region choice across visits. No per-card region
-  // links to update anymore -- that job now belongs to the facet panel's
-  // region picker alone, not repeated at the bottom of all 19 cards.
   // Fires a GA4 custom event if the tag is present, no-ops otherwise --
   // Cloudflare Web Analytics (also on this page) doesn't support custom
   // events, only page views, so this is GA4-specific by design.
@@ -654,37 +688,48 @@ const schema = [
     if (typeof (window as any).gtag === 'function') (window as any).gtag('event', name, params || {});
   }
 
+  // One combined city/region picker (city implies region via its
+  // optgroup, so there's no separate region question anymore). Remembers
+  // the choice across visits, tracks it, and surfaces a single link back
+  // to that region's soil page -- once, here, not repeated on every card
+  // the way the old per-card region links were.
   const STORAGE_KEY = 'tls-region';
-  const regionSelect = document.getElementById('regionSelect') as HTMLSelectElement;
+  const citySelect = document.getElementById('citySelect') as HTMLSelectElement;
+  const regionLinkTip = document.getElementById('regionLinkTip') as HTMLElement;
+
+  function applySelection(city: string, region: string, url: string) {
+    citySelect.value = city;
+    if (region && url) {
+      regionLinkTip.hidden = false;
+      regionLinkTip.innerHTML = `<a href="${url}">More about the ${region} region →</a>`;
+    } else {
+      regionLinkTip.hidden = true;
+    }
+  }
 
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
     try {
-      const { url } = JSON.parse(saved);
-      regionSelect.value = url;
+      const { city, region, url } = JSON.parse(saved);
+      applySelection(city, region, url);
     } catch {
       /* ignore malformed storage */
     }
   }
 
-  regionSelect.addEventListener('change', () => {
-    const url = regionSelect.value;
-    const name = regionSelect.options[regionSelect.selectedIndex]?.textContent || '';
-    if (!url) {
+  citySelect.addEventListener('change', () => {
+    const city = citySelect.value;
+    if (!city) {
       localStorage.removeItem(STORAGE_KEY);
+      regionLinkTip.hidden = true;
       return;
     }
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ url, name }));
-    track('region_selected', { region: name });
-  });
-
-  // City is purely optional and purely a "where are visitors coming
-  // from" signal -- no content on this page changes based on it, unlike
-  // region, so it's just tracked, nothing more.
-  const citySelect = document.getElementById('citySelect') as HTMLSelectElement;
-  citySelect.addEventListener('change', () => {
-    if (!citySelect.value) return;
-    track('city_selected', { city: citySelect.value });
+    const opt = citySelect.options[citySelect.selectedIndex];
+    const region = opt.dataset.region || '';
+    const url = opt.dataset.regionUrl || '';
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ city, region, url }));
+    applySelection(city, region, url);
+    track('city_selected', { city, region: region || 'unspecified' });
   });
 
   // "Do you have building plans" is a prep tip, not a fact that predicts
@@ -1034,6 +1079,7 @@ const schema = [
     border-radius: 6px;
     padding: 10px 14px;
   }
+  .facet-tip a { color: inherit; font-weight: 600; text-decoration: underline; }
   .facet-options { display: flex; flex-wrap: wrap; gap: 8px; }
   .facet-chip {
     display: inline-flex;
@@ -1063,7 +1109,6 @@ const schema = [
     cursor: pointer;
     padding: 4px 0;
   }
-  .region-row + .region-row { margin-top: 10px; }
   .region-row select {
     width: 100%;
     font-family: 'DM Mono', monospace;
