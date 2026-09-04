@@ -292,7 +292,7 @@ const categories: Category[] = [
           { text: 'Central NM Soils', href: '/central-new-mexico' },
         ],
         onset: ['gradual'],
-        see: ['see-foundation-gap'],
+        see: ['see-chimney'],
         site: ['site-adobe'],
         foundation: [],
       },
@@ -431,6 +431,7 @@ const seeOptions = [
   { id: 'see-gaps', label: 'Gaps around doors, windows, or baseboards' },
   { id: 'see-foundation-cracks', label: 'Foundation cracks or crumbling concrete' },
   { id: 'see-foundation-gap', label: 'A gap between the house and the foundation' },
+  { id: 'see-chimney', label: 'Chimney leaning or separating from the house' },
   { id: 'see-drainage', label: 'Water pooling or poor drainage near the house' },
   { id: 'see-crawlspace', label: 'Wet, damp, or musty crawlspace' },
   { id: 'see-leak-signs', label: 'A warm/wet spot on the floor, or a sudden jump in your water bill' },
@@ -795,6 +796,7 @@ const schema = [
     'see-gaps': 'gaps around doors, windows, or baseboards',
     'see-foundation-cracks': 'foundation cracking',
     'see-foundation-gap': 'a gap between the house and foundation',
+    'see-chimney': 'a leaning or separating chimney',
     'see-drainage': 'water pooling near the house',
     'see-crawlspace': 'a wet or musty crawlspace',
     'see-leak-signs': 'signs of a possible leak',
@@ -821,6 +823,13 @@ const schema = [
 
   function score(it: (typeof items)[number], checked: ReturnType<typeof getChecked>) {
     const seeMatches = it.see.filter((s) => checked.see.includes(s)).length;
+    // Onset/site/foundation only sharpen ranking among cards you've
+    // actually indicated a symptom for -- they never qualify a card on
+    // their own. Without this, a card could out-rank everything else
+    // purely from background facts (e.g. "older adobe construction")
+    // with no observed symptom checked at all, surfacing in "related
+    // reading" for something the reader never said they were seeing.
+    if (seeMatches === 0) return 0;
     const onsetMatches = it.onset.filter((s) => checked.onset.includes(s)).length;
     const siteMatches = it.site.filter((s) => checked.site.includes(s)).length;
     const foundationMatches = it.foundation.filter((s) => checked.foundation.includes(s)).length;
