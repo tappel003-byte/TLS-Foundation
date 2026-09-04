@@ -399,7 +399,9 @@ const siteOptions = [
 ];
 const foundationOptions = [
   { id: 'fnd-slab', label: 'Slab on grade' },
+  { id: 'fnd-monolithic', label: 'Monolithic slab (turned-down edge)' },
   { id: 'fnd-posttension', label: 'Post-tension slab' },
+  { id: 'fnd-spreadfooting', label: 'Spread footing' },
   { id: 'fnd-pierbeam', label: 'Pier and beam / crawlspace' },
   { id: 'fnd-unsure', label: 'Not sure' },
 ];
@@ -496,6 +498,21 @@ const schema = [
               </label>
             ))}
           </div>
+        </fieldset>
+
+        <fieldset class="facet-group">
+          <legend>Do you have building plans for your house?</legend>
+          <div class="facet-options">
+            <label class="facet-chip">
+              <input type="radio" name="plans" value="yes" id="plansYes" />
+              <span>Yes</span>
+            </label>
+            <label class="facet-chip">
+              <input type="radio" name="plans" value="no" id="plansNo" />
+              <span>No</span>
+            </label>
+          </div>
+          <p class="facet-tip" id="plansTip" hidden>Good — having a copy on hand at the time of an evaluation can speed things up.</p>
         </fieldset>
 
         <fieldset class="facet-group">
@@ -644,6 +661,17 @@ const schema = [
     track('region_selected', { region: name });
   });
 
+  // "Do you have building plans" is a prep tip, not a fact that predicts
+  // any cause -- it doesn't feed the scoring below at all, just reveals a
+  // one-line note when checked.
+  const plansTip = document.getElementById('plansTip') as HTMLElement;
+  (['plansYes', 'plansNo'] as const).forEach((id) => {
+    document.getElementById(id)?.addEventListener('change', () => {
+      plansTip.hidden = id !== 'plansYes';
+      track('house_plans_available', { value: id === 'plansYes' ? 'yes' : 'no' });
+    });
+  });
+
   // ── Check-all-that-apply: score, sort (never hide), collapse, outcome ──
   const grid = document.getElementById('symptomGrid') as HTMLElement;
   const otherStrip = document.getElementById('otherStrip') as HTMLButtonElement;
@@ -706,7 +734,9 @@ const schema = [
     'site-plumbing': 'a recent plumbing leak nearby',
     'site-trees': 'large trees close to the house',
     'fnd-slab': 'a slab-on-grade foundation',
+    'fnd-monolithic': 'a monolithic slab with a turned-down edge',
     'fnd-posttension': 'a post-tension slab',
+    'fnd-spreadfooting': 'a spread-footing foundation',
     'fnd-pierbeam': 'a pier-and-beam or crawlspace foundation',
   };
 
@@ -970,6 +1000,14 @@ const schema = [
   .facet-group { border: none; padding: 0; margin: 0 0 20px; }
   .facet-group legend { font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 0.95rem; color: var(--blue); padding: 0; margin-bottom: 10px; }
   .facet-group-note { font-weight: 400; font-size: 0.78rem; color: var(--muted); }
+  .facet-tip {
+    margin: 12px 0 0;
+    font-size: 0.82rem;
+    color: var(--gold-text);
+    background: var(--sand);
+    border-radius: 6px;
+    padding: 10px 14px;
+  }
   .facet-options { display: flex; flex-wrap: wrap; gap: 8px; }
   .facet-chip {
     display: inline-flex;
