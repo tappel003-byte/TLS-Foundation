@@ -111,7 +111,7 @@ const groups: Group[] = [
         ],
         onset: ['sudden'],
         see: ['see-floors', 'see-foundation-cracks'],
-        site: ['site-plumbing'],
+        site: ['site-plumbing', 'site-known-issues'],
         foundation: [],
       },
       {
@@ -153,7 +153,7 @@ const groups: Group[] = [
         missed: 'Homeowners often have no idea their property sits on or near a former landfill. Investigation is the only way to identify it.',
         onset: ['gradual'],
         see: ['see-floors'],
-        site: ['site-cutfill'],
+        site: ['site-cutfill', 'site-known-issues'],
         foundation: [],
       },
       {
@@ -182,7 +182,7 @@ const groups: Group[] = [
         missed: "Confused with other settlement types. The distinguishing feature: it's predictable, load-related, and decelerates over time.",
         onset: ['gradual'],
         see: ['see-floors'],
-        site: [],
+        site: ['site-known-issues'],
         foundation: [],
       },
       {
@@ -224,7 +224,7 @@ const groups: Group[] = [
         ],
         onset: ['seasonal'],
         see: ['see-doors', 'see-windows', 'see-crack-diagonal'],
-        site: ['site-clay'],
+        site: ['site-clay', 'site-known-issues'],
         foundation: [],
       },
     ],
@@ -329,7 +329,7 @@ const groups: Group[] = [
         ],
         onset: ['gradual', 'sudden'],
         see: ['see-foundation-gap'],
-        site: [],
+        site: ['site-known-issues'],
         foundation: [],
       },
       {
@@ -343,7 +343,7 @@ const groups: Group[] = [
         missed: 'Symptoms mimic differential settlement; clue is consistent downhill pattern.',
         onset: ['gradual'],
         see: ['see-cracks-exterior'],
-        site: ['site-cutfill'],
+        site: ['site-cutfill', 'site-known-issues'],
         foundation: [],
       },
       {
@@ -370,7 +370,7 @@ const groups: Group[] = [
         missed: 'Almost universally missed at individual-home level. Systematically absent from contractor education.',
         onset: ['gradual'],
         see: ['see-floors'],
-        site: [],
+        site: ['site-known-issues'],
         foundation: [],
       },
       {
@@ -592,6 +592,7 @@ const siteOptions = [
   { id: 'site-adobe', label: 'Older adobe or mud-brick construction' },
   { id: 'site-plumbing', label: 'Recent plumbing leak or repair nearby' },
   { id: 'site-trees', label: 'Large trees close to the house' },
+  { id: 'site-known-issues', label: 'Known soil problem area or settlement issues in the neighborhood' },
 ];
 const foundationOptions = [
   { id: 'fnd-slab', label: 'Slab on grade' },
