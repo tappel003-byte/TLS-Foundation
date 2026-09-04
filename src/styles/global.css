@@ -100,6 +100,22 @@ button {
   -webkit-font-smoothing: antialiased;
 }
 
+/*
+  Every button on this site is custom-styled (its own background,
+  border, font) -- none rely on native OS button chrome. Left at its
+  default, -webkit-appearance: auto still layers that native chrome
+  on top of author CSS and can render text at a different effective
+  size/weight than the identical CSS on a plain link or span (this is
+  exactly what caused the mobile nav folder-button/link mismatch).
+  Reset once here instead of per-component so no future button
+  silently inherits the same bug.
+*/
+button {
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
 h1,
 h2,
 h3,
