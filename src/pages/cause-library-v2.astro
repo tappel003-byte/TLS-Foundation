@@ -46,6 +46,11 @@
 // assess -- rather than inventing a step that isn't real.
 import Layout from '../layouts/Layout.astro';
 
+// Same Web3Forms delivery as contact-us.astro and symptom-guide-v2.astro --
+// same access key, so signing up once (see the TODO in contact-us.astro)
+// turns this on everywhere at once.
+const WEB3FORMS_ACCESS_KEY = '';
+
 const title = 'The Cause Library — Why Foundations Move | TLS Foundations';
 const summary =
   'Twenty-six specific causes of foundation movement in New Mexico, organized as a differential diagnosis -- what to rule out first, what needs real investigation, and what\'s usually structural -- rather than by soil mechanism. A "check all that apply" panel (foundation type, what you see, when it started, what you know about your site) re-sorts the list by relevance and hands back a short practical readout. Each entry covers what it is, where in New Mexico it shows up, whether underpinning is the right response, and what gets commonly missed.';
@@ -249,7 +254,7 @@ const groups: Group[] = [
         what: 'Leaks from supply, sewer, or drains saturate soil, causing heave, collapse, or erosion. Sewer leaks are especially insidious — they are deep, persistent, and often go undetected for years.',
         underpinning: 'No while leak active. Repair leak first, allow soil to stabilize, then reassess.',
         missed: "Many repair contracts signed without sewer camera inspection. A plumber fixes the pipe; a contractor sells piers — but nobody evaluates whether the soil will stabilize on its own once the water stops. A patch of unusually green, lush grass over a sewer line — even in a drought — is a common outdoor tell homeowners notice before anything shows up inside.",
-        homeownerAction: "Check your water bill for a jump that doesn't have an obvious explanation, and ask for a static pressure test of the sewer line below the slab — not just a camera inspection, which can miss what a pressure test catches.",
+        homeownerAction: "Check your water bill for a jump that doesn't have an obvious explanation, and ask your plumber if they can do a static pressure test for a below-slab sewer line — not just a camera inspection, which can miss what a pressure test catches.",
         related: [{ text: 'Glossary: Moisture Trigger →', href: '/glossary#moisture-trigger', blurb: 'The specific source of moisture that initiated or is sustaining foundation movement — often irrigation, leaks, or drainage.' }],
         onset: ['sudden'],
         see: ['see-leak-signs', 'see-floors'],
@@ -798,10 +803,40 @@ const verdictDefs: Record<string, string> = {
         <p class="outcome-text" id="outcomeText"></p>
         <div class="outcome-cta">
           <a href="tel:5059914180" class="outcome-phone">(505) 991-4180</a>
+          <button type="button" id="sendResultsToggle" class="outcome-print" aria-expanded="false">Send this to TLS</button>
         </div>
-        <div class="handoff">
-          <p class="handoff-text">Want to check this against what you're actually seeing in the house, rather than by mechanism? Your answers carry over automatically.</p>
-          <a href="/symptom-guide-v2" id="outcomePill" class="handoff-btn">Go to the Symptom Guide →</a>
+
+        <div class="send-form-wrap" id="sendFormWrap" hidden>
+          <form id="sendResultsForm" class="send-form" novalidate>
+            <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+            <input type="hidden" name="subject" value="Cause Library results from tlsfoundations.com" />
+            <input type="hidden" name="from_name" value="TLS Foundations website" />
+            <input type="hidden" name="message" id="sendMessageField" />
+            <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" />
+            <p class="send-form-note">We'll send exactly what's on this page — what you checked, and the read above.</p>
+            <div class="form-row">
+              <label for="send-name">Name</label>
+              <input id="send-name" name="name" type="text" required autocomplete="name" />
+            </div>
+            <div class="form-row">
+              <label for="send-contact">Best way to reach you (email or phone)</label>
+              <input id="send-contact" name="email" type="text" required autocomplete="email" />
+            </div>
+            <button type="submit" class="form-submit">Send my results</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <div class="outcome-more" id="outcomeMore">
+          <p class="outcome-triage">Notice most results point toward the same first step? That's deliberate — like a doctor taking vital signs before treating you, we gather real data before recommending anything else.</p>
+          <div class="related-reading" id="relatedReading" hidden>
+            <span class="related-reading-label">Related reading, based on your closest matches</span>
+            <div class="related-reading-list" id="relatedReadingList"></div>
+          </div>
+          <div class="handoff">
+            <p class="handoff-text">Want to check this against what you're actually seeing in the house, rather than by mechanism? Your answers carry over automatically.</p>
+            <a href="/symptom-guide-v2" id="outcomePill" class="handoff-btn">Go to the Symptom Guide →</a>
+          </div>
         </div>
       </div>
 
@@ -1014,6 +1049,8 @@ const verdictDefs: Record<string, string> = {
   const outcomeBox = document.getElementById('outcomeBox') as HTMLElement;
   const outcomeText = document.getElementById('outcomeText') as HTMLElement;
   const outcomePill = document.getElementById('outcomePill') as HTMLAnchorElement;
+  const relatedReading = document.getElementById('relatedReading') as HTMLElement;
+  const relatedReadingList = document.getElementById('relatedReadingList') as HTMLElement;
   let stripOpen = false;
 
   function getChecked() {
@@ -1078,6 +1115,45 @@ const verdictDefs: Record<string, string> = {
     if (regionSelect.value) params.set('region', regionSelect.value);
     if (citySelect.value) params.set('city', citySelect.value);
     outcomePill.href = '/symptom-guide-v2' + (params.toString() ? '?' + params.toString() : '');
+
+    buildRelatedReading(scored);
+  }
+
+  // Pulls the further-reading links straight off the top-matched cards'
+  // own .specimen-related-item elements -- no separate content to
+  // maintain, and no re-querying the DOM by class (cards are reordered
+  // via CSS `order`, not DOM position, so `.matched` query order wouldn't
+  // match score order). Capped at 3 cards / 4 links, same restraint as
+  // symptom-guide-v2's version, for the same reason: past a couple of
+  // checked boxes this was turning into a wall of links again.
+  function buildRelatedReading(scoredMatches: { it: (typeof items)[number]; s: number }[]) {
+    const seen = new Set<string>();
+    const found: { href: string; text: string; blurb: string }[] = [];
+    scoredMatches.slice(0, 3).forEach(({ it }) => {
+      it.el.querySelectorAll<HTMLAnchorElement>('.specimen-related-item').forEach((a) => {
+        if (found.length >= 4) return;
+        const href = a.getAttribute('href') || '';
+        if (!href || seen.has(href)) return;
+        seen.add(href);
+        const text = a.querySelector('.specimen-related-title')?.textContent?.replace(/\s*→\s*$/, '').trim() || href;
+        const blurb = a.querySelector('.specimen-related-blurb')?.textContent?.trim() || '';
+        found.push({ href, text, blurb });
+      });
+    });
+
+    relatedReadingList.innerHTML = '';
+    if (found.length === 0) {
+      relatedReading.hidden = true;
+      return;
+    }
+    relatedReading.hidden = false;
+    found.forEach(({ href, text, blurb }) => {
+      const row = document.createElement('a');
+      row.href = href;
+      row.className = 'related-reading-item';
+      row.innerHTML = `<span class="related-reading-title">${text} →</span>` + (blurb ? `<span class="related-reading-blurb">${blurb}</span>` : '');
+      relatedReadingList.appendChild(row);
+    });
   }
 
   function applySort() {
@@ -1153,6 +1229,73 @@ const verdictDefs: Record<string, string> = {
     applySort();
   });
   outcomePill.addEventListener('click', () => track('cross_page_handoff', { from: 'cause-library', to: 'symptom-guide' }));
+
+  // "Send this to TLS" -- same content as what's on the page, sent through
+  // the same Web3Forms delivery as the main contact form (see the TODO on
+  // WEB3FORMS_ACCESS_KEY above).
+  function buildSendMessage(): string {
+    const checked = getChecked();
+    const lines: string[] = [];
+    if (regionSelect.value) lines.push(`Region: ${regionSelect.value}${citySelect.value ? ' — ' + citySelect.value : ''}`);
+    const parts = (['see', 'onset', 'site', 'foundation'] as const).flatMap((g) => checked[g]).map((id) => LABELS[id]).filter(Boolean);
+    if (parts.length) lines.push(`Checked: ${parts.join(', ')}`);
+    lines.push('');
+    lines.push(outcomeText.textContent || '');
+    lines.push('');
+    lines.push('Sent from the Cause Library at tlsfoundations.com/cause-library-v2');
+    return lines.join('\n');
+  }
+
+  const sendToggle = document.getElementById('sendResultsToggle') as HTMLButtonElement;
+  const sendFormWrap = document.getElementById('sendFormWrap') as HTMLElement;
+  const sendForm = document.getElementById('sendResultsForm') as HTMLFormElement;
+  const sendMessageField = document.getElementById('sendMessageField') as HTMLInputElement;
+  const sendStatus = sendForm.querySelector('.form-status') as HTMLElement;
+  const sendSubmitBtn = sendForm.querySelector('.form-submit') as HTMLButtonElement;
+  const sendAccessKey = (sendForm.querySelector('input[name="access_key"]') as HTMLInputElement).value;
+
+  sendToggle.addEventListener('click', () => {
+    const open = sendFormWrap.hidden;
+    sendFormWrap.hidden = !open;
+    sendToggle.setAttribute('aria-expanded', String(open));
+    if (open) track('send_to_tls_opened');
+  });
+
+  sendForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    sendMessageField.value = buildSendMessage();
+
+    if (!sendAccessKey) {
+      sendStatus.textContent = "This isn't hooked up yet — text or call (505) 991-4180 in the meantime.";
+      sendStatus.classList.add('is-error');
+      return;
+    }
+
+    sendSubmitBtn.disabled = true;
+    sendStatus.classList.remove('is-error');
+    sendStatus.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(sendForm))),
+      });
+      const data = await res.json();
+      if (data.success) {
+        sendStatus.textContent = "Sent — we'll be in touch.";
+        sendForm.reset();
+        track('send_to_tls_submitted');
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
+    } catch {
+      sendStatus.textContent = "Something went wrong — text or call (505) 991-4180 instead.";
+      sendStatus.classList.add('is-error');
+    } finally {
+      sendSubmitBtn.disabled = false;
+    }
+  });
 
   // Arriving via the handoff from symptom-guide-v2 -- pre-check boxes from the URL.
   ['onset', 'see', 'site', 'foundation'].forEach((group) => {
@@ -1389,9 +1532,103 @@ const verdictDefs: Record<string, string> = {
     color: var(--gold-light);
     margin-bottom: 12px;
   }
-  .outcome-text { color: rgba(255, 255, 255, 0.92); font-size: 0.98rem; line-height: 1.8; margin: 0 0 20px; }
-  .outcome-cta { margin-bottom: 20px; }
+  .outcome-text { color: rgba(255, 255, 255, 0.92); font-size: 0.98rem; line-height: 1.8; margin: 0 0 16px; }
+  .outcome-triage {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    font-style: italic;
+    border-left: 2px solid rgba(212, 160, 23, 0.4);
+    padding-left: 14px;
+    margin: 0 0 20px;
+  }
+  .outcome-cta { margin-bottom: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .outcome-phone { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); text-decoration: none; border-bottom: 1px solid var(--gold); }
+  .outcome-print {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.65);
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+  }
+  .outcome-print:hover { color: var(--white); border-color: rgba(255, 255, 255, 0.5); }
+  .send-form-wrap { margin-bottom: 20px; padding: 18px 20px; background: rgba(0, 0, 0, 0.18); border-radius: 8px; }
+  .send-form-note { font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); margin: 0 0 14px; line-height: 1.6; }
+  .send-form .form-row { margin-bottom: 14px; }
+  .send-form label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 6px;
+  }
+  .send-form input[type='text'],
+  .send-form input[type='email'] {
+    width: 100%;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem;
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 10px 12px;
+  }
+  .send-form input[type='text']:focus,
+  .send-form input[type='email']:focus { outline: none; border-color: var(--gold); }
+  .send-form .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .send-form .form-submit {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+    color: var(--blue-dark);
+    background: var(--gold-light);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  .send-form .form-submit:hover { background: var(--gold); }
+  .send-form .form-submit:disabled { opacity: 0.6; cursor: default; }
+  .send-form .form-status { margin: 10px 0 0; font-size: 0.82rem; color: rgba(255, 255, 255, 0.75); }
+  .send-form .form-status.is-error { color: #f0a; }
+  .outcome-more { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; margin-top: 20px; }
+  .related-reading { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; margin-bottom: 18px; }
+  .related-reading-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+  }
+  .related-reading-list { display: flex; flex-direction: column; gap: 10px; }
+  /* Built with document.createElement in JS, not present in this file's
+     template -- Astro only scopes elements it sees at build time, so a
+     plain selector here would silently never match. */
+  :global(.related-reading-item) {
+    display: block;
+    text-decoration: none;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  :global(.related-reading-item:last-child) { border-bottom: none; }
+  :global(.related-reading-title) {
+    display: block;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  :global(.related-reading-item:hover .related-reading-title) { color: var(--gold-light); }
+  :global(.related-reading-blurb) { display: block; font-size: 0.78rem; color: rgba(255, 255, 255, 0.55); line-height: 1.5; }
   .handoff { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; }
   .handoff-text { color: rgba(255, 255, 255, 0.65); font-size: 0.85rem; line-height: 1.6; margin: 0 0 12px; }
   .handoff-btn {
