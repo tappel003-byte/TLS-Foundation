@@ -87,7 +87,7 @@ const categories: Category[] = [
         q: 'Ceiling cracks or gaps at ceiling-wall junction',
         whatsHappening:
           'Differential movement between the wall and ceiling plane — framing settling unevenly, or the wall moving relative to the roof structure above.',
-        needsRepair: 'Hairline ceiling cracks are common and usually cosmetic. A gap opening between the ceiling and wall — especially if progressive — warrants investigation.',
+        needsRepair: 'Hairline ceiling cracks are common and usually <a href="/glossary#cosmetic-crack" class="glossary-link">cosmetic</a>. A gap opening between the ceiling and wall — especially if progressive — warrants investigation.',
         nmContext:
           'Seasonal moisture cycling in clay soils produces cyclical movement that opens and closes ceiling gaps over the course of a year. Document with photos and dates before calling anyone.',
         links: [],
@@ -216,7 +216,7 @@ const categories: Category[] = [
       },
       {
         q: 'Bowed or leaning foundation wall',
-        whatsHappening: 'Lateral soil pressure, expansive clay heave, or hydrostatic pressure pushing against the foundation wall from outside.',
+        whatsHappening: 'Lateral soil pressure, expansive clay heave, or <a href="/glossary#hydrostatic-pressure" class="glossary-link">hydrostatic pressure</a> pushing against the foundation wall from outside.',
         needsRepair:
           'Active inward movement warrants evaluation. Some walls stabilize once drainage is corrected. The rate of movement matters — slow and stable is different from progressive.',
         nmContext:
@@ -252,7 +252,7 @@ const categories: Category[] = [
       {
         q: 'Gap between foundation and house framing',
         whatsHappening:
-          'The sill plate or mudsill — the wood framing member that sits on top of the foundation — has separated from the concrete below. Either the foundation has dropped, or the framing has lifted.',
+          'The sill plate or <a href="/glossary#mudsill" class="glossary-link">mudsill</a> — the wood framing member that sits on top of the foundation — has separated from the concrete below. Either the foundation has dropped, or the framing has lifted.',
         needsRepair: 'A visible gap at the foundation-to-framing connection is worth evaluating. It affects both structural integrity and pest and moisture intrusion.',
         nmContext:
           'Heave lifting the interior slab while perimeter walls settle — or vice versa — is a common New Mexico pattern that creates gaps at the foundation perimeter. The direction of the gap tells part of the story.',
@@ -305,9 +305,9 @@ const categories: Category[] = [
       {
         q: 'Water pooling near the foundation',
         whatsHappening: 'Negative site drainage, improper grade, or irrigation runoff collecting against the foundation instead of draining away from it.',
-        needsRepair: 'Fix drainage first. Correcting grade often eliminates the need for structural repair entirely — the moisture trigger is removed and the soil stabilizes.',
+        needsRepair: 'Fix drainage first. Correcting grade often eliminates the need for structural repair entirely — the <a href="/glossary#moisture-trigger" class="glossary-link">moisture trigger</a> is removed and the soil stabilizes.',
         nmContext:
-          'Moisture is the critical trigger for both expansive soil heave and collapsible soil collapse. Moisture migration is frequently the most important repair a New Mexico homeowner can make — and the least expensive.',
+          'Moisture is the critical trigger for both expansive soil heave and collapsible soil collapse. <a href="/glossary#moisture-migration" class="glossary-link">Moisture migration</a> is frequently the most important repair a New Mexico homeowner can make — and the least expensive.',
         links: [
           { text: 'Drainage Correction', href: '/foundation-repair-methods#drainage-correction' },
           { text: "Why NM's Different", href: '/our-approach' },
@@ -439,6 +439,18 @@ const schema = [
   nextPage={{ path: '/common-concerns', name: 'Common Concerns' }}
 >
   <div class="sg-page">
+    <!-- Screen-hidden, print-only -- becomes the actual header of the
+         printed page since the site nav, hero, and checkboxes are all
+         stripped out for print. -->
+    <div class="print-header">
+      <div class="print-header-brand">TLS Foundations</div>
+      <div class="print-header-phone">(505) 991-4180 · tlsfoundations.com</div>
+      <p class="print-header-disclaimer">
+        Educational reference only — not a diagnosis or professional evaluation. Prepared from checkboxes
+        selected on <span id="printDate"></span>.
+      </p>
+    </div>
+
     <section class="page-hero">
       <div class="page-hero-inner">
         <span class="hero-eyebrow">Resources · Reference</span>
@@ -531,8 +543,14 @@ const schema = [
       <div class="outcome-box" id="outcomeBox" hidden>
         <span class="outcome-label">Based on what you checked</span>
         <p class="outcome-text" id="outcomeText"></p>
+        <p class="outcome-triage">Notice most results point toward the same first step? That's deliberate — like a doctor taking vital signs before treating you, we gather real data before recommending anything else. The checkboxes narrow down what it's likely to be; the survey confirms it.</p>
         <div class="outcome-cta">
           <a href="tel:5059914180" class="outcome-phone">(505) 991-4180</a>
+          <button type="button" id="printResults" class="outcome-print">Print your results</button>
+        </div>
+        <div class="related-reading" id="relatedReading" hidden>
+          <span class="related-reading-label">Related reading, based on your closest matches</span>
+          <div class="related-reading-list" id="relatedReadingList"></div>
         </div>
         <div class="handoff">
           <p class="handoff-text">Want the deeper explanation of why this happens, mechanism by mechanism? Your answers carry over automatically.</p>
@@ -540,7 +558,10 @@ const schema = [
         </div>
       </div>
 
-      <p class="results-lead" id="resultsLead" hidden>Ranked for you — based on what you checked, this is likely the most useful reading on this page for your situation.</p>
+      <div class="results-lead" id="resultsLead" hidden>
+        <h2 class="results-lead-heading">Ranked Reading</h2>
+        <p class="results-lead-text">Ranked for you — based on what you checked, this is likely the most useful reading on this page for your situation.</p>
+      </div>
 
       <div class="symptom-grid" id="symptomGrid">
         {categories.map((cat) =>
@@ -634,7 +655,22 @@ const schema = [
   const outcomeBox = document.getElementById('outcomeBox') as HTMLElement;
   const outcomeText = document.getElementById('outcomeText') as HTMLElement;
   const outcomePill = document.getElementById('outcomePill') as HTMLAnchorElement;
+  const relatedReading = document.getElementById('relatedReading') as HTMLElement;
+  const relatedReadingList = document.getElementById('relatedReadingList') as HTMLElement;
   let stripOpen = false;
+
+  const LINK_BLURBS: Record<string, string> = {
+    '/expansive-soil': 'How clay soils that swell and shrink with moisture drive seasonal cracking and heave.',
+    '/common-concerns#heave': 'Why heave and settlement look identical but need opposite repairs.',
+    '/foundation-repair-methods#foam-injection': "A lower-cost option for slab cracks that don't need deep piers.",
+    '/common-concerns#wait': "When it's safe to monitor and when waiting makes things worse.",
+    '/collapsible-soil': 'Soils that hold for decades dry, then collapse suddenly once wet.',
+    '/foundation-repair-methods': 'The full range of repair approaches, not just piers.',
+    '/foundation-repair-methods#drainage-correction': 'Often the cheapest fix, and sometimes the only one you need.',
+    '/northern-new-mexico': 'Soil conditions specific to Santa Fe, Taos, and the north.',
+    '/central-new-mexico': 'Soil conditions specific to Albuquerque and the Rio Grande corridor.',
+    '/common-concerns#insurance': 'What homeowners insurance actually covers here.',
+  };
 
   const LABELS: Record<string, string> = {
     sudden: 'sudden onset',
@@ -729,6 +765,38 @@ const schema = [
     if (checked.site.length) params.set('site', checked.site.join(','));
     if (checked.foundation.length) params.set('foundation', checked.foundation.join(','));
     outcomePill.href = '/cause-library-v2' + (params.toString() ? '?' + params.toString() : '');
+
+    buildRelatedReading();
+  }
+
+  // Pulls the further-reading links straight off the matched cards -- no
+  // separate content to maintain, just the same links already rendered,
+  // deduplicated and given one line of context so they're worth clicking
+  // from inside the outcome box instead of scattered across every card.
+  function buildRelatedReading() {
+    const seen = new Set<string>();
+    const found: { href: string; text: string }[] = [];
+    document.querySelectorAll<HTMLAnchorElement>('.symptom.matched .symptom-link').forEach((a) => {
+      const href = a.getAttribute('href') || '';
+      if (!href || seen.has(href)) return;
+      seen.add(href);
+      found.push({ href, text: a.textContent?.replace(/\s*→\s*$/, '').trim() || href });
+    });
+
+    relatedReadingList.innerHTML = '';
+    if (found.length === 0) {
+      relatedReading.hidden = true;
+      return;
+    }
+    relatedReading.hidden = false;
+    found.forEach(({ href, text }) => {
+      const row = document.createElement('a');
+      row.href = href;
+      row.className = 'related-reading-item';
+      const blurb = LINK_BLURBS[href];
+      row.innerHTML = `<span class="related-reading-title">${text} →</span>` + (blurb ? `<span class="related-reading-blurb">${blurb}</span>` : '');
+      relatedReadingList.appendChild(row);
+    });
   }
 
   function applySort() {
@@ -771,6 +839,13 @@ const schema = [
 
     buildOutcome();
   }
+
+  const printBtn = document.getElementById('printResults') as HTMLButtonElement;
+  const printDate = document.getElementById('printDate') as HTMLElement;
+  printBtn.addEventListener('click', () => {
+    printDate.textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    window.print();
+  });
 
   otherStrip.addEventListener('click', () => {
     stripOpen = !stripOpen;
@@ -918,9 +993,59 @@ const schema = [
     color: var(--gold-light);
     margin-bottom: 12px;
   }
-  .outcome-text { color: rgba(255, 255, 255, 0.92); font-size: 0.98rem; line-height: 1.8; margin: 0 0 20px; }
-  .outcome-cta { margin-bottom: 20px; }
+  .outcome-text { color: rgba(255, 255, 255, 0.92); font-size: 0.98rem; line-height: 1.8; margin: 0 0 16px; }
+  .outcome-triage {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    font-style: italic;
+    border-left: 2px solid rgba(212, 160, 23, 0.4);
+    padding-left: 14px;
+    margin: 0 0 20px;
+  }
+  .outcome-cta { margin-bottom: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .outcome-phone { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); text-decoration: none; border-bottom: 1px solid var(--gold); }
+  .outcome-print {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.65);
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+  }
+  .outcome-print:hover { color: var(--white); border-color: rgba(255, 255, 255, 0.5); }
+  .print-header { display: none; }
+  .related-reading { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; margin-bottom: 18px; }
+  .related-reading-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+  }
+  .related-reading-list { display: flex; flex-direction: column; gap: 10px; }
+  .related-reading-item {
+    display: block;
+    text-decoration: none;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .related-reading-item:last-child { border-bottom: none; }
+  .related-reading-title {
+    display: block;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 3px;
+  }
+  .related-reading-item:hover .related-reading-title { color: var(--gold-light); }
+  .related-reading-blurb { display: block; font-size: 0.78rem; color: rgba(255, 255, 255, 0.55); line-height: 1.5; }
   .handoff { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; }
   .handoff-text { color: rgba(255, 255, 255, 0.65); font-size: 0.85rem; line-height: 1.6; margin: 0 0 12px; }
   .handoff-btn {
@@ -937,12 +1062,20 @@ const schema = [
   .handoff-btn:hover { background: var(--gold); }
 
   /* ── Results lead-in ── */
-  .results-lead {
+  .results-lead { margin: 0 0 20px; }
+  .results-lead-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--blue);
+    margin: 0 0 6px;
+  }
+  .results-lead-text {
     font-family: 'DM Mono', monospace;
     font-size: 0.75rem;
     letter-spacing: 0.5px;
     color: var(--gold-text);
-    margin: 0 0 16px;
+    margin: 0;
   }
 
   /* ── Symptom cards (flat grid, sortable) ── */
@@ -1007,6 +1140,14 @@ const schema = [
     border-bottom: 1px dotted var(--gold);
   }
   .symptom-link:hover { color: var(--gold-text); }
+  .glossary-link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: var(--gold);
+    text-underline-offset: 2px;
+  }
+  .glossary-link:hover { color: var(--gold-text); }
 
   .contact-footer { margin-top: 20px; text-align: center; padding: 32px; background: var(--sand); border-left: 4px solid var(--gold); }
   .contact-footer p { margin-bottom: 8px; font-size: 0.9rem; color: var(--slate); }
@@ -1020,5 +1161,46 @@ const schema = [
   }
   @media (max-width: 640px) {
     .page-hero h1 { font-size: 2rem; }
+  }
+
+  /* ── Print: only the matched results + outcome, TLS branding as the
+       header since the site nav is gone, everything forced open since
+       collapse/accordion state is a screen-only affordance. ── */
+  @media print {
+    :global(.site-header),
+    :global(.mobile-panel),
+    :global(.minimal-footer),
+    :global(.reference-nav),
+    :global(#tls-summarize-btn),
+    :global(#tls-summarize-overlay),
+    :global(#tls-summarize-panel),
+    :global(#tls-btt) {
+      display: none !important;
+    }
+    .page-hero, .diagnostic-note, .facet-panel,
+    .filter-bar, .results-lead, .other-strip, .handoff, .contact-footer,
+    .outcome-print {
+      display: none !important;
+    }
+    .print-header { display: block; margin-bottom: 28px; border-bottom: 2px solid #000; padding-bottom: 16px; }
+    .print-header-brand { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #000; }
+    .print-header-phone { font-family: 'DM Mono', monospace; font-size: 13px; color: #000; margin-top: 4px; }
+    .print-header-disclaimer { font-size: 11px; color: #444; font-style: italic; margin-top: 10px; }
+    .page { padding: 0; max-width: 100%; }
+    .outcome-box { background: none; border: 1px solid #999; padding: 16px; }
+    .outcome-label, .related-reading-label { color: #444; }
+    .outcome-text, .outcome-triage, .related-reading-title, .related-reading-blurb, .outcome-phone {
+      color: #000 !important;
+    }
+    .symptom:not(.matched) { display: none; }
+    .symptom.collapsed { padding: 24px 28px; }
+    .symptom.collapsed .whats-happening,
+    .symptom.collapsed .needs-repair,
+    .symptom.collapsed .nm-note,
+    .symptom.collapsed .symptom-links,
+    .symptom.collapsed .symptom-category-badge {
+      display: block !important;
+    }
+    .symptom { break-inside: avoid; border: 1px solid #ccc; }
   }
 </style>
