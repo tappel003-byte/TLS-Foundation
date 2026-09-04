@@ -1,34 +1,475 @@
 ---
-// DRAFT (temp) -- prototype only, linked from a clearly-marked "Draft (temp)"
-// nav folder in Header.astro. Second pass at this page: the first cut just
-// relocated the 26-item accordion wholesale onto its own URL, but it still
-// looked like the same plain reference-document template as every other
-// reference page. This version rebuilds it in the site's established
-// magazine format (sticky left-nav, numbered sections, Ken Burns hero --
-// same toolkit as the regional pages) with a new "specimen card" treatment
-// for each cause: a catalog-style code tag (A1, B1...), a compact
-// underpinning-verdict badge for scanning without opening every card, and
-// structured labeled fields instead of plain paragraphs. Content itself is
-// unchanged from the original -- only the presentation is new.
-// Hero photo is a placeholder (reuses why-foundations-move-hero.webp) --
-// Tim is supplying a new one.
-// Delete this file, why-foundations-move-v2.astro, and the "Draft (temp)"
-// folder in Header.astro together once a direction is picked.
+// DRAFT (temp) -- prototype only, linked from the "Draft (temp)" nav folder
+// in Header.astro. Third pass at this page. First cut relocated the
+// 26-item accordion verbatim onto its own URL. Second cut rebuilt it in
+// the site's magazine format (Ken Burns hero, sticky nav, reveal
+// animations) -- good-looking, wrong shape for a 26-item lookup reference,
+// per direct discussion. This version drops the magazine shell entirely
+// and rebuilds on the same template as symptom-guide-v2.astro: same CSS
+// tokens, same "check all that apply" facet panel (identical vocabulary,
+// so the pill at the bottom of Symptom Guide lands here with checkboxes
+// already carried over via URL params), same never-hide/reorder-only
+// sort, same liability-safe outcome paragraph pattern (here leaning on
+// mechanism/expertise framing rather than urgency, since this is the
+// deep-reference half of the pair, not the fast-triage half). Content
+// itself is unchanged from the original 26 entries except two small
+// additions surfaced by the 5-source vocabulary research (swamp cooler
+// leak under C3, a lush-grass tell under C1) and one clearer plain-English
+// line under A5 (soil piping).
+// Delete this file, symptom-guide-v2.astro, why-foundations-move-v2.astro,
+// and the "Draft (temp)" folder in Header.astro together once a direction
+// is picked.
 import Layout from '../layouts/Layout.astro';
 
 const title = 'The Cause Library — Why Foundations Move | TLS Foundations';
 const summary =
-  'Twenty-six specific causes of foundation movement in New Mexico, organized by mechanism across six groups -- loss of support, soil volume change, water and moisture drivers, deep geologic hazards, construction deficiencies, and site triggers. Each entry covers what it is, where in New Mexico it shows up, whether underpinning is the right response, and what gets commonly missed.';
+  'Twenty-six specific causes of foundation movement in New Mexico, organized by mechanism across six groups -- loss of support, soil volume change, water and moisture drivers, deep geologic hazards, construction deficiencies, and site triggers. A "check all that apply" panel (what you know, what you see, when it started) re-sorts the list by relevance and assembles a short practical readout. Each entry covers what it is, where in New Mexico it shows up, whether underpinning is the right response, and what gets commonly missed.';
 const description =
-  '26 specific causes of New Mexico foundation movement, organized by mechanism -- what it is, where it happens, and whether underpinning is the right response.';
+  '26 specific causes of New Mexico foundation movement, organized by mechanism -- check what applies and see which ones best match, with an honest read on whether underpinning fits.';
 
-const groups = [
-  { id: 'group-a', label: 'Group A', title: 'Loss of Support', tagline: 'The soil can no longer carry the weight. Underpinning is often the right answer.' },
-  { id: 'group-b', label: 'Group B', title: 'Soil Volume Change', tagline: 'Soils expand, shrink, or react chemically with moisture. Underpinning is often NOT the first response.' },
-  { id: 'group-c', label: 'Group C', title: 'Water & Moisture Drivers', tagline: 'Water is the trigger for nearly every cause. These cases are primarily water problems, not soil problems.' },
-  { id: 'group-d', label: 'Group D', title: 'Deep Geologic Hazards', tagline: 'Instability deeper or broader than surface corrections can address. Some unique to NM.' },
-  { id: 'group-e', label: 'Group E', title: 'Construction Deficiencies', tagline: 'Not all movement is soil — some is a design or materials problem.' },
-  { id: 'group-f', label: 'Group F', title: 'Site & Environmental', tagline: 'Triggers from outside the soil itself — traffic, freeze-thaw, wildlife.' },
+interface Cause {
+  code: string;
+  name: string;
+  verdict: string;
+  verdictClass: 'verdict-strong' | 'verdict-conditional' | 'verdict-weak';
+  what: string;
+  where?: string;
+  underpinning: string;
+  missed?: string;
+  regional?: string;
+  related?: { text: string; href: string }[];
+  anchorId?: string;
+  onset: string[];
+  see: string[];
+  site: string[];
+}
+interface Group {
+  id: string;
+  label: string;
+  title: string;
+  tagline: string;
+  causes: Cause[];
+}
+
+const groups: Group[] = [
+  {
+    id: 'group-a',
+    label: 'Group A',
+    title: 'Loss of Support',
+    tagline: 'The soil can no longer carry the weight. Underpinning is often the right answer.',
+    causes: [
+      {
+        code: 'A1',
+        name: 'Collapsible Soils',
+        verdict: 'Yes',
+        verdictClass: 'verdict-strong',
+        anchorId: 'collapsible-soils',
+        what: 'Some New Mexico soils have a loose, open structure — almost like a honeycomb — held together by weak bonds that dissolve when water reaches them. These soils can support a house for decades while they stay dry. When water is introduced from any source — a leak, irrigation, a storm — the bonds break and the soil drops. Settlement can be sudden and dramatic.',
+        where: 'Extremely common statewide, particularly on valley margins, alluvial fan deposits, and mesa edges where development has moved from irrigated valley floors onto previously dry higher ground.',
+        underpinning: 'Yes — once collapse has occurred, the soil structure is permanently altered. Piers driven through the collapsed zone to stable material below are the standard response. But the water source must be found and controlled first, or collapse will continue in untreated areas.',
+        missed: "This is routinely misdiagnosed as 'normal settling' or blamed on poor compaction. The mechanism is fundamentally different — it is not gradual compression under weight, it is a sudden collapse of the soil structure, triggered by water. This is arguably the most underappreciated foundation hazard in New Mexico.",
+        related: [
+          { text: 'Collapsible Soils article →', href: '/collapsible-soil' },
+          { text: 'Glossary: Hydrocompaction →', href: '/glossary#hydrocompaction' },
+        ],
+        onset: ['sudden'],
+        see: ['see-floors', 'see-foundation-cracks'],
+        site: ['site-plumbing'],
+      },
+      {
+        code: 'A2',
+        name: 'Poorly Compacted Fill',
+        verdict: 'Yes',
+        verdictClass: 'verdict-strong',
+        what: "When a building site is graded, excavated material is used as fill to create a level pad. If this fill isn't properly compacted in controlled lifts, it compresses under the weight of the structure over time. Settlement is typically uneven because fill thickness varies across the site. Some fill contains debris, construction waste, or organic material that decomposes and creates voids.",
+        where: 'Everywhere homes are built, but especially on hillside lots, subdivisions cut into mesas, sites where arroyos or drainages were filled, and rapid-growth developments.',
+        underpinning: 'Yes. The fill will not improve on its own. Piers through the fill to competent native soil or bedrock are the standard solution.',
+        missed: "Without as-built records, it's difficult to know fill is present without investigation. The homeowner typically has no idea their lot was filled. Contractors often label this 'natural settlement' without checking.",
+        onset: ['gradual'],
+        see: ['see-floors', 'see-foundation-cracks'],
+        site: ['site-cutfill'],
+      },
+      {
+        code: 'A3',
+        name: 'Cut-and-Fill Transition Movement',
+        verdict: 'Often',
+        verdictClass: 'verdict-strong',
+        what: "Houses built into hillsides often sit partly on undisturbed cut soil and partly on compressible fill. These two portions bear on fundamentally different materials. The fill side settles; the cut side doesn't. Differential movement is virtually guaranteed.",
+        where: 'Foothills developments, Santa Fe hillsides, East Mountains, any area where lots were created by grading into slopes.',
+        underpinning: 'Often yes, especially when fill is deep. The fill side will typically require deeper piers than the cut side.',
+        onset: ['gradual'],
+        see: ['see-floors', 'see-cracks-interior'],
+        site: ['site-cutfill'],
+      },
+      {
+        code: 'A4',
+        name: 'Landfill and Undocumented Fill Sites',
+        verdict: 'Depends',
+        verdictClass: 'verdict-conditional',
+        what: 'Homes built on or near former landfill sites face ongoing settlement as buried waste decomposes, compresses, and creates voids. Gas migration from decomposition can also affect soil chemistry and moisture patterns. Older landfills may not appear on any map the homeowner has access to.',
+        where: 'Scattered across the state. Municipal records may or may not document former disposal sites, particularly informal ones from earlier decades.',
+        underpinning: 'Depends on depth and extent. Deep piers to stable material below the fill may work for localized settlement. Widespread active decomposition may make the site unsuitable for standard residential repair.',
+        missed: 'Homeowners often have no idea their property sits on or near a former landfill. Investigation is the only way to identify it.',
+        onset: ['gradual'],
+        see: ['see-floors'],
+        site: ['site-cutfill'],
+      },
+      {
+        code: 'A5',
+        name: 'Subsurface Erosion and Soil Piping',
+        verdict: 'Depends',
+        verdictClass: 'verdict-conditional',
+        what: "Water moving through erodible soils creates underground channels that carry soil particles away — water washing tunnels through the soil — forming voids beneath foundations. In New Mexico's climate of long dry periods interrupted by intense monsoon rainfall, this process can accelerate dramatically during storm events.",
+        where: 'Common in dispersive soils (sodium-rich clays), fine-grained alluvial deposits, and loess. Rio Grande Valley and statewide.',
+        underpinning: 'Depends. Void filling may be the first priority. The water pathway must be interrupted. Underpinning alone does not solve subsurface erosion.',
+        missed: 'Invisible until it manifests as sudden settlement or sinkhole-like depressions. Rarely considered in standard repair evaluations.',
+        related: [{ text: 'Glossary: Soil piping →', href: '/glossary#soil-piping' }],
+        onset: ['sudden'],
+        see: ['see-foundation-gap', 'see-drainage'],
+        site: ['site-arroyo'],
+      },
+      {
+        code: 'A6',
+        name: 'Consolidation of Deep Alluvium',
+        verdict: 'Sometimes',
+        verdictClass: 'verdict-conditional',
+        what: 'Naturally deposited soft clays and silts compress under the weight of a structure over time. This is a load-driven process — the soil is squeezing water from its pore spaces under sustained pressure. Settlement can continue for years after construction but typically slows over time.',
+        where: 'Rio Grande floodplain, major tributary floodplains, and ancient lake bed deposits in closed basins.',
+        underpinning: 'Yes, if the settlement is differential and exceeds structural tolerance. If uniform and within tolerance, monitoring is more appropriate.',
+        missed: "Confused with other settlement types. The distinguishing feature: it's predictable, load-related, and decelerates over time.",
+        onset: ['gradual'],
+        see: ['see-floors'],
+        site: [],
+      },
+      {
+        code: 'A7',
+        name: 'Bearing Failure from Load Changes',
+        verdict: 'Often',
+        verdictClass: 'verdict-strong',
+        what: 'Additions, second stories, remodels that remove load-bearing walls, or changes that concentrate weight in new locations can exceed what the original soil and foundation were designed to support.',
+        underpinning: 'Often yes — the foundation needs deeper or broader support to handle the new loads.',
+        missed: "Blamed on 'bad soil' when the real issue is a load change the original design didn't anticipate.",
+        onset: ['gradual'],
+        see: ['see-cracks-interior'],
+        site: [],
+      },
+    ],
+  },
+  {
+    id: 'group-b',
+    label: 'Group B',
+    title: 'Soil Volume Change',
+    tagline: "Soils expand, shrink, or react chemically with moisture. Underpinning is often not the first response.",
+    causes: [
+      {
+        code: 'B1',
+        name: 'Expansive Clay Soils (incl. Mancos Shale, Sulfate Heave, Caliche)',
+        verdict: 'Sometimes',
+        verdictClass: 'verdict-conditional',
+        anchorId: 'expansive-clay',
+        what: 'Clay minerals that swell when wet, shrink when dry. Cyclical movement. Damage comes from repeated cycles over years. In New Mexico, these clays often come from specific geological formations that make them particularly reactive.',
+        where: 'Statewide; severe in Rio Grande Valley, San Juan Basin, areas underlain by weathered Cretaceous shales. Caliche is common on alluvial fans and piedmont slopes.',
+        underpinning: 'Sometimes — when differential movement has caused structural distress that moisture control cannot reverse. But many expansive clay cases are better addressed first through drainage correction, irrigation management, and stabilizing the moisture envelope around the foundation. Underpinning without addressing moisture treats the symptom, not the cause.',
+        missed: 'Heave is frequently misread as settlement. Homeowners see cracks and think their house is sinking when part of it is actually being pushed up. Underpinning a heaving foundation does not fix the problem — it fights the earth. The honest first step is always to evaluate and manage the moisture before reaching for piers.',
+        regional: 'In the San Juan Basin, Mancos Shale weathers into highly expansive clay that can be more severe than typical expansive soils; this weathered zone can extend many feet below grade, and the boundary between weathered and stable material is not uniform. In areas with Permian evaporites or gypsiferous soils, sulfate heave can occur — a chemical reaction between calcium stabilizers and sulfate-bearing soils that creates progressive, irreversible heave that does not reverse with drying. Caliche — a hard calcium carbonate layer, sometimes called hardpan — can provide false bearing if fractured or sitting on unstable material.',
+        related: [
+          { text: 'Expansive Soils article →', href: '/expansive-soil' },
+          { text: 'Glossary: Heave, Caliche →', href: '/glossary' },
+        ],
+        onset: ['seasonal'],
+        see: ['see-doors', 'see-windows', 'see-cracks-interior'],
+        site: ['site-clay'],
+      },
+    ],
+  },
+  {
+    id: 'group-c',
+    label: 'Group C',
+    title: 'Water & Moisture Drivers',
+    tagline: 'Water is the trigger for nearly every cause. These cases are primarily water problems, not soil problems.',
+    causes: [
+      {
+        code: 'C1',
+        name: 'Plumbing and Sewer Leaks Beneath Slab',
+        verdict: 'No',
+        verdictClass: 'verdict-weak',
+        anchorId: 'plumbing-leaks',
+        what: 'Leaks from supply, sewer, or drains saturate soil, causing heave, collapse, or erosion. Sewer leaks are especially insidious — they are deep, persistent, and often go undetected for years.',
+        underpinning: 'No while leak active. Repair leak first, allow soil to stabilize, then reassess.',
+        missed: "Many repair contracts signed without sewer camera inspection. A plumber fixes the pipe; a contractor sells piers — but nobody evaluates whether the soil will stabilize on its own once the water stops. A patch of unusually green, lush grass over a sewer line — even in a drought — is a common outdoor tell homeowners notice before anything shows up inside.",
+        onset: ['sudden'],
+        see: ['see-leak-signs', 'see-floors'],
+        site: ['site-plumbing'],
+      },
+      {
+        code: 'C2',
+        name: 'Poor Surface Drainage & Concentrated Runoff',
+        verdict: 'Rarely',
+        verdictClass: 'verdict-weak',
+        what: 'Water ponds against foundation due to improper grading, missing gutters, short downspouts, or hardscape directing runoff toward the building.',
+        underpinning: 'Almost never. Drainage correction should always come first; in many cases, it eliminates the movement entirely.',
+        missed: 'Less profitable to fix gutters than sell piers. This is the single most controllable factor in foundation performance.',
+        onset: ['seasonal', 'gradual'],
+        see: ['see-drainage'],
+        site: [],
+      },
+      {
+        code: 'C3',
+        name: 'Irrigation and Landscaping',
+        verdict: 'Rarely',
+        verdictClass: 'verdict-weak',
+        what: 'Sprinklers or drip lines against foundation create moisture differential between irrigated perimeter and dry native soil. Evaporative cooler drain lines and condensate, running against a wall for years without anyone noticing, are a common New Mexico-specific version of the same problem.',
+        underpinning: 'Almost never. Move irrigation away; establish a dry buffer zone. Check where the swamp cooler drains, too.',
+        missed: 'Homeowners rarely connect watering habits — or where the evaporative cooler dumps its water — to foundation cracks.',
+        onset: ['gradual'],
+        see: ['see-drainage'],
+        site: ['site-trees'],
+      },
+      {
+        code: 'C4',
+        name: 'Tree Root Moisture Extraction',
+        verdict: 'Rarely',
+        verdictClass: 'verdict-weak',
+        what: 'Large trees extract moisture from soil, causing shrinkage and settlement.',
+        where: 'Rio Grande Valley, irrigated areas with cottonwoods, elms.',
+        underpinning: 'Rarely as first step. Root barriers, pruning, tree management first.',
+        onset: ['gradual'],
+        see: ['see-cracks-exterior'],
+        site: ['site-trees'],
+      },
+      {
+        code: 'C5',
+        name: 'Altered Moisture from Adjacent Development',
+        verdict: 'Rarely',
+        verdictClass: 'verdict-weak',
+        what: 'New construction, paving, or landscaping on neighboring properties changes water infiltration patterns.',
+        underpinning: 'Rarely. Identify what changed and correct if possible.',
+        missed: "Focus stays on damaged house; nobody looks at neighbor's property.",
+        onset: ['gradual'],
+        see: ['see-drainage'],
+        site: [],
+      },
+    ],
+  },
+  {
+    id: 'group-d',
+    label: 'Group D',
+    title: 'Deep Geologic Hazards',
+    tagline: 'Instability deeper or broader than surface corrections can address. Some unique to NM.',
+    causes: [
+      {
+        code: 'D1',
+        name: 'Evaporite Dissolution & Karst Subsidence',
+        verdict: 'Rarely',
+        verdictClass: 'verdict-weak',
+        what: 'Gypsum, salt dissolve at depth, creating voids and sinkholes.',
+        where: 'Southeastern NM (Permian Basin), Santa Rosa, Tularosa Basin.',
+        underpinning: 'Rarely. Standard residential piers cannot bridge deep voids. This is a site suitability question requiring geologic investigation.',
+        missed: "Gradual subsidence attributed to 'normal settling.' Contractors rarely discuss cases where no practical localized fix exists.",
+        related: [
+          { text: 'Glossary: Subsidence →', href: '/glossary#subsidence' },
+          { text: 'Glossary: Karst →', href: '/glossary#karst' },
+        ],
+        onset: ['gradual', 'sudden'],
+        see: ['see-foundation-gap'],
+        site: [],
+      },
+      {
+        code: 'D2',
+        name: 'Hillside Creep & Slope Instability',
+        verdict: 'Sometimes',
+        verdictClass: 'verdict-conditional',
+        what: 'Slow downhill soil movement, applying lateral force to foundations.',
+        where: 'Sandia/Manzano foothills, Santa Fe hillsides, Jemez Mountains, mesa edges.',
+        underpinning: 'Only after slope stabilization. Piers alone will not resist lateral movement.',
+        missed: 'Symptoms mimic differential settlement; clue is consistent downhill pattern.',
+        onset: ['gradual'],
+        see: ['see-cracks-exterior'],
+        site: ['site-cutfill'],
+      },
+      {
+        code: 'D3',
+        name: 'Seismic Activity & Rio Grande Rift',
+        verdict: 'Mixed',
+        verdictClass: 'verdict-conditional',
+        what: 'Earthquakes can cause soil densification or liquefaction.',
+        where: 'Rift corridor — Albuquerque, Socorro, Santa Fe, Taos.',
+        underpinning: "Post-earthquake settlement: yes. Fault rupture: underpinning doesn't address.",
+        onset: ['sudden'],
+        see: ['see-cracks-interior'],
+        site: [],
+      },
+      {
+        code: 'D4',
+        name: 'Regional Groundwater Changes',
+        verdict: 'Rarely',
+        verdictClass: 'verdict-weak',
+        what: 'Decades of pumping draw down water tables, causing broad subsidence.',
+        where: 'Albuquerque Basin, Mimbres, Estancia, lower Rio Grande.',
+        underpinning: "Not typically; regional issue. Underpinning may stabilize individual structure but won't stop subsidence.",
+        missed: 'Almost universally missed at individual-home level. Systematically absent from contractor education.',
+        onset: ['gradual'],
+        see: ['see-floors'],
+        site: [],
+      },
+      {
+        code: 'D5',
+        name: 'Arroyo and Flash Flood Erosion',
+        verdict: 'Rarely',
+        verdictClass: 'verdict-weak',
+        what: 'Lateral erosion from arroyos undermines foundations during flash floods.',
+        underpinning: 'Not typically. Requires channel stabilization, erosion protection.',
+        onset: ['sudden'],
+        see: ['see-foundation-gap'],
+        site: ['site-arroyo'],
+      },
+    ],
+  },
+  {
+    id: 'group-e',
+    label: 'Group E',
+    title: 'Construction Deficiencies',
+    tagline: 'Not all movement is soil — some is a design or materials problem.',
+    causes: [
+      {
+        code: 'E1',
+        name: 'Inadequate Foundation Design',
+        verdict: 'Often',
+        verdictClass: 'verdict-strong',
+        what: 'Foundation not matched to soil conditions — shallow footings, no geotech investigation.',
+        where: 'Statewide; many older homes designed without soil testing.',
+        underpinning: 'Often yes — providing deep support that should have been there.',
+        onset: ['gradual'],
+        see: ['see-cracks-interior', 'see-floors'],
+        site: [],
+      },
+      {
+        code: 'E2',
+        name: 'Inadequate Reinforcement & Structural Capacity',
+        verdict: 'Partial',
+        verdictClass: 'verdict-conditional',
+        what: 'Concrete without enough steel cracks instead of bridging gaps. Piers on unreinforced foundation may lift one section while adjacent stays put.',
+        underpinning: 'Partially; structural reinforcement (carbon fiber, rebar) often needed too.',
+        missed: 'Contractors install piers assuming foundation transfers loads; if unreinforced, repair fails.',
+        onset: ['gradual'],
+        see: ['see-cracks-slab'],
+        site: [],
+      },
+      {
+        code: 'E3',
+        name: 'Post-Tension Cable Failure',
+        verdict: 'Rarely',
+        verdictClass: 'verdict-weak',
+        what: 'Loss of tension in post-tension slab leads to cracking, settlement, or bowing.',
+        underpinning: 'Rarely. Forensic investigation, structural repair (carbon fiber, partial replacement).',
+        missed: "Many PT slab cracks sold as 'settlement requiring piers' without checking cable tension.",
+        related: [{ text: 'Glossary: Post-tension slab →', href: '/glossary#post-tension-slab' }],
+        onset: ['gradual'],
+        see: ['see-cracks-slab'],
+        site: [],
+      },
+      {
+        code: 'E4',
+        name: 'Prior Repair Failure',
+        verdict: 'Yes',
+        verdictClass: 'verdict-strong',
+        what: 'Previous underpinning failed — piers not deep enough, wrong bearing, etc.',
+        underpinning: 'Yes, as second repair. Evaluate and install deeper piers.',
+        missed: "Presented as 'new' problem when it's actually failure of prior repair.",
+        onset: ['gradual'],
+        see: ['see-cracks-interior', 'see-floors'],
+        site: [],
+      },
+      {
+        code: 'E5',
+        name: 'Adobe & Non-Standard Foundations',
+        verdict: 'Caution',
+        verdictClass: 'verdict-conditional',
+        what: 'Adobe walls on adobe/rubble foundations; moisture causes material degradation that mimics settlement.',
+        where: 'Northern NM, Albuquerque historic neighborhoods.',
+        underpinning: 'With caution. Requires specialized engineering; often material repair and moisture protection better.',
+        missed: "Degradation misread as settlement. The wall isn't sinking — the bottom of the wall is dissolving.",
+        onset: ['gradual', 'seasonal'],
+        see: ['see-cracks-exterior'],
+        site: ['site-adobe'],
+      },
+    ],
+  },
+  {
+    id: 'group-f',
+    label: 'Group F',
+    title: 'Site & Environmental',
+    tagline: 'Triggers from outside the soil itself — traffic, freeze-thaw, wildlife.',
+    causes: [
+      {
+        code: 'F1',
+        name: 'Frost Heave',
+        verdict: 'Rarely',
+        verdictClass: 'verdict-weak',
+        what: 'Freeze-thaw cycles lift shallow footings.',
+        where: 'Mountain communities — Taos, Angel Fire, Ruidoso.',
+        underpinning: 'Rarely. Insulation, drainage, proper footing depth.',
+        onset: ['seasonal'],
+        see: ['see-cracks-exterior'],
+        site: [],
+      },
+      {
+        code: 'F2',
+        name: 'Vibration-Induced Settlement',
+        verdict: 'Sometimes',
+        verdictClass: 'verdict-conditional',
+        what: 'Traffic, construction, rail lines densify loose soils.',
+        where: 'Corridors near I-25, I-40, rail lines.',
+        underpinning: 'Sometimes; soil densification may be better.',
+        onset: ['gradual'],
+        see: ['see-floors'],
+        site: [],
+      },
+      {
+        code: 'F3',
+        name: 'Burrowing Animal Activity',
+        verdict: 'Rarely',
+        verdictClass: 'verdict-weak',
+        what: 'Prairie dogs, gophers create tunnels and voids.',
+        underpinning: 'Not typically. Void filling and animal management first.',
+        onset: ['gradual'],
+        see: ['see-foundation-gap'],
+        site: [],
+      },
+    ],
+  },
+];
+
+const allCauses = groups.flatMap((g) => g.causes.map((c) => ({ ...c, groupId: g.id, groupTitle: g.title })));
+
+// Same facet vocabulary as symptom-guide-v2.astro -- checked boxes carry
+// forward through the pill on either page via URL params.
+const onsetOptions = [
+  { id: 'sudden', label: 'Started suddenly' },
+  { id: 'gradual', label: 'Been happening gradually, over time' },
+  { id: 'seasonal', label: 'Comes and goes with the seasons' },
+];
+const seeOptions = [
+  { id: 'see-cracks-interior', label: 'Cracks in walls, ceilings, or drywall' },
+  { id: 'see-cracks-exterior', label: 'Cracks in stucco, brick, or exterior walls' },
+  { id: 'see-cracks-slab', label: 'Cracks in a concrete slab or garage floor' },
+  { id: 'see-doors', label: "Doors that won't close, latch, or stick" },
+  { id: 'see-windows', label: 'Windows that won\'t open or close' },
+  { id: 'see-floors', label: 'Sloping, uneven, dipping, or bouncy floors' },
+  { id: 'see-gaps', label: 'Gaps around doors, windows, or baseboards' },
+  { id: 'see-foundation-cracks', label: 'Foundation cracks or crumbling concrete' },
+  { id: 'see-foundation-gap', label: 'A gap between the house and the foundation' },
+  { id: 'see-drainage', label: 'Water pooling or poor drainage near the house' },
+  { id: 'see-crawlspace', label: 'Wet, damp, or musty crawlspace' },
+  { id: 'see-leak-signs', label: 'A warm/wet spot on the floor, or a sudden jump in your water bill' },
+];
+const siteOptions = [
+  { id: 'site-cutfill', label: 'Built on a cut-and-fill or hillside lot' },
+  { id: 'site-clay', label: 'Known clay or "heavy" soil in the area' },
+  { id: 'site-arroyo', label: 'Near an arroyo or drainage channel' },
+  { id: 'site-adobe', label: 'Older adobe or mud-brick construction' },
+  { id: 'site-plumbing', label: 'Recent plumbing leak or repair nearby' },
+  { id: 'site-trees', label: 'Large trees close to the house' },
 ];
 ---
 
@@ -40,640 +481,253 @@ const groups = [
   pageName="The Cause Library"
   nextPage={{ path: '/expansive-soil', name: 'Expansive Soils' }}
 >
-  <div class="cl-page">
-    <div class="hero">
-      <div class="hero-photo"></div>
-      <div class="hero-overlay"></div>
-      <div class="hero-content">
-        <span class="hero-eyebrow">TLS Foundations Reference</span>
-        <h1 class="hero-h1">The Cause<span class="w2">Library.</span></h1>
-        <p class="hero-sub">Twenty-six specific causes, organized by mechanism — because understanding the mechanism is the prerequisite for understanding the fix.</p>
-        <div class="hero-cta">
-          <span class="hero-cities-label">Companion to</span>
-          <p class="hero-aside"><a href="/why-foundations-move-v2">Why Foundations Move</a></p>
+  <div class="sg-page">
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <span class="hero-eyebrow">Resources · Reference</span>
+        <h1>The Cause <em>Library</em></h1>
+        <p class="page-hero-sub">Twenty-six specific causes, organized by mechanism. Check what applies and we'll sort which ones best match — companion to <a href="/why-foundations-move-v2">Why Foundations Move</a>.</p>
+      </div>
+    </section>
+
+    <div class="page">
+      <div class="diagnostic-note">
+        <p>
+          Foundation movement in New Mexico has many causes. They're organized here by mechanism — what is
+          actually happening to the soil — because understanding the mechanism is the prerequisite for
+          understanding the fix. <strong>Every cause here requires professional evaluation to diagnose
+          correctly — no visual inspection alone can distinguish between them.</strong> This is a reference,
+          not a diagnosis.
+        </p>
+        <p>
+          Each entry carries a quick <strong>Underpinning?</strong> read so you can scan before you dig in:
+          <span class="legend-badge verdict-strong">Yes / Often</span> means it's usually the right call,
+          <span class="legend-badge verdict-conditional">Depends / Sometimes</span> means it's conditional on
+          specifics, and <span class="legend-badge verdict-weak">Rarely / No</span> means underpinning is
+          usually not the first move.
+        </p>
+      </div>
+
+      <!-- CHECK ALL THAT APPLY -->
+      <div class="facet-panel" id="facetPanel">
+        <div class="facet-panel-head">
+          <span class="facet-panel-label">Check all that apply</span>
+          <p class="facet-panel-sub">This describes common patterns, not an evaluation of your home — the safest step, if you're ever unsure, is to have someone look.</p>
+        </div>
+
+        <fieldset class="facet-group">
+          <legend>When did it start?</legend>
+          <div class="facet-options">
+            {onsetOptions.map((o) => (
+              <label class="facet-chip">
+                <input type="checkbox" name="onset" value={o.id} />
+                <span>{o.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset class="facet-group">
+          <legend>What are you seeing?</legend>
+          <div class="facet-options">
+            {seeOptions.map((o) => (
+              <label class="facet-chip">
+                <input type="checkbox" name="see" value={o.id} />
+                <span>{o.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset class="facet-group">
+          <legend>What do you know about your site?</legend>
+          <div class="facet-options">
+            {siteOptions.map((o) => (
+              <label class="facet-chip">
+                <input type="checkbox" name="site" value={o.id} />
+                <span>{o.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <div class="facet-actions">
+          <button type="button" id="facetClear" class="facet-clear" hidden>Clear all</button>
         </div>
       </div>
-    </div>
 
-    <div class="gold-rule"></div>
-
-    <div class="page-layout">
-      <nav class="left-nav">
-        <div class="nav-progress"><div class="nav-progress-fill" id="progressFill"></div></div>
-        <span class="nav-brand">TLS Foundations · Cause Library</span>
-        <ul class="nav-links">
-          <li><a href="#overview"><span class="nav-dot"></span>Overview</a></li>
-          {groups.map((g) => (
-            <li><a href={`#${g.id}`}><span class="nav-dot"></span>{g.title}</a></li>
-          ))}
-        </ul>
-        <div class="nav-contact">
-          <span class="nav-contact-label">Ready to talk</span>
-          <a href="tel:5059914180">(505) 991-4180</a>
-          <span class="nav-contact-sub">You reach the owner(s)</span>
+      <!-- OUTCOME -->
+      <div class="outcome-box" id="outcomeBox" hidden>
+        <span class="outcome-label">Based on what you checked</span>
+        <p class="outcome-text" id="outcomeText"></p>
+        <div class="outcome-cta">
+          <a href="tel:5059914180" class="outcome-phone">(505) 991-4180</a>
+          <a href="/symptom-guide-v2" id="outcomePill" class="outcome-pill">See these in the Symptom Guide →</a>
         </div>
-      </nav>
-
-      <div class="content-area">
-        <!-- OVERVIEW -->
-        <section class="section" id="overview">
-          <span class="section-num">00</span>
-          <div class="section-inner">
-            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Reference · How to use this</span></div>
-            <h2 class="section-heading reveal">Twenty-six causes, <em>one mechanism each</em></h2>
-            <div class="two-col-wide reveal">
-              <div>
-                <p>Foundation movement in New Mexico has many causes. They are organized here by mechanism — what is actually happening to the soil — because understanding the mechanism is the prerequisite for understanding the fix.</p>
-                <p><em>Every cause described here requires professional evaluation to diagnose correctly. No visual inspection alone can distinguish between them.</em></p>
-                <p>Each entry carries a quick <strong>Underpinning?</strong> read so you can scan before you dig in — solid means it's usually the right call, an outline means it's conditional, and a muted pill means it's rarely the first move.</p>
-              </div>
-              <div>
-                <div class="basin-stat reveal">
-                  <div class="basin-stat-item">
-                    <span class="basin-stat-num">26</span>
-                    <span class="basin-stat-label">Causes</span>
-                  </div>
-                  <div class="basin-stat-divider"></div>
-                  <div class="basin-stat-item">
-                    <span class="basin-stat-num">6</span>
-                    <span class="basin-stat-label">Mechanisms</span>
-                  </div>
-                </div>
-                <div class="fact-box reveal">
-                  <span class="fact-box-label">Related reading</span>
-                  <p><a href="/why-foundations-move-v2">Why Foundations Move</a> — the fast overview and symptom matrix.</p>
-                  <p><a href="/symptom-guide">Symptom Guide</a> — what you're seeing, organized by symptom instead of cause.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- GROUP A — LOSS OF SUPPORT -->
-        <section class="section" id="group-a">
-          <span class="section-num">01</span>
-          <div class="section-inner">
-            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Group A · Loss of Support</span></div>
-            <h2 class="section-heading reveal">Loss of Support</h2>
-            <p class="basin-tagline reveal">The soil can no longer carry the weight. Underpinning is often the right answer.</p>
-
-            <div class="specimen-list reveal">
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">A1</span>
-                  <span class="warning-trigger-text">Collapsible Soils</span>
-                  <span class="verdict-badge verdict-strong">Yes</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer" id="collapsible-soils">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Some New Mexico soils have a loose, open structure — almost like a honeycomb — held together by weak bonds that dissolve when water reaches them. These soils can support a house for decades while they stay dry. When water is introduced from any source — a leak, irrigation, a storm — the bonds break and the soil drops. Settlement can be sudden and dramatic.</p>
-                    <p><span class="field-label">Where in NM</span>Extremely common statewide, particularly on valley margins, alluvial fan deposits, and mesa edges where development has moved from irrigated valley floors onto previously dry higher ground.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Yes — once collapse has occurred, the soil structure is permanently altered. Piers driven through the collapsed zone to stable material below are the standard response. But the water source must be found and controlled first, or collapse will continue in untreated areas.</p>
-                    <p><span class="field-label">Commonly missed</span>This is routinely misdiagnosed as 'normal settling' or blamed on poor compaction. The mechanism is fundamentally different — it is not gradual compression under weight, it is a sudden collapse of the soil structure, triggered by water. This is arguably the most underappreciated foundation hazard in New Mexico.</p>
-                    <p class="specimen-related"><a href="/collapsible-soil">Collapsible Soils article →</a> | <a href="/glossary#hydrocompaction">Glossary: Hydrocompaction →</a></p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">A2</span>
-                  <span class="warning-trigger-text">Poorly Compacted Fill</span>
-                  <span class="verdict-badge verdict-strong">Yes</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>When a building site is graded, excavated material is used as fill to create a level pad. If this fill isn't properly compacted in controlled lifts, it compresses under the weight of the structure over time. Settlement is typically uneven because fill thickness varies across the site. Some fill contains debris, construction waste, or organic material that decomposes and creates voids.</p>
-                    <p><span class="field-label">Where in NM</span>Everywhere homes are built, but especially on hillside lots, subdivisions cut into mesas, sites where arroyos or drainages were filled, and rapid-growth developments.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Yes. The fill will not improve on its own. Piers through the fill to competent native soil or bedrock are the standard solution.</p>
-                    <p><span class="field-label">Commonly missed</span>Without as-built records, it's difficult to know fill is present without investigation. The homeowner typically has no idea their lot was filled. Contractors often label this 'natural settlement' without checking.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">A3</span>
-                  <span class="warning-trigger-text">Cut-and-Fill Transition Movement</span>
-                  <span class="verdict-badge verdict-strong">Often</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Houses built into hillsides often sit partly on undisturbed cut soil and partly on compressible fill. These two portions bear on fundamentally different materials. The fill side settles; the cut side doesn't. Differential movement is virtually guaranteed.</p>
-                    <p><span class="field-label">Where in NM</span>Foothills developments, Santa Fe hillsides, East Mountains, any area where lots were created by grading into slopes.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Often yes, especially when fill is deep. The fill side will typically require deeper piers than the cut side.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">A4</span>
-                  <span class="warning-trigger-text">Landfill and Undocumented Fill Sites</span>
-                  <span class="verdict-badge verdict-conditional">Depends</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Homes built on or near former landfill sites face ongoing settlement as buried waste decomposes, compresses, and creates voids. Gas migration from decomposition can also affect soil chemistry and moisture patterns. Older landfills may not appear on any map the homeowner has access to.</p>
-                    <p><span class="field-label">Where in NM</span>Scattered across the state. Municipal records may or may not document former disposal sites, particularly informal ones from earlier decades.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Depends on depth and extent. Deep piers to stable material below the fill may work for localized settlement. Widespread active decomposition may make the site unsuitable for standard residential repair.</p>
-                    <p><span class="field-label">Commonly missed</span>Homeowners often have no idea their property sits on or near a former landfill. Investigation is the only way to identify it.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">A5</span>
-                  <span class="warning-trigger-text">Subsurface Erosion and Soil Piping</span>
-                  <span class="verdict-badge verdict-conditional">Depends</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Water moving through erodible soils creates underground channels that carry soil particles away, forming voids beneath foundations. In New Mexico's climate of long dry periods interrupted by intense monsoon rainfall, this process can accelerate dramatically during storm events.</p>
-                    <p><span class="field-label">Where in NM</span>Common in dispersive soils (sodium-rich clays), fine-grained alluvial deposits, and loess. Rio Grande Valley and statewide.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Depends. Void filling may be the first priority. The water pathway must be interrupted. Underpinning alone does not solve subsurface erosion.</p>
-                    <p><span class="field-label">Commonly missed</span>Invisible until it manifests as sudden settlement or sinkhole-like depressions. Rarely considered in standard repair evaluations.</p>
-                    <p class="specimen-related"><a href="/glossary#soil-piping">Glossary: Soil piping →</a></p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">A6</span>
-                  <span class="warning-trigger-text">Consolidation of Deep Alluvium</span>
-                  <span class="verdict-badge verdict-conditional">Sometimes</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Naturally deposited soft clays and silts compress under the weight of a structure over time. This is a load-driven process — the soil is squeezing water from its pore spaces under sustained pressure. Settlement can continue for years after construction but typically slows over time.</p>
-                    <p><span class="field-label">Where in NM</span>Rio Grande floodplain, major tributary floodplains, and ancient lake bed deposits in closed basins.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Yes, if the settlement is differential and exceeds structural tolerance. If uniform and within tolerance, monitoring is more appropriate.</p>
-                    <p><span class="field-label">Commonly missed</span>Confused with other settlement types. The distinguishing feature: it's predictable, load-related, and decelerates over time.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">A7</span>
-                  <span class="warning-trigger-text">Bearing Failure from Load Changes</span>
-                  <span class="verdict-badge verdict-strong">Often</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Additions, second stories, remodels that remove load-bearing walls, or changes that concentrate weight in new locations can exceed what the original soil and foundation were designed to support.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Often yes — the foundation needs deeper or broader support to handle the new loads.</p>
-                    <p><span class="field-label">Commonly missed</span>Blamed on 'bad soil' when the real issue is a load change the original design didn't anticipate.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- GROUP B — SOIL VOLUME CHANGE -->
-        <section class="section" id="group-b">
-          <span class="section-num">02</span>
-          <div class="section-inner">
-            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Group B · Soil Volume Change</span></div>
-            <h2 class="section-heading reveal">Soil Volume Change <em>(Active Zone)</em></h2>
-            <p class="basin-tagline reveal">Soils expand, shrink, or react chemically with moisture. Underpinning is often <strong>not</strong> the first response.</p>
-            <p class="reveal">Beneath every foundation, moisture fluctuates seasonally — this is the <a href="/glossary#active-zone">active zone</a>. Most movement originates here, driven by moisture.</p>
-
-            <div class="specimen-list reveal">
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">B1</span>
-                  <span class="warning-trigger-text">Expansive Clay Soils (incl. Mancos Shale, Sulfate Heave, Caliche)</span>
-                  <span class="verdict-badge verdict-conditional">Sometimes</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer" id="expansive-clay">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Clay minerals that swell when wet, shrink when dry. Cyclical movement. Damage comes from repeated cycles over years. In New Mexico, these clays often come from specific geological formations that make them particularly reactive.</p>
-                    <p><span class="field-label">Where in NM</span>Statewide; severe in Rio Grande Valley, San Juan Basin, areas underlain by weathered Cretaceous shales. Caliche is common on alluvial fans and piedmont slopes.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Sometimes — when differential movement has caused structural distress that moisture control cannot reverse. But many expansive clay cases are better addressed first through drainage correction, irrigation management, and stabilizing the moisture envelope around the foundation. Underpinning without addressing moisture treats the symptom, not the cause.</p>
-                    <p><span class="field-label">Commonly missed</span>Heave is frequently misread as settlement. Homeowners see cracks and think their house is sinking when part of it is actually being pushed up. Underpinning a heaving foundation does not fix the problem — it fights the earth. The honest first step is always to evaluate and manage the moisture before reaching for piers.</p>
-                    <p><span class="field-label">Regional variations</span>In the San Juan Basin, Mancos Shale weathers into highly expansive clay that can be more severe than typical expansive soils; this weathered zone can extend many feet below grade, and the boundary between weathered and stable material is not uniform. In areas with Permian evaporites or gypsiferous soils, sulfate heave can occur — a chemical reaction between calcium stabilizers and sulfate-bearing soils that creates progressive, irreversible heave that does not reverse with drying. Caliche — a hard calcium carbonate layer — can provide false bearing if fractured or sitting on unstable material.</p>
-                    <p class="specimen-related"><a href="/expansive-soil">Expansive Soils article →</a> | <a href="/glossary">Glossary: Heave, Caliche →</a></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- GROUP C — WATER & MOISTURE DRIVERS -->
-        <section class="section" id="group-c">
-          <span class="section-num">03</span>
-          <div class="section-inner">
-            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Group C · Water & Moisture Drivers</span></div>
-            <h2 class="section-heading reveal">Water and Moisture Drivers</h2>
-            <p class="basin-tagline reveal">Water is the trigger for nearly every cause. These cases are primarily water problems, not soil problems.</p>
-
-            <div class="specimen-list reveal">
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">C1</span>
-                  <span class="warning-trigger-text">Plumbing and Sewer Leaks Beneath Slab</span>
-                  <span class="verdict-badge verdict-weak">No</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer" id="plumbing-leaks">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Leaks from supply, sewer, or drains saturate soil, causing heave, collapse, or erosion. Sewer leaks are especially insidious — they are deep, persistent, and often go undetected for years.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>No while leak active. Repair leak first, allow soil to stabilize, then reassess.</p>
-                    <p><span class="field-label">Commonly missed</span>Many repair contracts signed without sewer camera inspection. A plumber fixes the pipe; a contractor sells piers — but nobody evaluates whether the soil will stabilize on its own once the water stops.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">C2</span>
-                  <span class="warning-trigger-text">Poor Surface Drainage &amp; Concentrated Runoff</span>
-                  <span class="verdict-badge verdict-weak">Rarely</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Water ponds against foundation due to improper grading, missing gutters, short downspouts, or hardscape directing runoff toward the building.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Almost never. Drainage correction should always come first; in many cases, it eliminates the movement entirely.</p>
-                    <p><span class="field-label">Commonly missed</span>Less profitable to fix gutters than sell piers. This is the single most controllable factor in foundation performance.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">C3</span>
-                  <span class="warning-trigger-text">Irrigation and Landscaping</span>
-                  <span class="verdict-badge verdict-weak">Rarely</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Sprinklers or drip lines against foundation create moisture differential between irrigated perimeter and dry native soil.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Almost never. Move irrigation away; establish a dry buffer zone.</p>
-                    <p><span class="field-label">Commonly missed</span>Homeowners rarely connect watering habits to foundation cracks.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">C4</span>
-                  <span class="warning-trigger-text">Tree Root Moisture Extraction</span>
-                  <span class="verdict-badge verdict-weak">Rarely</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Large trees extract moisture from soil, causing shrinkage and settlement.</p>
-                    <p><span class="field-label">Where in NM</span>Rio Grande Valley, irrigated areas with cottonwoods, elms.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Rarely as first step. Root barriers, pruning, tree management first.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">C5</span>
-                  <span class="warning-trigger-text">Altered Moisture from Adjacent Development</span>
-                  <span class="verdict-badge verdict-weak">Rarely</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>New construction, paving, or landscaping on neighboring properties changes water infiltration patterns.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Rarely. Identify what changed and correct if possible.</p>
-                    <p><span class="field-label">Commonly missed</span>Focus stays on damaged house; nobody looks at neighbor's property.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- GROUP D — DEEP GEOLOGIC HAZARDS -->
-        <section class="section" id="group-d">
-          <span class="section-num">04</span>
-          <div class="section-inner">
-            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Group D · Deep Geologic Hazards</span></div>
-            <h2 class="section-heading reveal">Deep Geologic Hazards</h2>
-            <p class="basin-tagline reveal">Instability deeper or broader than surface corrections can address. Some unique to NM.</p>
-
-            <div class="specimen-list reveal">
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">D1</span>
-                  <span class="warning-trigger-text">Evaporite Dissolution &amp; Karst Subsidence</span>
-                  <span class="verdict-badge verdict-weak">Rarely</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Gypsum, salt dissolve at depth, creating voids and sinkholes.</p>
-                    <p><span class="field-label">Where in NM</span>Southeastern NM (Permian Basin), Santa Rosa, Tularosa Basin.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Rarely. Standard residential piers cannot bridge deep voids. This is a site suitability question requiring geologic investigation.</p>
-                    <p><span class="field-label">Commonly missed</span>Gradual subsidence attributed to 'normal settling.' Contractors rarely discuss cases where no practical localized fix exists.</p>
-                    <p class="specimen-related"><a href="/glossary#subsidence">Glossary: Subsidence →</a> | <a href="/glossary#karst">Glossary: Karst →</a></p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">D2</span>
-                  <span class="warning-trigger-text">Hillside Creep &amp; Slope Instability</span>
-                  <span class="verdict-badge verdict-conditional">Sometimes</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Slow downhill soil movement, applying lateral force to foundations.</p>
-                    <p><span class="field-label">Where in NM</span>Sandia/Manzano foothills, Santa Fe hillsides, Jemez Mountains, mesa edges.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Only after slope stabilization. Piers alone will not resist lateral movement.</p>
-                    <p><span class="field-label">Commonly missed</span>Symptoms mimic differential settlement; clue is consistent downhill pattern.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">D3</span>
-                  <span class="warning-trigger-text">Seismic Activity &amp; Rio Grande Rift</span>
-                  <span class="verdict-badge verdict-conditional">Mixed</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Earthquakes can cause soil densification or liquefaction.</p>
-                    <p><span class="field-label">Where in NM</span>Rift corridor — Albuquerque, Socorro, Santa Fe, Taos.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Post-earthquake settlement: yes. Fault rupture: underpinning doesn't address.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">D4</span>
-                  <span class="warning-trigger-text">Regional Groundwater Changes</span>
-                  <span class="verdict-badge verdict-weak">Rarely</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Decades of pumping draw down water tables, causing broad subsidence.</p>
-                    <p><span class="field-label">Where in NM</span>Albuquerque Basin, Mimbres, Estancia, lower Rio Grande.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Not typically; regional issue. Underpinning may stabilize individual structure but won't stop subsidence.</p>
-                    <p><span class="field-label">Commonly missed</span>Almost universally missed at individual-home level. Systematically absent from contractor education.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">D5</span>
-                  <span class="warning-trigger-text">Arroyo and Flash Flood Erosion</span>
-                  <span class="verdict-badge verdict-weak">Rarely</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Lateral erosion from arroyos undermines foundations during flash floods.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Not typically. Requires channel stabilization, erosion protection.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- GROUP E — CONSTRUCTION DEFICIENCIES -->
-        <section class="section" id="group-e">
-          <span class="section-num">05</span>
-          <div class="section-inner">
-            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Group E · Construction Deficiencies</span></div>
-            <h2 class="section-heading reveal">Construction &amp; Design Deficiencies</h2>
-            <p class="basin-tagline reveal">Not all movement is soil — some is a design or materials problem.</p>
-
-            <div class="specimen-list reveal">
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">E1</span>
-                  <span class="warning-trigger-text">Inadequate Foundation Design</span>
-                  <span class="verdict-badge verdict-strong">Often</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Foundation not matched to soil conditions — shallow footings, no geotech investigation.</p>
-                    <p><span class="field-label">Where in NM</span>Statewide; many older homes designed without soil testing.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Often yes — providing deep support that should have been there.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">E2</span>
-                  <span class="warning-trigger-text">Inadequate Reinforcement &amp; Structural Capacity</span>
-                  <span class="verdict-badge verdict-conditional">Partial</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Concrete without enough steel cracks instead of bridging gaps. Piers on unreinforced foundation may lift one section while adjacent stays put.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Partially; structural reinforcement (carbon fiber, rebar) often needed too.</p>
-                    <p><span class="field-label">Commonly missed</span>Contractors install piers assuming foundation transfers loads; if unreinforced, repair fails.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">E3</span>
-                  <span class="warning-trigger-text">Post-Tension Cable Failure</span>
-                  <span class="verdict-badge verdict-weak">Rarely</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Loss of tension in post-tension slab leads to cracking, settlement, or bowing.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Rarely. Forensic investigation, structural repair (carbon fiber, partial replacement).</p>
-                    <p><span class="field-label">Commonly missed</span>Many PT slab cracks sold as 'settlement requiring piers' without checking cable tension.</p>
-                    <p class="specimen-related"><a href="/glossary#post-tension-slab">Glossary: Post-tension slab →</a></p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">E4</span>
-                  <span class="warning-trigger-text">Prior Repair Failure</span>
-                  <span class="verdict-badge verdict-strong">Yes</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Previous underpinning failed — piers not deep enough, wrong bearing, etc.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Yes, as second repair. Evaluate and install deeper piers.</p>
-                    <p><span class="field-label">Commonly missed</span>Presented as 'new' problem when it's actually failure of prior repair.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">E5</span>
-                  <span class="warning-trigger-text">Adobe &amp; Non-Standard Foundations</span>
-                  <span class="verdict-badge verdict-conditional">Caution</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Adobe walls on adobe/rubble foundations; moisture causes material degradation that mimics settlement.</p>
-                    <p><span class="field-label">Where in NM</span>Northern NM, Albuquerque historic neighborhoods.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>With caution. Requires specialized engineering; often material repair and moisture protection better.</p>
-                    <p><span class="field-label">Commonly missed</span>Degradation misread as settlement. The wall isn't sinking — the bottom of the wall is dissolving.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- GROUP F — SITE & ENVIRONMENTAL -->
-        <section class="section" id="group-f">
-          <span class="section-num">06</span>
-          <div class="section-inner">
-            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Group F · Site & Environmental</span></div>
-            <h2 class="section-heading reveal">Site &amp; Environmental Triggers</h2>
-
-            <div class="specimen-list reveal">
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">F1</span>
-                  <span class="warning-trigger-text">Frost Heave</span>
-                  <span class="verdict-badge verdict-weak">Rarely</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Freeze-thaw cycles lift shallow footings.</p>
-                    <p><span class="field-label">Where in NM</span>Mountain communities — Taos, Angel Fire, Ruidoso.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Rarely. Insulation, drainage, proper footing depth.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">F2</span>
-                  <span class="warning-trigger-text">Vibration-Induced Settlement</span>
-                  <span class="verdict-badge verdict-conditional">Sometimes</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Traffic, construction, rail lines densify loose soils.</p>
-                    <p><span class="field-label">Where in NM</span>Corridors near I-25, I-40, rail lines.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Sometimes; soil densification may be better.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="specimen-card">
-                <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">F3</span>
-                  <span class="warning-trigger-text">Burrowing Animal Activity</span>
-                  <span class="verdict-badge verdict-weak">Rarely</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
-                <div class="warning-drawer">
-                  <div class="warning-drawer-inner">
-                    <p><span class="field-label">What it is</span>Prairie dogs, gophers create tunnels and voids.</p>
-                    <p><span class="field-label">Underpinning appropriate?</span>Not typically. Void filling and animal management first.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
-    </div>
 
-    <div class="back-band">
-      <div class="back-band-inner">
-        <span class="back-band-label">Continue reading</span>
-        <a href="/why-foundations-move-v2">← Back to Why Foundations Move</a>
+      <div class="filter-bar">
+        <input type="search" id="causeSearch" placeholder="Search causes — e.g. &quot;caliche&quot;" aria-label="Search causes" />
+      </div>
+
+      <div class="symptom-grid" id="causeGrid">
+        {allCauses.map((c) => (
+          <article
+            class="specimen-card"
+            data-search={c.name.toLowerCase()}
+            data-group={c.groupId}
+            data-onset={c.onset.join(',')}
+            data-see={c.see.join(',')}
+            data-site={c.site.join(',')}
+          >
+            <button class="warning-trigger specimen-trigger">
+              <span class="specimen-code">{c.code}</span>
+              <span class="warning-trigger-text">{c.name}</span>
+              <span class={`verdict-badge ${c.verdictClass}`}>{c.verdict}</span>
+              <span class="warning-trigger-icon">+</span>
+            </button>
+            <div class="warning-drawer" id={c.anchorId}>
+              <div class="warning-drawer-inner">
+                <span class="symptom-category-badge">{c.groupTitle}</span>
+                <p><span class="field-label">What it is</span>{c.what}</p>
+                {c.where && <p><span class="field-label">Where in NM</span>{c.where}</p>}
+                <p><span class="field-label">Underpinning appropriate?</span>{c.underpinning}</p>
+                {c.missed && <p><span class="field-label">Commonly missed</span>{c.missed}</p>}
+                {c.regional && <p><span class="field-label">Regional variations</span>{c.regional}</p>}
+                {c.related && (
+                  <p class="specimen-related">
+                    {c.related.map((r, i) => (
+                      <>
+                        {i > 0 && ' | '}
+                        <a href={r.href}>{r.text}</a>
+                      </>
+                    ))}
+                  </p>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="contact-footer">
+        <p><strong>If this matches what you're seeing, the next step is having someone confirm it in person.</strong></p>
+        <p><a href="tel:5059914180">(505) 991-4180</a> · <a href="/contact-us">Send a message</a></p>
+        <p class="contact-footer-sub">
+          Prefer the short version first? <a href="/why-foundations-move-v2">Why Foundations Move</a> covers the
+          five most common patterns and how underpinning decisions actually get made.
+        </p>
       </div>
     </div>
   </div>
 </Layout>
 
 <script>
-  const progressFill = document.getElementById('progressFill');
-  window.addEventListener(
-    'scroll',
-    () => {
-      const contentArea = document.querySelector('.content-area');
-      if (!contentArea || !progressFill) return;
-      const rect = contentArea.getBoundingClientRect();
-      const total = rect.height - window.innerHeight;
-      const scrolled = Math.max(0, -rect.top);
-      (progressFill as HTMLElement).style.height = Math.min(100, (scrolled / total) * 100) + '%';
-    },
-    { passive: true }
-  );
+  const grid = document.getElementById('causeGrid') as HTMLElement;
+  const items = Array.from(grid.querySelectorAll<HTMLElement>('.specimen-card')).map((el) => ({
+    el,
+    originalIndex: 0,
+    onset: (el.dataset.onset || '').split(',').filter(Boolean),
+    see: (el.dataset.see || '').split(',').filter(Boolean),
+    site: (el.dataset.site || '').split(',').filter(Boolean),
+  }));
+  items.forEach((it, i) => (it.originalIndex = i));
 
-  const sections = document.querySelectorAll('.content-area section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  const sectionObs = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          navLinks.forEach((a) => a.classList.remove('active'));
-          const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
-          if (active) active.classList.add('active');
-        }
-      });
-    },
-    { rootMargin: '-25% 0px -65% 0px' }
-  );
-  sections.forEach((s) => sectionObs.observe(s));
+  const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>('.facet-panel input[type="checkbox"]'));
+  const clearBtn = document.getElementById('facetClear') as HTMLButtonElement;
+  const outcomeBox = document.getElementById('outcomeBox') as HTMLElement;
+  const outcomeText = document.getElementById('outcomeText') as HTMLElement;
+  const outcomePill = document.getElementById('outcomePill') as HTMLAnchorElement;
 
-  navLinks.forEach((a) => {
-    a.addEventListener('click', (e) => {
-      e.preventDefault();
-      const t = document.querySelector(a.getAttribute('href')!);
-      if (t) t.scrollIntoView({ behavior: 'smooth' });
+  function getChecked() {
+    const onset = checkboxes.filter((c) => c.checked && c.name === 'onset').map((c) => c.value);
+    const see = checkboxes.filter((c) => c.checked && c.name === 'see').map((c) => c.value);
+    const site = checkboxes.filter((c) => c.checked && c.name === 'site').map((c) => c.value);
+    return { onset, see, site };
+  }
+
+  function score(it: (typeof items)[number], checked: ReturnType<typeof getChecked>) {
+    const seeMatches = it.see.filter((s) => checked.see.includes(s)).length;
+    const onsetMatches = it.onset.filter((s) => checked.onset.includes(s)).length;
+    const siteMatches = it.site.filter((s) => checked.site.includes(s)).length;
+    return seeMatches * 3 + onsetMatches + siteMatches * 2;
+  }
+
+  function buildOutcome() {
+    const checked = getChecked();
+    const any = checked.onset.length + checked.see.length + checked.site.length > 0;
+    if (!any) {
+      outcomeBox.hidden = true;
+      return;
+    }
+    outcomeBox.hidden = false;
+
+    const scored = items
+      .map((it) => ({ it, s: score(it, checked) }))
+      .filter((x) => x.s > 0)
+      .sort((a, b) => b.s - a.s);
+    const topNames = scored.slice(0, 3).map((x) => x.it.el.querySelector('.warning-trigger-text')?.textContent).filter(Boolean);
+    const names = topNames.length ? topNames.join(', ') : 'a few of the patterns below';
+
+    const geotech = checked.site.includes('site-cutfill') || checked.site.includes('site-arroyo');
+    const geotechClause = geotech
+      ? " Given the site conditions you noted, this is also the kind of case where we'd likely loop in our affiliate Sandia GEO for a deeper geotechnical read."
+      : '';
+
+    outcomeText.textContent = `Based on what you selected, the closest matches below are ${names}. That's a starting point, not a determination — the way to know for sure is a floor-level survey and distress investigation, which gives an objective baseline to work from and something to monitor over time.${geotechClause} Call us and we'll walk you through it.`;
+
+    const params = new URLSearchParams();
+    if (checked.onset.length) params.set('onset', checked.onset.join(','));
+    if (checked.see.length) params.set('see', checked.see.join(','));
+    if (checked.site.length) params.set('site', checked.site.join(','));
+    outcomePill.href = '/symptom-guide-v2' + (params.toString() ? '?' + params.toString() : '');
+  }
+
+  function applySort() {
+    const checked = getChecked();
+    const anyChecked = checked.onset.length + checked.see.length + checked.site.length > 0;
+    clearBtn.hidden = !anyChecked;
+
+    const scored = items.map((it) => ({ it, s: anyChecked ? score(it, checked) : 0 }));
+    scored.sort((a, b) => (anyChecked ? b.s - a.s || a.it.originalIndex - b.it.originalIndex : a.it.originalIndex - b.it.originalIndex));
+
+    scored.forEach(({ it, s }) => {
+      grid.appendChild(it.el);
+      it.el.classList.toggle('dimmed', anyChecked && s === 0);
+      it.el.classList.toggle('matched', anyChecked && s > 0);
+    });
+
+    buildOutcome();
+  }
+
+  checkboxes.forEach((cb) => cb.addEventListener('change', applySort));
+  clearBtn.addEventListener('click', () => {
+    checkboxes.forEach((cb) => (cb.checked = false));
+    applySort();
+  });
+
+  // Arriving via the pill from symptom-guide-v2 -- pre-check boxes from the URL.
+  const params = new URLSearchParams(window.location.search);
+  ['onset', 'see', 'site'].forEach((group) => {
+    const val = params.get(group);
+    if (!val) return;
+    val.split(',').forEach((id) => {
+      const cb = checkboxes.find((c) => c.name === group && c.value === id);
+      if (cb) cb.checked = true;
+    });
+  });
+  applySort();
+
+  const search = document.getElementById('causeSearch') as HTMLInputElement;
+  search.addEventListener('input', () => {
+    const q = search.value.trim().toLowerCase();
+    grid.querySelectorAll<HTMLElement>('.specimen-card').forEach((item) => {
+      const visible = !q || item.dataset.search!.includes(q) || item.textContent!.toLowerCase().includes(q);
+      item.hidden = !visible;
     });
   });
 
-  const revealObs = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObs.unobserve(entry.target);
-        }
-      });
-    },
-    { rootMargin: '0px 0px -60px 0px' }
-  );
-  document.querySelectorAll('.reveal').forEach((el) => revealObs.observe(el));
-
+  // Accordion open/close, one at a time.
   function openCard(trigger: HTMLElement) {
     const item = trigger.closest('.specimen-card')!;
     const drawer = item.querySelector('.warning-drawer') as HTMLElement;
@@ -684,7 +738,6 @@ const groups = [
     item.classList.add('open');
     drawer.style.maxHeight = drawer.scrollHeight + 'px';
   }
-
   document.querySelectorAll<HTMLButtonElement>('.warning-trigger').forEach((trigger) => {
     trigger.addEventListener('click', () => {
       const item = trigger.closest('.specimen-card')!;
@@ -697,9 +750,8 @@ const groups = [
     });
   });
 
-  // Cross-page deep links (e.g. "Learn about expansive clay" on the
-  // overview page's Symptom Matrix) land here as a #id in the URL --
-  // auto-open the matching card and scroll to it.
+  // Cross-page deep links (e.g. from Why Foundations Move's Symptom Matrix)
+  // land here as a #id in the URL -- auto-open the matching card and scroll.
   const hash = window.location.hash.slice(1);
   if (hash) {
     const drawer = document.getElementById(hash);
@@ -712,346 +764,153 @@ const groups = [
 </script>
 
 <style>
-  .cl-page {
-    --navy: #0d2238;
+  .sg-page {
     --blue: #1b3a5c;
+    --blue-dark: #0d2238;
+    --blue-mid: #2a5480;
     --gold: #b8860b;
+    --gold-light: #d4a017;
     --gold-text: #7d5c08;
     --sand: #f5efe6;
-    --stone: #ddd5c8;
-    --slate: #2c3a4a;
+    --stone: #e0d5c5;
+    --slate: #4a5568;
     --muted: #54626f;
-    --cream: #fdfaf6;
     --white: #ffffff;
+    --cream: #fdfaf6;
     font-family: 'Source Serif 4', Georgia, serif;
     background: var(--cream);
-    color: var(--slate);
+    color: #1a1a1a;
+    font-size: 18px;
+    line-height: 1.9;
+    font-weight: 300;
   }
-
-  /* ── HERO ── */
-  .hero {
-    position: relative;
-    min-height: 480px;
-    padding-top: 60px;
-    overflow: hidden;
-    display: flex;
-    align-items: flex-end;
-  }
-  .hero-photo {
-    position: absolute;
-    inset: -4%;
-    background-image: url('/images/why-foundations-move-hero.webp');
-    background-size: cover;
-    background-position: center 50%;
-    animation: kenburns 20s ease-in-out infinite alternate;
-  }
-  @keyframes kenburns {
-    0% { transform: scale(1) translate(1%, 0); }
-    100% { transform: scale(1.03) translate(-1%, 0.5%); }
-  }
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(13, 34, 56, 0.88) 0%, rgba(13, 34, 56, 0.45) 45%, rgba(13, 34, 56, 0.1) 100%);
-  }
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    padding: 0 80px 64px;
-  }
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 64px 80px; }
+  .page-hero { background: var(--blue); padding: 52px 64px 44px; border-bottom: 2px solid var(--gold); }
+  .page-hero-inner { max-width: 1100px; margin: 0 auto; }
   .hero-eyebrow {
     font-family: 'DM Mono', monospace;
-    font-size: 13px;
+    font-size: 10px;
     letter-spacing: 4px;
     text-transform: uppercase;
-    color: var(--gold);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
-    display: inline-block;
-    background: rgba(13, 34, 56, 0.55);
-    padding: 5px 12px;
-    margin-bottom: 20px;
-  }
-  .hero-h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(40px, 6.5vw, 84px);
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.05;
-    letter-spacing: -1.5px;
-    margin-bottom: 22px;
-  }
-  .hero-h1 .w2 {
+    color: var(--gold-light);
     display: block;
-    font-style: italic;
-    color: var(--gold);
+    margin-bottom: 16px;
   }
-  .hero-content .hero-sub {
+  .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 46px); font-weight: 400; color: var(--white); line-height: 1.15; margin-bottom: 16px; }
+  .page-hero h1 em { font-style: italic; color: var(--gold-light); }
+  .page-hero-sub { font-size: 17px; font-weight: 300; color: rgba(255, 255, 255, 0.6); line-height: 1.8; max-width: 680px; }
+  .page-hero-sub a { color: var(--gold-light); text-decoration: underline; }
+
+  .diagnostic-note {
+    background: var(--sand);
+    border-left: 4px solid var(--gold);
+    padding: 20px 28px;
+    margin: 40px 0 32px;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--slate);
+  }
+  .diagnostic-note p + p { margin-top: 16px; }
+  .diagnostic-note strong { color: var(--blue); }
+  .legend-badge {
     display: inline-block;
-    font-size: clamp(16px, 1.7vw, 19px);
-    font-weight: 400;
-    font-style: italic;
-    color: #fff;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 2px 14px rgba(0, 0, 0, 0.6);
-    background: rgba(13, 34, 56, 0.55);
-    max-width: 560px;
-    line-height: 1.6;
-    margin-bottom: 32px;
-    border-left: 2px solid rgba(184, 134, 11, 0.5);
-    padding: 18px 24px 18px 22px;
-  }
-  .hero-cta {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .hero-cities-label {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-  .hero-aside {
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-  }
-  .hero-aside a {
-    color: rgba(255, 255, 255, 0.85);
-    text-decoration: underline;
-    text-decoration-color: var(--gold);
-    text-underline-offset: 3px;
-    transition: color 0.2s;
-  }
-  .hero-aside a:hover {
-    color: var(--gold);
-  }
-  @media (max-width: 767px) {
-    .hero-content { padding: 0 24px 40px; }
+    letter-spacing: 0.5px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin: 0 2px;
   }
 
-  .gold-rule {
-    height: 3px;
-    background: linear-gradient(90deg, var(--gold), var(--stone));
-  }
-
-  /* ── LAYOUT ── */
-  .page-layout {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-  .left-nav {
-    position: sticky;
-    top: 0;
-    align-self: start;
-    height: 100vh;
-    padding: 48px 32px;
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid var(--stone);
-  }
-  .nav-progress {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: var(--stone);
-  }
-  .nav-progress-fill {
-    width: 100%;
-    height: 0%;
-    background: var(--gold);
-    transition: height 0.1s linear;
-  }
-  .nav-brand {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 28px;
-  }
-  .nav-links {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    flex: 1;
-  }
-  .nav-links a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .nav-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--stone);
-    flex-shrink: 0;
-    transition: background 0.2s;
-  }
-  .nav-links a:hover { color: var(--blue); }
-  .nav-links a.active {
-    color: var(--blue);
-    font-weight: 600;
-  }
-  .nav-links a.active .nav-dot { background: var(--gold); }
-  .nav-contact {
-    padding-top: 24px;
-    border-top: 1px solid var(--stone);
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .nav-contact-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold-text);
-  }
-  .nav-contact a {
-    font-family: 'Playfair Display', serif;
-    font-size: 17px;
-    color: var(--blue);
-    text-decoration: none;
-  }
-  .nav-contact-sub {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    color: var(--muted);
-  }
-  @media (max-width: 1023px) {
-    .page-layout { grid-template-columns: 1fr; }
-    .left-nav { display: none; }
-  }
-
-  /* ── SECTIONS ── */
-  .content-area { padding: 0 64px; }
-  .section {
-    position: relative;
-    padding: 72px 0;
-    border-bottom: 1px solid var(--stone);
-  }
-  .section:last-of-type { border-bottom: none; }
-  .section-num {
-    position: absolute;
-    top: 60px;
-    right: 0;
-    font-family: 'Playfair Display', serif;
-    font-size: 96px;
-    font-weight: 700;
-    color: var(--sand);
-    line-height: 1;
-    z-index: 0;
-  }
-  .section-inner { position: relative; z-index: 1; max-width: 860px; }
-  .section-label { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-  .section-label-bar { width: 24px; height: 2px; background: var(--gold); }
-  .section-label-text {
+  /* ── Check-all-that-apply panel (shared with symptom-guide-v2) ── */
+  .facet-panel { background: var(--white); border: 1px solid var(--stone); border-radius: 12px; padding: 28px 28px 20px; margin-bottom: 24px; }
+  .facet-panel-head { margin-bottom: 20px; }
+  .facet-panel-label {
+    display: block;
     font-family: 'DM Mono', monospace;
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--gold-text);
-  }
-  .section-heading {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(26px, 3vw, 38px);
-    font-weight: 400;
-    color: var(--blue);
-    line-height: 1.25;
-    margin-bottom: 16px;
-    max-width: 760px;
-  }
-  .section-heading em { color: var(--gold-text); font-style: italic; }
-
-  .two-col-wide { display: grid; grid-template-columns: 1.5fr 1fr; gap: 56px; }
-  @media (max-width: 900px) {
-    .two-col-wide { grid-template-columns: 1fr; }
-  }
-  .section-inner > p,
-  .two-col-wide p { font-size: 17px; line-height: 1.9; margin-bottom: 20px; }
-  .basin-tagline {
-    font-style: italic;
-    font-size: 17px;
-    color: var(--muted);
-    border-left: 2px solid var(--gold);
-    padding-left: 18px;
-    margin-bottom: 28px;
-  }
-  .field-label {
-    display: block;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gold-text);
     margin-bottom: 8px;
   }
-
-  .basin-stat {
-    display: flex;
-    background: var(--navy);
-    border-radius: 6px;
-    padding: 28px;
-    margin-bottom: 24px;
+  .facet-panel-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin: 0; }
+  .facet-group { border: none; padding: 0; margin: 0 0 20px; }
+  .facet-group legend { font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 0.95rem; color: var(--blue); padding: 0; margin-bottom: 10px; }
+  .facet-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .facet-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.82rem;
+    color: var(--slate);
+    background: var(--cream);
+    border: 1px solid var(--stone);
+    border-radius: 20px;
+    padding: 8px 14px 8px 10px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
   }
-  .basin-stat-item { flex: 1; text-align: center; }
-  .basin-stat-num {
-    display: block;
-    font-family: 'Playfair Display', serif;
-    font-size: 40px;
-    font-weight: 700;
-    color: var(--gold);
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-  .basin-stat-label {
+  .facet-chip:has(input:checked) { background: var(--blue); border-color: var(--blue); color: var(--white); }
+  .facet-chip input { width: 14px; height: 14px; accent-color: var(--gold); flex-shrink: 0; }
+  .facet-actions { display: flex; justify-content: flex-end; }
+  .facet-clear {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.7);
-  }
-  .basin-stat-divider { width: 1px; background: rgba(255, 255, 255, 0.15); margin: 0 8px; }
-  .fact-box {
-    background: var(--sand);
-    border-left: 3px solid var(--gold);
-    padding: 18px 20px;
-  }
-  .fact-box-label {
-    display: block;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 1.5px;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--gold-text);
-    margin-bottom: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
   }
-  .fact-box p { font-size: 14px !important; margin-bottom: 8px !important; }
-  .fact-box p:last-child { margin-bottom: 0 !important; }
 
-  /* ── SPECIMEN CARDS ── */
-  .specimen-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 8px;
+  /* ── Outcome ── */
+  .outcome-box { background: var(--blue-dark); border-radius: 12px; padding: 28px; margin-bottom: 32px; }
+  .outcome-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 12px;
   }
-  .specimen-card {
-    background: #fff;
+  .outcome-text { color: rgba(255, 255, 255, 0.92); font-size: 0.98rem; line-height: 1.8; margin: 0 0 20px; }
+  .outcome-cta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .outcome-phone { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); text-decoration: none; border-bottom: 1px solid var(--gold); }
+  .outcome-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    color: var(--gold-light);
+    text-decoration: none;
+    border: 1px solid rgba(212, 160, 23, 0.4);
+    border-radius: 20px;
+    padding: 8px 16px;
+  }
+  .outcome-pill:hover { border-color: var(--gold-light); }
+
+  /* ── Search ── */
+  .filter-bar { margin-bottom: 24px; }
+  #causeSearch {
+    width: 100%;
+    font-family: 'Source Serif 4', serif;
+    font-size: 16px;
+    padding: 14px 18px;
     border: 1px solid var(--stone);
-    border-radius: 4px;
+    border-radius: 8px;
+    background: var(--white);
   }
+  #causeSearch:focus { outline: none; border-color: var(--gold); }
+
+  /* ── Specimen cards (flat grid, sortable) ── */
+  .symptom-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 40px; }
+  .specimen-card { background: var(--white); border: 1px solid var(--stone); border-radius: 8px; transition: opacity 0.2s, border-color 0.2s; }
+  .specimen-card.matched { border-color: rgba(184, 134, 11, 0.5); }
+  .specimen-card.dimmed { opacity: 0.5; }
   .specimen-trigger {
     width: 100%;
     background: none;
@@ -1075,13 +934,7 @@ const groups = [
     padding: 3px 7px;
     flex-shrink: 0;
   }
-  .warning-trigger-text {
-    flex: 1;
-    font-size: 15px;
-    color: var(--blue);
-    font-weight: 600;
-    line-height: 1.4;
-  }
+  .warning-trigger-text { flex: 1; font-size: 15px; color: var(--blue); font-weight: 600; line-height: 1.4; }
   .verdict-badge {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
@@ -1092,7 +945,7 @@ const groups = [
     flex-shrink: 0;
     white-space: nowrap;
   }
-  .verdict-strong { background: var(--navy); color: #fff; }
+  .verdict-strong { background: var(--blue-dark); color: #fff; }
   .verdict-conditional { background: transparent; border: 1px solid var(--gold); color: var(--gold-text); }
   .verdict-weak { background: var(--sand); color: var(--muted); border: 1px solid var(--stone); }
   .warning-trigger-icon { color: var(--gold-text); font-size: 16px; flex-shrink: 0; }
@@ -1110,6 +963,18 @@ const groups = [
   .warning-drawer-inner p { margin-bottom: 16px; }
   .warning-drawer-inner p:last-child { margin-bottom: 0; }
   .specimen-related { font-size: 14px !important; color: var(--muted); }
+  .symptom-category-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    background: var(--sand);
+    border-radius: 4px;
+    padding: 3px 8px;
+    margin-bottom: 12px;
+  }
   @media (max-width: 640px) {
     .specimen-trigger { flex-wrap: wrap; }
     .warning-trigger-text { flex-basis: 100%; order: 1; }
@@ -1118,41 +983,17 @@ const groups = [
     .warning-trigger-icon { order: 3; margin-left: auto; }
   }
 
-  .back-band {
-    background: var(--navy);
-    padding: 40px 64px;
-  }
-  .back-band-inner {
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .back-band-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-  }
-  .back-band-inner a {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 18px;
-    color: #fff;
-    text-decoration: none;
-    border-bottom: 1px solid var(--gold);
-  }
-  .back-band-inner a:hover { color: var(--gold); }
+  .contact-footer { margin-top: 60px; text-align: center; padding: 32px; background: var(--sand); border-left: 4px solid var(--gold); }
+  .contact-footer p { margin-bottom: 8px; font-size: 0.9rem; color: var(--slate); }
+  .contact-footer a { color: var(--blue); text-decoration: underline; text-decoration-color: var(--gold-text); }
+  .contact-footer-sub { margin-top: 16px; font-size: 0.85rem; color: var(--muted); }
 
-  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  @media (max-width: 767px) {
-    .content-area { padding: 0 24px; }
-    .section-num { display: none; }
-    .back-band { padding: 32px 24px; }
+  @media (max-width: 768px) {
+    .page { padding: 0 24px 60px; }
+    .page-hero { padding: 40px 24px 36px; }
+    .facet-panel { padding: 22px 20px 16px; }
+  }
+  @media (max-width: 640px) {
+    .page-hero h1 { font-size: 2rem; }
   }
 </style>
