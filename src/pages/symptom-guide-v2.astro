@@ -355,13 +355,9 @@ const categories: Category[] = [
   },
 ];
 
-// One combined "where are you" picker instead of separate region + city
-// dropdowns -- region alone doesn't personalize anything on this page
-// anymore (that link-rewriting was removed when the per-card links got
-// pruned), so asking the same question twice added nothing. City lists
-// are the real ones already published on each regional soil page's zone
-// strips, not a separate guessed list -- one optgroup per region,
-// flattened across that region's zones.
+// Region dropdown first, city dropdown populated from that region's real
+// city list once a region is picked. City lists are the ones already
+// published on each regional soil page's zone strips, not a guessed list.
 const regionCities = [
   {
     region: 'Four Corners',
@@ -528,19 +524,19 @@ const schema = [
         <fieldset class="facet-group">
           <legend>Where are you in New Mexico?</legend>
           <div class="region-row">
-            <select id="citySelect" aria-label="Select your city or town (optional)">
-              <option value="">Select your city or town (optional)</option>
+            <select id="regionSelect" aria-label="Select your region (optional)">
+              <option value="">Select your region (optional)</option>
               {regionCities.map((r) => (
-                <optgroup label={r.region}>
-                  {r.cities.map((c) => (
-                    <option value={c} data-region={r.region} data-region-url={r.url}>{c}</option>
-                  ))}
-                </optgroup>
+                <option value={r.region} data-region-url={r.url}>{r.region}</option>
               ))}
               <option value="Other / not listed">Other / not listed</option>
             </select>
+            <select id="citySelect" aria-label="Select your city or town (optional)" disabled>
+              <option value="">Select your region first</option>
+            </select>
           </div>
           <p class="facet-tip" id="regionLinkTip" hidden></p>
+          <script type="application/json" id="regionCitiesData" set:html={JSON.stringify(regionCities)} />
         </fieldset>
 
         <fieldset class="facet-group">
@@ -706,17 +702,49 @@ const schema = [
     if (typeof (window as any).gtag === 'function') (window as any).gtag('event', name, params || {});
   }
 
-  // One combined city/region picker (city implies region via its
-  // optgroup, so there's no separate region question anymore). Remembers
-  // the choice across visits, tracks it, and surfaces a single link back
-  // to that region's soil page -- once, here, not repeated on every card
-  // the way the old per-card region links were.
+  // Region picker first, city picker populated from that region's real city
+  // list once a region is chosen. Remembers the choice across visits,
+  // tracks it, and surfaces a single link back to that region's soil page.
   const STORAGE_KEY = 'tls-region';
+  const regionSelect = document.getElementById('regionSelect') as HTMLSelectElement;
   const citySelect = document.getElementById('citySelect') as HTMLSelectElement;
   const regionLinkTip = document.getElementById('regionLinkTip') as HTMLElement;
+  const regionData = JSON.parse(document.getElementById('regionCitiesData')!.textContent || '[]') as {
+    region: string;
+    url: string;
+    cities: string[];
+  }[];
 
-  function applySelection(city: string, region: string, url: string) {
-    citySelect.value = city;
+  function populateCities(regionName: string, selectedCity = '') {
+    citySelect.innerHTML = '';
+    const region = regionData.find((r) => r.region === regionName);
+    if (!region) {
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = regionName ? 'City (optional)' : 'Select your region first';
+      citySelect.appendChild(opt);
+      citySelect.disabled = true;
+      return;
+    }
+    citySelect.disabled = false;
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Select your city or town (optional)';
+    citySelect.appendChild(placeholder);
+    region.cities.forEach((c) => {
+      const opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = c;
+      citySelect.appendChild(opt);
+    });
+    const other = document.createElement('option');
+    other.value = 'Other / not listed';
+    other.textContent = 'Other / not listed';
+    citySelect.appendChild(other);
+    citySelect.value = selectedCity;
+  }
+
+  function showRegionTip(region: string, url: string) {
     if (region && url) {
       regionLinkTip.hidden = false;
       regionLinkTip.innerHTML = `<a href="${url}">More about the ${region} region →</a>`;
@@ -725,28 +753,43 @@ const schema = [
     }
   }
 
+  populateCities('');
+
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
     try {
-      const { city, region, url } = JSON.parse(saved);
-      applySelection(city, region, url);
+      const { region, url, city } = JSON.parse(saved);
+      if (region) {
+        regionSelect.value = region;
+        populateCities(region, city || '');
+        showRegionTip(region, url || '');
+      }
     } catch {
       /* ignore malformed storage */
     }
   }
 
-  citySelect.addEventListener('change', () => {
-    const city = citySelect.value;
-    if (!city) {
+  regionSelect.addEventListener('change', () => {
+    const region = regionSelect.value;
+    const opt = regionSelect.options[regionSelect.selectedIndex];
+    const url = opt.dataset.regionUrl || '';
+    populateCities(region);
+    if (!region) {
       localStorage.removeItem(STORAGE_KEY);
       regionLinkTip.hidden = true;
       return;
     }
-    const opt = citySelect.options[citySelect.selectedIndex];
-    const region = opt.dataset.region || '';
+    showRegionTip(region, url);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ region, url, city: '' }));
+    track('region_selected', { region });
+  });
+
+  citySelect.addEventListener('change', () => {
+    const city = citySelect.value;
+    const region = regionSelect.value;
+    const opt = regionSelect.options[regionSelect.selectedIndex];
     const url = opt.dataset.regionUrl || '';
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ city, region, url }));
-    applySelection(city, region, url);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ region, url, city }));
     track('city_selected', { city, region: region || 'unspecified' });
   });
 
@@ -1191,7 +1234,13 @@ const schema = [
     cursor: pointer;
     padding: 4px 0;
   }
+  .region-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
   .region-row select {
+    flex: 1 1 220px;
     width: 100%;
     font-family: 'DM Mono', monospace;
     font-size: 0.8rem;
@@ -1201,6 +1250,11 @@ const schema = [
     border-radius: 6px;
     padding: 10px 14px;
     cursor: pointer;
+  }
+  .region-row select:disabled {
+    color: var(--muted);
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 
   /* ── Outcome ── */
