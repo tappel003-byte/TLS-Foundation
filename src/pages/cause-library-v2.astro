@@ -741,10 +741,9 @@ const verdictDefs: Record<string, string> = {
                 data-site={c.site.join(',')}
                 data-foundation={c.foundation.join(',')}
               >
-                <button class="warning-trigger specimen-trigger">
-                  <span class="warning-trigger-text">{c.name}</span>
-                  <span class="warning-trigger-icon">+</span>
-                </button>
+                <div class="specimen-head">
+                  <h3 class="warning-trigger-text">{c.name}</h3>
+                </div>
                 <div class="verdict-line">
                   <span class={`verdict-badge ${c.verdictClass}`} data-def={verdictDefs[c.verdictClass]} tabindex="0" role="button" aria-label={`Is underpinning the first choice for this cause? ${c.verdict}. Tap for more.`}>
                     <span class="verdict-q">Is underpinning the first choice here?</span>
@@ -753,10 +752,11 @@ const verdictDefs: Record<string, string> = {
                   <span class="verdict-def" hidden></span>
                 </div>
                 <p class="cause-match-tag" data-match-tag hidden></p>
-                <div class="warning-drawer" id={c.anchorId}>
+                <p class="specimen-desc">{c.what}</p>
+                <button type="button" class="continue-reading" data-detail-toggle>Continue reading →</button>
+                <div class="warning-drawer" id={c.anchorId} hidden>
                   <div class="warning-drawer-inner">
                     <span class="symptom-category-badge">{c.groupTitle}</span>
-                    <p><span class="field-label">What it is</span>{c.what}</p>
                     {c.where && <p><span class="field-label">Where in NM</span>{c.where}</p>}
                     <p><span class="field-label">Underpinning appropriate?</span>{c.underpinning}</p>
                     {c.homeownerAction && (
@@ -973,26 +973,21 @@ const verdictDefs: Record<string, string> = {
   });
   applySort();
 
-  // Accordion open/close, one at a time.
-  function openCard(trigger: HTMLElement) {
-    const item = trigger.closest('.specimen-card')!;
-    const drawer = item.querySelector('.warning-drawer') as HTMLElement;
-    document.querySelectorAll('.specimen-card.open').forEach((i) => {
-      i.classList.remove('open');
-      (i.querySelector('.warning-drawer') as HTMLElement).style.maxHeight = '0';
-    });
-    item.classList.add('open');
-    drawer.style.maxHeight = drawer.scrollHeight + 'px';
+  // Each card opens and closes independently -- no more "closes whatever
+  // else was open," which fought against the explicit "Continue reading"
+  // button once that button existed (clicking it on one card silently
+  // closing another card the reader was still looking at made no sense).
+  function setCardOpen(article: HTMLElement, open: boolean) {
+    const drawer = article.querySelector('.warning-drawer') as HTMLElement;
+    const btn = article.querySelector<HTMLButtonElement>('.continue-reading');
+    article.classList.toggle('open', open);
+    drawer.hidden = !open;
+    if (btn) btn.textContent = open ? 'Show less ↑' : 'Continue reading →';
   }
-  document.querySelectorAll<HTMLButtonElement>('.warning-trigger').forEach((trigger) => {
-    trigger.addEventListener('click', () => {
-      const item = trigger.closest('.specimen-card')!;
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.specimen-card.open').forEach((i) => {
-        i.classList.remove('open');
-        (i.querySelector('.warning-drawer') as HTMLElement).style.maxHeight = '0';
-      });
-      if (!isOpen) openCard(trigger);
+  document.querySelectorAll<HTMLButtonElement>('.continue-reading').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const article = btn.closest('.specimen-card') as HTMLElement;
+      setCardOpen(article, !article.classList.contains('open'));
     });
   });
 
@@ -1020,10 +1015,10 @@ const verdictDefs: Record<string, string> = {
   const hash = window.location.hash.slice(1);
   if (hash) {
     const drawer = document.getElementById(hash);
-    const trigger = drawer?.closest('.specimen-card')?.querySelector<HTMLButtonElement>('.warning-trigger');
-    if (trigger) {
-      openCard(trigger);
-      setTimeout(() => trigger.closest('.specimen-card')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+    const article = drawer?.closest('.specimen-card') as HTMLElement | null;
+    if (article) {
+      setCardOpen(article, true);
+      setTimeout(() => article.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
     }
   }
 </script>
@@ -1225,20 +1220,8 @@ const verdictDefs: Record<string, string> = {
   /* ── Specimen cards ── */
   .specimen-card { background: var(--white); border: 1px solid var(--stone); border-radius: 8px; transition: opacity 0.2s, border-color 0.2s; }
   .specimen-card.matched { border-color: rgba(184, 134, 11, 0.5); }
-  .specimen-trigger {
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 16px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 14px;
-    cursor: pointer;
-    text-align: left;
-    font-family: 'Source Serif 4', serif;
-  }
-  .warning-trigger-text { flex: 1; font-size: 15px; color: var(--blue); font-weight: 600; line-height: 1.4; }
+  .specimen-head { padding: 16px 20px 0; }
+  .warning-trigger-text { font-size: 16px; color: var(--blue); font-weight: 600; line-height: 1.4; margin: 0; }
   .verdict-line { padding: 0 20px 14px; }
   .verdict-badge {
     display: flex;
@@ -1277,8 +1260,6 @@ const verdictDefs: Record<string, string> = {
   .verdict-conditional .verdict-q { color: var(--slate); }
   .verdict-weak { background: var(--sand); color: var(--muted); border: 1px solid var(--stone); }
   .verdict-weak .verdict-q { color: var(--slate); }
-  .warning-trigger-icon { color: var(--gold-text); font-size: 16px; flex-shrink: 0; }
-  .specimen-card.open .warning-trigger-icon { transform: rotate(45deg); }
   .cause-match-tag {
     margin: -8px 20px 12px;
     font-family: 'DM Mono', monospace;
@@ -1289,15 +1270,33 @@ const verdictDefs: Record<string, string> = {
     border-radius: 6px;
     padding: 6px 10px;
   }
-  .warning-drawer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+  .specimen-desc {
+    font-size: 15px;
+    line-height: 1.75;
+    color: var(--slate);
+    padding: 0 20px;
+    margin: 0 0 12px;
+  }
+  .continue-reading {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    border-top: 1px solid var(--stone);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    color: var(--gold-text);
+    padding: 12px 20px;
+    text-align: left;
+    cursor: pointer;
+  }
+  .continue-reading:hover { background: var(--cream); }
   .warning-drawer-inner {
     font-size: 15px;
     line-height: 1.8;
     color: var(--slate);
-    padding: 4px 20px 22px;
-    border-top: 1px solid var(--stone);
-    margin-top: 2px;
-    padding-top: 16px;
+    padding: 16px 20px 22px;
   }
   .warning-drawer-inner p { margin-bottom: 16px; }
   .warning-drawer-inner p:last-child { margin-bottom: 0; }
@@ -1339,7 +1338,6 @@ const verdictDefs: Record<string, string> = {
   }
   .other-strip:hover { border-color: var(--gold); }
   @media (max-width: 640px) {
-    .warning-trigger-icon { margin-left: auto; }
     .verdict-badge { flex-direction: column; align-items: flex-start; gap: 2px; }
     .tier-number { font-size: 28px; }
   }
