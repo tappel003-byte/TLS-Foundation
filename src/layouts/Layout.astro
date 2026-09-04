@@ -104,6 +104,17 @@ const websiteSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
     {schema.map((block) => <script type="application/ld+json" set:html={JSON.stringify(block)} />)}
+
+    <!--
+      Cloudflare Web Analytics -- site-wide, privacy-respecting (no cookies,
+      no cross-site tracking, no consent banner required). Get the real
+      token from the Cloudflare dashboard: Account Home -> Analytics & Logs
+      -> Web Analytics -> Add a site (enter this site's domain). It hands
+      back a snippet identical to this one with a real token in place of
+      REPLACE_WITH_CF_ANALYTICS_TOKEN -- swap it in and this starts
+      reporting immediately, no redeploy-and-wait needed beyond the push.
+    -->
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "REPLACE_WITH_CF_ANALYTICS_TOKEN"}'></script>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
