@@ -519,6 +519,7 @@ const schema = [
         <div class="facet-panel-head">
           <span class="facet-panel-label">Check all that apply</span>
           <p class="facet-panel-sub">This describes common patterns, not an evaluation of your home — the safest step, if you're ever unsure, is to have someone look.</p>
+          <p class="facet-panel-note">Same checklist on the <a href="/cause-library-v2">Cause Library</a> — check it once and we'll carry your answers over, either direction.</p>
         </div>
 
         <fieldset class="facet-group">
@@ -1193,6 +1194,14 @@ const schema = [
     margin-bottom: 8px;
   }
   .facet-panel-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin: 0; }
+  .facet-panel-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2px;
+    color: var(--gold-text);
+    margin: 8px 0 0;
+  }
+  .facet-panel-note a { color: inherit; text-decoration: underline; }
   .facet-group { border: none; padding: 0; margin: 0 0 20px; }
   .facet-group legend { font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 0.95rem; color: var(--blue); padding: 0; margin-bottom: 10px; }
   .facet-group-note { font-weight: 400; font-size: 0.78rem; color: var(--muted); }
