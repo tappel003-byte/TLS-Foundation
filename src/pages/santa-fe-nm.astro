@@ -596,7 +596,7 @@ const schema = [
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(13, 34, 56, 0.97) 0%, rgba(13, 34, 56, 0.88) 35%, rgba(13, 34, 56, 0.55) 70%, rgba(13, 34, 56, 0.2) 100%);
+    background: linear-gradient(to top, rgba(13, 34, 56, 0.5) 0%, rgba(13, 34, 56, 0.3) 45%, rgba(13, 34, 56, 0.12) 100%);
   }
   .hero-content {
     position: relative;
@@ -688,9 +688,12 @@ const schema = [
     padding: 20px 28px 20px 24px;
   }
   .hero-cta {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 36px;
+    background: rgba(13, 34, 56, 0.55);
+    border-left: 2px solid rgba(184, 134, 11, 0.5);
+    padding: 20px 32px;
     opacity: 0;
     animation: fadeUp 0.65s ease forwards 1.4s;
   }
