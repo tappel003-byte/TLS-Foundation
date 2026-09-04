@@ -34,13 +34,16 @@
 // Sixth pass: dropped the per-card A1/C3-style code badge (a relic of the
 // old Group A-F layout, unread by any script). Dropped the search bar --
 // with the tier structure doing the organizing, it didn't have a place.
-// Added a "Try this yourself first" homeowner action item, but only to the
-// Tier 1 causes where a real DIY self-check exists (plumbing/water bill,
-// drainage, irrigation, trees, animal burrows) -- the rest of Tier 1 (deep
-// karst, regional groundwater, post-tension cable, frost heave) is "rule
-// out first" because underpinning usually isn't the fix even after a
-// professional looks, not because there's something a homeowner can check
-// themselves, so those were left without one rather than inventing a step.
+// Added a "Try this yourself first" homeowner action item wherever one
+// genuinely exists -- most of Tier 1 (plumbing/water bill, drainage,
+// irrigation, trees, animal burrows), plus a handful of Tier 2/3 causes
+// with a real partial piece even though the overall fix is structural
+// (checking gutters on the fill side of a cut-and-fill house, keeping
+// moisture steady for expansive clay, keeping water off an adobe wall's
+// base, digging up paperwork from a prior repair). Left off the causes
+// with nothing genuine to add -- a static pre-existing condition, a
+// regional issue nobody controls, something only a professional can
+// assess -- rather than inventing a step that isn't real.
 import Layout from '../layouts/Layout.astro';
 
 const title = 'The Cause Library — Why Foundations Move | TLS Foundations';
@@ -59,12 +62,15 @@ interface Cause {
   underpinning: string;
   missed?: string;
   regional?: string;
-  // A real self-check a homeowner can do, only where one genuinely exists --
-  // some verdict-weak causes are "rule out first" because underpinning
-  // usually isn't the fix even after a professional investigation (deep
-  // karst, regional groundwater, post-tension cable, frost heave), not
-  // because there's something to check yourself. Leave those without one
-  // rather than inventing a DIY step that isn't real.
+  // Something real a homeowner can do today, wherever it genuinely exists --
+  // independent of tier/verdict. Most Tier 1 causes have one (that's most of
+  // what "rule out first" means); a few Tier 2/3 causes have a real partial
+  // piece even though the overall fix is structural (e.g. checking gutters
+  // on the fill side of a cut-and-fill house doesn't undo the differential
+  // settlement, but it stops making it worse). Plenty of causes -- across
+  // every tier -- genuinely have nothing to add here (a static pre-existing
+  // condition, something only a professional can assess, a regional issue
+  // nobody controls); leave those without one rather than inventing a step.
   homeownerAction?: string;
   related?: { text: string; href: string }[];
   anchorId?: string;
@@ -98,6 +104,7 @@ const groups: Group[] = [
         where: 'Extremely common statewide, particularly on valley margins, alluvial fan deposits, and mesa edges where development has moved from irrigated valley floors onto previously dry higher ground.',
         underpinning: 'Yes — once collapse has occurred, the soil structure is permanently altered. Piers driven through the collapsed zone to stable material below are the standard response. But the water source must be found and controlled first, or collapse will continue in untreated areas.',
         missed: "This is routinely misdiagnosed as 'normal settling' or blamed on poor compaction. The mechanism is fundamentally different — it is not gradual compression under weight, it is a sudden collapse of the soil structure, triggered by water. This is arguably the most underappreciated foundation hazard in New Mexico.",
+        homeownerAction: "If there's an obvious water source near the affected area — a leak, a downspout, an irrigation line — get it corrected right away. That's what's actively driving the collapse; repairing the settlement itself is a piering job, but stopping the water is something you can do today.",
         related: [
           { text: 'Collapsible Soils article →', href: '/collapsible-soil' },
           { text: 'Glossary: Hydrocompaction →', href: '/glossary#hydrocompaction' },
@@ -129,6 +136,7 @@ const groups: Group[] = [
         what: "Houses built into hillsides often sit partly on undisturbed cut soil and partly on compressible fill. These two portions bear on fundamentally different materials. The fill side settles; the cut side doesn't. Differential movement is virtually guaranteed.",
         where: 'Foothills developments, Santa Fe hillsides, East Mountains, any area where lots were created by grading into slopes.',
         underpinning: 'Often yes, especially when fill is deep. The fill side will typically require deeper piers than the cut side.',
+        homeownerAction: "Check whether gutters and downspouts on the fill side of the house are actually directing water away from it — extra moisture concentrating there accelerates the very differential movement this cause describes, even though fixing the movement itself is a piering job.",
         onset: ['gradual'],
         see: ['see-floors', 'see-crack-diagonal'],
         site: ['site-cutfill'],
@@ -208,6 +216,7 @@ const groups: Group[] = [
         where: 'Statewide; severe in Rio Grande Valley, San Juan Basin, areas underlain by weathered Cretaceous shales. Caliche is common on alluvial fans and piedmont slopes.',
         underpinning: 'Sometimes — when differential movement has caused structural distress that moisture control cannot reverse. But many expansive clay cases are better addressed first through drainage correction, irrigation management, and stabilizing the moisture envelope around the foundation. Underpinning without addressing moisture treats the symptom, not the cause.',
         missed: 'Heave is frequently misread as settlement. Homeowners see cracks and think their house is sinking when part of it is actually being pushed up. Underpinning a heaving foundation does not fix the problem — it fights the earth. The honest first step is always to evaluate and manage the moisture before reaching for piers.',
+        homeownerAction: "Keep the moisture around your foundation as steady as you can — fix drainage issues, keep irrigation off the foundation, and avoid letting the perimeter soil swing between soaked and bone dry. That's the one piece of this that's genuinely in your control.",
         regional: 'In the San Juan Basin, Mancos Shale weathers into highly expansive clay that can be more severe than typical expansive soils; this weathered zone can extend many feet below grade, and the boundary between weathered and stable material is not uniform. In areas with Permian evaporites or gypsiferous soils, sulfate heave can occur — a chemical reaction between calcium stabilizers and sulfate-bearing soils that creates progressive, irreversible heave that does not reverse with drying. Caliche — a hard calcium carbonate layer, sometimes called hardpan — can provide false bearing if fractured or sitting on unstable material.',
         related: [
           { text: 'Expansive Soils article →', href: '/expansive-soil' },
@@ -432,6 +441,7 @@ const groups: Group[] = [
         what: 'Previous underpinning failed — piers not deep enough, wrong bearing, etc.',
         underpinning: 'Yes, as second repair. Evaluate and install deeper piers.',
         missed: "Presented as 'new' problem when it's actually failure of prior repair.",
+        homeownerAction: "If you have any paperwork from a prior foundation repair — who did it, pier depth, any warranty — dig it out. It'll save real time when someone assesses this.",
         onset: ['gradual'],
         see: ['see-crack-diagonal', 'see-floors'],
         site: [],
@@ -446,6 +456,7 @@ const groups: Group[] = [
         where: 'Northern NM, Albuquerque historic neighborhoods.',
         underpinning: 'With caution. Requires specialized engineering; often material repair and moisture protection better.',
         missed: "Degradation misread as settlement. The wall isn't sinking — the bottom of the wall is dissolving.",
+        homeownerAction: 'Keep water away from the base of adobe or rubble foundation walls — good grading, working downspouts, and keeping plantings back from the wall base protect adobe more than almost anything else.',
         onset: ['gradual', 'seasonal'],
         see: ['see-cracks-exterior'],
         site: ['site-adobe'],
