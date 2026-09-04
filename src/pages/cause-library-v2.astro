@@ -1,21 +1,22 @@
 ---
 // DRAFT (temp) -- prototype only, linked from the "Draft (temp)" nav folder
-// in Header.astro. Third pass at this page. First cut relocated the
-// 26-item accordion verbatim onto its own URL. Second cut rebuilt it in
-// the site's magazine format (Ken Burns hero, sticky nav, reveal
-// animations) -- good-looking, wrong shape for a 26-item lookup reference,
-// per direct discussion. This version drops the magazine shell entirely
-// and rebuilds on the same template as symptom-guide-v2.astro: same CSS
-// tokens, same "check all that apply" facet panel (identical vocabulary,
-// so the pill at the bottom of Symptom Guide lands here with checkboxes
-// already carried over via URL params), same never-hide/reorder-only
-// sort, same liability-safe outcome paragraph pattern (here leaning on
-// mechanism/expertise framing rather than urgency, since this is the
-// deep-reference half of the pair, not the fast-triage half). Content
-// itself is unchanged from the original 26 entries except two small
-// additions surfaced by the 5-source vocabulary research (swamp cooler
-// leak under C3, a lush-grass tell under C1) and one clearer plain-English
-// line under A5 (soil piping).
+// in Header.astro. Fourth pass, mirroring the same fixes just made on
+// symptom-guide-v2.astro:
+// - Expanded facet vocabulary (crack orientation split out, single-select
+//   foundation-type group added -- tags E3 Post-Tension Cable Failure and
+//   the plumbing/pier-and-beam-relevant causes for the first time).
+// - Results view redesigned: matches stay full-size up top, everything
+//   else collapses into one small "N other causes" strip instead of just
+//   dimming in place.
+// - Pill replaced with a plain sentence + a real button.
+// - Verdict badges are now tappable -- clicking one shows its one-line
+//   definition inline, so the legend travels with the reader instead of
+//   living only at the top of the page (real problem, confirmed via a
+//   screenshot of "Often" six groups down with no context in view).
+// Content itself is unchanged from the original 26 entries except the
+// small additions from the vocabulary research (swamp cooler leak under
+// C3, a lush-grass tell under C1, the plain-English soil-piping line
+// under A5).
 // Delete this file, symptom-guide-v2.astro, why-foundations-move-v2.astro,
 // and the "Draft (temp)" folder in Header.astro together once a direction
 // is picked.
@@ -23,7 +24,7 @@ import Layout from '../layouts/Layout.astro';
 
 const title = 'The Cause Library — Why Foundations Move | TLS Foundations';
 const summary =
-  'Twenty-six specific causes of foundation movement in New Mexico, organized by mechanism across six groups -- loss of support, soil volume change, water and moisture drivers, deep geologic hazards, construction deficiencies, and site triggers. A "check all that apply" panel (what you know, what you see, when it started) re-sorts the list by relevance and assembles a short practical readout. Each entry covers what it is, where in New Mexico it shows up, whether underpinning is the right response, and what gets commonly missed.';
+  'Twenty-six specific causes of foundation movement in New Mexico, organized by mechanism across six groups -- loss of support, soil volume change, water and moisture drivers, deep geologic hazards, construction deficiencies, and site triggers. A "check all that apply" panel (foundation type, what you see, when it started, what you know about your site) re-sorts the list by relevance and assembles a short practical readout. Each entry covers what it is, where in New Mexico it shows up, whether underpinning is the right response, and what gets commonly missed.';
 const description =
   '26 specific causes of New Mexico foundation movement, organized by mechanism -- check what applies and see which ones best match, with an honest read on whether underpinning fits.';
 
@@ -42,6 +43,7 @@ interface Cause {
   onset: string[];
   see: string[];
   site: string[];
+  foundation: string[];
 }
 interface Group {
   id: string;
@@ -75,6 +77,7 @@ const groups: Group[] = [
         onset: ['sudden'],
         see: ['see-floors', 'see-foundation-cracks'],
         site: ['site-plumbing'],
+        foundation: [],
       },
       {
         code: 'A2',
@@ -88,6 +91,7 @@ const groups: Group[] = [
         onset: ['gradual'],
         see: ['see-floors', 'see-foundation-cracks'],
         site: ['site-cutfill'],
+        foundation: [],
       },
       {
         code: 'A3',
@@ -98,8 +102,9 @@ const groups: Group[] = [
         where: 'Foothills developments, Santa Fe hillsides, East Mountains, any area where lots were created by grading into slopes.',
         underpinning: 'Often yes, especially when fill is deep. The fill side will typically require deeper piers than the cut side.',
         onset: ['gradual'],
-        see: ['see-floors', 'see-cracks-interior'],
+        see: ['see-floors', 'see-crack-diagonal'],
         site: ['site-cutfill'],
+        foundation: [],
       },
       {
         code: 'A4',
@@ -113,6 +118,7 @@ const groups: Group[] = [
         onset: ['gradual'],
         see: ['see-floors'],
         site: ['site-cutfill'],
+        foundation: [],
       },
       {
         code: 'A5',
@@ -127,6 +133,7 @@ const groups: Group[] = [
         onset: ['sudden'],
         see: ['see-foundation-gap', 'see-drainage'],
         site: ['site-arroyo'],
+        foundation: ['fnd-pierbeam'],
       },
       {
         code: 'A6',
@@ -140,6 +147,7 @@ const groups: Group[] = [
         onset: ['gradual'],
         see: ['see-floors'],
         site: [],
+        foundation: [],
       },
       {
         code: 'A7',
@@ -150,8 +158,9 @@ const groups: Group[] = [
         underpinning: 'Often yes — the foundation needs deeper or broader support to handle the new loads.',
         missed: "Blamed on 'bad soil' when the real issue is a load change the original design didn't anticipate.",
         onset: ['gradual'],
-        see: ['see-cracks-interior'],
+        see: ['see-crack-diagonal'],
         site: [],
+        foundation: [],
       },
     ],
   },
@@ -177,8 +186,9 @@ const groups: Group[] = [
           { text: 'Glossary: Heave, Caliche →', href: '/glossary' },
         ],
         onset: ['seasonal'],
-        see: ['see-doors', 'see-windows', 'see-cracks-interior'],
+        see: ['see-doors', 'see-windows', 'see-crack-diagonal'],
         site: ['site-clay'],
+        foundation: [],
       },
     ],
   },
@@ -200,6 +210,7 @@ const groups: Group[] = [
         onset: ['sudden'],
         see: ['see-leak-signs', 'see-floors'],
         site: ['site-plumbing'],
+        foundation: ['fnd-slab'],
       },
       {
         code: 'C2',
@@ -212,6 +223,7 @@ const groups: Group[] = [
         onset: ['seasonal', 'gradual'],
         see: ['see-drainage'],
         site: [],
+        foundation: [],
       },
       {
         code: 'C3',
@@ -224,6 +236,7 @@ const groups: Group[] = [
         onset: ['gradual'],
         see: ['see-drainage'],
         site: ['site-trees'],
+        foundation: [],
       },
       {
         code: 'C4',
@@ -236,6 +249,7 @@ const groups: Group[] = [
         onset: ['gradual'],
         see: ['see-cracks-exterior'],
         site: ['site-trees'],
+        foundation: [],
       },
       {
         code: 'C5',
@@ -248,6 +262,7 @@ const groups: Group[] = [
         onset: ['gradual'],
         see: ['see-drainage'],
         site: [],
+        foundation: [],
       },
     ],
   },
@@ -273,6 +288,7 @@ const groups: Group[] = [
         onset: ['gradual', 'sudden'],
         see: ['see-foundation-gap'],
         site: [],
+        foundation: [],
       },
       {
         code: 'D2',
@@ -286,6 +302,7 @@ const groups: Group[] = [
         onset: ['gradual'],
         see: ['see-cracks-exterior'],
         site: ['site-cutfill'],
+        foundation: [],
       },
       {
         code: 'D3',
@@ -296,8 +313,9 @@ const groups: Group[] = [
         where: 'Rift corridor — Albuquerque, Socorro, Santa Fe, Taos.',
         underpinning: "Post-earthquake settlement: yes. Fault rupture: underpinning doesn't address.",
         onset: ['sudden'],
-        see: ['see-cracks-interior'],
+        see: ['see-crack-diagonal'],
         site: [],
+        foundation: [],
       },
       {
         code: 'D4',
@@ -311,6 +329,7 @@ const groups: Group[] = [
         onset: ['gradual'],
         see: ['see-floors'],
         site: [],
+        foundation: [],
       },
       {
         code: 'D5',
@@ -322,6 +341,7 @@ const groups: Group[] = [
         onset: ['sudden'],
         see: ['see-foundation-gap'],
         site: ['site-arroyo'],
+        foundation: [],
       },
     ],
   },
@@ -340,8 +360,9 @@ const groups: Group[] = [
         where: 'Statewide; many older homes designed without soil testing.',
         underpinning: 'Often yes — providing deep support that should have been there.',
         onset: ['gradual'],
-        see: ['see-cracks-interior', 'see-floors'],
+        see: ['see-crack-diagonal', 'see-floors'],
         site: [],
+        foundation: [],
       },
       {
         code: 'E2',
@@ -354,6 +375,7 @@ const groups: Group[] = [
         onset: ['gradual'],
         see: ['see-cracks-slab'],
         site: [],
+        foundation: ['fnd-slab'],
       },
       {
         code: 'E3',
@@ -367,6 +389,7 @@ const groups: Group[] = [
         onset: ['gradual'],
         see: ['see-cracks-slab'],
         site: [],
+        foundation: ['fnd-posttension'],
       },
       {
         code: 'E4',
@@ -377,8 +400,9 @@ const groups: Group[] = [
         underpinning: 'Yes, as second repair. Evaluate and install deeper piers.',
         missed: "Presented as 'new' problem when it's actually failure of prior repair.",
         onset: ['gradual'],
-        see: ['see-cracks-interior', 'see-floors'],
+        see: ['see-crack-diagonal', 'see-floors'],
         site: [],
+        foundation: [],
       },
       {
         code: 'E5',
@@ -392,6 +416,7 @@ const groups: Group[] = [
         onset: ['gradual', 'seasonal'],
         see: ['see-cracks-exterior'],
         site: ['site-adobe'],
+        foundation: [],
       },
     ],
   },
@@ -412,6 +437,7 @@ const groups: Group[] = [
         onset: ['seasonal'],
         see: ['see-cracks-exterior'],
         site: [],
+        foundation: [],
       },
       {
         code: 'F2',
@@ -424,6 +450,7 @@ const groups: Group[] = [
         onset: ['gradual'],
         see: ['see-floors'],
         site: [],
+        foundation: [],
       },
       {
         code: 'F3',
@@ -435,6 +462,7 @@ const groups: Group[] = [
         onset: ['gradual'],
         see: ['see-foundation-gap'],
         site: [],
+        foundation: ['fnd-pierbeam'],
       },
     ],
   },
@@ -450,11 +478,14 @@ const onsetOptions = [
   { id: 'seasonal', label: 'Comes and goes with the seasons' },
 ];
 const seeOptions = [
-  { id: 'see-cracks-interior', label: 'Cracks in walls, ceilings, or drywall' },
+  { id: 'see-crack-vertical', label: 'Vertical crack in a wall or drywall' },
+  { id: 'see-crack-horizontal', label: 'Horizontal crack in a wall or drywall' },
+  { id: 'see-crack-diagonal', label: 'Diagonal crack near a door or window' },
+  { id: 'see-crack-ceiling', label: 'Crack or gap where the wall meets the ceiling' },
   { id: 'see-cracks-exterior', label: 'Cracks in stucco, brick, or exterior walls' },
   { id: 'see-cracks-slab', label: 'Cracks in a concrete slab or garage floor' },
   { id: 'see-doors', label: "Doors that won't close, latch, or stick" },
-  { id: 'see-windows', label: 'Windows that won\'t open or close' },
+  { id: 'see-windows', label: "Windows that won't open or close" },
   { id: 'see-floors', label: 'Sloping, uneven, dipping, or bouncy floors' },
   { id: 'see-gaps', label: 'Gaps around doors, windows, or baseboards' },
   { id: 'see-foundation-cracks', label: 'Foundation cracks or crumbling concrete' },
@@ -471,6 +502,18 @@ const siteOptions = [
   { id: 'site-plumbing', label: 'Recent plumbing leak or repair nearby' },
   { id: 'site-trees', label: 'Large trees close to the house' },
 ];
+const foundationOptions = [
+  { id: 'fnd-slab', label: 'Slab on grade' },
+  { id: 'fnd-posttension', label: 'Post-tension slab' },
+  { id: 'fnd-pierbeam', label: 'Pier and beam / crawlspace' },
+  { id: 'fnd-unsure', label: 'Not sure' },
+];
+
+const verdictDefs: Record<string, string> = {
+  'verdict-strong': 'Usually the right call once the cause is confirmed.',
+  'verdict-conditional': 'Depends on specifics — moisture, extent, or site conditions decide it.',
+  'verdict-weak': "Usually not the first move — something else needs fixing first.",
+};
 ---
 
 <Layout
@@ -504,7 +547,7 @@ const siteOptions = [
           <span class="legend-badge verdict-strong">Yes / Often</span> means it's usually the right call,
           <span class="legend-badge verdict-conditional">Depends / Sometimes</span> means it's conditional on
           specifics, and <span class="legend-badge verdict-weak">Rarely / No</span> means underpinning is
-          usually not the first move.
+          usually not the first move. Tap any badge below for its definition — no need to scroll back up.
         </p>
       </div>
 
@@ -514,6 +557,18 @@ const siteOptions = [
           <span class="facet-panel-label">Check all that apply</span>
           <p class="facet-panel-sub">This describes common patterns, not an evaluation of your home — the safest step, if you're ever unsure, is to have someone look.</p>
         </div>
+
+        <fieldset class="facet-group">
+          <legend>What kind of foundation do you have? <span class="facet-group-note">(check the one you're sure of)</span></legend>
+          <div class="facet-options">
+            {foundationOptions.map((o) => (
+              <label class="facet-chip">
+                <input type="radio" name="foundation" value={o.id} />
+                <span>{o.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
 
         <fieldset class="facet-group">
           <legend>When did it start?</legend>
@@ -562,7 +617,10 @@ const siteOptions = [
         <p class="outcome-text" id="outcomeText"></p>
         <div class="outcome-cta">
           <a href="tel:5059914180" class="outcome-phone">(505) 991-4180</a>
-          <a href="/symptom-guide-v2" id="outcomePill" class="outcome-pill">See these in the Symptom Guide →</a>
+        </div>
+        <div class="handoff">
+          <p class="handoff-text">Want to see these organized by what you're seeing instead of by mechanism? Your answers carry over automatically.</p>
+          <a href="/symptom-guide-v2" id="outcomePill" class="handoff-btn">Continue to the Symptom Guide →</a>
         </div>
       </div>
 
@@ -579,11 +637,13 @@ const siteOptions = [
             data-onset={c.onset.join(',')}
             data-see={c.see.join(',')}
             data-site={c.site.join(',')}
+            data-foundation={c.foundation.join(',')}
           >
             <button class="warning-trigger specimen-trigger">
               <span class="specimen-code">{c.code}</span>
               <span class="warning-trigger-text">{c.name}</span>
-              <span class={`verdict-badge ${c.verdictClass}`}>{c.verdict}</span>
+              <span class={`verdict-badge ${c.verdictClass}`} data-def={verdictDefs[c.verdictClass]} tabindex="0" role="button" aria-label={`Underpinning verdict: ${c.verdict}. Tap for definition.`}>{c.verdict}</span>
+              <span class="verdict-def" hidden></span>
               <span class="warning-trigger-icon">+</span>
             </button>
             <div class="warning-drawer" id={c.anchorId}>
@@ -610,6 +670,8 @@ const siteOptions = [
         ))}
       </div>
 
+      <button type="button" class="other-strip" id="otherStrip" hidden></button>
+
       <div class="contact-footer">
         <p><strong>If this matches what you're seeing, the next step is having someone confirm it in person.</strong></p>
         <p><a href="tel:5059914180">(505) 991-4180</a> · <a href="/contact-us">Send a message</a></p>
@@ -624,38 +686,43 @@ const siteOptions = [
 
 <script>
   const grid = document.getElementById('causeGrid') as HTMLElement;
+  const otherStrip = document.getElementById('otherStrip') as HTMLButtonElement;
   const items = Array.from(grid.querySelectorAll<HTMLElement>('.specimen-card')).map((el) => ({
     el,
     originalIndex: 0,
     onset: (el.dataset.onset || '').split(',').filter(Boolean),
     see: (el.dataset.see || '').split(',').filter(Boolean),
     site: (el.dataset.site || '').split(',').filter(Boolean),
+    foundation: (el.dataset.foundation || '').split(',').filter(Boolean),
   }));
   items.forEach((it, i) => (it.originalIndex = i));
 
-  const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>('.facet-panel input[type="checkbox"]'));
+  const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>('.facet-panel input[type="checkbox"], .facet-panel input[type="radio"]'));
   const clearBtn = document.getElementById('facetClear') as HTMLButtonElement;
   const outcomeBox = document.getElementById('outcomeBox') as HTMLElement;
   const outcomeText = document.getElementById('outcomeText') as HTMLElement;
   const outcomePill = document.getElementById('outcomePill') as HTMLAnchorElement;
+  let stripOpen = false;
 
   function getChecked() {
     const onset = checkboxes.filter((c) => c.checked && c.name === 'onset').map((c) => c.value);
     const see = checkboxes.filter((c) => c.checked && c.name === 'see').map((c) => c.value);
     const site = checkboxes.filter((c) => c.checked && c.name === 'site').map((c) => c.value);
-    return { onset, see, site };
+    const foundation = checkboxes.filter((c) => c.checked && c.name === 'foundation' && c.value !== 'fnd-unsure').map((c) => c.value);
+    return { onset, see, site, foundation };
   }
 
   function score(it: (typeof items)[number], checked: ReturnType<typeof getChecked>) {
     const seeMatches = it.see.filter((s) => checked.see.includes(s)).length;
     const onsetMatches = it.onset.filter((s) => checked.onset.includes(s)).length;
     const siteMatches = it.site.filter((s) => checked.site.includes(s)).length;
-    return seeMatches * 3 + onsetMatches + siteMatches * 2;
+    const foundationMatches = it.foundation.filter((s) => checked.foundation.includes(s)).length;
+    return seeMatches * 3 + onsetMatches + siteMatches * 2 + foundationMatches * 2;
   }
 
   function buildOutcome() {
     const checked = getChecked();
-    const any = checked.onset.length + checked.see.length + checked.site.length > 0;
+    const any = checked.onset.length + checked.see.length + checked.site.length + checked.foundation.length > 0;
     if (!any) {
       outcomeBox.hidden = true;
       return;
@@ -680,35 +747,64 @@ const siteOptions = [
     if (checked.onset.length) params.set('onset', checked.onset.join(','));
     if (checked.see.length) params.set('see', checked.see.join(','));
     if (checked.site.length) params.set('site', checked.site.join(','));
+    if (checked.foundation.length) params.set('foundation', checked.foundation.join(','));
     outcomePill.href = '/symptom-guide-v2' + (params.toString() ? '?' + params.toString() : '');
   }
 
   function applySort() {
     const checked = getChecked();
-    const anyChecked = checked.onset.length + checked.see.length + checked.site.length > 0;
+    const anyChecked = checked.onset.length + checked.see.length + checked.site.length + checked.foundation.length > 0;
     clearBtn.hidden = !anyChecked;
 
     const scored = items.map((it) => ({ it, s: anyChecked ? score(it, checked) : 0 }));
     scored.sort((a, b) => (anyChecked ? b.s - a.s || a.it.originalIndex - b.it.originalIndex : a.it.originalIndex - b.it.originalIndex));
 
-    scored.forEach(({ it, s }) => {
-      grid.appendChild(it.el);
-      it.el.classList.toggle('dimmed', anyChecked && s === 0);
-      it.el.classList.toggle('matched', anyChecked && s > 0);
-    });
+    const matched = scored.filter((x) => x.s > 0);
+    const rest = scored.filter((x) => x.s === 0);
+
+    [...matched, ...rest].forEach(({ it }) => grid.appendChild(it.el));
+
+    if (!anyChecked) {
+      items.forEach((it) => it.el.classList.remove('collapsed', 'matched'));
+      otherStrip.hidden = true;
+      stripOpen = false;
+    } else {
+      matched.forEach(({ it }) => {
+        it.el.classList.add('matched');
+        it.el.classList.remove('collapsed');
+      });
+      rest.forEach(({ it }) => {
+        it.el.classList.remove('matched');
+        it.el.classList.toggle('collapsed', !stripOpen);
+      });
+      if (rest.length > 0) {
+        otherStrip.hidden = false;
+        otherStrip.textContent = stripOpen
+          ? `Hide ${rest.length} other cause${rest.length === 1 ? '' : 's'}`
+          : `${rest.length} other cause${rest.length === 1 ? '' : 's'}, less likely — tap to show`;
+      } else {
+        otherStrip.hidden = true;
+      }
+    }
 
     buildOutcome();
   }
 
+  otherStrip.addEventListener('click', () => {
+    stripOpen = !stripOpen;
+    applySort();
+  });
+
   checkboxes.forEach((cb) => cb.addEventListener('change', applySort));
   clearBtn.addEventListener('click', () => {
     checkboxes.forEach((cb) => (cb.checked = false));
+    stripOpen = false;
     applySort();
   });
 
   // Arriving via the pill from symptom-guide-v2 -- pre-check boxes from the URL.
   const params = new URLSearchParams(window.location.search);
-  ['onset', 'see', 'site'].forEach((group) => {
+  ['onset', 'see', 'site', 'foundation'].forEach((group) => {
     const val = params.get(group);
     if (!val) return;
     val.split(',').forEach((id) => {
@@ -747,6 +843,25 @@ const siteOptions = [
         (i.querySelector('.warning-drawer') as HTMLElement).style.maxHeight = '0';
       });
       if (!isOpen) openCard(trigger);
+    });
+  });
+
+  // Tappable verdict badges -- toggle an inline one-line definition without
+  // triggering the parent trigger's open/close (stopPropagation), so the
+  // legend travels with the reader instead of living only at the page top.
+  document.querySelectorAll<HTMLElement>('.verdict-badge').forEach((badge) => {
+    const def = badge.nextElementSibling as HTMLElement;
+    function toggle(e: Event) {
+      e.stopPropagation();
+      e.preventDefault();
+      const isOpen = !def.hidden;
+      document.querySelectorAll<HTMLElement>('.verdict-def').forEach((d) => (d.hidden = true));
+      def.hidden = isOpen;
+      if (!isOpen) def.textContent = badge.dataset.def || '';
+    }
+    badge.addEventListener('click', toggle);
+    badge.addEventListener('keydown', (e) => {
+      if ((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') toggle(e);
     });
   });
 
@@ -805,7 +920,7 @@ const siteOptions = [
     background: var(--sand);
     border-left: 4px solid var(--gold);
     padding: 20px 28px;
-    margin: 40px 0 32px;
+    margin: 40px 0 24px;
     font-size: 0.9rem;
     line-height: 1.7;
     color: var(--slate);
@@ -837,6 +952,7 @@ const siteOptions = [
   .facet-panel-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin: 0; }
   .facet-group { border: none; padding: 0; margin: 0 0 20px; }
   .facet-group legend { font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 0.95rem; color: var(--blue); padding: 0; margin-bottom: 10px; }
+  .facet-group-note { font-weight: 400; font-size: 0.78rem; color: var(--muted); }
   .facet-options { display: flex; flex-wrap: wrap; gap: 8px; }
   .facet-chip {
     display: inline-flex;
@@ -868,7 +984,7 @@ const siteOptions = [
   }
 
   /* ── Outcome ── */
-  .outcome-box { background: var(--blue-dark); border-radius: 12px; padding: 28px; margin-bottom: 32px; }
+  .outcome-box { background: var(--blue-dark); border-radius: 12px; padding: 28px; margin-bottom: 20px; }
   .outcome-label {
     display: block;
     font-family: 'DM Mono', monospace;
@@ -879,19 +995,22 @@ const siteOptions = [
     margin-bottom: 12px;
   }
   .outcome-text { color: rgba(255, 255, 255, 0.92); font-size: 0.98rem; line-height: 1.8; margin: 0 0 20px; }
-  .outcome-cta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .outcome-cta { margin-bottom: 20px; }
   .outcome-phone { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); text-decoration: none; border-bottom: 1px solid var(--gold); }
-  .outcome-pill {
+  .handoff { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; }
+  .handoff-text { color: rgba(255, 255, 255, 0.65); font-size: 0.85rem; line-height: 1.6; margin: 0 0 12px; }
+  .handoff-btn {
+    display: inline-block;
     font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    color: var(--gold-light);
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+    color: var(--blue-dark);
+    background: var(--gold-light);
     text-decoration: none;
-    border: 1px solid rgba(212, 160, 23, 0.4);
-    border-radius: 20px;
-    padding: 8px 16px;
+    border-radius: 6px;
+    padding: 12px 20px;
   }
-  .outcome-pill:hover { border-color: var(--gold-light); }
+  .handoff-btn:hover { background: var(--gold); }
 
   /* ── Search ── */
   .filter-bar { margin-bottom: 24px; }
@@ -907,22 +1026,24 @@ const siteOptions = [
   #causeSearch:focus { outline: none; border-color: var(--gold); }
 
   /* ── Specimen cards (flat grid, sortable) ── */
-  .symptom-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 40px; }
+  .symptom-grid { display: flex; flex-direction: column; gap: 10px; }
   .specimen-card { background: var(--white); border: 1px solid var(--stone); border-radius: 8px; transition: opacity 0.2s, border-color 0.2s; }
   .specimen-card.matched { border-color: rgba(184, 134, 11, 0.5); }
-  .specimen-card.dimmed { opacity: 0.5; }
+  .specimen-card.collapsed .warning-drawer { display: none; }
   .specimen-trigger {
     width: 100%;
     background: none;
     border: none;
     padding: 16px 20px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 14px;
     cursor: pointer;
     text-align: left;
     font-family: 'Source Serif 4', serif;
   }
+  .specimen-card.collapsed .specimen-trigger { padding: 12px 20px; }
   .specimen-code {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
@@ -944,6 +1065,16 @@ const siteOptions = [
     border-radius: 20px;
     flex-shrink: 0;
     white-space: nowrap;
+    cursor: pointer;
+  }
+  .verdict-badge:hover { filter: brightness(0.95); }
+  .verdict-def {
+    flex-basis: 100%;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--muted);
+    padding: 2px 0 0 34px;
   }
   .verdict-strong { background: var(--blue-dark); color: #fff; }
   .verdict-conditional { background: transparent; border: 1px solid var(--gold); color: var(--gold-text); }
@@ -975,15 +1106,31 @@ const siteOptions = [
     padding: 3px 8px;
     margin-bottom: 12px;
   }
+  .other-strip {
+    display: block;
+    width: 100%;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    color: var(--gold-text);
+    background: var(--sand);
+    border: 1px dashed var(--stone);
+    border-radius: 8px;
+    padding: 14px;
+    margin: 10px 0 40px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .other-strip:hover { border-color: var(--gold); }
   @media (max-width: 640px) {
-    .specimen-trigger { flex-wrap: wrap; }
     .warning-trigger-text { flex-basis: 100%; order: 1; }
     .specimen-code { order: 0; }
     .verdict-badge { order: 2; }
+    .verdict-def { order: 4; }
     .warning-trigger-icon { order: 3; margin-left: auto; }
   }
 
-  .contact-footer { margin-top: 60px; text-align: center; padding: 32px; background: var(--sand); border-left: 4px solid var(--gold); }
+  .contact-footer { margin-top: 20px; text-align: center; padding: 32px; background: var(--sand); border-left: 4px solid var(--gold); }
   .contact-footer p { margin-bottom: 8px; font-size: 0.9rem; color: var(--slate); }
   .contact-footer a { color: var(--blue); text-decoration: underline; text-decoration-color: var(--gold-text); }
   .contact-footer-sub { margin-top: 16px; font-size: 0.85rem; color: var(--muted); }

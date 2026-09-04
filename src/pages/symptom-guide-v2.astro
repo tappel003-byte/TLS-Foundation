@@ -1,16 +1,28 @@
 ---
 // DRAFT (temp) -- prototype only, linked from the "Draft (temp)" nav folder
-// in Header.astro. Second-generation Symptom Guide: same 19 symptoms, same
-// myth cards and region finder as the live page, but the single-select
-// category chips are replaced with a "check all that apply" facet panel
-// (onset / what you're seeing / what you know about your site) built from
-// a 5-source AI + live-search vocabulary pass (Grok, Perplexity, ChatGPT,
-// Gemini, Claude -- see project discussion). Checking boxes re-sorts the
-// 19 symptoms by relevance (never hides -- everything stays readable for
-// people and for AI crawlers) and assembles a short, liability-safe
-// outcome paragraph: every tier ends in a concrete next step, never "no
-// action needed." A pill at the bottom carries the checked facets over to
-// cause-library-v2 via URL params so the reader doesn't start over.
+// in Header.astro. Third pass on this page, per direct feedback on the
+// second pass:
+// - Region finder folded into the facet panel (a fact about the reader,
+//   same category as foundation type) instead of sitting as its own block
+//   between the outcome box and the results -- that gap made the tool feel
+//   like it "stopped existing" once you scrolled past it.
+// - Myth/flip cards removed entirely -- Common Concerns already covers
+//   the same ground (confirmed against its actual content), so they were
+//   redundant here, not homeless; relocated to why-foundations-move-v2
+//   instead of deleted, since no overlap exists there.
+// - Checkbox list expanded: crack orientation (vertical/horizontal/
+//   diagonal/ceiling-junction) split out instead of one generic "cracks"
+//   box, since checking is low-friction and more specific is better.
+// - New single-select "what kind of foundation" group (slab / post-tension
+//   / pier-and-beam-crawlspace / not sure) -- a fact about the house, not
+//   an observed symptom, so it behaves as radio buttons, not checkboxes.
+// - Results view redesigned: matches stay full-size up top; everything
+//   else collapses into one small "N other symptoms" strip you tap to
+//   expand, instead of just dimming in place -- the old treatment was too
+//   subtle to register as "the page responded to what I told it."
+// - Pill replaced with a plain sentence + a real button -- the pill shape
+//   read as a tag, not a next step, and wasn't obvious even to the person
+//   who built it.
 // Delete this file, cause-library-v2.astro, why-foundations-move-v2.astro,
 // and the "Draft (temp)" folder in Header.astro together once a direction
 // is picked.
@@ -19,7 +31,7 @@ import ReferenceNav from '../components/ReferenceNav.astro';
 
 const title = 'Foundation Symptom Guide — What Cracks, Sticking Doors & Uneven Floors Mean | TLS Foundations';
 const summary =
-  "This guide organizes the most common signs New Mexico homeowners notice -- cracks, sticking doors, uneven floors, foundation-specific symptoms, and water or drainage issues -- into a searchable, filterable set of symptom cards. A 'check all that apply' panel (what you're seeing, when it started, what you know about your site) re-sorts the list by relevance and assembles a short practical readout -- never a diagnosis, always a concrete next step. It's explicitly a starting point: soil conditions, site drainage, and how long something has been changing all matter, and heave and settlement can look identical while requiring opposite repairs.";
+  "This guide organizes the most common signs New Mexico homeowners notice -- cracks, sticking doors, uneven floors, foundation-specific symptoms, and water or drainage issues -- into a searchable, filterable set of symptom cards. A 'check all that apply' panel (region, foundation type, what you're seeing, when it started) re-sorts the list by relevance and assembles a short practical readout -- never a diagnosis, always a concrete next step. It's explicitly a starting point: soil conditions, site drainage, and how long something has been changing all matter, and heave and settlement can look identical while requiring opposite repairs.";
 const description =
   "Check what applies -- cracks, sticking doors, sloping floors -- and see what it usually means for a house like yours, organized by New Mexico foundation symptom.";
 
@@ -32,6 +44,7 @@ interface Symptom {
   onset: string[];
   see: string[];
   site: string[];
+  foundation: string[];
 }
 interface Category {
   id: string;
@@ -57,8 +70,9 @@ const categories: Category[] = [
           { text: 'Why Foundations Move', href: '/why-foundations-move' },
         ],
         onset: ['gradual', 'seasonal'],
-        see: ['see-cracks-interior'],
+        see: ['see-crack-diagonal'],
         site: ['site-clay'],
+        foundation: [],
       },
       {
         q: 'Horizontal cracks in foundation or basement wall',
@@ -73,8 +87,9 @@ const categories: Category[] = [
           { text: 'Why Foundations Move', href: '/why-foundations-move' },
         ],
         onset: ['gradual'],
-        see: ['see-foundation-cracks'],
+        see: ['see-crack-horizontal', 'see-foundation-cracks'],
         site: ['site-clay'],
+        foundation: [],
       },
       {
         q: 'Ceiling cracks or gaps at ceiling-wall junction',
@@ -88,8 +103,9 @@ const categories: Category[] = [
           { text: 'Why Foundations Move', href: '/why-foundations-move' },
         ],
         onset: ['seasonal', 'gradual'],
-        see: ['see-cracks-interior'],
+        see: ['see-crack-ceiling'],
         site: ['site-clay'],
+        foundation: [],
       },
       {
         q: 'Cracks in concrete slab or garage floor',
@@ -104,6 +120,7 @@ const categories: Category[] = [
         onset: ['gradual'],
         see: ['see-cracks-slab'],
         site: [],
+        foundation: ['fnd-slab'],
       },
       {
         q: 'Stucco cracks on exterior walls',
@@ -118,6 +135,7 @@ const categories: Category[] = [
         onset: ['gradual'],
         see: ['see-cracks-exterior'],
         site: [],
+        foundation: [],
       },
     ],
   },
@@ -140,6 +158,7 @@ const categories: Category[] = [
         onset: ['seasonal', 'gradual'],
         see: ['see-doors'],
         site: ['site-clay'],
+        foundation: [],
       },
       {
         q: "Windows that stick, won't open, or won't close fully",
@@ -155,6 +174,7 @@ const categories: Category[] = [
         onset: ['seasonal', 'gradual'],
         see: ['see-windows'],
         site: ['site-clay'],
+        foundation: [],
       },
       {
         q: 'Gaps at the top or bottom of door frames',
@@ -170,6 +190,7 @@ const categories: Category[] = [
         onset: ['gradual'],
         see: ['see-doors', 'see-gaps'],
         site: ['site-clay'],
+        foundation: [],
       },
     ],
   },
@@ -191,6 +212,7 @@ const categories: Category[] = [
         onset: ['gradual', 'sudden'],
         see: ['see-floors'],
         site: ['site-cutfill'],
+        foundation: [],
       },
       {
         q: 'Gaps between walls and floors or ceilings',
@@ -207,6 +229,7 @@ const categories: Category[] = [
         onset: ['seasonal', 'gradual'],
         see: ['see-gaps'],
         site: ['site-clay'],
+        foundation: [],
       },
       {
         q: 'Cabinets or countertops pulling away from walls',
@@ -223,6 +246,7 @@ const categories: Category[] = [
         onset: ['gradual', 'sudden'],
         see: ['see-gaps'],
         site: ['site-plumbing'],
+        foundation: [],
       },
       {
         q: 'Bowed or leaning foundation wall',
@@ -239,6 +263,7 @@ const categories: Category[] = [
         onset: ['gradual'],
         see: ['see-foundation-cracks'],
         site: ['site-clay'],
+        foundation: [],
       },
     ],
   },
@@ -260,6 +285,7 @@ const categories: Category[] = [
         onset: ['gradual'],
         see: ['see-foundation-cracks'],
         site: [],
+        foundation: [],
       },
       {
         q: 'Gap between foundation and house framing',
@@ -275,6 +301,7 @@ const categories: Category[] = [
         onset: ['gradual'],
         see: ['see-foundation-gap'],
         site: ['site-clay'],
+        foundation: [],
       },
       {
         q: 'Soil pulling away from the foundation perimeter',
@@ -292,6 +319,7 @@ const categories: Category[] = [
         onset: ['seasonal', 'gradual'],
         see: ['see-foundation-gap'],
         site: ['site-clay'],
+        foundation: [],
       },
       {
         q: 'Chimney leaning or separating from the house',
@@ -309,6 +337,7 @@ const categories: Category[] = [
         onset: ['gradual'],
         see: ['see-foundation-gap'],
         site: ['site-adobe'],
+        foundation: [],
       },
     ],
   },
@@ -329,6 +358,7 @@ const categories: Category[] = [
         onset: ['seasonal', 'sudden'],
         see: ['see-drainage'],
         site: [],
+        foundation: [],
       },
       {
         q: 'Foundation symptoms appearing after a plumbing change',
@@ -345,6 +375,7 @@ const categories: Category[] = [
         onset: ['sudden'],
         see: ['see-leak-signs'],
         site: ['site-plumbing'],
+        foundation: ['fnd-slab'],
       },
       {
         q: 'Crawlspace moisture or sagging floors',
@@ -361,6 +392,7 @@ const categories: Category[] = [
         onset: ['gradual', 'seasonal'],
         see: ['see-crawlspace', 'see-floors'],
         site: ['site-plumbing'],
+        foundation: ['fnd-pierbeam'],
       },
     ],
   },
@@ -384,7 +416,10 @@ const onsetOptions = [
   { id: 'seasonal', label: 'Comes and goes with the seasons' },
 ];
 const seeOptions = [
-  { id: 'see-cracks-interior', label: 'Cracks in walls, ceilings, or drywall' },
+  { id: 'see-crack-vertical', label: 'Vertical crack in a wall or drywall' },
+  { id: 'see-crack-horizontal', label: 'Horizontal crack in a wall or drywall' },
+  { id: 'see-crack-diagonal', label: 'Diagonal crack near a door or window' },
+  { id: 'see-crack-ceiling', label: 'Crack or gap where the wall meets the ceiling' },
   { id: 'see-cracks-exterior', label: 'Cracks in stucco, brick, or exterior walls' },
   { id: 'see-cracks-slab', label: 'Cracks in a concrete slab or garage floor' },
   { id: 'see-doors', label: "Doors that won't close, latch, or stick" },
@@ -404,6 +439,12 @@ const siteOptions = [
   { id: 'site-adobe', label: 'Older adobe or mud-brick construction' },
   { id: 'site-plumbing', label: 'Recent plumbing leak or repair nearby' },
   { id: 'site-trees', label: 'Large trees close to the house' },
+];
+const foundationOptions = [
+  { id: 'fnd-slab', label: 'Slab on grade' },
+  { id: 'fnd-posttension', label: 'Post-tension slab' },
+  { id: 'fnd-pierbeam', label: 'Pier and beam / crawlspace' },
+  { id: 'fnd-unsure', label: 'Not sure' },
 ];
 
 const schema = [
@@ -459,62 +500,6 @@ const schema = [
           you, <a href="/contact-us">call us</a>. You reach the owner, not a scheduler.{' '}
           <a href="/common-concerns" class="body-link">If you have questions about cost, timing, or contractors, see our Common Concerns page.</a>
         </p>
-        <p>
-          <strong>Before you call anyone, document what you're seeing.</strong> Photograph every crack — note
-          its location, orientation, and approximate width. Check whether doors or windows that are sticking
-          are doing so consistently or only seasonally. Mark crack edges with pencil and a date so you have a
-          reference point to measure change over time.
-        </p>
-      </div>
-
-      <div class="myth-section">
-        <span class="myth-label">Quick answers, before you dig in</span>
-        <div class="myth-grid">
-          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
-            <div class="myth-card-inner">
-              <div class="myth-front">
-                <div class="myth-title">Is it "foundation failure"?</div>
-                <span class="myth-hint">Tap to see</span>
-              </div>
-              <div class="myth-back">
-                <p>Rarely. Most of what homeowners call failure is soil movement — the ground moving, not the structure losing its ability to stand. "Failure" is urgency language more than an accurate description.</p>
-              </div>
-            </div>
-          </div>
-          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
-            <div class="myth-card-inner">
-              <div class="myth-front">
-                <div class="myth-title">Is every crack serious?</div>
-                <span class="myth-hint">Tap to see</span>
-              </div>
-              <div class="myth-back">
-                <p>No. Many reflect historic movement that already stabilized years ago. What matters is whether it's growing now — not whether it exists.</p>
-              </div>
-            </div>
-          </div>
-          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
-            <div class="myth-card-inner">
-              <div class="myth-front">
-                <div class="myth-title">Do I need repair right now?</div>
-                <span class="myth-hint">Tap to see</span>
-              </div>
-              <div class="myth-back">
-                <p>Depends on why it's moving, not on how alarming it looks. Some situations call for acting now; a lot of them call for documenting and watching first.</p>
-              </div>
-            </div>
-          </div>
-          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
-            <div class="myth-card-inner">
-              <div class="myth-front">
-                <div class="myth-title">Can a repair itself fail?</div>
-                <span class="myth-hint">Tap to see</span>
-              </div>
-              <div class="myth-back">
-                <p>Yes — usually from misdiagnosis, not bad material. The most common cause is a repair designed for settlement applied to a foundation that's actually heaving.</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- CHECK ALL THAT APPLY -->
@@ -523,6 +508,28 @@ const schema = [
           <span class="facet-panel-label">Check all that apply</span>
           <p class="facet-panel-sub">This describes common patterns, not an evaluation of your home — the safest step, if you're ever unsure, is to have someone look.</p>
         </div>
+
+        <fieldset class="facet-group">
+          <legend>Where are you in New Mexico?</legend>
+          <div class="region-row">
+            <select id="regionSelect" aria-label="Select your region">
+              <option value="">Select your region (optional)</option>
+              {regions.map((r) => <option value={r.url}>{r.name}</option>)}
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset class="facet-group">
+          <legend>What kind of foundation do you have? <span class="facet-group-note">(check the one you're sure of)</span></legend>
+          <div class="facet-options">
+            {foundationOptions.map((o) => (
+              <label class="facet-chip">
+                <input type="radio" name="foundation" value={o.id} />
+                <span>{o.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
 
         <fieldset class="facet-group">
           <legend>When did it start?</legend>
@@ -571,23 +578,11 @@ const schema = [
         <p class="outcome-text" id="outcomeText"></p>
         <div class="outcome-cta">
           <a href="tel:5059914180" class="outcome-phone">(505) 991-4180</a>
-          <a href="/cause-library-v2" id="outcomePill" class="outcome-pill">See these in the Cause Library →</a>
         </div>
-      </div>
-
-      <div class="region-finder" id="regionFinder">
-        <span class="region-finder-label">Where are you in New Mexico?</span>
-        <div class="region-finder-row">
-          <select id="regionSelect" aria-label="Select your region">
-            <option value="">Select your region</option>
-            {regions.map((r) => <option value={r.url}>{r.name}</option>)}
-          </select>
-          <button id="regionSave" type="button">Remember my area →</button>
+        <div class="handoff">
+          <p class="handoff-text">Want the deeper explanation of why this happens, mechanism by mechanism? Your answers carry over automatically.</p>
+          <a href="/cause-library-v2" id="outcomePill" class="handoff-btn">Continue to the Cause Library →</a>
         </div>
-        <p class="region-finder-current" id="regionCurrent" hidden>
-          Showing regional links for <strong id="regionCurrentName"></strong> ·
-          <button type="button" id="regionChange">change</button>
-        </p>
       </div>
 
       <div class="filter-bar">
@@ -604,6 +599,7 @@ const schema = [
               data-onset={s.onset.join(',')}
               data-see={s.see.join(',')}
               data-site={s.site.join(',')}
+              data-foundation={s.foundation.join(',')}
             >
               <span class="symptom-category-badge">{cat.label}</span>
               <h2>{s.q}</h2>
@@ -623,6 +619,8 @@ const schema = [
         )}
       </div>
 
+      <button type="button" class="other-strip" id="otherStrip" hidden></button>
+
       <div class="contact-footer">
         <p><strong>Nothing beats talking through what you're seeing.</strong></p>
         <p><a href="tel:5059914180">(505) 991-4180</a> · <a href="/contact-us">Send a message</a></p>
@@ -638,32 +636,14 @@ const schema = [
 </Layout>
 
 <script>
-  document.querySelectorAll<HTMLElement>('.myth-card').forEach((card) => {
-    card.addEventListener('click', () => card.classList.toggle('flipped'));
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        card.classList.toggle('flipped');
-      }
-    });
-  });
-
   const STORAGE_KEY = 'tls-region';
   const regionSelect = document.getElementById('regionSelect') as HTMLSelectElement;
-  const regionSave = document.getElementById('regionSave') as HTMLButtonElement;
-  const regionCurrent = document.getElementById('regionCurrent') as HTMLElement;
-  const regionCurrentName = document.getElementById('regionCurrentName') as HTMLElement;
-  const regionChange = document.getElementById('regionChange') as HTMLButtonElement;
-  const finder = document.getElementById('regionFinder') as HTMLElement;
 
   function applyRegion(url: string, name: string) {
     document.querySelectorAll<HTMLAnchorElement>('[data-region-link]').forEach((a) => {
       a.href = url;
       a.textContent = `See ${name} soil context →`;
     });
-    regionCurrentName.textContent = name;
-    regionCurrent.hidden = false;
-    finder.classList.add('is-set');
   }
 
   const saved = localStorage.getItem(STORAGE_KEY);
@@ -677,47 +657,49 @@ const schema = [
     }
   }
 
-  regionSave.addEventListener('click', () => {
+  regionSelect.addEventListener('change', () => {
     const url = regionSelect.value;
     const name = regionSelect.options[regionSelect.selectedIndex]?.textContent || '';
-    if (!url) return;
+    if (!url) {
+      localStorage.removeItem(STORAGE_KEY);
+      document.querySelectorAll<HTMLAnchorElement>('[data-region-link]').forEach((a) => {
+        a.href = '/new-mexico-soil-conditions';
+        a.textContent = 'Explore regional soil pages →';
+      });
+      return;
+    }
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ url, name }));
     applyRegion(url, name);
   });
 
-  regionChange.addEventListener('click', () => {
-    localStorage.removeItem(STORAGE_KEY);
-    regionCurrent.hidden = true;
-    finder.classList.remove('is-set');
-    regionSelect.value = '';
-    document.querySelectorAll<HTMLAnchorElement>('[data-region-link]').forEach((a) => {
-      a.href = '/new-mexico-soil-conditions';
-      a.textContent = 'Explore regional soil pages →';
-    });
-  });
-
-  // ── Check-all-that-apply: score, sort (never hide), outcome paragraph ──
+  // ── Check-all-that-apply: score, sort (never hide), collapse, outcome ──
   const grid = document.getElementById('symptomGrid') as HTMLElement;
+  const otherStrip = document.getElementById('otherStrip') as HTMLButtonElement;
   const items = Array.from(grid.querySelectorAll<HTMLElement>('.symptom')).map((el) => ({
     el,
     originalIndex: 0,
     onset: (el.dataset.onset || '').split(',').filter(Boolean),
     see: (el.dataset.see || '').split(',').filter(Boolean),
     site: (el.dataset.site || '').split(',').filter(Boolean),
+    foundation: (el.dataset.foundation || '').split(',').filter(Boolean),
   }));
   items.forEach((it, i) => (it.originalIndex = i));
 
-  const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>('.facet-panel input[type="checkbox"]'));
+  const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>('.facet-panel input[type="checkbox"], .facet-panel input[type="radio"]'));
   const clearBtn = document.getElementById('facetClear') as HTMLButtonElement;
   const outcomeBox = document.getElementById('outcomeBox') as HTMLElement;
   const outcomeText = document.getElementById('outcomeText') as HTMLElement;
   const outcomePill = document.getElementById('outcomePill') as HTMLAnchorElement;
+  let stripOpen = false;
 
   const LABELS: Record<string, string> = {
     sudden: 'sudden onset',
     gradual: 'gradual, over time',
     seasonal: 'seasonal, comes and goes',
-    'see-cracks-interior': 'interior cracking',
+    'see-crack-vertical': 'a vertical crack',
+    'see-crack-horizontal': 'a horizontal crack',
+    'see-crack-diagonal': 'a diagonal crack',
+    'see-crack-ceiling': 'a crack at the ceiling line',
     'see-cracks-exterior': 'exterior cracking',
     'see-cracks-slab': 'a slab or garage-floor crack',
     'see-doors': 'doors that stick or won’t close',
@@ -735,20 +717,25 @@ const schema = [
     'site-adobe': 'older adobe construction',
     'site-plumbing': 'a recent plumbing leak nearby',
     'site-trees': 'large trees close to the house',
+    'fnd-slab': 'a slab-on-grade foundation',
+    'fnd-posttension': 'a post-tension slab',
+    'fnd-pierbeam': 'a pier-and-beam or crawlspace foundation',
   };
 
   function getChecked() {
     const onset = checkboxes.filter((c) => c.checked && c.name === 'onset').map((c) => c.value);
     const see = checkboxes.filter((c) => c.checked && c.name === 'see').map((c) => c.value);
     const site = checkboxes.filter((c) => c.checked && c.name === 'site').map((c) => c.value);
-    return { onset, see, site };
+    const foundation = checkboxes.filter((c) => c.checked && c.name === 'foundation' && c.value !== 'fnd-unsure').map((c) => c.value);
+    return { onset, see, site, foundation };
   }
 
   function score(it: (typeof items)[number], checked: ReturnType<typeof getChecked>) {
     const seeMatches = it.see.filter((s) => checked.see.includes(s)).length;
     const onsetMatches = it.onset.filter((s) => checked.onset.includes(s)).length;
     const siteMatches = it.site.filter((s) => checked.site.includes(s)).length;
-    return seeMatches * 3 + onsetMatches + siteMatches;
+    const foundationMatches = it.foundation.filter((s) => checked.foundation.includes(s)).length;
+    return seeMatches * 3 + onsetMatches + siteMatches * 2 + foundationMatches * 2;
   }
 
   function urgencyTier(checked: ReturnType<typeof getChecked>) {
@@ -756,12 +743,12 @@ const schema = [
     const sudden = checked.onset.includes('sudden');
     if (sudden && seeCount >= 2) return 'call-soon';
     if (sudden || seeCount >= 2) return 'evaluate';
-    if (seeCount === 0 && checked.onset.length === 0 && checked.site.length === 0) return 'none';
+    if (seeCount === 0 && checked.onset.length === 0 && checked.site.length === 0 && checked.foundation.length === 0) return 'none';
     return 'watch';
   }
 
   function buildPattern(checked: ReturnType<typeof getChecked>) {
-    const parts = [...checked.onset, ...checked.see, ...checked.site].map((id) => LABELS[id]).filter(Boolean);
+    const parts = [...checked.onset, ...checked.see, ...checked.site, ...checked.foundation].map((id) => LABELS[id]).filter(Boolean);
     if (parts.length === 0) return 'What you checked';
     if (parts.length === 1) return parts[0][0].toUpperCase() + parts[0].slice(1);
     const last = parts[parts.length - 1];
@@ -796,35 +783,64 @@ const schema = [
     if (checked.onset.length) params.set('onset', checked.onset.join(','));
     if (checked.see.length) params.set('see', checked.see.join(','));
     if (checked.site.length) params.set('site', checked.site.join(','));
+    if (checked.foundation.length) params.set('foundation', checked.foundation.join(','));
     outcomePill.href = '/cause-library-v2' + (params.toString() ? '?' + params.toString() : '');
   }
 
   function applySort() {
     const checked = getChecked();
-    const anyChecked = checked.onset.length + checked.see.length + checked.site.length > 0;
+    const anyChecked = checked.onset.length + checked.see.length + checked.site.length + checked.foundation.length > 0;
     clearBtn.hidden = !anyChecked;
 
     const scored = items.map((it) => ({ it, s: anyChecked ? score(it, checked) : 0 }));
     scored.sort((a, b) => (anyChecked ? b.s - a.s || a.it.originalIndex - b.it.originalIndex : a.it.originalIndex - b.it.originalIndex));
 
-    scored.forEach(({ it, s }) => {
-      grid.appendChild(it.el);
-      it.el.classList.toggle('dimmed', anyChecked && s === 0);
-      it.el.classList.toggle('matched', anyChecked && s > 0);
-    });
+    const matched = scored.filter((x) => x.s > 0);
+    const rest = scored.filter((x) => x.s === 0);
+
+    [...matched, ...rest].forEach(({ it }) => grid.appendChild(it.el));
+
+    if (!anyChecked) {
+      items.forEach((it) => it.el.classList.remove('collapsed', 'matched'));
+      otherStrip.hidden = true;
+      stripOpen = false;
+    } else {
+      matched.forEach(({ it }) => {
+        it.el.classList.add('matched');
+        it.el.classList.remove('collapsed');
+      });
+      rest.forEach(({ it }) => {
+        it.el.classList.remove('matched');
+        it.el.classList.toggle('collapsed', !stripOpen);
+      });
+      if (rest.length > 0) {
+        otherStrip.hidden = false;
+        otherStrip.textContent = stripOpen
+          ? `Hide ${rest.length} other symptom${rest.length === 1 ? '' : 's'}`
+          : `${rest.length} other symptom${rest.length === 1 ? '' : 's'}, less likely — tap to show`;
+      } else {
+        otherStrip.hidden = true;
+      }
+    }
 
     buildOutcome();
   }
 
+  otherStrip.addEventListener('click', () => {
+    stripOpen = !stripOpen;
+    applySort();
+  });
+
   checkboxes.forEach((cb) => cb.addEventListener('change', applySort));
   clearBtn.addEventListener('click', () => {
     checkboxes.forEach((cb) => (cb.checked = false));
+    stripOpen = false;
     applySort();
   });
 
   // Arriving via the pill from cause-library-v2 -- pre-check boxes from the URL.
   const params = new URLSearchParams(window.location.search);
-  ['onset', 'see', 'site'].forEach((group) => {
+  ['onset', 'see', 'site', 'foundation'].forEach((group) => {
     const val = params.get(group);
     if (!val) return;
     val.split(',').forEach((id) => {
@@ -866,20 +882,9 @@ const schema = [
     line-height: 1.9;
     font-weight: 300;
   }
-  .page {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 64px 80px;
-  }
-  .page-hero {
-    background: var(--blue);
-    padding: 52px 64px 44px;
-    border-bottom: 2px solid var(--gold);
-  }
-  .page-hero-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 64px 80px; }
+  .page-hero { background: var(--blue); padding: 52px 64px 44px; border-bottom: 2px solid var(--gold); }
+  .page-hero-inner { max-width: 1100px; margin: 0 auto; }
   .hero-eyebrow {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
@@ -889,35 +894,18 @@ const schema = [
     display: block;
     margin-bottom: 16px;
   }
-  .page-hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 4vw, 46px);
-    font-weight: 400;
-    color: var(--white);
-    line-height: 1.15;
-    margin-bottom: 16px;
-  }
-  .page-hero h1 em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
-  .page-hero-sub {
-    font-size: 17px;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.5);
-    line-height: 1.8;
-    max-width: 640px;
-  }
+  .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 46px); font-weight: 400; color: var(--white); line-height: 1.15; margin-bottom: 16px; }
+  .page-hero h1 em { font-style: italic; color: var(--gold-light); }
+  .page-hero-sub { font-size: 17px; font-weight: 300; color: rgba(255, 255, 255, 0.5); line-height: 1.8; max-width: 640px; }
   .diagnostic-note {
     background: var(--sand);
     border-left: 4px solid var(--gold);
     padding: 20px 28px;
-    margin: 40px 0 32px;
+    margin: 40px 0 24px;
     font-size: 0.9rem;
     line-height: 1.7;
     color: var(--slate);
   }
-  .diagnostic-note p + p { margin-top: 16px; }
   .diagnostic-note strong { color: var(--blue); }
   .diagnostic-note a,
   .sg-page .body-link {
@@ -926,65 +914,8 @@ const schema = [
     text-decoration-color: var(--gold-text);
   }
 
-  /* ── Myth/reality flip cards ── */
-  .myth-section { margin-bottom: 40px; }
-  .myth-label {
-    display: block;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gold-text);
-    margin-bottom: 16px;
-  }
-  .myth-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
-  .myth-card { perspective: 1000px; cursor: pointer; height: 220px; }
-  .myth-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    transform-style: preserve-3d;
-  }
-  .myth-card.flipped .myth-card-inner { transform: rotateY(180deg); }
-  .myth-front, .myth-back {
-    grid-area: 1 / 1 / 2 / 2;
-    padding: 20px;
-    border-radius: 4px;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .myth-front { background: var(--white); border: 1px solid var(--stone); transition: border-color 0.25s, box-shadow 0.25s; }
-  .myth-card:hover .myth-front { border-color: rgba(184, 134, 11, 0.3); box-shadow: 0 2px 16px rgba(13, 34, 56, 0.06); }
-  .myth-back { background: var(--blue-dark); border: 1px solid rgba(184, 134, 11, 0.3); transform: rotateY(180deg); }
-  .myth-back p { color: rgba(255, 255, 255, 0.9); font-size: 13px; line-height: 1.55; margin: 0; }
-  .myth-title { font-family: 'Source Serif 4', serif; font-size: 16px; font-weight: 600; color: var(--blue); line-height: 1.3; }
-  .myth-hint {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gold-text);
-    margin-top: 8px;
-    opacity: 0.6;
-  }
-  @media (max-width: 640px) {
-    .myth-grid { grid-template-columns: 1fr 1fr; }
-    .myth-card { height: 300px; }
-  }
-
   /* ── Check-all-that-apply panel ── */
-  .facet-panel {
-    background: var(--white);
-    border: 1px solid var(--stone);
-    border-radius: 12px;
-    padding: 28px 28px 20px;
-    margin-bottom: 24px;
-  }
+  .facet-panel { background: var(--white); border: 1px solid var(--stone); border-radius: 12px; padding: 28px 28px 20px; margin-bottom: 24px; }
   .facet-panel-head { margin-bottom: 20px; }
   .facet-panel-label {
     display: block;
@@ -997,14 +928,8 @@ const schema = [
   }
   .facet-panel-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin: 0; }
   .facet-group { border: none; padding: 0; margin: 0 0 20px; }
-  .facet-group legend {
-    font-family: 'Source Serif 4', serif;
-    font-weight: 600;
-    font-size: 0.95rem;
-    color: var(--blue);
-    padding: 0;
-    margin-bottom: 10px;
-  }
+  .facet-group legend { font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 0.95rem; color: var(--blue); padding: 0; margin-bottom: 10px; }
+  .facet-group-note { font-weight: 400; font-size: 0.78rem; color: var(--muted); }
   .facet-options { display: flex; flex-wrap: wrap; gap: 8px; }
   .facet-chip {
     display: inline-flex;
@@ -1020,11 +945,7 @@ const schema = [
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
   }
-  .facet-chip:has(input:checked) {
-    background: var(--blue);
-    border-color: var(--blue);
-    color: var(--white);
-  }
+  .facet-chip:has(input:checked) { background: var(--blue); border-color: var(--blue); color: var(--white); }
   .facet-chip input { width: 14px; height: 14px; accent-color: var(--gold); flex-shrink: 0; }
   .facet-actions { display: flex; justify-content: flex-end; }
   .facet-clear {
@@ -1038,14 +959,20 @@ const schema = [
     cursor: pointer;
     padding: 4px 0;
   }
+  .region-row select {
+    width: 100%;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--blue);
+    background: var(--cream);
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    padding: 10px 14px;
+    cursor: pointer;
+  }
 
   /* ── Outcome ── */
-  .outcome-box {
-    background: var(--navy, var(--blue-dark));
-    border-radius: 12px;
-    padding: 28px;
-    margin-bottom: 32px;
-  }
+  .outcome-box { background: var(--blue-dark); border-radius: 12px; padding: 28px; margin-bottom: 20px; }
   .outcome-label {
     display: block;
     font-family: 'DM Mono', monospace;
@@ -1056,79 +983,22 @@ const schema = [
     margin-bottom: 12px;
   }
   .outcome-text { color: rgba(255, 255, 255, 0.92); font-size: 0.98rem; line-height: 1.8; margin: 0 0 20px; }
-  .outcome-cta { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-  .outcome-phone {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    color: var(--white);
+  .outcome-cta { margin-bottom: 20px; }
+  .outcome-phone { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); text-decoration: none; border-bottom: 1px solid var(--gold); }
+  .handoff { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; }
+  .handoff-text { color: rgba(255, 255, 255, 0.65); font-size: 0.85rem; line-height: 1.6; margin: 0 0 12px; }
+  .handoff-btn {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+    color: var(--blue-dark);
+    background: var(--gold-light);
     text-decoration: none;
-    border-bottom: 1px solid var(--gold);
-  }
-  .outcome-pill {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    color: var(--gold-light);
-    text-decoration: none;
-    border: 1px solid rgba(212, 160, 23, 0.4);
-    border-radius: 20px;
-    padding: 8px 16px;
-  }
-  .outcome-pill:hover { border-color: var(--gold-light); }
-
-  /* ── Region finder ── */
-  .region-finder { background: var(--white); border: 1px solid var(--stone); border-radius: 12px; padding: 20px 24px; margin-bottom: 32px; }
-  .region-finder-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold-text);
-    display: block;
-    margin-bottom: 12px;
-  }
-  .region-finder-row { display: flex; gap: 10px; flex-wrap: wrap; }
-  .region-finder select {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.8rem;
-    color: var(--blue);
-    background: var(--cream);
-    border: 1px solid var(--stone);
     border-radius: 6px;
-    padding: 10px 14px;
-    cursor: pointer;
-    flex: 1;
-    min-width: 200px;
+    padding: 12px 20px;
   }
-  .region-finder button {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--white);
-    background: var(--gold);
-    border: none;
-    border-radius: 6px;
-    padding: 10px 18px;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .region-finder button:hover { background: var(--gold-light); }
-  .region-finder.is-set { border-color: rgba(184, 134, 11, 0.4); }
-  .region-finder-current { margin-top: 12px; font-size: 0.8rem; color: var(--slate); }
-  .region-finder-current strong { color: var(--blue); }
-  .region-finder-current button {
-    background: none;
-    border: none;
-    padding: 0;
-    color: var(--gold-text);
-    text-decoration: underline;
-    cursor: pointer;
-    font-family: 'Source Serif 4', serif;
-    font-size: 0.8rem;
-    text-transform: none;
-    letter-spacing: 0;
-  }
+  .handoff-btn:hover { background: var(--gold); }
 
   /* ── Search ── */
   .filter-bar { margin-bottom: 24px; }
@@ -1144,16 +1014,38 @@ const schema = [
   #symptomSearch:focus { outline: none; border-color: var(--gold); }
 
   /* ── Symptom cards (flat grid, sortable) ── */
-  .symptom-grid { display: flex; flex-direction: column; gap: 16px; margin-bottom: 40px; }
+  .symptom-grid { display: flex; flex-direction: column; gap: 16px; }
   .symptom {
     background: var(--white);
     border: 1px solid var(--stone);
     border-radius: 12px;
     padding: 24px 28px;
-    transition: opacity 0.2s, border-color 0.2s;
+    transition: opacity 0.2s, border-color 0.2s, padding 0.2s;
   }
   .symptom.matched { border-color: rgba(184, 134, 11, 0.5); }
-  .symptom.dimmed { opacity: 0.55; }
+  .symptom.collapsed { padding: 14px 20px; }
+  .symptom.collapsed h2 { margin-bottom: 0; font-size: 1rem; }
+  .symptom.collapsed .whats-happening,
+  .symptom.collapsed .needs-repair,
+  .symptom.collapsed .nm-note,
+  .symptom.collapsed .symptom-links,
+  .symptom.collapsed .symptom-category-badge { display: none; }
+  .other-strip {
+    display: block;
+    width: 100%;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    color: var(--gold-text);
+    background: var(--sand);
+    border: 1px dashed var(--stone);
+    border-radius: 8px;
+    padding: 14px;
+    margin: 4px 0 40px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .other-strip:hover { border-color: var(--gold); }
   .symptom-category-badge {
     display: inline-block;
     font-family: 'DM Mono', monospace;
@@ -1183,7 +1075,7 @@ const schema = [
   .symptom-link:hover { color: var(--gold-text); }
   .symptom-link.region-link { color: var(--gold-text); border-bottom-style: solid; }
 
-  .contact-footer { margin-top: 60px; text-align: center; padding: 32px; background: var(--sand); border-left: 4px solid var(--gold); }
+  .contact-footer { margin-top: 20px; text-align: center; padding: 32px; background: var(--sand); border-left: 4px solid var(--gold); }
   .contact-footer p { margin-bottom: 8px; font-size: 0.9rem; color: var(--slate); }
   .contact-footer a { color: var(--blue); text-decoration: underline; text-decoration-color: var(--gold-text); }
   .contact-footer-sub { margin-top: 16px; font-size: 0.85rem; color: var(--muted); }
@@ -1195,7 +1087,5 @@ const schema = [
   }
   @media (max-width: 640px) {
     .page-hero h1 { font-size: 2rem; }
-    .region-finder-row { flex-direction: column; }
-    .region-finder select { width: 100%; }
   }
 </style>

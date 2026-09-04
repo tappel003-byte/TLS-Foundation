@@ -87,6 +87,7 @@ const faqSchema = {
       <div class="toc" id="table-of-contents">
         <h2>On this page</h2>
         <ul>
+          <li><a href="#quick-answers">Quick Answers</a></li>
           <li><a href="#first-principle">First Principle</a></li>
           <li><a href="#symptom-matrix">Symptom Matrix</a></li>
           <li><a href="#when-not">When Underpinning Isn't the Answer</a></li>
@@ -95,6 +96,62 @@ const faqSchema = {
           <li><a href="#prevention">Prevention & Maintenance</a></li>
         </ul>
       </div>
+
+      <!-- SECTION 1.5 — QUICK ANSWERS (relocated from symptom-guide-v2 --
+           this is general reassurance/myth-busting, which belongs ahead of
+           the mechanism explanation below, not on the symptom-lookup tool.
+           Confirmed no overlap with Common Concerns' longer-form FAQ on the
+           same topics -- that page covers this ground in depth; this is
+           the fast version right before First Principle. ) -->
+      <section id="quick-answers">
+        <span class="myth-label">Quick answers, before you dig in</span>
+        <div class="myth-grid">
+          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
+            <div class="myth-card-inner">
+              <div class="myth-front">
+                <div class="myth-title">Is it "foundation failure"?</div>
+                <span class="myth-hint">Tap to see</span>
+              </div>
+              <div class="myth-back">
+                <p>Rarely. Most of what homeowners call failure is soil movement — the ground moving, not the structure losing its ability to stand. "Failure" is urgency language more than an accurate description.</p>
+              </div>
+            </div>
+          </div>
+          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
+            <div class="myth-card-inner">
+              <div class="myth-front">
+                <div class="myth-title">Is every crack serious?</div>
+                <span class="myth-hint">Tap to see</span>
+              </div>
+              <div class="myth-back">
+                <p>No. Many reflect historic movement that already stabilized years ago. What matters is whether it's growing now — not whether it exists.</p>
+              </div>
+            </div>
+          </div>
+          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
+            <div class="myth-card-inner">
+              <div class="myth-front">
+                <div class="myth-title">Do I need repair right now?</div>
+                <span class="myth-hint">Tap to see</span>
+              </div>
+              <div class="myth-back">
+                <p>Depends on why it's moving, not on how alarming it looks. Some situations call for acting now; a lot of them call for documenting and watching first.</p>
+              </div>
+            </div>
+          </div>
+          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
+            <div class="myth-card-inner">
+              <div class="myth-front">
+                <div class="myth-title">Can a repair itself fail?</div>
+                <span class="myth-hint">Tap to see</span>
+              </div>
+              <div class="myth-back">
+                <p>Yes — usually from misdiagnosis, not bad material. The most common cause is a repair designed for settlement applied to a foundation that's actually heaving.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- SECTION 2 — FIRST PRINCIPLE -->
       <section id="first-principle">
@@ -288,6 +345,16 @@ const faqSchema = {
     window.addEventListener('scroll', updateActiveToc);
     updateActiveToc();
 
+    document.querySelectorAll<HTMLElement>('.myth-card').forEach((card) => {
+      card.addEventListener('click', () => card.classList.toggle('flipped'));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.classList.toggle('flipped');
+        }
+      });
+    });
+
     document.querySelectorAll<HTMLAnchorElement>('.tls-body a[href^="#"]').forEach((anchor) => {
       const hash = anchor.getAttribute('href');
       if (hash && hash.length > 1) {
@@ -467,6 +534,57 @@ const faqSchema = {
       border-bottom: none;
       padding-bottom: 0;
     }
+  }
+
+  /* ── QUICK ANSWERS (myth/reality flip cards, relocated from
+       symptom-guide-v2) ── */
+  .myth-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--tls-gold, var(--gold-text));
+    margin-bottom: 16px;
+  }
+  .myth-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+  .myth-card { perspective: 1000px; cursor: pointer; height: 220px; }
+  .myth-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+  }
+  .myth-card.flipped .myth-card-inner { transform: rotateY(180deg); }
+  .myth-front, .myth-back {
+    grid-area: 1 / 1 / 2 / 2;
+    padding: 20px;
+    border-radius: 4px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .myth-front { background: #fff; border: 1px solid var(--tls-stone, var(--stone)); transition: border-color 0.25s, box-shadow 0.25s; }
+  .myth-card:hover .myth-front { border-color: rgba(184, 134, 11, 0.3); box-shadow: 0 2px 16px rgba(13, 34, 56, 0.06); }
+  .myth-back { background: var(--dark-navy, var(--navy)); border: 1px solid rgba(184, 134, 11, 0.3); transform: rotateY(180deg); }
+  .myth-back p { color: rgba(255, 255, 255, 0.9); font-size: 13px; line-height: 1.55; margin: 0; }
+  .myth-title { font-family: 'Source Serif 4', serif; font-size: 16px; font-weight: 600; color: var(--blue); line-height: 1.3; }
+  .myth-hint {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--tls-gold, var(--gold-text));
+    margin-top: 8px;
+    opacity: 0.6;
+  }
+  @media (max-width: 640px) {
+    .myth-grid { grid-template-columns: 1fr 1fr; }
+    .myth-card { height: 300px; }
   }
 
   /* ── TLS-BODY REFERENCE DOCUMENT ── */
