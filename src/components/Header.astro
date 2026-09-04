@@ -50,6 +50,15 @@ const folders = [
       { text: 'Homeowner Decision Series', href: '/homeowner-decision-series' },
     ],
   },
+  {
+    // Delete this folder (and the two -v2 page files it links to) once a
+    // direction is picked on splitting Why Foundations Move.
+    title: 'Draft (temp)',
+    items: [
+      { text: 'Why Foundations Move v2', href: '/why-foundations-move-v2' },
+      { text: 'Cause Library (draft)', href: '/cause-library-v2' },
+    ],
+  },
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';

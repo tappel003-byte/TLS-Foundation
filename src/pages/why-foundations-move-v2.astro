@@ -1,0 +1,792 @@
+---
+// DRAFT (temp) -- prototype only, linked from a clearly-marked "Draft (temp)"
+// nav folder in Header.astro. Trims why-foundations-move.astro from a
+// ~3,200-word, 24-mobile-screen page down to a fast overview by moving the
+// 26-item Cause Library to its own page (cause-library-v2.astro) and
+// linking out to it instead. Every other section is unchanged. Delete this
+// file, cause-library-v2.astro, and the "Draft (temp)" folder in
+// Header.astro together once a direction is picked.
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Why Foundations Move in New Mexico — TLS Foundations';
+const summary =
+  "Every foundation problem traces back to one of three things: the soil's behavior changed, the moisture regime changed, or the load on the foundation changed -- often more than one at once. Which driver is at work determines whether underpinning helps or makes things worse, and that can't be read off the surface symptoms alone, since heave and settlement often look identical. The full Cause Library catalogs 26 specific causes across six mechanisms -- from lost soil support to deep geologic hazards -- because the right response depends entirely on which one is actually happening.";
+const description =
+  "Foundations move because soil moves, and in New Mexico no two soils move the same way. The reference on causes, symptoms, and underpinning.";
+
+const serviceAreaText = `Foundations move because soil moves — and in New Mexico, no two soils move the same way. The causes are specific: collapsible soil settlement, expansive clay heave, expansive shale movement, hydrocompaction, caliche/cemented soil bearing failure, soil piping, karst subsidence, evaporite dissolution, frost heave, post-tension slab failure, poorly compacted fill, cut-and-fill transition movement, plumbing leaks beneath slabs, irrigation-driven moisture change, tree root extraction, hillside creep, seismic activity along the Rio Grande Rift, and regional groundwater subsidence. The symptoms look similar — foundation cracks, sticking doors, uneven floors, slab gaps, wall separation, diagonal cracking at corners. The causes are not similar. Getting the diagnosis wrong produces a worse outcome than the original condition. Many New Mexico foundations don't need underpinning. The ones that do, we repair.`;
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Does every foundation crack mean I need underpinning?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. Cosmetic curing cracks, seasonal thermal movement, and stabilized historic settlement typically need no structural repair at all. Underpinning is one response among several -- drainage correction, leak repair, and monitoring are often the honest first step.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: "What's the difference between heave and settlement?",
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Settlement is soil pulling down; heave is soil pushing up. They can look identical from cracking alone, but the correct response is opposite in each case -- underpinning fixes settlement, not heave.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Why does the same crack pattern have so many possible causes in New Mexico?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'New Mexico spans sixteen geologically distinct basins, each with its own soil behavior -- expansive clay, collapsible soil, karst, evaporite dissolution, and more. Visual inspection alone cannot distinguish between them; that requires investigation.',
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title={title}
+  description={description}
+  footer="full"
+  ogImage="/images/why-foundations-move-hero.webp"
+  summary={summary}
+  pageName="Why Foundations Move"
+  nextPage={{ path: '/cause-library-v2', name: 'The Cause Library' }}
+  footerProps={{ serviceAreaLabel: "That's a lot of ways a home can move", serviceAreaText }}
+  schema={[faqSchema]}
+>
+  <section class="hero">
+    <img class="hero-photo" src="/images/why-foundations-move-hero.webp" alt="New Mexico high desert soil formation" fetchpriority="high" />
+    <div class="hero-overlay"></div>
+    <div class="tls-hero-wrap">
+      <div class="tls-hero-box">
+        <span class="tls-hero-headline">Foundations move.</span>
+        <span class="tls-hero-sub">(Doesn't always mean yours needs repair.)</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="tls-body">
+    <div class="container">
+      <!-- SECTION 1 — OPENING -->
+      <section id="introduction">
+        <span class="eyebrow">TLS Foundations Reference</span>
+        <h1>Why Foundations Move in New Mexico</h1>
+        <div class="subhead">And why many don't need underpinning. The ones that do, we repair.</div>
+        <p>Foundations don't "fail" because they crack. They move and crack because the soil supporting them changes. In New Mexico, that change is almost always driven by moisture — too much in one place, not enough in another, or introduced where the ground never expected it.</p>
+        <p>Underpinning is one possible response to foundation movement. It is not always the right one. Many homes in New Mexico show signs of movement that can be managed without structural intervention — through drainage correction, leak repair, or simply monitoring over time.</p>
+        <p>This page explains the full range of reasons foundations move, when underpinning is the appropriate response, and when it isn't. It is written for homeowners who want honest answers and for the engineers who serve them.</p>
+        <p>It is not a diagnostic tool. It does not replace professional evaluation. It gives you the vocabulary to ask better questions — and to recognize when the answers you're getting don't add up.</p>
+      </section>
+
+      <!-- Table of Contents (static) -->
+      <div class="toc" id="table-of-contents">
+        <h2>On this page</h2>
+        <ul>
+          <li><a href="#first-principle">First Principle</a></li>
+          <li><a href="#symptom-matrix">Symptom Matrix</a></li>
+          <li><a href="#when-not">When Underpinning Isn't the Answer</a></li>
+          <li><a href="#industry-gaps">What the Industry Gets Wrong</a></li>
+          <li><a href="#spectrum">Intervention Spectrum</a></li>
+          <li><a href="#prevention">Prevention & Maintenance</a></li>
+        </ul>
+      </div>
+
+      <!-- SECTION 2 — FIRST PRINCIPLE -->
+      <section id="first-principle">
+        <h2>Foundation Movement Is Not the Problem — It's the Result</h2>
+        <p>Every foundation problem traces back to one of three things: the soil changed behavior, the moisture regime changed, or the load on the foundation changed. Sometimes two at once. Sometimes all three.</p>
+        <p>The soil beneath your home is not static. It responds to water, weight, temperature, and time. When those conditions shift — a pipe leaks, drainage patterns change, a new addition adds weight — the soil responds. The foundation follows.</p>
+        <p>Understanding which of these three drivers is at work is the first step toward knowing what to do about it. That understanding comes from investigation, not from looking at cracks. <a href="/symptom-guide">See our Symptom Guide for a detailed breakdown of what you're seeing.</a></p>
+      </section>
+
+      <!-- SECTION 3 — SYMPTOM MATRIX -->
+      <section id="symptom-matrix">
+        <h2>What You're Seeing vs. What May Be Happening</h2>
+        <p>Foundation symptoms look similar. The causes behind them are not. Here's what the most common signs may point to — and why the first step is always investigation.</p>
+
+        <div class="symptom-matrix-wrap">
+          <div class="symptom-header-row">
+            <div class="symptom-col-head">What You See</div>
+            <div class="symptom-col-head">What May Be Happening</div>
+            <div class="symptom-col-head">Is Underpinning the Answer?</div>
+            <div class="symptom-col-head">The Honest First Step</div>
+          </div>
+
+          <div class="symptom-row">
+            <div class="symptom-cell"><span class="symptom-cell-label">What You See</span><strong>Diagonal cracks, doors sticking seasonally</strong></div>
+            <div class="symptom-cell"><span class="symptom-cell-label">What May Be Happening</span>Soil volume change — expansive clay.</div>
+            <div class="symptom-cell"><span class="symptom-cell-label">Is Underpinning the Answer?</span>Rarely first step. Moisture management often resolves.</div>
+            <div class="symptom-cell"><span class="symptom-cell-label">The Honest First Step</span>Evaluate drainage, irrigation. <a href="/cause-library-v2#expansive-clay">Learn about expansive clay →</a> | <a href="/expansive-soil">Full article →</a></div>
+          </div>
+
+          <div class="symptom-row">
+            <div class="symptom-cell"><span class="symptom-cell-label">What You See</span><strong>Sudden settlement after heavy rain or snowmelt</strong></div>
+            <div class="symptom-cell"><span class="symptom-cell-label">What May Be Happening</span>Collapsible soil — structure collapses when wet.</div>
+            <div class="symptom-cell"><span class="symptom-cell-label">Is Underpinning the Answer?</span>Often yes, but water source must be stopped first.</div>
+            <div class="symptom-cell"><span class="symptom-cell-label">The Honest First Step</span>Find and fix water source. <a href="/cause-library-v2#collapsible-soils">Collapsible soils →</a> | <a href="/collapsible-soil">Article →</a></div>
+          </div>
+
+          <div class="symptom-row">
+            <div class="symptom-cell"><span class="symptom-cell-label">What You See</span><strong>Localized cracking near kitchen/bath</strong></div>
+            <div class="symptom-cell"><span class="symptom-cell-label">What May Be Happening</span>Plumbing or sewer leak beneath slab.</div>
+            <div class="symptom-cell"><span class="symptom-cell-label">Is Underpinning the Answer?</span>No while leak active. Repair first.</div>
+            <div class="symptom-cell"><span class="symptom-cell-label">The Honest First Step</span>Pressure test water lines; camera sewer. <a href="/cause-library-v2#plumbing-leaks">Plumbing leaks →</a></div>
+          </div>
+
+          <div class="symptom-row">
+            <div class="symptom-cell"><span class="symptom-cell-label">What You See</span><strong>Cracks on sloped lots or near arroyos</strong></div>
+            <div class="symptom-cell"><span class="symptom-cell-label">What May Be Happening</span>Lateral soil movement or erosion.</div>
+            <div class="symptom-cell"><span class="symptom-cell-label">Is Underpinning the Answer?</span>Not alone; slope must be stabilized.</div>
+            <div class="symptom-cell"><span class="symptom-cell-label">The Honest First Step</span>Evaluate slope, drainage, arroyo proximity.</div>
+          </div>
+
+          <div class="symptom-row">
+            <div class="symptom-cell"><span class="symptom-cell-label">What You See</span><strong>Hairline cracks unchanged for years</strong></div>
+            <div class="symptom-cell"><span class="symptom-cell-label">What May Be Happening</span>Concrete curing shrinkage or thermal movement.</div>
+            <div class="symptom-cell"><span class="symptom-cell-label">Is Underpinning the Answer?</span>No.</div>
+            <div class="symptom-cell"><span class="symptom-cell-label">The Honest First Step</span>Monitor; seal if desired. <a href="/common-concerns">Common Concerns →</a></div>
+          </div>
+        </div>
+
+        <div class="cause-library-cta">
+          <p><strong>These are five common patterns.</strong> The full Cause Library covers 26 specific causes across six mechanisms — loss of support, soil volume change, water and moisture drivers, deep geologic hazards, construction deficiencies, and site triggers.</p>
+          <a href="/cause-library-v2" class="cause-library-cta-link">Browse the Cause Library →</a>
+        </div>
+      </section>
+
+      <!-- SECTION 5 — WHEN NOT -->
+      <section id="when-not">
+        <h2>When Underpinning Is Not the Answer</h2>
+        <p><em>This is the section no other contractor publishes.</em></p>
+        <div class="no-underpin-grid">
+          <div class="no-underpin-card"><strong>Cosmetic cracking from concrete curing</strong> No repair needed.</div>
+          <div class="no-underpin-card"><strong>Thermal movement</strong> Cracks that open/close seasonally are normal.</div>
+          <div class="no-underpin-card"><strong>Uniform settlement that has stabilized</strong> Monitor.</div>
+          <div class="no-underpin-card"><strong>Active heave without net settlement</strong> Moisture control, not piers.</div>
+          <div class="no-underpin-card"><strong>Moisture problems not yet corrected</strong> Fix water first.</div>
+          <div class="no-underpin-card"><strong>Slab curling</strong> Slab replacement or grinding.</div>
+          <div class="no-underpin-card"><strong>Addition differential movement</strong> Isolation joints.</div>
+        </div>
+        <p>The honest alternative for many: improve drainage, repair leaks, manage irrigation, stabilize slopes, reinforce concrete, or monitor. Many New Mexico homes can be managed without structural intervention.</p>
+      </section>
+
+      <!-- SECTION 6 — INDUSTRY GAPS -->
+      <section id="industry-gaps">
+        <h2>What the Industry Gets Wrong</h2>
+        <div class="industry-grid">
+          <div class="industry-card"><strong>Moisture is the primary driver</strong> — not soil type alone. Moisture control doesn't sell piers, so it's underemphasized.</div>
+          <div class="industry-card"><strong>Underpinning without moisture correction usually fails.</strong> Biggest unspoken truth.</div>
+          <div class="industry-card"><strong>Collapsible soils are invisible in national training.</strong> In NM, collapsible soil is as common as expansive clay.</div>
+          <div class="industry-card"><strong>Heave and settlement look identical but require opposite responses.</strong> Underpinning fixes settlement, not heave.</div>
+          <div class="industry-card"><strong>Contractors sell solutions before diagnosing problems.</strong> The cause is assumed, not investigated.</div>
+          <div class="industry-card"><strong>Piers can fail — and nobody talks about it.</strong> Skin friction, caliche cap failure, corrosion.</div>
+          <div class="industry-card"><strong>The dry season creates a sales opportunity.</strong> Many gaps close during monsoon — honest contractors say so.</div>
+          <div class="industry-card"><strong>'Lifting' is not always the right goal.</strong> Sometimes arresting movement is more honest and less destructive.</div>
+          <div class="industry-card"><strong>Geotechnical investigation is treated as optional.</strong> Visual-only repairs fail when the cause is deeper.</div>
+          <div class="industry-card"><strong>Post-repair monitoring is rarely discussed.</strong> No benchmark, no follow-up — no way to know if it worked.</div>
+        </div>
+      </section>
+
+      <!-- SECTION 7 — SPECTRUM -->
+      <section id="spectrum">
+        <h2>The Intervention Spectrum</h2>
+        <div class="spectrum">
+          <div class="spectrum-step"><strong>Monitor</strong> Minor, historical, within tolerance.</div>
+          <div class="spectrum-step"><strong>Moisture & Site Correction</strong> Drainage, leaks, irrigation, grading.</div>
+          <div class="spectrum-step"><strong>Soil Improvement</strong> Grouting, void fill, chemical stabilization.</div>
+          <div class="spectrum-step"><strong>Structural Reinforcement</strong> Carbon fiber, rebar, slab strengthening.</div>
+          <div class="spectrum-step"><strong>Underpinning</strong> Deep piers to stable material.</div>
+        </div>
+        <p>A company that only offers the last option will recommend it for every problem. <a href="/foundation-repair-methods">See detailed explanations of each repair method.</a></p>
+      </section>
+
+      <!-- SECTION 8 -->
+      <section>
+        <h2>Why Evaluation Comes First</h2>
+        <p>No reliable repair recommendation can be made from symptoms alone. Cracks, tilting, sticking doors can be caused by a dozen different mechanisms.</p>
+        <p>A proper evaluation includes site history, elevation surveys, soil borings, moisture source identification (including sewer camera), and structural analysis. It's the only honest path to a solution that actually solves the problem.</p>
+        <p>TLS Foundations requires this step. Our affiliated geotechnical firm, Sandia GEO, operates independently from repair sales — evaluation driven by evidence, not by what we need to sell.</p>
+        <div class="soft-cta">
+          <p>Have questions? We're happy to talk — no pressure, just answers. <a href="/contact-us">Contact TLS Foundations →</a></p>
+        </div>
+      </section>
+
+      <!-- SECTION 9 — PREVENTION -->
+      <section id="prevention">
+        <h2>Prevention and Maintenance</h2>
+        <ul>
+          <li>Maintain positive grading directing water away from foundation.</li>
+          <li>Extend downspouts at least 6 feet from foundation.</li>
+          <li>Keep irrigation and plantings away; establish 3-foot dry buffer zone.</li>
+          <li>Repair leaks promptly; test plumbing (including sewer lines).</li>
+          <li>Avoid over-watering on expansive or collapsible soils.</li>
+          <li>Monitor cracks, doors, floors seasonally; photograph and date.</li>
+          <li>If you remove a large tree, watch for soil rebound (swelling).</li>
+        </ul>
+        <p>None of this costs much. All of it matters.</p>
+      </section>
+
+      <!-- SECTION 10 — CAVEAT -->
+      <section>
+        <h2>The Honest Caveat</h2>
+        <p>This page explains conditions that can lead to foundation movement. It is not a diagnostic tool. Several different mechanisms can create identical-looking cracks. Only site-specific investigation confirms what's happening beneath your home.</p>
+        <p>Determining the correct response requires understanding whether movement is ongoing, what's driving it, and whether that driver can be corrected without structural intervention.</p>
+        <p>This page gives you vocabulary to ask better questions. It does not give you the ability to diagnose your own home.</p>
+        <p class="video-link">Prefer it on camera? <a href="/soil-movement" class="body-link">Soil &amp; Movement</a> covers this same ground in three short films.</p>
+      </section>
+    </div>
+  </div>
+
+  <section class="contact-close">
+    <div class="contact-inner">
+      <span class="contact-eyebrow">Ready when you are</span>
+      <h2 class="contact-headline">Every foundation is different. Yours needs its own answer.</h2>
+      <p class="contact-sub">Text or call — you reach the owner(s).</p>
+      <div class="contact-options">
+        <div class="contact-option">
+          <span class="contact-option-label">Text</span>
+          <a href="sms:5059914180" class="contact-option-value">Send a text →</a>
+          <span class="contact-option-note">Usually same day</span>
+        </div>
+        <div class="contact-option">
+          <span class="contact-option-label">Call</span>
+          <a href="tel:5059914180" class="contact-option-value">(505) 991-4180</a>
+          <span class="contact-option-note">The owner(s) answer</span>
+        </div>
+        <div class="contact-option">
+          <span class="contact-option-label">Location</span>
+          <span class="contact-option-value">Albuquerque,&nbsp;New Mexico</span>
+          <span class="contact-option-note">The state is our office</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  function initWfm() {
+    const sections = document.querySelectorAll<HTMLElement>('.tls-body section[id]');
+    const tocLinks = document.querySelectorAll<HTMLAnchorElement>('.toc a');
+    function updateActiveToc() {
+      let current = '';
+      const scrollPos = window.scrollY + 150;
+      sections.forEach((section) => {
+        const top = section.offsetTop;
+        const bottom = top + section.offsetHeight;
+        if (scrollPos >= top && scrollPos < bottom) current = section.id;
+      });
+      tocLinks.forEach((link) => {
+        link.classList.remove('active');
+        if (link.getAttribute('href')?.substring(1) === current) link.classList.add('active');
+      });
+    }
+    window.addEventListener('scroll', updateActiveToc);
+    updateActiveToc();
+
+    document.querySelectorAll<HTMLAnchorElement>('.tls-body a[href^="#"]').forEach((anchor) => {
+      const hash = anchor.getAttribute('href');
+      if (hash && hash.length > 1) {
+        anchor.addEventListener('click', (e) => {
+          const target = document.querySelector(hash);
+          if (target) {
+            e.preventDefault();
+            const offset = 100;
+            const pos = target.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({ top: pos, behavior: 'smooth' });
+          }
+        });
+      }
+    });
+  }
+  document.addEventListener('DOMContentLoaded', initWfm);
+</script>
+
+<style>
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 560px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: -4%;
+    width: 108%;
+    height: 108%;
+    object-fit: cover;
+    object-position: center;
+    animation: kenburns 20s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns {
+    0% {
+      transform: scale(1) translate(1%, 0);
+    }
+    100% {
+      transform: scale(1.06) translate(-1%, 0.5%);
+    }
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 34, 56, 0.15);
+  }
+  .tls-hero-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    background: transparent;
+    padding: 0 clamp(20px, 5vw, 80px) clamp(40px, 6vw, 80px);
+  }
+  .tls-hero-box {
+    display: inline-block;
+    background: rgba(13, 34, 56, 0.65);
+    padding: 28px 40px 32px;
+  }
+  .tls-hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    display: block;
+  }
+  .tls-hero-sub {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(15px, 1.8vw, 18px);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.75);
+    font-style: italic;
+    margin-top: 12px;
+    display: block;
+  }
+
+  /* ── CONTACT CLOSE ── */
+  .contact-close {
+    background: var(--sand);
+    padding: 96px clamp(20px, 5vw, 80px);
+    border-top: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    text-align: center;
+  }
+  .contact-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .contact-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 28px;
+  }
+  .contact-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--blue);
+    margin-bottom: 28px;
+  }
+  .contact-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--slate);
+    line-height: 1.85;
+    margin-bottom: 64px;
+  }
+  .contact-options {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: nowrap;
+  }
+  .contact-option {
+    flex: 1;
+    padding: 0 32px;
+    border-right: 1px solid var(--stone);
+    text-align: center;
+  }
+  .contact-option:last-child {
+    border-right: none;
+  }
+  .contact-option-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .contact-option-value {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 2.2vw, 24px);
+    font-weight: 400;
+    color: var(--blue);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+  .contact-option-value:hover {
+    color: var(--gold-text);
+  }
+  .contact-option-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  @media (max-width: 640px) {
+    .contact-close {
+      padding: 64px 24px;
+    }
+    .contact-options {
+      flex-direction: column;
+      gap: 40px;
+    }
+    .contact-option {
+      border-right: none;
+      border-bottom: 1px solid var(--stone);
+      padding: 0 0 40px;
+      width: 100%;
+    }
+    .contact-option:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  /* ── TLS-BODY REFERENCE DOCUMENT ── */
+  .tls-body {
+    --navy: #1b3a5c;
+    --dark-navy: #0d2238;
+    --blue-mid: #2a5480;
+    --tls-gold: #b8860b;
+    --gold-light: #d4a017;
+    --tls-sand: #f5efe6;
+    --tls-cream: #fdfaf6;
+    --tls-stone: #e0d5c5;
+    --tls-slate: #4a5568;
+    --muted: #54626f;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+    font-family: 'Source Serif 4', serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.8;
+    color: var(--tls-slate);
+    background-color: var(--tls-cream);
+  }
+  .tls-body .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  @media (max-width: 768px) {
+    .tls-body .container {
+      padding: 0 24px;
+    }
+  }
+  .tls-body h1,
+  .tls-body h2,
+  .tls-body h3,
+  .tls-body h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+  .tls-body h1 {
+    font-size: clamp(40px, 6vw, 64px);
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue-mid) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  .tls-body h2 {
+    font-size: clamp(30px, 4vw, 40px);
+    margin: 0 0 1.5rem 0;
+    border-left: 4px solid var(--tls-gold);
+    padding-left: 1.25rem;
+  }
+  .tls-body .subhead {
+    font-size: clamp(22px, 3vw, 28px);
+    font-family: 'Playfair Display', serif;
+    color: var(--gold-text);
+    margin-bottom: 2rem;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+  .tls-body .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    margin-bottom: 1rem;
+    display: inline-block;
+    background: var(--tls-sand);
+    padding: 0.25rem 0.75rem;
+    border-radius: 2px;
+  }
+  .tls-body a {
+    color: var(--blue-mid);
+    text-decoration: underline;
+    text-decoration-color: var(--tls-gold);
+    text-underline-offset: 4px;
+    transition: 0.2s;
+    font-weight: 400;
+  }
+  .tls-body a:hover {
+    color: var(--gold-text);
+    text-decoration-color: var(--blue-mid);
+  }
+  .tls-body section {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--tls-stone);
+    scroll-margin-top: 100px;
+  }
+  .tls-body section:first-of-type {
+    padding-top: 40px;
+  }
+  .tls-body section:last-child {
+    border-bottom: none;
+  }
+  .video-link {
+    margin-top: 20px;
+    font-size: 16px;
+    color: var(--muted);
+  }
+  .tls-body :global(.body-link) {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--gold-text);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .tls-body :global(.body-link):hover {
+    color: var(--gold-text);
+  }
+  .tls-body .toc {
+    background: var(--tls-sand);
+    padding: 1.5rem 2rem;
+    margin: 32px 0 48px;
+    border-left: 4px solid var(--gold-text);
+    box-shadow: var(--shadow-sm);
+  }
+  @media (max-width: 768px) {
+    .tls-body .toc {
+      margin: 24px 0;
+      padding: 1.25rem;
+    }
+  }
+  .tls-body .toc h2 {
+    font-size: 18px;
+    margin-bottom: 1rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--gold-text);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .tls-body .toc ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    list-style: none;
+    margin: 0;
+  }
+  .tls-body .toc li {
+    margin: 0;
+  }
+  .tls-body .toc a {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    text-decoration: none;
+    color: var(--navy);
+    display: inline-block;
+    padding: 0.2rem 0;
+  }
+  .tls-body .toc a.active {
+    color: var(--gold-text);
+    border-bottom: 1px solid var(--gold-text);
+  }
+  .tls-body .symptom-matrix-wrap {
+    margin: 2rem 0;
+  }
+  .tls-body .symptom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    border: 1px solid var(--tls-stone);
+    margin-bottom: 1rem;
+    background: #fff;
+  }
+  .tls-body .symptom-header-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background: var(--tls-sand);
+    border: 1px solid var(--tls-stone);
+    margin-bottom: 4px;
+  }
+  .tls-body .symptom-col-head {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--gold-text);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 1rem 1.25rem;
+    border-right: 1px solid var(--tls-stone);
+  }
+  .tls-body .symptom-col-head:last-child {
+    border-right: none;
+  }
+  .tls-body .symptom-cell {
+    padding: 1.25rem;
+    border-right: 1px solid var(--tls-stone);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .tls-body .symptom-cell:last-child {
+    border-right: none;
+  }
+  .tls-body .symptom-cell-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: none;
+    margin-bottom: 0.4rem;
+  }
+  @media (max-width: 700px) {
+    .tls-body .symptom-header-row {
+      display: none;
+    }
+    .tls-body .symptom-row {
+      grid-template-columns: 1fr;
+      margin-bottom: 1.5rem;
+    }
+    .tls-body .symptom-cell {
+      border-right: none;
+      border-bottom: 1px solid var(--tls-stone);
+      padding: 1rem 1.25rem;
+    }
+    .tls-body .symptom-cell:last-child {
+      border-bottom: none;
+    }
+    .tls-body .symptom-cell-label {
+      display: block;
+    }
+  }
+  .tls-body .cause-library-cta {
+    margin-top: 2rem;
+    padding: 2rem 2.25rem;
+    background: linear-gradient(135deg, var(--tls-sand) 0%, var(--tls-cream) 100%);
+    border: 1px solid var(--tls-stone);
+    border-left: 4px solid var(--tls-gold);
+  }
+  .tls-body .cause-library-cta p {
+    margin-bottom: 1rem;
+    font-size: 17px;
+  }
+  .tls-body .cause-library-cta-link {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    background: var(--navy);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2px;
+  }
+  .tls-body .cause-library-cta-link:hover {
+    background: var(--gold-text);
+  }
+  .tls-body .spectrum {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 48px 0;
+  }
+  .tls-body .spectrum-step {
+    flex: 1;
+    min-width: 180px;
+    padding: 1.75rem 1.25rem;
+    background: #fff;
+    border-top: 4px solid var(--tls-gold);
+    box-shadow: var(--shadow-sm);
+  }
+  .tls-body .spectrum-step strong {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--gold-text);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  @media (max-width: 768px) {
+    .tls-body .spectrum-step {
+      min-width: 100%;
+    }
+  }
+  .tls-body .no-underpin-grid,
+  .tls-body .industry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 32px 0;
+  }
+  .tls-body .no-underpin-card,
+  .tls-body .industry-card {
+    background: #fff;
+    padding: 1.5rem;
+    border-left: 3px solid var(--tls-gold);
+    box-shadow: var(--shadow-sm);
+  }
+  .tls-body .no-underpin-card strong,
+  .tls-body .industry-card strong {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .tls-body .soft-cta {
+    background: linear-gradient(135deg, var(--tls-sand) 0%, var(--tls-cream) 100%);
+    padding: 2.5rem;
+    text-align: center;
+    margin: 48px 0;
+    border: 1px solid var(--tls-stone);
+  }
+  .tls-body .soft-cta p {
+    margin-bottom: 0;
+    font-size: 20px;
+    font-family: 'Playfair Display', serif;
+    color: var(--navy);
+  }
+  .tls-body ul,
+  .tls-body ol {
+    margin: 1rem 0 1rem 2rem;
+  }
+  .tls-body li {
+    margin-bottom: 0.5rem;
+  }
+</style>
