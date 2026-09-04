@@ -1357,6 +1357,16 @@ const definedTermSetSchema = {
     const defPara = document.createElement('p');
     defPara.textContent = defText;
     popup.appendChild(defPara);
+    if (document.getElementById(termKey)) {
+      const jumpLink = document.createElement('a');
+      jumpLink.className = 'popup-jump-link';
+      jumpLink.href = `#${termKey}`;
+      jumpLink.textContent = 'Jump to full entry →';
+      jumpLink.addEventListener('click', () => {
+        popup.remove();
+      });
+      popup.appendChild(jumpLink);
+    }
     const parentBlock = clickedElement.closest('.term-card');
     if (parentBlock && parentBlock.parentNode) {
       parentBlock.parentNode.insertBefore(popup, parentBlock.nextSibling);
@@ -1743,6 +1753,21 @@ const definedTermSetSchema = {
   :global(.definition-popup p) {
     margin-bottom: 0;
     padding-right: 20px;
+  }
+  :global(.definition-popup .popup-jump-link) {
+    display: inline-block;
+    margin-top: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  :global(.definition-popup .popup-jump-link:hover) {
+    border-bottom-color: var(--gold-text);
   }
   :global(.definition-popup .popup-close) {
     position: absolute;
