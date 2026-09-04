@@ -859,13 +859,13 @@ const verdictDefs: Record<string, string> = {
                   <span class="verdict-def" hidden></span>
                 </div>
                 <p class="specimen-desc">{c.what}</p>
-                <button type="button" class="continue-reading" data-detail-toggle>Continue reading →</button>
                 <div class="warning-drawer" id={c.anchorId} hidden>
                   <div class="warning-drawer-inner">
                     <span class="symptom-category-badge">{c.groupTitle}</span>
                     <p class="cause-match-tag" data-match-tag hidden></p>
                     {c.where && <p><span class="field-label">Where in NM</span>{c.where}</p>}
                     <p><span class="field-label">Underpinning appropriate?</span>{c.underpinning}</p>
+                    <p class="underpinning-caveat">Any underpinning verdict always depends on the actual soil conditions and depth to competent bearing material at your specific site — that's exactly what a geotechnical investigation and a piering plan are for.</p>
                     {c.homeownerAction && (
                       <p class="homeowner-action"><span class="field-label">Try this yourself first</span>{c.homeownerAction}</p>
                     )}
@@ -883,6 +883,7 @@ const verdictDefs: Record<string, string> = {
                     )}
                   </div>
                 </div>
+                <button type="button" class="continue-reading" data-detail-toggle>Continue reading →</button>
               </article>
             ))}
           </>
@@ -1713,6 +1714,12 @@ const verdictDefs: Record<string, string> = {
   .warning-drawer-inner p { margin-bottom: 16px; }
   .warning-drawer-inner p:last-child { margin-bottom: 0; }
   .field-label { font-weight: 700; color: var(--blue); margin-right: 6px; }
+  .underpinning-caveat {
+    font-size: 0.82rem !important;
+    font-style: italic;
+    color: var(--muted);
+    margin-top: -10px !important;
+  }
   .homeowner-action {
     background: rgba(27, 58, 92, 0.06);
     border-left: 3px solid var(--blue);
