@@ -71,6 +71,17 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
+  /*
+    Without this, iOS Safari auto-inflates text size using its own
+    heuristic (viewport width/orientation, DOM structure) -- and that
+    heuristic doesn't treat a <button> and an <a> the same, so two
+    elements with identical font-size can render at different visual
+    sizes, and the gap can shift depending on orientation or how wide
+    the nav panel renders. Locking it to 100% makes every element
+    render at exactly its declared font-size, no exceptions.
+  */
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 @media (max-width: 768px) {
@@ -82,7 +93,8 @@ html {
 body,
 p,
 li,
-a {
+a,
+button {
   font-family: 'Source Serif 4', Georgia, serif;
   font-weight: 300;
   -webkit-font-smoothing: antialiased;
