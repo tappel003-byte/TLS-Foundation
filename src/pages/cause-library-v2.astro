@@ -704,7 +704,6 @@ const verdictDefs: Record<string, string> = {
               <article
                 class="specimen-card"
                 data-search={c.name.toLowerCase()}
-                data-code={c.code}
                 data-order={causeOrder[c.code]}
                 style={`order:${causeOrder[c.code]}`}
                 data-onset={c.onset.join(',')}
@@ -713,7 +712,6 @@ const verdictDefs: Record<string, string> = {
                 data-foundation={c.foundation.join(',')}
               >
                 <button class="warning-trigger specimen-trigger">
-                  <span class="specimen-code">{c.code}</span>
                   <span class="warning-trigger-text">{c.name}</span>
                   <span class="warning-trigger-icon">+</span>
                 </button>
@@ -1232,17 +1230,6 @@ const verdictDefs: Record<string, string> = {
     text-align: left;
     font-family: 'Source Serif 4', serif;
   }
-  .specimen-code {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: var(--gold-text);
-    border: 1px solid var(--gold);
-    border-radius: 3px;
-    padding: 3px 7px;
-    flex-shrink: 0;
-  }
   .warning-trigger-text { flex: 1; font-size: 15px; color: var(--blue); font-weight: 600; line-height: 1.4; }
   .verdict-line { padding: 0 20px 14px; }
   .verdict-badge {
@@ -1336,9 +1323,7 @@ const verdictDefs: Record<string, string> = {
   }
   .other-strip:hover { border-color: var(--gold); }
   @media (max-width: 640px) {
-    .warning-trigger-text { flex-basis: 100%; order: 1; }
-    .specimen-code { order: 0; }
-    .warning-trigger-icon { order: 2; margin-left: auto; }
+    .warning-trigger-icon { margin-left: auto; }
     .verdict-badge { flex-direction: column; align-items: flex-start; gap: 2px; }
     .tier-number { font-size: 28px; }
   }
