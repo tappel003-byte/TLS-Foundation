@@ -111,20 +111,19 @@ const schema = [
         </div>
       </div>
 
+      <p class="az-aside">
+        In Arizona's White Mountains? We also run <a
+          href="https://www.foundationrepairadvocate.com"
+          target="_blank"
+          rel="noopener">Foundation Repair Advocate</a> out there — give them a call.
+      </p>
+
       <div class="sandia-note">
         <span class="sandia-note-eyebrow">A note on how we're structured</span>
         <p>
           TLS Foundations and <a href="https://www.sandiageo.com" target="_blank" rel="noopener">Sandia GEO</a> are
           owned by the same principals. We keep investigation and repair as separate revenue streams on purpose —
           so that when we evaluate your foundation, the recommendation follows the evidence, not the invoice.
-        </p>
-        <p>
-          Outside New Mexico, the same principals also operate <a
-            href="https://www.foundationrepairadvocate.com"
-            target="_blank"
-            rel="noopener">Foundation Repair Advocate</a>, an independent floor-survey and second-opinion service
-          for homeowners in Arizona's White Mountains — built on that same rule: no stake in the repair, no
-          diagnosis for sale.
         </p>
       </div>
 
@@ -404,8 +403,24 @@ const schema = [
     line-height: 1.85;
     margin: 0;
   }
-  .sandia-note p + p {
-    margin-top: 14px;
+  .az-aside {
+    max-width: 660px;
+    margin: 40px auto 0;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--muted);
+    text-align: left;
+    line-height: 1.7;
+  }
+  .az-aside a {
+    color: var(--slate);
+    border-bottom: 1px solid var(--stone);
+    text-decoration: none;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .az-aside a:hover {
+    color: var(--blue);
+    border-color: var(--gold-text);
   }
   .sandia-note a {
     color: var(--slate);
