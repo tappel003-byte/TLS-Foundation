@@ -363,6 +363,17 @@ const regions = [
   { name: 'Southern New Mexico', url: '/southern-new-mexico' },
 ];
 
+// Optional, finer-grained than region -- purely a "where are our visitors
+// coming from" signal (tracked via GA4), not tied to any content
+// personalization the way region is.
+const cities = [
+  'Alamogordo', 'Albuquerque', 'Artesia', 'Belen', 'Bernalillo', 'Carlsbad',
+  'Clovis', 'Deming', 'Espanola', 'Farmington', 'Gallup', 'Grants', 'Hobbs',
+  'Las Cruces', 'Las Vegas, NM', 'Los Alamos', 'Los Lunas', 'Portales',
+  'Rio Rancho', 'Roswell', 'Ruidoso', 'Santa Fe', 'Silver City', 'Socorro',
+  'Taos', 'Other / not listed',
+];
+
 const allSymptoms = categories.flatMap((c) => c.items);
 
 // Facet definitions -- shared vocabulary with cause-library-v2.astro so
@@ -484,6 +495,12 @@ const schema = [
             <select id="regionSelect" aria-label="Select your region">
               <option value="">Select your region (optional)</option>
               {regions.map((r) => <option value={r.url}>{r.name}</option>)}
+            </select>
+          </div>
+          <div class="region-row">
+            <select id="citySelect" aria-label="Select your city or town (optional)">
+              <option value="">Select your city or town (optional)</option>
+              {cities.map((c) => <option value={c}>{c}</option>)}
             </select>
           </div>
         </fieldset>
@@ -659,6 +676,15 @@ const schema = [
     }
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ url, name }));
     track('region_selected', { region: name });
+  });
+
+  // City is purely optional and purely a "where are visitors coming
+  // from" signal -- no content on this page changes based on it, unlike
+  // region, so it's just tracked, nothing more.
+  const citySelect = document.getElementById('citySelect') as HTMLSelectElement;
+  citySelect.addEventListener('change', () => {
+    if (!citySelect.value) return;
+    track('city_selected', { city: citySelect.value });
   });
 
   // "Do you have building plans" is a prep tip, not a fact that predicts
@@ -1037,6 +1063,7 @@ const schema = [
     cursor: pointer;
     padding: 4px 0;
   }
+  .region-row + .region-row { margin-top: 10px; }
   .region-row select {
     width: 100%;
     font-family: 'DM Mono', monospace;
