@@ -1029,23 +1029,28 @@ const schema = [
     margin-bottom: 12px;
   }
   .related-reading-list { display: flex; flex-direction: column; gap: 10px; }
-  .related-reading-item {
+  /* These three are built with document.createElement in JS, not present
+     in this file's template -- Astro only scopes elements it sees at
+     build time, so plain unscoped selectors here silently never match
+     and the links fall back to default browser blue/purple. :global()
+     is required for anything created at runtime. */
+  :global(.related-reading-item) {
     display: block;
     text-decoration: none;
     padding: 10px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
-  .related-reading-item:last-child { border-bottom: none; }
-  .related-reading-title {
+  :global(.related-reading-item:last-child) { border-bottom: none; }
+  :global(.related-reading-title) {
     display: block;
     font-family: 'Source Serif 4', serif;
     font-size: 0.88rem;
     font-weight: 600;
-    color: var(--white);
+    color: #fff;
     margin-bottom: 3px;
   }
-  .related-reading-item:hover .related-reading-title { color: var(--gold-light); }
-  .related-reading-blurb { display: block; font-size: 0.78rem; color: rgba(255, 255, 255, 0.55); line-height: 1.5; }
+  :global(.related-reading-item:hover .related-reading-title) { color: var(--gold-light); }
+  :global(.related-reading-blurb) { display: block; font-size: 0.78rem; color: rgba(255, 255, 255, 0.55); line-height: 1.5; }
   .handoff { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; }
   .handoff-text { color: rgba(255, 255, 255, 0.65); font-size: 0.85rem; line-height: 1.6; margin: 0 0 12px; }
   .handoff-btn {
@@ -1189,7 +1194,10 @@ const schema = [
     .page { padding: 0; max-width: 100%; }
     .outcome-box { background: none; border: 1px solid #999; padding: 16px; }
     .outcome-label, .related-reading-label { color: #444; }
-    .outcome-text, .outcome-triage, .related-reading-title, .related-reading-blurb, .outcome-phone {
+    .outcome-text, .outcome-triage, .outcome-phone {
+      color: #000 !important;
+    }
+    :global(.related-reading-title), :global(.related-reading-blurb) {
       color: #000 !important;
     }
     .symptom:not(.matched) { display: none; }
