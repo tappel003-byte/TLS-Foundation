@@ -751,12 +751,12 @@ const verdictDefs: Record<string, string> = {
                   </span>
                   <span class="verdict-def" hidden></span>
                 </div>
-                <p class="cause-match-tag" data-match-tag hidden></p>
                 <p class="specimen-desc">{c.what}</p>
                 <button type="button" class="continue-reading" data-detail-toggle>Continue reading →</button>
                 <div class="warning-drawer" id={c.anchorId} hidden>
                   <div class="warning-drawer-inner">
                     <span class="symptom-category-badge">{c.groupTitle}</span>
+                    <p class="cause-match-tag" data-match-tag hidden></p>
                     {c.where && <p><span class="field-label">Where in NM</span>{c.where}</p>}
                     <p><span class="field-label">Underpinning appropriate?</span>{c.underpinning}</p>
                     {c.homeownerAction && (
@@ -1261,7 +1261,8 @@ const verdictDefs: Record<string, string> = {
   .verdict-weak { background: var(--sand); color: var(--muted); border: 1px solid var(--stone); }
   .verdict-weak .verdict-q { color: var(--slate); }
   .cause-match-tag {
-    margin: -8px 20px 12px;
+    display: block;
+    margin: 0 0 16px !important;
     font-family: 'DM Mono', monospace;
     font-size: 0.72rem;
     letter-spacing: 0.2px;
@@ -1269,6 +1270,7 @@ const verdictDefs: Record<string, string> = {
     background: var(--sand);
     border-radius: 6px;
     padding: 6px 10px;
+    width: fit-content;
   }
   .specimen-desc {
     font-size: 15px;
