@@ -1691,18 +1691,19 @@ const verdictDefs: Record<string, string> = {
   .continue-reading {
     display: block;
     width: 100%;
-    background: none;
+    background: var(--sand);
     border: none;
     border-top: 1px solid var(--stone);
     font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
+    font-weight: 700;
+    font-size: 0.85rem;
     letter-spacing: 0.5px;
     color: var(--gold-text);
-    padding: 12px 20px;
+    padding: 14px 20px;
     text-align: left;
     cursor: pointer;
   }
-  .continue-reading:hover { background: var(--cream); }
+  .continue-reading:hover { background: var(--stone); }
   .warning-drawer-inner {
     font-size: 15px;
     line-height: 1.8;
