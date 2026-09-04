@@ -704,20 +704,6 @@ const verdictDefs: Record<string, string> = {
     </section>
 
     <div class="page">
-      <div class="diagnostic-note">
-        <p>
-          A headache doesn't always mean something serious, and a crack doesn't always mean the foundation is
-          failing — but you can't tell which from the sign alone. That's the same logic here: rather than group
-          these by soil mechanism, they're grouped by what the sign actually means for you.
-        </p>
-        <p class="tier-jump">
-          <a href="#tier-1"><span class="tier-jump-num">01</span> Rule This Out First</a>
-          <a href="#tier-2"><span class="tier-jump-num">02</span> Needs a Closer Look</a>
-          <a href="#tier-3"><span class="tier-jump-num">03</span> Usually Structural</a>
-        </p>
-        <p><strong>This is a reference, not a diagnosis.</strong> No visual inspection alone — including this page — can tell these apart with certainty; a floor-level survey does that.</p>
-      </div>
-
       <!-- CHECK ALL THAT APPLY -->
       <div class="facet-panel" id="facetPanel">
         <div class="facet-panel-head">
@@ -908,6 +894,10 @@ const verdictDefs: Record<string, string> = {
       <div class="contact-footer">
         <p><strong>If this matches what you're seeing, the next step is having someone confirm it in person.</strong></p>
         <p><a href="tel:5059914180">(505) 991-4180</a> · <a href="/contact-us">Send a message</a></p>
+        <p class="contact-footer-sub">
+          This is a reference, not a diagnosis — no visual inspection alone, including this page, can tell these
+          apart with certainty; a floor-level survey does that.
+        </p>
         <p class="contact-footer-sub">
           Prefer the short version first? <a href="/why-foundations-move-v2">Why Foundations Move</a> covers the
           five most common patterns and how underpinning decisions actually get made.
@@ -1396,48 +1386,8 @@ const verdictDefs: Record<string, string> = {
   .page-hero-sub { font-size: 17px; font-weight: 300; color: rgba(255, 255, 255, 0.6); line-height: 1.8; max-width: 680px; }
   .page-hero-sub a { color: var(--gold-light); text-decoration: underline; }
 
-  .diagnostic-note {
-    background: var(--sand);
-    border-left: 4px solid var(--gold);
-    padding: 20px 28px;
-    margin: 40px 0 24px;
-    font-size: 0.9rem;
-    line-height: 1.7;
-    color: var(--slate);
-  }
-  .diagnostic-note p + p { margin-top: 16px; }
-  .diagnostic-note strong { color: var(--blue); }
-  .tier-jump { display: flex; flex-wrap: wrap; gap: 10px; }
-  .tier-jump a {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.5px;
-    color: var(--blue);
-    background: var(--white);
-    border: 1px solid var(--stone);
-    border-radius: 20px;
-    padding: 6px 12px 6px 8px;
-    text-decoration: none;
-  }
-  .tier-jump a:hover { border-color: var(--gold); color: var(--gold-text); }
-  .tier-jump-num {
-    font-weight: 600;
-    color: var(--gold-text);
-    background: var(--sand);
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 9px;
-  }
-
   /* ── Check-all-that-apply panel (shared with symptom-guide-v2) ── */
-  .facet-panel { background: var(--white); border: 1px solid var(--stone); border-radius: 12px; padding: 28px 28px 20px; margin-bottom: 24px; }
+  .facet-panel { background: var(--white); border: 1px solid var(--stone); border-radius: 12px; padding: 28px 28px 20px; margin: 40px 0 24px; }
   .facet-panel-head { margin-bottom: 20px; }
   .facet-panel-label {
     display: block;
