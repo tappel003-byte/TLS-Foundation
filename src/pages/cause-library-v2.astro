@@ -575,6 +575,57 @@ causesByTier.forEach((tier) => {
   tier.causes.forEach((c) => (causeOrder[c.code] = orderCounter++));
 });
 
+// Region dropdown first, city dropdown populated from that region's real
+// city list once a region is picked -- identical to symptom-guide-v2's
+// picker (same data, same localStorage key) so the choice carries either
+// direction, same as the checkbox facets below.
+const regionCities = [
+  {
+    region: 'Four Corners',
+    url: '/four-corners',
+    cities: ['Farmington', 'Aztec', 'Bloomfield', 'Kirtland', 'Gallup', 'Grants', 'Shiprock'],
+  },
+  {
+    region: 'Northern New Mexico',
+    url: '/northern-new-mexico',
+    cities: [
+      'Taos', 'Ranchos de Taos', 'Arroyo Seco', 'Questa', 'Red River', 'Ojo Caliente',
+      'Mora', 'Wagon Mound', 'Chacon', 'Cleveland', 'Guadalupita', 'Roy',
+      'Raton', 'Springer', 'Angel Fire', 'Cimarron', 'Eagle Nest', 'Maxwell',
+    ],
+  },
+  {
+    region: 'Central New Mexico',
+    url: '/central-new-mexico',
+    cities: [
+      'Albuquerque', 'Rio Rancho', 'Corrales', 'Bernalillo', 'Los Lunas', 'Belen',
+      'Santa Fe', 'Española', 'Los Alamos', 'White Rock', 'Pojoaque', 'Chimayó',
+      'Estancia', 'Moriarty', 'Mountainair', 'Willard', 'McIntosh', 'Edgewood',
+    ],
+  },
+  {
+    region: 'Eastern New Mexico',
+    url: '/eastern-new-mexico',
+    cities: [
+      'Clovis', 'Portales', 'Tucumcari', 'Fort Sumner', 'Santa Rosa', 'Clayton',
+      'Roswell', 'Artesia', 'Carlsbad', 'Dexter', 'Hagerman', 'Loving',
+      'Deming', 'Silver City', 'Bayard', 'Columbus', 'Hurley',
+      'Lordsburg', 'Animas', 'Hachita', 'Rodeo', 'Playas',
+    ],
+  },
+  {
+    region: 'Southern New Mexico',
+    url: '/southern-new-mexico',
+    cities: [
+      'Las Cruces', 'Mesilla', 'Doña Ana', 'Anthony', 'Sunland Park', 'Organ',
+      'Hatch', 'Rincon', 'Garfield', 'Arrey', 'Derry',
+      'Alamogordo', 'Tularosa', 'La Luz', 'Holloman AFB', 'Three Rivers',
+      'Ruidoso', 'Cloudcroft', 'Alto', 'Capitan', 'Carrizozo',
+      'Socorro', 'Truth or Consequences', 'Magdalena', 'Elephant Butte',
+    ],
+  },
+];
+
 // Same facet vocabulary as symptom-guide-v2.astro -- checked boxes carry
 // forward through the handoff link on either page via URL params.
 const onsetOptions = [
@@ -669,6 +720,24 @@ const verdictDefs: Record<string, string> = {
           <p class="facet-panel-sub">This describes common patterns, not an evaluation of your home — the safest step, if you're ever unsure, is to have someone look.</p>
           <p class="facet-panel-note">Same checklist on the <a href="/symptom-guide-v2">Symptom Guide</a> — check it once and we'll carry your answers over, either direction.</p>
         </div>
+
+        <fieldset class="facet-group">
+          <legend>Where are you in New Mexico?</legend>
+          <div class="region-row">
+            <select id="regionSelect" aria-label="Select your region (optional)">
+              <option value="">Select your region (optional)</option>
+              {regionCities.map((r) => (
+                <option value={r.region} data-region-url={r.url}>{r.region}</option>
+              ))}
+              <option value="Other / not listed">Other / not listed</option>
+            </select>
+            <select id="citySelect" aria-label="Select your city or town (optional)" disabled>
+              <option value="">Select your region first</option>
+            </select>
+          </div>
+          <p class="facet-tip" id="regionLinkTip" hidden></p>
+          <script type="application/json" id="regionCitiesData" set:html={JSON.stringify(regionCities)} />
+        </fieldset>
 
         <fieldset class="facet-group">
           <legend>What kind of foundation do you have? <span class="facet-group-note">(check the one you're sure of)</span></legend>
@@ -818,6 +887,111 @@ const verdictDefs: Record<string, string> = {
     if (typeof (window as any).gtag === 'function') (window as any).gtag('event', name, params);
   }
 
+  // Region picker first, city picker populated from that region's real city
+  // list once a region is chosen. Same localStorage key as symptom-guide-v2
+  // so a choice made on either page is remembered on both.
+  const STORAGE_KEY = 'tls-region';
+  const regionSelect = document.getElementById('regionSelect') as HTMLSelectElement;
+  const citySelect = document.getElementById('citySelect') as HTMLSelectElement;
+  const regionLinkTip = document.getElementById('regionLinkTip') as HTMLElement;
+  const regionData = JSON.parse(document.getElementById('regionCitiesData')!.textContent || '[]') as {
+    region: string;
+    url: string;
+    cities: string[];
+  }[];
+
+  function populateCities(regionName: string, selectedCity = '') {
+    citySelect.innerHTML = '';
+    const region = regionData.find((r) => r.region === regionName);
+    if (!region) {
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = regionName ? 'City (optional)' : 'Select your region first';
+      citySelect.appendChild(opt);
+      citySelect.disabled = true;
+      return;
+    }
+    citySelect.disabled = false;
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Select your city or town (optional)';
+    citySelect.appendChild(placeholder);
+    region.cities.forEach((c) => {
+      const opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = c;
+      citySelect.appendChild(opt);
+    });
+    const other = document.createElement('option');
+    other.value = 'Other / not listed';
+    other.textContent = 'Other / not listed';
+    citySelect.appendChild(other);
+    citySelect.value = selectedCity;
+  }
+
+  function showRegionTip(region: string, url: string) {
+    if (region && url) {
+      regionLinkTip.hidden = false;
+      regionLinkTip.innerHTML = `<a href="${url}">More about the ${region} region →</a>`;
+    } else {
+      regionLinkTip.hidden = true;
+    }
+  }
+
+  populateCities('');
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlRegion = urlParams.get('region');
+  if (urlRegion) {
+    // Arriving via the handoff from symptom-guide-v2 with a region already
+    // picked -- URL wins over whatever's in localStorage from a prior visit.
+    const opt = Array.from(regionSelect.options).find((o) => o.value === urlRegion);
+    const url = opt?.dataset.regionUrl || '';
+    const urlCity = urlParams.get('city') || '';
+    regionSelect.value = urlRegion;
+    populateCities(urlRegion, urlCity);
+    showRegionTip(urlRegion, url);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ region: urlRegion, url, city: urlCity }));
+  } else {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const { region, url, city } = JSON.parse(saved);
+        if (region) {
+          regionSelect.value = region;
+          populateCities(region, city || '');
+          showRegionTip(region, url || '');
+        }
+      } catch {
+        /* ignore malformed storage */
+      }
+    }
+  }
+
+  regionSelect.addEventListener('change', () => {
+    const region = regionSelect.value;
+    const opt = regionSelect.options[regionSelect.selectedIndex];
+    const url = opt.dataset.regionUrl || '';
+    populateCities(region);
+    if (!region) {
+      localStorage.removeItem(STORAGE_KEY);
+      regionLinkTip.hidden = true;
+      return;
+    }
+    showRegionTip(region, url);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ region, url, city: '' }));
+    track('region_selected', { region });
+  });
+
+  citySelect.addEventListener('change', () => {
+    const city = citySelect.value;
+    const region = regionSelect.value;
+    const opt = regionSelect.options[regionSelect.selectedIndex];
+    const url = opt.dataset.regionUrl || '';
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ region, url, city }));
+    track('city_selected', { city, region: region || 'unspecified' });
+  });
+
   const grid = document.getElementById('causeGrid') as HTMLElement;
   const otherStrip = document.getElementById('otherStrip') as HTMLButtonElement;
   const resultsLead = document.getElementById('resultsLead') as HTMLElement;
@@ -901,6 +1075,8 @@ const verdictDefs: Record<string, string> = {
     if (checked.see.length) params.set('see', checked.see.join(','));
     if (checked.site.length) params.set('site', checked.site.join(','));
     if (checked.foundation.length) params.set('foundation', checked.foundation.join(','));
+    if (regionSelect.value) params.set('region', regionSelect.value);
+    if (citySelect.value) params.set('city', citySelect.value);
     outcomePill.href = '/symptom-guide-v2' + (params.toString() ? '?' + params.toString() : '');
   }
 
@@ -979,9 +1155,8 @@ const verdictDefs: Record<string, string> = {
   outcomePill.addEventListener('click', () => track('cross_page_handoff', { from: 'cause-library', to: 'symptom-guide' }));
 
   // Arriving via the handoff from symptom-guide-v2 -- pre-check boxes from the URL.
-  const params = new URLSearchParams(window.location.search);
   ['onset', 'see', 'site', 'foundation'].forEach((group) => {
-    const val = params.get(group);
+    const val = urlParams.get(group);
     if (!val) return;
     val.split(',').forEach((id) => {
       const cb = checkboxes.find((c) => c.name === group && c.value === id);
@@ -1142,6 +1317,37 @@ const verdictDefs: Record<string, string> = {
   .facet-group { border: none; padding: 0; margin: 0 0 20px; }
   .facet-group legend { font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 0.95rem; color: var(--blue); padding: 0; margin-bottom: 10px; }
   .facet-group-note { font-weight: 400; font-size: 0.78rem; color: var(--muted); }
+  .facet-tip {
+    margin: 12px 0 0;
+    font-size: 0.82rem;
+    color: var(--gold-text);
+    background: var(--sand);
+    border-radius: 6px;
+    padding: 10px 14px;
+  }
+  .facet-tip a { color: inherit; font-weight: 600; text-decoration: underline; }
+  .region-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .region-row select {
+    flex: 1 1 220px;
+    width: 100%;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--blue);
+    background: var(--cream);
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    padding: 10px 14px;
+    cursor: pointer;
+  }
+  .region-row select:disabled {
+    color: var(--muted);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
   .facet-options { display: flex; flex-wrap: wrap; gap: 8px; }
   .facet-chip {
     display: inline-flex;

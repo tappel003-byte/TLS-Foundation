@@ -754,17 +754,31 @@ const schema = [
 
   populateCities('');
 
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved) {
-    try {
-      const { region, url, city } = JSON.parse(saved);
-      if (region) {
-        regionSelect.value = region;
-        populateCities(region, city || '');
-        showRegionTip(region, url || '');
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlRegion = urlParams.get('region');
+  if (urlRegion) {
+    // Arriving via the handoff from cause-library-v2 with a region already
+    // picked -- URL wins over whatever's in localStorage from a prior visit.
+    const opt = Array.from(regionSelect.options).find((o) => o.value === urlRegion);
+    const url = opt?.dataset.regionUrl || '';
+    const urlCity = urlParams.get('city') || '';
+    regionSelect.value = urlRegion;
+    populateCities(urlRegion, urlCity);
+    showRegionTip(urlRegion, url);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ region: urlRegion, url, city: urlCity }));
+  } else {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const { region, url, city } = JSON.parse(saved);
+        if (region) {
+          regionSelect.value = region;
+          populateCities(region, city || '');
+          showRegionTip(region, url || '');
+        }
+      } catch {
+        /* ignore malformed storage */
       }
-    } catch {
-      /* ignore malformed storage */
     }
   }
 
@@ -961,6 +975,8 @@ const schema = [
     if (checked.see.length) params.set('see', checked.see.join(','));
     if (checked.site.length) params.set('site', checked.site.join(','));
     if (checked.foundation.length) params.set('foundation', checked.foundation.join(','));
+    if (regionSelect.value) params.set('region', regionSelect.value);
+    if (citySelect.value) params.set('city', citySelect.value);
     outcomePill.href = '/cause-library-v2' + (params.toString() ? '?' + params.toString() : '');
 
     buildRelatedReading();
@@ -1128,9 +1144,8 @@ const schema = [
   });
 
   // Arriving via the pill from cause-library-v2 -- pre-check boxes from the URL.
-  const params = new URLSearchParams(window.location.search);
   ['onset', 'see', 'site', 'foundation'].forEach((group) => {
-    const val = params.get(group);
+    const val = urlParams.get(group);
     if (!val) return;
     val.split(',').forEach((id) => {
       const cb = checkboxes.find((c) => c.name === group && c.value === id);
