@@ -30,6 +30,17 @@
 // Content itself (all 26 entries) is unchanged. Facet vocabulary synced with
 // symptom-guide-v2's expanded set (chimney, monolithic slab, spread footing)
 // so a handoff either direction pre-checks correctly.
+//
+// Sixth pass: dropped the per-card A1/C3-style code badge (a relic of the
+// old Group A-F layout, unread by any script). Dropped the search bar --
+// with the tier structure doing the organizing, it didn't have a place.
+// Added a "Try this yourself first" homeowner action item, but only to the
+// Tier 1 causes where a real DIY self-check exists (plumbing/water bill,
+// drainage, irrigation, trees, animal burrows) -- the rest of Tier 1 (deep
+// karst, regional groundwater, post-tension cable, frost heave) is "rule
+// out first" because underpinning usually isn't the fix even after a
+// professional looks, not because there's something a homeowner can check
+// themselves, so those were left without one rather than inventing a step.
 import Layout from '../layouts/Layout.astro';
 
 const title = 'The Cause Library — Why Foundations Move | TLS Foundations';
@@ -48,6 +59,13 @@ interface Cause {
   underpinning: string;
   missed?: string;
   regional?: string;
+  // A real self-check a homeowner can do, only where one genuinely exists --
+  // some verdict-weak causes are "rule out first" because underpinning
+  // usually isn't the fix even after a professional investigation (deep
+  // karst, regional groundwater, post-tension cable, frost heave), not
+  // because there's something to check yourself. Leave those without one
+  // rather than inventing a DIY step that isn't real.
+  homeownerAction?: string;
   related?: { text: string; href: string }[];
   anchorId?: string;
   onset: string[];
@@ -217,6 +235,7 @@ const groups: Group[] = [
         what: 'Leaks from supply, sewer, or drains saturate soil, causing heave, collapse, or erosion. Sewer leaks are especially insidious — they are deep, persistent, and often go undetected for years.',
         underpinning: 'No while leak active. Repair leak first, allow soil to stabilize, then reassess.',
         missed: "Many repair contracts signed without sewer camera inspection. A plumber fixes the pipe; a contractor sells piers — but nobody evaluates whether the soil will stabilize on its own once the water stops. A patch of unusually green, lush grass over a sewer line — even in a drought — is a common outdoor tell homeowners notice before anything shows up inside.",
+        homeownerAction: "Check your water bill for a jump that doesn't have an obvious explanation, and ask for a static pressure test of the sewer line below the slab — not just a camera inspection, which can miss what a pressure test catches.",
         onset: ['sudden'],
         see: ['see-leak-signs', 'see-floors'],
         site: ['site-plumbing'],
@@ -230,6 +249,7 @@ const groups: Group[] = [
         what: 'Water ponds against foundation due to improper grading, missing gutters, short downspouts, or hardscape directing runoff toward the building.',
         underpinning: 'Almost never. Drainage correction should always come first; in many cases, it eliminates the movement entirely.',
         missed: 'Less profitable to fix gutters than sell piers. This is the single most controllable factor in foundation performance.',
+        homeownerAction: 'After the next rain, walk the perimeter and look for water pooling against the foundation, missing gutters, or downspouts dumping right at the wall — extend them out and regrade if the ground slopes toward the house.',
         onset: ['seasonal', 'gradual'],
         see: ['see-drainage'],
         site: [],
@@ -243,6 +263,7 @@ const groups: Group[] = [
         what: 'Sprinklers or drip lines against foundation create moisture differential between irrigated perimeter and dry native soil. Evaporative cooler drain lines and condensate, running against a wall for years without anyone noticing, are a common New Mexico-specific version of the same problem.',
         underpinning: 'Almost never. Move irrigation away; establish a dry buffer zone. Check where the swamp cooler drains, too.',
         missed: 'Homeowners rarely connect watering habits — or where the evaporative cooler dumps its water — to foundation cracks.',
+        homeownerAction: "Stop watering plants right next to the foundation and establish a dry buffer zone — and check where your evaporative cooler drains; a line running against the wall for years is a common overlooked source.",
         onset: ['gradual'],
         see: ['see-drainage'],
         site: ['site-trees'],
@@ -256,6 +277,7 @@ const groups: Group[] = [
         what: 'Large trees extract moisture from soil, causing shrinkage and settlement.',
         where: 'Rio Grande Valley, irrigated areas with cottonwoods, elms.',
         underpinning: 'Rarely as first step. Root barriers, pruning, tree management first.',
+        homeownerAction: 'If a large tree sits close to the house, have it looked at for root barriers or pruning before assuming the movement is structural.',
         onset: ['gradual'],
         see: ['see-cracks-exterior'],
         site: ['site-trees'],
@@ -269,6 +291,7 @@ const groups: Group[] = [
         what: 'New construction, paving, or landscaping on neighboring properties changes water infiltration patterns.',
         underpinning: 'Rarely. Identify what changed and correct if possible.',
         missed: "Focus stays on damaged house; nobody looks at neighbor's property.",
+        homeownerAction: "Think back to what's changed next door recently — new construction, paving, or landscaping — and whether it's now sending water toward your house instead of away from it.",
         onset: ['gradual'],
         see: ['see-drainage'],
         site: [],
@@ -469,6 +492,7 @@ const groups: Group[] = [
         verdictClass: 'verdict-weak',
         what: 'Prairie dogs, gophers create tunnels and voids.',
         underpinning: 'Not typically. Void filling and animal management first.',
+        homeownerAction: 'Walk the foundation perimeter and look for burrow openings from prairie dogs or gophers, and get animal management started before assuming the movement is soil-related.',
         onset: ['gradual'],
         see: ['see-foundation-gap'],
         site: [],
@@ -684,10 +708,6 @@ const verdictDefs: Record<string, string> = {
         </div>
       </div>
 
-      <div class="filter-bar">
-        <input type="search" id="causeSearch" placeholder="Search causes — e.g. &quot;caliche&quot;" aria-label="Search causes" />
-      </div>
-
       <p class="results-lead" id="resultsLead" hidden>Ranked by how closely it matches what you checked — the tiers step aside once we're ranking; the closest matches simply rise to the top.</p>
 
       <div class="tier-grid" id="causeGrid">
@@ -703,7 +723,6 @@ const verdictDefs: Record<string, string> = {
             {tier.causes.map((c) => (
               <article
                 class="specimen-card"
-                data-search={c.name.toLowerCase()}
                 data-order={causeOrder[c.code]}
                 style={`order:${causeOrder[c.code]}`}
                 data-onset={c.onset.join(',')}
@@ -729,6 +748,9 @@ const verdictDefs: Record<string, string> = {
                     <p><span class="field-label">What it is</span>{c.what}</p>
                     {c.where && <p><span class="field-label">Where in NM</span>{c.where}</p>}
                     <p><span class="field-label">Underpinning appropriate?</span>{c.underpinning}</p>
+                    {c.homeownerAction && (
+                      <p class="homeowner-action"><span class="field-label">Try this yourself first</span>{c.homeownerAction}</p>
+                    )}
                     {c.missed && <p><span class="field-label">Commonly missed</span>{c.missed}</p>}
                     {c.regional && <p><span class="field-label">Regional variations</span>{c.regional}</p>}
                     {c.related && (
@@ -791,7 +813,6 @@ const verdictDefs: Record<string, string> = {
   const outcomeText = document.getElementById('outcomeText') as HTMLElement;
   const outcomePill = document.getElementById('outcomePill') as HTMLAnchorElement;
   let stripOpen = false;
-  let searchQuery = '';
 
   function getChecked() {
     const onset = checkboxes.filter((c) => c.checked && c.name === 'onset').map((c) => c.value);
@@ -855,22 +876,17 @@ const verdictDefs: Record<string, string> = {
     outcomePill.href = '/symptom-guide-v2' + (params.toString() ? '?' + params.toString() : '');
   }
 
-  function matchesSearch(it: (typeof items)[number]) {
-    if (!searchQuery) return true;
-    return it.el.dataset.search!.includes(searchQuery) || it.el.textContent!.toLowerCase().includes(searchQuery);
-  }
-
   function applySort() {
     const checked = getChecked();
     const anyChecked = checked.onset.length + checked.see.length + checked.site.length + checked.foundation.length > 0;
     clearBtn.hidden = !anyChecked;
     resultsLead.hidden = !anyChecked;
-    tierHeaders.forEach((h) => (h.hidden = anyChecked || !!searchQuery));
+    tierHeaders.forEach((h) => (h.hidden = anyChecked));
 
     if (!anyChecked) {
       items.forEach((it) => {
         it.el.classList.remove('matched');
-        it.el.hidden = !matchesSearch(it);
+        it.el.hidden = false;
         it.el.style.order = it.el.dataset.order || '0';
         const tag = it.el.querySelector<HTMLElement>('[data-match-tag]');
         if (tag) tag.hidden = true;
@@ -887,7 +903,7 @@ const verdictDefs: Record<string, string> = {
 
     matched.forEach(({ it }, i) => {
       it.el.classList.add('matched');
-      it.el.hidden = !matchesSearch(it);
+      it.el.hidden = false;
       it.el.style.order = String(i - 10000);
       const tag = it.el.querySelector<HTMLElement>('[data-match-tag]');
       if (tag) {
@@ -898,7 +914,7 @@ const verdictDefs: Record<string, string> = {
     });
     rest.forEach(({ it }) => {
       it.el.classList.remove('matched');
-      it.el.hidden = !stripOpen || !matchesSearch(it);
+      it.el.hidden = !stripOpen;
       it.el.style.order = it.el.dataset.order || '0';
       const tag = it.el.querySelector<HTMLElement>('[data-match-tag]');
       if (tag) tag.hidden = true;
@@ -945,12 +961,6 @@ const verdictDefs: Record<string, string> = {
     });
   });
   applySort();
-
-  const search = document.getElementById('causeSearch') as HTMLInputElement;
-  search.addEventListener('input', () => {
-    searchQuery = search.value.trim().toLowerCase();
-    applySort();
-  });
 
   // Accordion open/close, one at a time.
   function openCard(trigger: HTMLElement) {
@@ -1168,19 +1178,6 @@ const verdictDefs: Record<string, string> = {
   }
   .handoff-btn:hover { background: var(--gold); }
 
-  /* ── Search ── */
-  .filter-bar { margin-bottom: 24px; }
-  #causeSearch {
-    width: 100%;
-    font-family: 'Source Serif 4', serif;
-    font-size: 16px;
-    padding: 14px 18px;
-    border: 1px solid var(--stone);
-    border-radius: 8px;
-    background: var(--white);
-  }
-  #causeSearch:focus { outline: none; border-color: var(--gold); }
-
   /* ── Results lead-in ── */
   .results-lead {
     font-family: 'DM Mono', monospace;
@@ -1293,6 +1290,14 @@ const verdictDefs: Record<string, string> = {
   }
   .warning-drawer-inner p { margin-bottom: 16px; }
   .warning-drawer-inner p:last-child { margin-bottom: 0; }
+  .field-label { font-weight: 700; color: var(--blue); margin-right: 6px; }
+  .homeowner-action {
+    background: var(--sand);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px !important;
+  }
+  .homeowner-action .field-label { color: var(--gold-text); }
   .specimen-related { font-size: 14px !important; color: var(--muted); }
   .symptom-category-badge {
     display: inline-block;
