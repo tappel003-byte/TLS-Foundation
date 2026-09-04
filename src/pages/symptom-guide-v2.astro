@@ -27,6 +27,12 @@
 // and the "Draft (temp)" folder in Header.astro together once a direction
 // is picked.
 import Layout from '../layouts/Layout.astro';
+
+// Same Web3Forms delivery as contact-us.astro (no backend needed on a
+// static Cloudflare Workers site) -- same access key, so signing up once
+// (see the TODO in contact-us.astro) turns this on everywhere at once.
+// Until then, the form shows the same "not hooked up yet" fallback.
+const WEB3FORMS_ACCESS_KEY = '';
 import ReferenceNav from '../components/ReferenceNav.astro';
 
 const title = 'Foundation Symptom Guide — What Cracks, Sticking Doors & Uneven Floors Mean | TLS Foundations';
@@ -617,6 +623,28 @@ const schema = [
         <div class="outcome-cta">
           <a href="tel:5059914180" class="outcome-phone">(505) 991-4180</a>
           <button type="button" id="printResults" class="outcome-print">Print your results</button>
+          <button type="button" id="sendResultsToggle" class="outcome-print" aria-expanded="false">Send this to TLS</button>
+        </div>
+
+        <div class="send-form-wrap" id="sendFormWrap" hidden>
+          <form id="sendResultsForm" class="send-form" novalidate>
+            <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+            <input type="hidden" name="subject" value="Symptom Guide results from tlsfoundations.com" />
+            <input type="hidden" name="from_name" value="TLS Foundations website" />
+            <input type="hidden" name="message" id="sendMessageField" />
+            <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" />
+            <p class="send-form-note">We'll send exactly what's on this page — what you checked, and the read above.</p>
+            <div class="form-row">
+              <label for="send-name">Name</label>
+              <input id="send-name" name="name" type="text" required autocomplete="name" />
+            </div>
+            <div class="form-row">
+              <label for="send-contact">Best way to reach you (email or phone)</label>
+              <input id="send-contact" name="email" type="text" required autocomplete="email" />
+            </div>
+            <button type="submit" class="form-submit">Send my results</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
         </div>
 
         <div class="outcome-more" id="outcomeMore">
@@ -957,8 +985,7 @@ const schema = [
     // naming or implying any specific repair method -- we don't know soil
     // conditions until this happens, so nothing here should sound like a
     // recommendation for piers, foam, or anything else.
-    const surveyClause =
-      'A floor-level survey and distress investigation is the right first step: it sets a baseline, gives us real data — a snapshot of where things stand right now — tells us more about the house itself, and is a proper investigation of the damage, not a sales pitch.';
+    const surveyClause = 'The first step is almost always the same: a floor-level survey and a distress investigation — think of it as triage, real data before anything else gets decided.';
 
     let text = '';
     if (tier === 'watch') {
@@ -1087,6 +1114,73 @@ const schema = [
   });
 
   outcomePill.addEventListener('click', () => track('handoff_to_cause_library'));
+
+  // "Send this to TLS" -- same content as the print version, sent through
+  // the same Web3Forms delivery as the main contact form (see the TODO on
+  // WEB3FORMS_ACCESS_KEY above).
+  function buildSendMessage(): string {
+    const checked = getChecked();
+    const lines: string[] = [];
+    if (regionSelect.value) lines.push(`Region: ${regionSelect.value}${citySelect.value ? ' — ' + citySelect.value : ''}`);
+    const parts = [...checked.onset, ...checked.see, ...checked.site, ...checked.foundation].map((id) => LABELS[id]).filter(Boolean);
+    if (parts.length) lines.push(`Checked: ${parts.join(', ')}`);
+    lines.push('');
+    lines.push(outcomeText.textContent || '');
+    lines.push('');
+    lines.push('Sent from the Symptom Guide at tlsfoundations.com/symptom-guide-v2');
+    return lines.join('\n');
+  }
+
+  const sendToggle = document.getElementById('sendResultsToggle') as HTMLButtonElement;
+  const sendFormWrap = document.getElementById('sendFormWrap') as HTMLElement;
+  const sendForm = document.getElementById('sendResultsForm') as HTMLFormElement;
+  const sendMessageField = document.getElementById('sendMessageField') as HTMLInputElement;
+  const sendStatus = sendForm.querySelector('.form-status') as HTMLElement;
+  const sendSubmitBtn = sendForm.querySelector('.form-submit') as HTMLButtonElement;
+  const sendAccessKey = (sendForm.querySelector('input[name="access_key"]') as HTMLInputElement).value;
+
+  sendToggle.addEventListener('click', () => {
+    const open = sendFormWrap.hidden;
+    sendFormWrap.hidden = !open;
+    sendToggle.setAttribute('aria-expanded', String(open));
+    if (open) track('send_to_tls_opened');
+  });
+
+  sendForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    sendMessageField.value = buildSendMessage();
+
+    if (!sendAccessKey) {
+      sendStatus.textContent = "This isn't hooked up yet — text or call (505) 991-4180 in the meantime.";
+      sendStatus.classList.add('is-error');
+      return;
+    }
+
+    sendSubmitBtn.disabled = true;
+    sendStatus.classList.remove('is-error');
+    sendStatus.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(sendForm))),
+      });
+      const data = await res.json();
+      if (data.success) {
+        sendStatus.textContent = "Sent — we'll be in touch.";
+        sendForm.reset();
+        track('send_to_tls_submitted');
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
+    } catch {
+      sendStatus.textContent = "Something went wrong — text or call (505) 991-4180 instead.";
+      sendStatus.classList.add('is-error');
+    } finally {
+      sendSubmitBtn.disabled = false;
+    }
+  });
 
   otherStrip.addEventListener('click', () => {
     stripOpen = !stripOpen;
@@ -1329,6 +1423,47 @@ const schema = [
   }
   .outcome-print:hover { color: var(--white); border-color: rgba(255, 255, 255, 0.5); }
   .print-header { display: none; }
+  .send-form-wrap { margin-bottom: 20px; padding: 18px 20px; background: rgba(0, 0, 0, 0.18); border-radius: 8px; }
+  .send-form-note { font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); margin: 0 0 14px; line-height: 1.6; }
+  .send-form .form-row { margin-bottom: 14px; }
+  .send-form label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 6px;
+  }
+  .send-form input[type='text'],
+  .send-form input[type='email'] {
+    width: 100%;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem;
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 10px 12px;
+  }
+  .send-form input[type='text']:focus,
+  .send-form input[type='email']:focus { outline: none; border-color: var(--gold); }
+  .send-form .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .send-form .form-submit {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+    color: var(--blue-dark);
+    background: var(--gold-light);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  .send-form .form-submit:hover { background: var(--gold); }
+  .send-form .form-submit:disabled { opacity: 0.6; cursor: default; }
+  .send-form .form-status { margin: 10px 0 0; font-size: 0.82rem; color: rgba(255, 255, 255, 0.75); }
+  .send-form .form-status.is-error { color: #f0a; }
   .outcome-more { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; margin-top: 20px; }
   .related-reading { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; margin-bottom: 18px; }
   .related-reading-label {
@@ -1541,7 +1676,7 @@ const schema = [
     }
     .page-hero, .diagnostic-note, .facet-panel,
     .filter-bar, .results-lead, .other-strip, .handoff, .contact-footer,
-    .outcome-print {
+    .outcome-print, .send-form-wrap {
       display: none !important;
     }
     .outcome-more { display: block !important; padding-top: 0; border-top: none; margin-top: 0; }
