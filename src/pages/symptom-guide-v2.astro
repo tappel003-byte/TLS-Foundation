@@ -102,7 +102,7 @@ const categories: Category[] = [
         needsRepair: "Most are cosmetic. If cracks are widening, if one side is higher than the other, or if you can feel a lip underfoot, evaluate.",
         nmContext:
           "New Mexico's extreme drying cycles accelerate concrete shrinkage cracking — more so than in humid climates. Not every slab crack is a foundation crack.",
-        links: [{ text: 'Foam Injection', href: '/foundation-repair-methods#foam-injection' }],
+        links: [],
         onset: ['gradual'],
         see: ['see-cracks-slab'],
         site: [],
@@ -618,11 +618,7 @@ const schema = [
           <button type="button" id="printResults" class="outcome-print">Print your results</button>
         </div>
 
-        <button type="button" id="outcomeMoreToggle" class="outcome-more-toggle" aria-expanded="false">
-          Continue reading — why it recommends the same first step, and related reading →
-        </button>
-
-        <div class="outcome-more" id="outcomeMore" hidden>
+        <div class="outcome-more" id="outcomeMore">
           <p class="outcome-triage">Notice most results point toward the same first step? That's deliberate — like a doctor taking vital signs before treating you, we gather real data before recommending anything else. The checkboxes narrow down what it's likely to be; the survey confirms it.</p>
           <div class="related-reading" id="relatedReading" hidden>
             <span class="related-reading-label">Related reading, based on your closest matches</span>
@@ -824,16 +820,6 @@ const schema = [
   const clearBtn = document.getElementById('facetClear') as HTMLButtonElement;
   const outcomeBox = document.getElementById('outcomeBox') as HTMLElement;
   const outcomeText = document.getElementById('outcomeText') as HTMLElement;
-  const outcomeMore = document.getElementById('outcomeMore') as HTMLElement;
-  const outcomeMoreToggle = document.getElementById('outcomeMoreToggle') as HTMLButtonElement;
-  outcomeMoreToggle.addEventListener('click', () => {
-    const open = outcomeMore.hidden;
-    outcomeMore.hidden = !open;
-    outcomeMoreToggle.setAttribute('aria-expanded', String(open));
-    outcomeMoreToggle.textContent = open
-      ? 'Show less ↑'
-      : 'Continue reading — why it recommends the same first step, and related reading →';
-  });
   const outcomePill = document.getElementById('outcomePill') as HTMLAnchorElement;
   const relatedReading = document.getElementById('relatedReading') as HTMLElement;
   const relatedReadingList = document.getElementById('relatedReadingList') as HTMLElement;
@@ -842,7 +828,6 @@ const schema = [
   const LINK_BLURBS: Record<string, string> = {
     '/expansive-soil': 'How clay soils that swell and shrink with moisture drive seasonal cracking and heave.',
     '/common-concerns#heave': 'Why heave and settlement look identical but need opposite repairs.',
-    '/foundation-repair-methods#foam-injection': "A lower-cost option for slab cracks that don't need deep piers.",
     '/common-concerns#wait': "When it's safe to monitor and when waiting makes things worse.",
     '/collapsible-soil': 'Soils that hold for decades dry, then collapse suddenly once wet.',
     '/foundation-repair-methods': 'The full range of repair approaches, not just piers.',
@@ -948,26 +933,25 @@ const schema = [
       return;
     }
     outcomeBox.hidden = false;
-    // Collapse back on every change -- the reading underneath (related
-    // reading especially) shifts with what's checked, so a stale open
-    // panel from a previous selection would be showing content that no
-    // longer matches.
-    outcomeMore.hidden = true;
-    outcomeMoreToggle.setAttribute('aria-expanded', 'false');
-    outcomeMoreToggle.textContent = 'Continue reading — why it recommends the same first step, and related reading →';
     const pattern = buildPattern(checked);
     const geotech = checked.site.includes('site-cutfill') || checked.site.includes('site-arroyo');
     const geotechClause = geotech
       ? ' If the site conditions point toward a deeper geotechnical question, we can loop in our affiliate Sandia GEO as well.'
       : '';
+    // What a floor-level survey actually does, stated plainly and without
+    // naming or implying any specific repair method -- we don't know soil
+    // conditions until this happens, so nothing here should sound like a
+    // recommendation for piers, foam, or anything else.
+    const surveyClause =
+      'A floor-level survey and distress investigation is the right first step: it sets a baseline, gives us real data — a snapshot of where things stand right now — tells us more about the house itself, and is a proper investigation of the damage, not a sales pitch.';
 
     let text = '';
     if (tier === 'watch') {
-      text = `${pattern} is a common, usually lower-urgency pattern. The way to know for sure is still to establish a baseline — a floor-level survey and distress investigation give you real documentation, so if anything changes later you're not starting from scratch. Call us and we'll walk you through what a simple monitoring program looks like.`;
+      text = `${pattern} is a common, usually lower-urgency pattern. The way to know for sure is still to check. ${surveyClause}${geotechClause} Call us and we'll walk you through what a simple monitoring program looks like.`;
     } else if (tier === 'evaluate') {
-      text = `${pattern} is worth having a professional look at, even if nothing here points to an emergency. A floor-level survey and distress investigation is the right first step — it tells us what's actually moving and how much.${geotechClause} Call us and we'll get that scheduled.`;
+      text = `${pattern} is worth having a professional look at, even if nothing here points to an emergency. ${surveyClause}${geotechClause} Call us and we'll get that scheduled.`;
     } else {
-      text = `${pattern} — especially sudden onset with more than one symptom at once — is the kind of pattern that usually warrants a closer look sooner rather than later. A floor-level survey and distress investigation is the necessary first step, before anyone should be talking about repair.${geotechClause} Call us and we'll get that scheduled.`;
+      text = `${pattern} — especially sudden onset with more than one symptom at once — is the kind of pattern that usually warrants a closer look sooner rather than later. ${surveyClause}${geotechClause} Call us and we'll get that scheduled.`;
     }
     outcomeText.textContent = text;
 
@@ -1329,22 +1313,7 @@ const schema = [
   }
   .outcome-print:hover { color: var(--white); border-color: rgba(255, 255, 255, 0.5); }
   .print-header { display: none; }
-  .outcome-more-toggle {
-    display: block;
-    width: 100%;
-    text-align: left;
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.5px;
-    color: var(--gold-light);
-    background: none;
-    border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 14px 0 0;
-    cursor: pointer;
-  }
-  .outcome-more-toggle:hover { color: var(--white); }
-  .outcome-more { padding-top: 18px; }
+  .outcome-more { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; margin-top: 20px; }
   .related-reading { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; margin-bottom: 18px; }
   .related-reading-label {
     display: block;
@@ -1556,13 +1525,10 @@ const schema = [
     }
     .page-hero, .diagnostic-note, .facet-panel,
     .filter-bar, .results-lead, .other-strip, .handoff, .contact-footer,
-    .outcome-print, .outcome-more-toggle {
+    .outcome-print {
       display: none !important;
     }
-    /* The triage note and related reading are collapsed behind a toggle
-       on screen, but there's no interactivity in print -- force them
-       visible regardless of whether the toggle was ever clicked. */
-    .outcome-more { display: block !important; padding-top: 0; }
+    .outcome-more { display: block !important; padding-top: 0; border-top: none; margin-top: 0; }
     .print-header { display: block; margin-bottom: 28px; border-bottom: 2px solid #000; padding-bottom: 16px; }
     .print-header-brand { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #000; }
     .print-header-phone { font-family: 'DM Mono', monospace; font-size: 13px; color: #000; margin-top: 4px; }
