@@ -60,7 +60,7 @@ const categories: Category[] = [
       {
         q: 'Diagonal cracks near doors or windows',
         whatsHappening:
-          'Differential settlement, seasonal soil movement, or framing shrinkage concentrating stress at the weakest points in the wall — door and window openings.',
+          '<a href="/glossary#differential-settlement" class="glossary-link">Differential settlement</a>, seasonal soil movement, or framing shrinkage concentrating stress at the weakest points in the wall — door and window openings.',
         needsRepair: 'Often not urgent. Monitor for progression. If actively widening, have it evaluated before assuming the cause.',
         nmContext:
           "Clay soil cycles drive seasonal cracking across the Rio Grande corridor. Heave and settlement produce identical-looking cracks — the wrong diagnosis leads to the wrong repair. A rough rule of thumb people use: a hairline crack is one thing, a crack wide enough to fit a coin or fingernail into is worth documenting closely.",
@@ -556,9 +556,9 @@ const schema = [
             >
               <span class="symptom-category-badge">{cat.label}</span>
               <h2>{s.q}</h2>
-              <p class="whats-happening"><strong>What's happening:</strong> {s.whatsHappening}</p>
-              <p class="needs-repair"><strong>Does it need repair?</strong> {s.needsRepair}</p>
-              <p class="nm-note">NM context: {s.nmContext}</p>
+              <p class="whats-happening"><strong>What's happening:</strong> <Fragment set:html={s.whatsHappening} /></p>
+              <p class="needs-repair"><strong>Does it need repair?</strong> <Fragment set:html={s.needsRepair} /></p>
+              <p class="nm-note">NM context: <Fragment set:html={s.nmContext} /></p>
               {s.links.length > 0 && (
                 <div class="symptom-links">
                   {s.links.map((l) => (
@@ -992,6 +992,8 @@ const schema = [
   }
   .symptom h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--blue); margin: 0 0 14px; line-height: 1.3; }
   .symptom p { font-size: 0.92rem; line-height: 1.75; color: var(--slate); margin: 0 0 10px; }
+  .glossary-link { color: var(--blue); text-decoration: underline; text-decoration-style: dotted; text-decoration-color: var(--gold); }
+  .glossary-link:hover { color: var(--gold-text); }
   .symptom .needs-repair { background: var(--sand); border-left: 3px solid var(--gold); padding: 10px 14px; color: var(--blue); border-radius: 0 6px 6px 0; }
   .symptom .nm-note { font-size: 0.82rem; color: var(--muted); border-left: 3px solid var(--gold); padding-left: 12px; font-style: italic; margin-bottom: 0; }
   .symptom-links { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--stone); display: flex; flex-wrap: wrap; gap: 12px; }
