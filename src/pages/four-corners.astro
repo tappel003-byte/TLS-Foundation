@@ -307,12 +307,13 @@ const schema = [
     text-transform: uppercase;
     color: var(--gold);
     /*
-      Text-shadow alone (even a tight one) still faded on a pale sky at
-      normal viewing size -- fine up close, not fine as a glance-by label.
-      A background box (same treatment as hero-sub/hero-cta) gives it a
-      fixed, reliable backdrop no matter what's in the photo behind it,
-      so the shadow here is just a small edge assist, not the primary
-      contrast mechanism.
+      Text-shadow alone (even a tight one, after an earlier fix removed
+      a halo-causing ambient glow layer) still faded on a pale sky at
+      normal viewing size -- fine up close, not fine as a glance-by
+      label. A background box (same treatment as hero-sub/hero-cta)
+      gives it a fixed, reliable backdrop no matter what's in the photo
+      behind it, so the shadow here is just a small edge assist, not
+      the primary contrast mechanism.
     */
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
     display: inline-block;

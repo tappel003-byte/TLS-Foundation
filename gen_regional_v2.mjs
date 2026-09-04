@@ -350,7 +350,7 @@ ${zonesHtml}
   .hero-h1 .w2 {
     display: block;
     font-style: italic;
-    color: var(--gold);
+    color: var(--${cfg.heroW2Color || 'gold'});
   }
   .hero-content .hero-sub {
     display: inline-block;
@@ -750,6 +750,11 @@ const northern = {
   heroImage: 'northern-new-mexico-hero.webp',
   heroLine1: 'Northern',
   heroLine2: 'New Mexico.',
+  // Bright blue sky/cloud photo behind this line -- gold reads as nearly
+  // unreadable there. Fixed white sitewide for the same photo class
+  // (also Eastern, Southern); Central, Four Corners, and Albuquerque have
+  // enough natural contrast and were deliberately left on the gold default.
+  heroW2Color: 'white',
   heroSub:
     "Elevation is the dominant variable here -- frost, basalt-derived clays, and coal mine subsidence unique to the Raton Basin. Not just a colder version of the same problems found elsewhere.",
   description:
@@ -932,30 +937,31 @@ const eastern = {
   heroImage: 'eastern-new-mexico-hero.webp',
   heroLine1: 'Eastern',
   heroLine2: 'New Mexico.',
+  heroW2Color: 'white',
   heroSub:
-    'Four basins, four different soil hazards -- expansive wind-deposited clays, Permian evaporite dissolution, aquifer subsidence, and collapsible alluvium. Treating them the same is a mistake.',
+    'Two basins, two different soil hazards -- expansive wind-deposited clays on the High Plains, Permian evaporite dissolution in the Pecos Valley. Treating them the same is a mistake.',
   description:
-    'High Plains, Pecos Valley, Mimbres and Lordsburg basins -- expansive clays, Permian evaporite dissolution, aquifer subsidence, and collapsible alluvium.',
+    'High Plains and Pecos Valley -- expansive wind-deposited clays and Permian evaporite dissolution.',
   summary:
-    "Eastern New Mexico covers the High Plains, Pecos Valley, Mimbres Basin, and Lordsburg Basin: expansive wind-deposited clays, Permian-age evaporite dissolution, aquifer compaction subsidence from decades of agricultural pumping, and collapsible fan alluvium. Several of these mechanisms -- subsidence especially -- aren't things foundation repair can reverse; they change what an honest evaluation even recommends.",
+    "Eastern New Mexico covers the High Plains and the Pecos Valley: expansive wind-deposited clays from the Dust Bowl era to the north, and Permian-age evaporite dissolution -- the same geology behind Carlsbad Caverns -- to the south. Dissolution voids especially aren't something foundation repair can reverse; that changes what an honest evaluation even recommends.",
   nextPage: { path: '/southern-new-mexico', name: 'Southern New Mexico' },
   majorCities: [
     { name: 'Clovis' },
     { name: 'Portales' },
     { name: 'Roswell' },
+    { name: 'Artesia' },
     { name: 'Carlsbad' },
-    { name: 'Deming' },
   ],
-  overviewEyebrow: 'High Plains to the Bootheel',
-  overviewHeading: 'Eastern New Mexico soils — <em>four basins, four different hazards</em>',
+  overviewEyebrow: 'High Plains & Pecos Valley',
+  overviewHeading: 'Eastern New Mexico soils — <em>two basins, two different hazards</em>',
   overviewParas: [
-    'East of the mountain ranges, New Mexico opens onto a different landscape entirely -- the High Plains to the north, the Pecos Valley running south through Roswell and Carlsbad, and the remote basins of the southwest corner that most of the state never thinks about. Each of these environments has its own subsurface character and its own foundation hazard.',
-    'The High Plains carries the legacy of the Dust Bowl in its soil -- wind-deposited smectite clays that shrink and swell with moisture. The Pecos Valley sits on Permian evaporite geology, the same formation that produced Carlsbad Caverns. The Mimbres Basin near Deming is experiencing aquifer compaction subsidence as decades of irrigation pumping lower the water table. The Lordsburg Basin has collapsible fan alluvium in a setting remote enough that problems go unaddressed for years.',
+    'East of the mountain ranges, New Mexico opens onto a different landscape entirely -- the High Plains to the north, and the Pecos Valley running south through Roswell and Carlsbad. Each of these environments has its own subsurface character and its own foundation hazard.',
+    'The High Plains carries the legacy of the Dust Bowl in its soil -- wind-deposited smectite clays that shrink and swell with moisture. The Pecos Valley sits on Permian evaporite geology, the same formation that produced Carlsbad Caverns -- dissolution here creates voids beneath foundations with no surface warning.',
   ],
-  statDesc: 'High Plains, Pecos Valley, Mimbres, and Lordsburg basins',
+  statDesc: 'High Plains and Pecos Valley -- two distinct hazards, one region',
   relatedReading: [
     '<a href="/glossary#evaporite-dissolution">Evaporite dissolution</a> -- the mechanism behind Pecos Valley subsidence.',
-    '<a href="/collapsible-soil">Collapsible Soil</a> -- the Lordsburg Basin\'s primary hazard.',
+    '<a href="/expansive-soil">Expansive Soil</a> -- the High Plains\' primary hazard.',
   ],
   zones: [
     {
@@ -1012,59 +1018,6 @@ const eastern = {
       communities:
         'Roswell · Artesia · Carlsbad · Dexter · Hagerman · Lake Arthur · Loving · Malaga · Whites City · Atoka · Hope · Lakewood · Otis · Queen · Berrendo · Eddy',
     },
-    {
-      id: 'mimbres-basin',
-      title: 'Mimbres Basin',
-      citiesShort: 'Deming · Silver City · Bayard · Columbus · Hurley',
-      tagline:
-        'A closed basin in the southwestern corner of the state where irrigation agriculture has drawn down an aquifer for decades -- and where aquifer depletion is beginning to show up as ground subsidence.',
-      whatWeSee:
-        'Deming sits in the middle of a dry agricultural plain that, until recently, was intensively irrigated from the Mimbres Valley aquifer. The soil is pale and alkaline -- caliche is visible in any excavation. Silver City to the north is on different terrain entirely -- older, harder formations in the upper Mimbres drainage with a mountain-town character. The two communities are in the same basin geologically but present different foundation environments.',
-      whatItDoes:
-        'In the Deming area, decades of aquifer pumping have removed water from the subsurface, allowing compressible sediments to consolidate under their own weight -- aquifer compaction subsidence. This produces gradual, relatively uniform ground settlement across large areas, slow and often unnoticed until the cumulative effect becomes visible. Buried Lake Palomas lacustrine clays in the deeper subsurface are expansive and complicate the picture. In Silver City, the upper Mimbres drainage terrain introduces shallow rock and mine-related subsidence in older areas.',
-      hazards: [
-        {
-          title: 'Aquifer depletion subsidence — Deming area',
-          desc: 'Decades of irrigation pumping have removed water from the subsurface, allowing compressible sediments to consolidate under their own weight. Slow and cumulative -- often unnoticed until the effect becomes visible.',
-        },
-        {
-          title: 'Expansive lacustrine clays at depth',
-          desc: 'Buried Lake Palomas lacustrine clays in the deeper subsurface are expansive and complicate the subsidence picture -- two mechanisms operating at different depths in the same foundation.',
-        },
-        {
-          title: 'Caliche variability',
-          desc: 'Caliche is visible in any excavation in the Deming area. Looks like competent bearing. A thin layer over loose or compressible material below is a hard ceiling over a soft floor.',
-        },
-      ],
-      communities:
-        'Deming · Silver City · Bayard · Hurley · Santa Clara · Columbus · Mimbres · Arenas Valley · Central · Faywood · Pinos Altos · Tyrone · Hanover · Cliff · Gila',
-    },
-    {
-      id: 'lordsburg-basin',
-      title: 'Lordsburg Basin',
-      citiesShort: 'Lordsburg · Animas · Hachita · Rodeo · Playas',
-      tagline:
-        'The far southwestern corner -- sparse, hot, and geologically active in ways that have not been as thoroughly documented as the basins with larger populations.',
-      whatWeSee:
-        'Lordsburg is a small community at the junction of I-10 and the old Route 66 country, surrounded by bajada terrain -- the broad alluvial aprons that grade from the surrounding mountain ranges down to the basin floor. The soil on the upper fans is loose, granular, and collapsible. The Animas Valley to the south is even more remote -- ranching country where foundation problems tend to go unaddressed for years before anyone calls.',
-      whatItDoes:
-        'The upper fan alluvium is collapsible under first wetting -- the same mechanism as the Jornada del Muerto and other dry alluvial basins in southern New Mexico. Lower fan and basin floor material has higher clay content and some expansive potential, but the primary hazard in Lordsburg is collapsibility on the fan surfaces where most development sits. The Gila River floodplain at Virden is a different environment -- floodplain clays with overbank deposits that respond to the river\'s wet and dry cycles.',
-      hazards: [
-        {
-          title: 'Collapsible upper fan alluvium',
-          desc: 'Dry-deposited alluvial fan material that consolidates under first wetting. The same hazard mechanism as the Jornada del Muerto and other southern New Mexico dry basins.',
-        },
-        {
-          title: 'Remote setting — problems accumulate',
-          desc: 'In a community this size and this remote, foundation problems often go unaddressed for years before anyone calls. Early evaluation is more important here, not less.',
-        },
-        {
-          title: 'Gila floodplain — Virden',
-          desc: "The Gila River floodplain at Virden is a different environment from the basin fans. Floodplain clays with overbank deposits respond to the river's wet and dry cycles.",
-        },
-      ],
-      communities: 'Lordsburg · Animas · Hachita · Playas · Rodeo · Cotton City · Granite Gap · Cloverdale · Antelope Wells',
-    },
   ],
 };
 
@@ -1074,12 +1027,13 @@ const southern = {
   heroImage: 'southern-new-mexico-hero.jpg',
   heroLine1: 'Southern',
   heroLine2: 'New Mexico.',
+  heroW2Color: 'white',
   heroSub:
-    "Basin-and-range country, five distinct soil stories -- and a common thread of collapsibility that activates the first time moisture finds soil that's been dry for decades.",
+    "Basin-and-range country, seven distinct soil stories -- and a common thread of collapsibility that activates the first time moisture finds soil that's been dry for decades.",
   description:
-    'Mesilla, Hatch-Rincon, Tularosa, Sacramento Mountains, and Jornada del Muerto -- collapsible La Mesa soils, gypsum dissolution, and first-wetting collapse.',
+    'Mesilla, Hatch-Rincon, Tularosa, Sacramento Mountains, Jornada del Muerto, Mimbres, and Lordsburg basins -- collapsible La Mesa and fan soils, gypsum dissolution, aquifer subsidence, and first-wetting collapse.',
   summary:
-    "Southern New Mexico covers Mesilla, Hatch-Rincon, Tularosa, the Sacramento Mountains, and Jornada del Muerto: collapsible La Mesa soils, gypsum dissolution, differential rock-and-soil bearing, and first-wetting collapse, where soil that's been stable for decades can settle suddenly the first time it gets wet.",
+    "Southern New Mexico covers Mesilla, Hatch-Rincon, Tularosa, the Sacramento Mountains, Jornada del Muerto, the Mimbres Basin, and the Lordsburg Basin: collapsible La Mesa and fan soils, gypsum dissolution, aquifer compaction subsidence from decades of irrigation pumping, differential rock-and-soil bearing, and first-wetting collapse, where soil that's been stable for decades can settle suddenly the first time it gets wet.",
   nextPage: { path: '/albuquerque-nm', name: 'Albuquerque' },
   majorCities: [
     { name: 'Las Cruces' },
@@ -1089,12 +1043,12 @@ const southern = {
     { name: 'Truth or Consequences' },
   ],
   overviewEyebrow: 'Basin & Range',
-  overviewHeading: 'Southern New Mexico soils — <em>five basins, one common thread</em>',
+  overviewHeading: 'Southern New Mexico soils — <em>seven basins, one common thread</em>',
   overviewParas: [
     'Southern New Mexico is basin-and-range country -- elongated mountain blocks separated by sediment-filled valleys, each basin largely hydrologically isolated from the next. That isolation matters for foundations because it means the soil chemistry and moisture history of each basin is distinct. What the Mesilla Basin does to foundations is not what the Tularosa Basin does, even though they are geographically close.',
-    'The common thread across this region is collapsibility. Many of the alluvial soils in southern New Mexico are dry-deposited and have never been saturated -- they support load under dry conditions and consolidate under first wetting. A century of irrigation agriculture in the Mesilla Valley has triggered that process in many mid-century foundations. In the Jornada del Muerto and Lordsburg Basin, the first-wetting event has not happened yet for many structures -- it is still ahead of them.',
+    'The common thread across most of this region is collapsibility. Many of the alluvial soils in southern New Mexico are dry-deposited and have never been saturated -- they support load under dry conditions and consolidate under first wetting. A century of irrigation agriculture in the Mesilla Valley has triggered that process in many mid-century foundations. In the Jornada del Muerto and Lordsburg Basin, the first-wetting event has not happened yet for many structures -- it is still ahead of them. The Mimbres Basin near Deming adds a second hazard on top of collapsibility: decades of aquifer pumping have begun producing ground subsidence as the water table drops.',
   ],
-  statDesc: 'Mesilla, Hatch-Rincon, Tularosa, Sacramento Mountains, and Jornada del Muerto',
+  statDesc: 'Mesilla, Hatch-Rincon, Tularosa, Sacramento Mountains, Jornada del Muerto, Mimbres, and Lordsburg basins',
   relatedReading: [
     '<a href="/collapsible-soil">Collapsible Soil</a> -- the mechanism common to all five basins here.',
     '<a href="/glossary#first-wetting-collapse">First-wetting collapse</a> -- why decades-old stability isn\'t proof of a safe soil.',
@@ -1231,6 +1185,59 @@ const southern = {
       ],
       communities:
         'Socorro · Truth or Consequences · Williamsburg · Elephant Butte · Magdalena · Bernardo · Escondida · La Joya · Lemitar · Polvadera · San Antonio · Veguita · Caballo · Hillsboro · Placitas · Reserve · Quemado · Pie Town · Datil',
+    },
+    {
+      id: 'mimbres-basin',
+      title: 'Mimbres Basin',
+      citiesShort: 'Deming · Silver City · Bayard · Columbus · Hurley',
+      tagline:
+        'A closed basin in the southwestern corner of the state where irrigation agriculture has drawn down an aquifer for decades -- and where aquifer depletion is beginning to show up as ground subsidence.',
+      whatWeSee:
+        'Deming sits in the middle of a dry agricultural plain that, until recently, was intensively irrigated from the Mimbres Valley aquifer. The soil is pale and alkaline -- caliche is visible in any excavation. Silver City to the north is on different terrain entirely -- older, harder formations in the upper Mimbres drainage with a mountain-town character. The two communities are in the same basin geologically but present different foundation environments.',
+      whatItDoes:
+        'In the Deming area, decades of aquifer pumping have removed water from the subsurface, allowing compressible sediments to consolidate under their own weight -- aquifer compaction subsidence. This produces gradual, relatively uniform ground settlement across large areas, slow and often unnoticed until the cumulative effect becomes visible. Buried Lake Palomas lacustrine clays in the deeper subsurface are expansive and complicate the picture. In Silver City, the upper Mimbres drainage terrain introduces shallow rock and mine-related subsidence in older areas.',
+      hazards: [
+        {
+          title: 'Aquifer depletion subsidence — Deming area',
+          desc: 'Decades of irrigation pumping have removed water from the subsurface, allowing compressible sediments to consolidate under their own weight. Slow and cumulative -- often unnoticed until the effect becomes visible.',
+        },
+        {
+          title: 'Expansive lacustrine clays at depth',
+          desc: 'Buried Lake Palomas lacustrine clays in the deeper subsurface are expansive and complicate the subsidence picture -- two mechanisms operating at different depths in the same foundation.',
+        },
+        {
+          title: 'Caliche variability',
+          desc: 'Caliche is visible in any excavation in the Deming area. Looks like competent bearing. A thin layer over loose or compressible material below is a hard ceiling over a soft floor.',
+        },
+      ],
+      communities:
+        'Deming · Silver City · Bayard · Hurley · Santa Clara · Columbus · Mimbres · Arenas Valley · Central · Faywood · Pinos Altos · Tyrone · Hanover · Cliff · Gila',
+    },
+    {
+      id: 'lordsburg-basin',
+      title: 'Lordsburg Basin',
+      citiesShort: 'Lordsburg · Animas · Hachita · Rodeo · Playas',
+      tagline:
+        'The far southwestern corner -- sparse, hot, and geologically active in ways that have not been as thoroughly documented as the basins with larger populations.',
+      whatWeSee:
+        'Lordsburg is a small community at the junction of I-10 and the old Route 66 country, surrounded by bajada terrain -- the broad alluvial aprons that grade from the surrounding mountain ranges down to the basin floor. The soil on the upper fans is loose, granular, and collapsible. The Animas Valley to the south is even more remote -- ranching country where foundation problems tend to go unaddressed for years before anyone calls.',
+      whatItDoes:
+        'The upper fan alluvium is collapsible under first wetting -- the same mechanism as the Jornada del Muerto and other dry alluvial basins in southern New Mexico. Lower fan and basin floor material has higher clay content and some expansive potential, but the primary hazard in Lordsburg is collapsibility on the fan surfaces where most development sits. The Gila River floodplain at Virden is a different environment -- floodplain clays with overbank deposits that respond to the river\'s wet and dry cycles.',
+      hazards: [
+        {
+          title: 'Collapsible upper fan alluvium',
+          desc: 'Dry-deposited alluvial fan material that consolidates under first wetting. The same hazard mechanism as the Jornada del Muerto and other southern New Mexico dry basins.',
+        },
+        {
+          title: 'Remote setting — problems accumulate',
+          desc: 'In a community this size and this remote, foundation problems often go unaddressed for years before anyone calls. Early evaluation is more important here, not less.',
+        },
+        {
+          title: 'Gila floodplain — Virden',
+          desc: "The Gila River floodplain at Virden is a different environment from the basin fans. Floodplain clays with overbank deposits respond to the river's wet and dry cycles.",
+        },
+      ],
+      communities: 'Lordsburg · Animas · Hachita · Playas · Rodeo · Cotton City · Granite Gap · Cloverdale · Antelope Wells',
     },
   ],
 };
