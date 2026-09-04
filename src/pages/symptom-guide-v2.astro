@@ -655,10 +655,20 @@ const schema = [
               data-foundation={s.foundation.join(',')}
             >
               <span class="symptom-category-badge">{cat.label}</span>
+              <p class="symptom-match-tag" data-match-tag hidden></p>
               <h2>{s.q}</h2>
-              <p class="whats-happening"><strong>What's happening:</strong> <Fragment set:html={s.whatsHappening} /></p>
               <p class="needs-repair"><strong>Does it need repair?</strong> <Fragment set:html={s.needsRepair} /></p>
-              <p class="nm-note">NM context: <Fragment set:html={s.nmContext} /></p>
+
+              <button type="button" class="symptom-detail-toggle" data-detail-toggle="whats">What's happening →</button>
+              <div class="symptom-detail" data-detail="whats" hidden>
+                <p class="whats-happening"><Fragment set:html={s.whatsHappening} /></p>
+              </div>
+
+              <button type="button" class="symptom-detail-toggle" data-detail-toggle="nm">NM context →</button>
+              <div class="symptom-detail" data-detail="nm" hidden>
+                <p class="nm-note"><Fragment set:html={s.nmContext} /></p>
+              </div>
+
               {s.links.length > 0 && (
                 <div class="symptom-links">
                   {s.links.map((l) => (
@@ -830,6 +840,21 @@ const schema = [
     'fnd-pierbeam': 'a pier-and-beam or crawlspace foundation',
   };
 
+  // Literally shows the decision-tree logic instead of leaving it hidden
+  // behind the ranking -- which of the reader's own checked answers is
+  // the reason this specific card is showing up.
+  function buildMatchTag(it: (typeof items)[number], checked: ReturnType<typeof getChecked>): string {
+    const hits = [
+      ...it.see.filter((s) => checked.see.includes(s)),
+      ...it.onset.filter((s) => checked.onset.includes(s)),
+      ...it.site.filter((s) => checked.site.includes(s)),
+      ...it.foundation.filter((s) => checked.foundation.includes(s)),
+    ]
+      .map((id) => LABELS[id])
+      .filter(Boolean);
+    return hits.length ? `Matches what you checked: ${hits.join(', ')}` : '';
+  }
+
   function getChecked() {
     const onset = checkboxes.filter((c) => c.checked && c.name === 'onset').map((c) => c.value);
     const see = checkboxes.filter((c) => c.checked && c.name === 'see').map((c) => c.value);
@@ -966,17 +991,26 @@ const schema = [
     resultsLead.hidden = !anyChecked;
 
     if (!anyChecked) {
-      items.forEach((it) => it.el.classList.remove('collapsed', 'matched'));
+      items.forEach((it) => {
+        it.el.classList.remove('collapsed', 'matched');
+        const tag = it.el.querySelector<HTMLElement>('[data-match-tag]')!;
+        tag.hidden = true;
+      });
       otherStrip.hidden = true;
       stripOpen = false;
     } else {
       matched.forEach(({ it }) => {
         it.el.classList.add('matched');
         it.el.classList.remove('collapsed');
+        const tag = it.el.querySelector<HTMLElement>('[data-match-tag]')!;
+        tag.textContent = buildMatchTag(it, checked);
+        tag.hidden = false;
       });
       rest.forEach(({ it }) => {
         it.el.classList.remove('matched');
         it.el.classList.toggle('collapsed', !stripOpen);
+        const tag = it.el.querySelector<HTMLElement>('[data-match-tag]')!;
+        tag.hidden = true;
       });
       if (rest.length > 0) {
         otherStrip.hidden = false;
@@ -1004,6 +1038,21 @@ const schema = [
   otherStrip.addEventListener('click', () => {
     stripOpen = !stripOpen;
     applySort();
+  });
+
+  // Per-card "What's happening" / "NM context" dropdowns -- independent
+  // of each other, and independent of the outer matched/collapsed state.
+  // Content stays in the DOM either way, just visually toggled, so
+  // nothing here changes what a reader without JS or an AI crawler sees.
+  document.querySelectorAll<HTMLButtonElement>('.symptom-detail-toggle').forEach((btn) => {
+    const key = btn.dataset.detailToggle;
+    const panel = btn.parentElement!.querySelector<HTMLElement>(`[data-detail="${key}"]`)!;
+    const label = btn.textContent!.replace(' →', '').replace(' ↑', '');
+    btn.addEventListener('click', () => {
+      const open = panel.hidden;
+      panel.hidden = !open;
+      btn.textContent = open ? `${label} ↑` : `${label} →`;
+    });
   });
 
   checkboxes.forEach((cb) =>
@@ -1287,7 +1336,41 @@ const schema = [
   .symptom.collapsed .needs-repair,
   .symptom.collapsed .nm-note,
   .symptom.collapsed .symptom-links,
-  .symptom.collapsed .symptom-category-badge { display: none; }
+  .symptom.collapsed .symptom-category-badge,
+  .symptom.collapsed .symptom-detail-toggle,
+  .symptom.collapsed .symptom-detail,
+  .symptom.collapsed .symptom-match-tag { display: none; }
+
+  .symptom-match-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.5px;
+    color: var(--gold-text);
+    background: var(--sand);
+    display: inline-block;
+    border-radius: 4px;
+    padding: 3px 9px;
+    margin-bottom: 10px;
+  }
+  .symptom-detail-toggle {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.3px;
+    color: var(--blue);
+    background: none;
+    border: none;
+    border-top: 1px solid var(--stone);
+    text-align: left;
+    width: 100%;
+    padding: 12px 0 0;
+    margin-top: 12px;
+    cursor: pointer;
+  }
+  .symptom-detail-toggle:hover { color: var(--gold-text); }
+  .symptom-detail { padding-top: 4px; }
+  .symptom-detail .whats-happening,
+  .symptom-detail .nm-note { margin: 8px 0 0; }
   .other-strip {
     display: block;
     width: 100%;
@@ -1401,6 +1484,11 @@ const schema = [
     .symptom.collapsed .symptom-category-badge {
       display: block !important;
     }
+    /* Same reasoning as the outcome box's toggle: no interactivity on
+       paper, so force the per-card dropdowns open and hide the buttons
+       that would otherwise do nothing. */
+    .symptom-detail-toggle { display: none !important; }
+    .symptom-detail { display: block !important; }
     .symptom { break-inside: avoid; border: 1px solid #ccc; }
   }
 </style>
