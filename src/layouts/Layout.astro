@@ -115,6 +115,31 @@ const websiteSchema = {
       reporting immediately, no redeploy-and-wait needed beyond the push.
     -->
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "REPLACE_WITH_CF_ANALYTICS_TOKEN"}'></script>
+
+    <!--
+      Google Analytics 4 -- the layer Cloudflare Web Analytics doesn't
+      cover: custom events (which region or foundation type someone picks,
+      print-button clicks, checkbox interactions), not just page views.
+      Get the Measurement ID from analytics.google.com -> Admin -> Data
+      Streams -> (this site's web stream) -> it's the "G-XXXXXXX" id at
+      the top. Swap it in both places below (script src and the gtag
+      config call).
+
+      Worth knowing going in: unlike Cloudflare's beacon, GA4 does use
+      cookies and cross-session identifiers, which is a different privacy
+      posture than what was chosen for Cloudflare specifically to avoid a
+      consent banner. For a New Mexico-based small business site this
+      isn't a hard legal requirement the way it would be for an EU-facing
+      site, but it's a real tradeoff worth being aware you're making, not
+      something to just not think about.
+    -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-REPLACE_WITH_GA4_ID"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-REPLACE_WITH_GA4_ID');
+    </script>
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>

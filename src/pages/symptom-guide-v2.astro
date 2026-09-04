@@ -613,6 +613,13 @@ const schema = [
   // Remembers the reader's region choice across visits. No per-card region
   // links to update anymore -- that job now belongs to the facet panel's
   // region picker alone, not repeated at the bottom of all 19 cards.
+  // Fires a GA4 custom event if the tag is present, no-ops otherwise --
+  // Cloudflare Web Analytics (also on this page) doesn't support custom
+  // events, only page views, so this is GA4-specific by design.
+  function track(name: string, params?: Record<string, string>) {
+    if (typeof (window as any).gtag === 'function') (window as any).gtag('event', name, params || {});
+  }
+
   const STORAGE_KEY = 'tls-region';
   const regionSelect = document.getElementById('regionSelect') as HTMLSelectElement;
 
@@ -634,6 +641,7 @@ const schema = [
       return;
     }
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ url, name }));
+    track('region_selected', { region: name });
   });
 
   // ── Check-all-that-apply: score, sort (never hide), collapse, outcome ──
@@ -774,13 +782,22 @@ const schema = [
   // deduplicated and given one line of context so they're worth clicking
   // from inside the outcome box instead of scattered across every card.
   function buildRelatedReading() {
+    // Only the top 3 matches, capped at 4 links total -- pulling from
+    // every matched card was recreating the "wall of links" problem this
+    // section was built to solve once more than a couple of boxes were
+    // checked. This should read as "here's what's worth reading," not
+    // "here's everything that happened to match."
     const seen = new Set<string>();
     const found: { href: string; text: string }[] = [];
-    document.querySelectorAll<HTMLAnchorElement>('.symptom.matched .symptom-link').forEach((a) => {
-      const href = a.getAttribute('href') || '';
-      if (!href || seen.has(href)) return;
-      seen.add(href);
-      found.push({ href, text: a.textContent?.replace(/\s*→\s*$/, '').trim() || href });
+    const topMatched = Array.from(document.querySelectorAll<HTMLElement>('.symptom.matched')).slice(0, 3);
+    topMatched.forEach((card) => {
+      card.querySelectorAll<HTMLAnchorElement>('.symptom-link').forEach((a) => {
+        if (found.length >= 4) return;
+        const href = a.getAttribute('href') || '';
+        if (!href || seen.has(href)) return;
+        seen.add(href);
+        found.push({ href, text: a.textContent?.replace(/\s*→\s*$/, '').trim() || href });
+      });
     });
 
     relatedReadingList.innerHTML = '';
@@ -844,15 +861,27 @@ const schema = [
   const printDate = document.getElementById('printDate') as HTMLElement;
   printBtn.addEventListener('click', () => {
     printDate.textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    track('print_results_clicked');
     window.print();
   });
+
+  outcomePill.addEventListener('click', () => track('handoff_to_cause_library'));
 
   otherStrip.addEventListener('click', () => {
     stripOpen = !stripOpen;
     applySort();
   });
 
-  checkboxes.forEach((cb) => cb.addEventListener('change', applySort));
+  checkboxes.forEach((cb) =>
+    cb.addEventListener('change', () => {
+      // Only the foundation-type question is tracked individually -- it's
+      // the one Tim specifically asked about, and it's a single fact
+      // about the house rather than one of a dozen interchangeable
+      // symptom checkboxes that would just be noise as separate events.
+      if (cb.checked && cb.name === 'foundation') track('foundation_type_selected', { foundation_type: cb.value });
+      applySort();
+    })
+  );
   clearBtn.addEventListener('click', () => {
     checkboxes.forEach((cb) => (cb.checked = false));
     stripOpen = false;
