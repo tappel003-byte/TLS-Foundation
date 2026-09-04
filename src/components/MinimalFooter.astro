@@ -3,10 +3,29 @@
 // address line — confirmed directly from Albuquerque's live source.
 // Do NOT upgrade this to the full wordmark/link-grid Footer without
 // checking the specific page's actual live footer first.
+//
+// serviceAreaText is optional: a "family" hub page (e.g. Soil Roadmap)
+// that already functions as its own table of contents doesn't need the
+// full Footer's site-wide link grid repeated underneath it, but can
+// still carry its own page-specific paragraph -- content, not
+// navigation. Pages that don't pass it get the exact same bare address
+// line as before.
+interface Props {
+  serviceAreaLabel?: string;
+  serviceAreaText?: string;
+}
+
+const { serviceAreaLabel, serviceAreaText } = Astro.props;
 ---
 
 <footer class="minimal-footer">
-  <p>5048 Edith Blvd NE, Suite E, Albuquerque, NM 87107</p>
+  {serviceAreaText && (
+    <div class="minimal-footer-service">
+      {serviceAreaLabel && <span class="minimal-footer-label">{serviceAreaLabel}</span>}
+      <p class="minimal-footer-text">{serviceAreaText}</p>
+    </div>
+  )}
+  <p class="minimal-footer-address">5048 Edith Blvd NE, Suite E, Albuquerque, NM 87107</p>
 </footer>
 
 <style>
@@ -15,10 +34,31 @@
     padding: 32px 24px;
     text-align: center;
   }
-  .minimal-footer p {
+  .minimal-footer-address {
     font-family: 'DM Mono', monospace;
     font-size: 12px;
     letter-spacing: 1.5px;
     color: rgba(255, 255, 255, 0.5);
+  }
+  .minimal-footer-service {
+    max-width: 760px;
+    margin: 0 auto 24px;
+    text-align: left;
+  }
+  .minimal-footer-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .minimal-footer-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.35);
   }
 </style>

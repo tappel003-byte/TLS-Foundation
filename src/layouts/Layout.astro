@@ -111,7 +111,7 @@ const websiteSchema = {
     <main id="main-content">
       <slot />
     </main>
-    {footer === 'full' ? <Footer {...footerProps} /> : <MinimalFooter />}
+    {footer === 'full' ? <Footer {...footerProps} /> : <MinimalFooter {...footerProps} />}
     <BackToTop />
     {summary && <PageSummary summary={summary} pageName={pageName} nextPage={nextPage} />}
   </body>
