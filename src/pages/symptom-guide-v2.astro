@@ -493,12 +493,10 @@ const schema = [
     <div class="page">
       <div class="diagnostic-note">
         <p>
-          These are the most common signs New Mexico homeowners notice when something feels off with their
-          foundation. For each one, here's what's typically happening and whether it usually warrants
-          attention. Soil conditions, site drainage, and how long something has been changing all matter —
-          this is a <strong>starting point, not a diagnosis</strong>. If you're seeing signs that concern
-          you, <a href="/contact-us">call us</a>. You reach the owner, not a scheduler.{' '}
-          <a href="/common-concerns" class="body-link">If you have questions about cost, timing, or contractors, see our Common Concerns page.</a>
+          These are the signs New Mexico homeowners notice most. Check what applies and we'll show you what
+          it usually means — <strong>a starting point, not a diagnosis</strong>. Concerned?{' '}
+          <a href="/contact-us">Call us</a> — you reach the owner, not a scheduler.{' '}
+          <a href="/common-concerns" class="body-link">Questions about cost or timing? See Common Concerns.</a>
         </p>
       </div>
 
@@ -585,9 +583,7 @@ const schema = [
         </div>
       </div>
 
-      <div class="filter-bar">
-        <input type="search" id="symptomSearch" placeholder="Search symptoms — e.g. &quot;sticking door&quot;" aria-label="Search symptoms" />
-      </div>
+      <p class="results-lead" id="resultsLead" hidden>Ranked for you — based on what you checked, this is likely the most useful reading on this page for your situation.</p>
 
       <div class="symptom-grid" id="symptomGrid">
         {categories.map((cat) =>
@@ -675,6 +671,7 @@ const schema = [
   // ── Check-all-that-apply: score, sort (never hide), collapse, outcome ──
   const grid = document.getElementById('symptomGrid') as HTMLElement;
   const otherStrip = document.getElementById('otherStrip') as HTMLButtonElement;
+  const resultsLead = document.getElementById('resultsLead') as HTMLElement;
   const items = Array.from(grid.querySelectorAll<HTMLElement>('.symptom')).map((el) => ({
     el,
     originalIndex: 0,
@@ -800,6 +797,8 @@ const schema = [
 
     [...matched, ...rest].forEach(({ it }) => grid.appendChild(it.el));
 
+    resultsLead.hidden = !anyChecked;
+
     if (!anyChecked) {
       items.forEach((it) => it.el.classList.remove('collapsed', 'matched'));
       otherStrip.hidden = true;
@@ -849,16 +848,6 @@ const schema = [
     });
   });
   applySort();
-
-  // Search stays independent of the facet sort -- narrows within whatever order is current.
-  const search = document.getElementById('symptomSearch') as HTMLInputElement;
-  search.addEventListener('input', () => {
-    const q = search.value.trim().toLowerCase();
-    grid.querySelectorAll<HTMLElement>('.symptom').forEach((item) => {
-      const visible = !q || item.dataset.search!.includes(q) || item.textContent!.toLowerCase().includes(q);
-      item.hidden = !visible;
-    });
-  });
 </script>
 
 <style>
@@ -1000,18 +989,14 @@ const schema = [
   }
   .handoff-btn:hover { background: var(--gold); }
 
-  /* ── Search ── */
-  .filter-bar { margin-bottom: 24px; }
-  #symptomSearch {
-    width: 100%;
-    font-family: 'Source Serif 4', serif;
-    font-size: 16px;
-    padding: 14px 18px;
-    border: 1px solid var(--stone);
-    border-radius: 8px;
-    background: var(--white);
+  /* ── Results lead-in ── */
+  .results-lead {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    color: var(--gold-text);
+    margin: 0 0 16px;
   }
-  #symptomSearch:focus { outline: none; border-color: var(--gold); }
 
   /* ── Symptom cards (flat grid, sortable) ── */
   .symptom-grid { display: flex; flex-direction: column; gap: 16px; }

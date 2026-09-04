@@ -536,11 +536,9 @@ const verdictDefs: Record<string, string> = {
     <div class="page">
       <div class="diagnostic-note">
         <p>
-          Foundation movement in New Mexico has many causes. They're organized here by mechanism — what is
-          actually happening to the soil — because understanding the mechanism is the prerequisite for
-          understanding the fix. <strong>Every cause here requires professional evaluation to diagnose
-          correctly — no visual inspection alone can distinguish between them.</strong> This is a reference,
-          not a diagnosis.
+          Foundation movement has many causes, organized here by mechanism — understanding why matters as
+          much as what. <strong>This is a reference, not a diagnosis</strong>; no visual inspection alone
+          can tell these apart.
         </p>
         <p>
           Each entry carries a quick <strong>Underpinning?</strong> read so you can scan before you dig in:
@@ -628,6 +626,8 @@ const verdictDefs: Record<string, string> = {
         <input type="search" id="causeSearch" placeholder="Search causes — e.g. &quot;caliche&quot;" aria-label="Search causes" />
       </div>
 
+      <p class="results-lead" id="resultsLead" hidden>Ranked for you — based on what you checked, this is likely the most useful reading on this page for your situation.</p>
+
       <div class="symptom-grid" id="causeGrid">
         {allCauses.map((c) => (
           <article
@@ -687,6 +687,7 @@ const verdictDefs: Record<string, string> = {
 <script>
   const grid = document.getElementById('causeGrid') as HTMLElement;
   const otherStrip = document.getElementById('otherStrip') as HTMLButtonElement;
+  const resultsLead = document.getElementById('resultsLead') as HTMLElement;
   const items = Array.from(grid.querySelectorAll<HTMLElement>('.specimen-card')).map((el) => ({
     el,
     originalIndex: 0,
@@ -763,6 +764,8 @@ const verdictDefs: Record<string, string> = {
     const rest = scored.filter((x) => x.s === 0);
 
     [...matched, ...rest].forEach(({ it }) => grid.appendChild(it.el));
+
+    resultsLead.hidden = !anyChecked;
 
     if (!anyChecked) {
       items.forEach((it) => it.el.classList.remove('collapsed', 'matched'));
@@ -1024,6 +1027,15 @@ const verdictDefs: Record<string, string> = {
     background: var(--white);
   }
   #causeSearch:focus { outline: none; border-color: var(--gold); }
+
+  /* ── Results lead-in ── */
+  .results-lead {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    color: var(--gold-text);
+    margin: 0 0 16px;
+  }
 
   /* ── Specimen cards (flat grid, sortable) ── */
   .symptom-grid { display: flex; flex-direction: column; gap: 10px; }
