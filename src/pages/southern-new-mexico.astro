@@ -491,19 +491,17 @@ const schema = [
     text-transform: uppercase;
     color: var(--gold);
     /*
-      A crisp, tight shadow -- not the blurry wide-radius kind removed
-      elsewhere this session. This is thin, widely-tracked monospace text
-      sitting directly on a photo (no background box, unlike hero-sub),
-      and different hero photos put very different things behind it --
-      Central's warm sunset gives gold enough contrast on its own, but
-      Northern/Four Corners/Eastern/Rio Rancho/Santa Fe all have pale sky
-      or white cloud right where this label sits, and gold nearly
-      vanishes there. A plain white swap doesn't fix it either -- white
-      washes out against white clouds just as badly. A tight dark rim
-      around the letters reads clearly against any of them without
-      changing the label's color or looking hazy up close.
+      Thin, widely-tracked monospace text sitting directly on a photo
+      (no background box, unlike hero-sub), and different hero photos put
+      very different things behind it -- pale sky, white cloud, or a dark
+      rock silhouette all in the same label. A single small, tight shadow
+      (no second ambient glow term) reads as contrast, not a halo -- an
+      earlier version added a soft 6px glow on top of this, which looked
+      fine on a flat sky but turned into a visible dark "sticker" ring
+      around round letters like O once the label crossed a busy edge
+      (e.g. the mesa silhouette on Four Corners).
     */
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.95), 0 0 6px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
     display: block;
     margin-bottom: 20px;
   }
