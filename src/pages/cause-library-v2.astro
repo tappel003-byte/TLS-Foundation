@@ -111,7 +111,7 @@ const groups: Group[] = [
         ],
         onset: ['sudden'],
         see: ['see-floors', 'see-foundation-cracks'],
-        site: ['site-plumbing', 'site-known-issues'],
+        site: ['site-plumbing', 'site-settlement-issues'],
         foundation: [],
       },
       {
@@ -155,7 +155,7 @@ const groups: Group[] = [
         related: [{ text: 'Glossary: Organic Decomposition →', href: '/glossary#organic-decomposition', blurb: 'Settlement caused by buried vegetation decomposing over time, creating voids — the same mechanism at work here.' }],
         onset: ['gradual'],
         see: ['see-floors'],
-        site: ['site-cutfill', 'site-known-issues'],
+        site: ['site-cutfill', 'site-settlement-issues'],
         foundation: [],
       },
       {
@@ -185,7 +185,7 @@ const groups: Group[] = [
         related: [{ text: 'Glossary: Alluvial Soils →', href: '/glossary#alluvial-soils', blurb: 'Sediment deposited by moving water — composition varies with position relative to where it was deposited.' }],
         onset: ['gradual'],
         see: ['see-floors'],
-        site: ['site-known-issues'],
+        site: ['site-settlement-issues'],
         foundation: [],
       },
       {
@@ -229,7 +229,7 @@ const groups: Group[] = [
         ],
         onset: ['seasonal'],
         see: ['see-doors', 'see-windows', 'see-crack-diagonal'],
-        site: ['site-clay', 'site-known-issues'],
+        site: ['site-clay', 'site-soil-issues'],
         foundation: [],
       },
     ],
@@ -338,7 +338,7 @@ const groups: Group[] = [
         ],
         onset: ['gradual', 'sudden'],
         see: ['see-foundation-gap'],
-        site: ['site-known-issues'],
+        site: ['site-settlement-issues'],
         foundation: [],
       },
       {
@@ -352,7 +352,7 @@ const groups: Group[] = [
         missed: 'Symptoms mimic differential settlement; clue is consistent downhill pattern.',
         onset: ['gradual'],
         see: ['see-cracks-exterior'],
-        site: ['site-cutfill', 'site-known-issues'],
+        site: ['site-cutfill', 'site-soil-issues'],
         foundation: [],
       },
       {
@@ -381,7 +381,7 @@ const groups: Group[] = [
         related: [{ text: 'Glossary: Aquifer Compaction Subsidence →', href: '/glossary#aquifer-compaction-subsidence', blurb: 'Regional ground settlement caused by groundwater pumping, seen in the Deming area. Cannot be reversed by foundation repair.' }],
         onset: ['gradual'],
         see: ['see-floors'],
-        site: ['site-known-issues'],
+        site: ['site-settlement-issues'],
         foundation: [],
       },
       {
@@ -607,7 +607,8 @@ const siteOptions = [
   { id: 'site-adobe', label: 'Older adobe or mud-brick construction' },
   { id: 'site-plumbing', label: 'Recent plumbing leak or repair nearby' },
   { id: 'site-trees', label: 'Large trees close to the house' },
-  { id: 'site-known-issues', label: 'Known soil problem area or settlement issues in the neighborhood' },
+  { id: 'site-soil-issues', label: 'Known soil issues in the area' },
+  { id: 'site-settlement-issues', label: 'Known settlement issues in the neighborhood' },
 ];
 const foundationOptions = [
   { id: 'fnd-slab', label: 'Slab on grade' },
