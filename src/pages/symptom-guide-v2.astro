@@ -653,12 +653,12 @@ const schema = [
               data-foundation={s.foundation.join(',')}
             >
               <span class="symptom-category-badge">{cat.label}</span>
-              <p class="symptom-match-tag" data-match-tag hidden></p>
-              <h2>{s.q}</h2>
+              <h2 class="symptom-title-row"><span>{s.q}</span><span class="rest-chevron" aria-hidden="true">⌄</span></h2>
               <p class="needs-repair"><strong>Does it need repair?</strong> <Fragment set:html={s.needsRepair} /></p>
 
               <button type="button" class="symptom-detail-toggle" data-detail-toggle="whats">What's happening →</button>
               <div class="symptom-detail" data-detail="whats" hidden>
+                <p class="symptom-match-tag" data-match-tag hidden></p>
                 <p class="whats-happening"><Fragment set:html={s.whatsHappening} /></p>
               </div>
 
@@ -1020,6 +1020,11 @@ const schema = [
     });
   }
 
+  // Individually-expanded "other symptom" rows -- separate from stripOpen
+  // (the "show all N" bulk toggle), so someone can peek at one collapsed
+  // row without having to open every other one too.
+  const individuallyOpened = new Set<HTMLElement>();
+
   function applySort() {
     const checked = getChecked();
     const anyChecked = checked.onset.length + checked.see.length + checked.site.length + checked.foundation.length > 0;
@@ -1037,23 +1042,25 @@ const schema = [
 
     if (!anyChecked) {
       items.forEach((it) => {
-        it.el.classList.remove('collapsed', 'matched');
+        it.el.classList.remove('collapsed', 'matched', 'rest');
         const tag = it.el.querySelector<HTMLElement>('[data-match-tag]')!;
         tag.hidden = true;
       });
       otherStrip.hidden = true;
       stripOpen = false;
+      individuallyOpened.clear();
     } else {
       matched.forEach(({ it }) => {
         it.el.classList.add('matched');
-        it.el.classList.remove('collapsed');
+        it.el.classList.remove('collapsed', 'rest');
         const tag = it.el.querySelector<HTMLElement>('[data-match-tag]')!;
         tag.textContent = buildMatchTag(it, checked);
         tag.hidden = false;
       });
       rest.forEach(({ it }) => {
         it.el.classList.remove('matched');
-        it.el.classList.toggle('collapsed', !stripOpen);
+        it.el.classList.add('rest');
+        it.el.classList.toggle('collapsed', !stripOpen && !individuallyOpened.has(it.el));
         const tag = it.el.querySelector<HTMLElement>('[data-match-tag]')!;
         tag.hidden = true;
       });
@@ -1083,6 +1090,25 @@ const schema = [
   otherStrip.addEventListener('click', () => {
     stripOpen = !stripOpen;
     applySort();
+  });
+
+  // Each "other symptom" row's title doubles as its own accordion toggle --
+  // tapping it opens just that one card without needing the "show all"
+  // strip above. Only wired for cards currently marked .rest; matched
+  // cards always show full content already and have nothing to toggle.
+  document.querySelectorAll<HTMLElement>('.symptom-title-row').forEach((row) => {
+    row.addEventListener('click', () => {
+      const article = row.closest('.symptom') as HTMLElement;
+      if (!article.classList.contains('rest')) return;
+      const nowOpen = article.classList.contains('collapsed');
+      if (nowOpen) {
+        individuallyOpened.add(article);
+        article.classList.remove('collapsed');
+      } else {
+        individuallyOpened.delete(article);
+        article.classList.add('collapsed');
+      }
+    });
   });
 
   // Per-card "What's happening" / "NM context" dropdowns -- independent
@@ -1396,14 +1422,25 @@ const schema = [
   .symptom.matched { border-color: rgba(184, 134, 11, 0.5); }
   .symptom.collapsed { padding: 14px 20px; }
   .symptom.collapsed h2 { margin-bottom: 0; font-size: 1rem; }
+  .symptom-title-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .symptom.rest .symptom-title-row { cursor: pointer; }
+  .symptom.rest .symptom-title-row:hover { color: var(--gold-text); }
+  .rest-chevron {
+    display: none;
+    font-size: 13px;
+    color: var(--gold-text);
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
+  }
+  .symptom.rest .rest-chevron { display: inline-block; }
+  .symptom.rest.collapsed .rest-chevron { transform: rotate(-90deg); }
   .symptom.collapsed .whats-happening,
   .symptom.collapsed .needs-repair,
   .symptom.collapsed .nm-note,
   .symptom.collapsed .symptom-links,
   .symptom.collapsed .symptom-category-badge,
   .symptom.collapsed .symptom-detail-toggle,
-  .symptom.collapsed .symptom-detail,
-  .symptom.collapsed .symptom-match-tag { display: none; }
+  .symptom.collapsed .symptom-detail { display: none; }
 
   .symptom-match-tag {
     font-family: 'DM Mono', monospace;
