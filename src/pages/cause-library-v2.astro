@@ -1,32 +1,42 @@
 ---
 // DRAFT (temp) -- prototype only, linked from the "Draft (temp)" nav folder
-// in Header.astro. Fourth pass, mirroring the same fixes just made on
-// symptom-guide-v2.astro:
-// - Expanded facet vocabulary (crack orientation split out, single-select
-//   foundation-type group added -- tags E3 Post-Tension Cable Failure and
-//   the plumbing/pier-and-beam-relevant causes for the first time).
-// - Results view redesigned: matches stay full-size up top, everything
-//   else collapses into one small "N other causes" strip instead of just
-//   dimming in place.
-// - Pill replaced with a plain sentence + a real button.
-// - Verdict badges are now tappable -- clicking one shows its one-line
-//   definition inline, so the legend travels with the reader instead of
-//   living only at the top of the page (real problem, confirmed via a
-//   screenshot of "Often" six groups down with no context in view).
-// Content itself is unchanged from the original 26 entries except the
-// small additions from the vocabulary research (swamp cooler leak under
-// C3, a lush-grass tell under C1, the plain-English soil-piping line
-// under A5).
-// Delete this file, symptom-guide-v2.astro, why-foundations-move-v2.astro,
-// and the "Draft (temp)" folder in Header.astro together once a direction
-// is picked.
+// in Header.astro. Fifth pass -- first real reimagining rather than a mirror
+// of symptom-guide-v2.astro. Same family (tokens, facet vocabulary, the
+// cross-page handoff), deliberately different structure:
+//
+// Symptom Guide is presenting symptoms -- what you notice around the house.
+// This page is differential diagnosis -- the reasons those signs show up,
+// which is a different kind of question and doesn't resolve the same way.
+// A headache doesn't diagnose itself; the same is true of a crack. So
+// instead of grouping the 26 causes by soil mechanism (Group A-F, which is
+// accurate but not how a homeowner would ever think about their own house),
+// they're grouped into three diagnostic tiers built directly from the
+// verdict field that was already on every entry:
+//   Tier 1  Rule This Out First   (verdict-weak   -- 11 causes)
+//   Tier 2  Needs a Closer Look   (verdict-conditional -- 9 causes)
+//   Tier 3  Usually Structural    (verdict-strong -- 6 causes)
+// Mechanism (Group A-F) still lives on each entry and still shows in the
+// opened drawer -- it didn't stop being true, it's just not the lens the
+// page opens with anymore.
+//
+// Also carries the one objective bugfix proven necessary on symptom-guide-v2:
+// score() can no longer rank a cause above zero without an actual observed
+// "what are you seeing" match -- foundation type/onset/site alone can no
+// longer out-rank a real symptom match. And unmatched cards, once you've
+// checked something, are now actually hidden behind the "other causes" strip
+// instead of just losing their drawer -- the strip's own copy already implied
+// they'd be out of view.
+//
+// Content itself (all 26 entries) is unchanged. Facet vocabulary synced with
+// symptom-guide-v2's expanded set (chimney, monolithic slab, spread footing)
+// so a handoff either direction pre-checks correctly.
 import Layout from '../layouts/Layout.astro';
 
 const title = 'The Cause Library — Why Foundations Move | TLS Foundations';
 const summary =
-  'Twenty-six specific causes of foundation movement in New Mexico, organized by mechanism across six groups -- loss of support, soil volume change, water and moisture drivers, deep geologic hazards, construction deficiencies, and site triggers. A "check all that apply" panel (foundation type, what you see, when it started, what you know about your site) re-sorts the list by relevance and assembles a short practical readout. Each entry covers what it is, where in New Mexico it shows up, whether underpinning is the right response, and what gets commonly missed.';
+  'Twenty-six specific causes of foundation movement in New Mexico, organized as a differential diagnosis -- what to rule out first, what needs real investigation, and what\'s usually structural -- rather than by soil mechanism. A "check all that apply" panel (foundation type, what you see, when it started, what you know about your site) re-sorts the list by relevance and hands back a short practical readout. Each entry covers what it is, where in New Mexico it shows up, whether underpinning is the right response, and what gets commonly missed.';
 const description =
-  '26 specific causes of New Mexico foundation movement, organized by mechanism -- check what applies and see which ones best match, with an honest read on whether underpinning fits.';
+  '26 specific causes of New Mexico foundation movement, sorted into what to rule out first, what needs a closer look, and what\'s usually structural -- check what applies and see which best match.';
 
 interface Cause {
   code: string;
@@ -470,8 +480,53 @@ const groups: Group[] = [
 
 const allCauses = groups.flatMap((g) => g.causes.map((c) => ({ ...c, groupId: g.id, groupTitle: g.title })));
 
+// The diagnostic reorganization: same 26 entries, regrouped by what the
+// verdict field already meant -- when underpinning is the right call versus
+// when something else needs to happen first or needs real investigation.
+// Order matters: a differential diagnosis rules out the simple, cheap
+// explanation before it reaches for the expensive one.
+const tierOrder: Cause['verdictClass'][] = ['verdict-weak', 'verdict-conditional', 'verdict-strong'];
+const tierInfo: Record<Cause['verdictClass'], { id: string; number: string; title: string; tagline: string }> = {
+  'verdict-weak': {
+    id: 'tier-1',
+    number: '01',
+    title: 'Rule This Out First',
+    tagline:
+      "Doctors check the simple explanation before ordering a scan. These are the New Mexico equivalents — drainage, irrigation, a slow leak, a burrow under the slab. They're the cheapest to check, the easiest to fix, and — more often than most homeowners expect — the actual answer.",
+  },
+  'verdict-conditional': {
+    id: 'tier-2',
+    number: '02',
+    title: 'Needs a Closer Look',
+    tagline:
+      "These don't resolve from a glance at a crack. Soil testing, moisture history, or a site investigation is what actually tells you whether this is what's happening — not a guess from the pattern alone.",
+  },
+  'verdict-strong': {
+    id: 'tier-3',
+    number: '03',
+    title: 'Usually Structural',
+    tagline: "Once one of these is confirmed, underpinning is typically the right response — the soil or the original design genuinely can't carry the house as it sits today.",
+  },
+};
+const causesByTier = tierOrder.map((vc) => ({
+  verdictClass: vc,
+  ...tierInfo[vc],
+  causes: allCauses.filter((c) => c.verdictClass === vc),
+}));
+
+// Sequential DOM/flex order across tier headers + cards, used to restore the
+// default tier-grouped layout once a search-and-rank pass (via CSS `order`)
+// is cleared.
+let orderCounter = 0;
+const tierHeaderOrder: Record<string, number> = {};
+const causeOrder: Record<string, number> = {};
+causesByTier.forEach((tier) => {
+  tierHeaderOrder[tier.id] = orderCounter++;
+  tier.causes.forEach((c) => (causeOrder[c.code] = orderCounter++));
+});
+
 // Same facet vocabulary as symptom-guide-v2.astro -- checked boxes carry
-// forward through the pill on either page via URL params.
+// forward through the handoff link on either page via URL params.
 const onsetOptions = [
   { id: 'sudden', label: 'Started suddenly' },
   { id: 'gradual', label: 'Been happening gradually, over time' },
@@ -490,6 +545,7 @@ const seeOptions = [
   { id: 'see-gaps', label: 'Gaps around doors, windows, or baseboards' },
   { id: 'see-foundation-cracks', label: 'Foundation cracks or crumbling concrete' },
   { id: 'see-foundation-gap', label: 'A gap between the house and the foundation' },
+  { id: 'see-chimney', label: 'Chimney leaning or separating from the house' },
   { id: 'see-drainage', label: 'Water pooling or poor drainage near the house' },
   { id: 'see-crawlspace', label: 'Wet, damp, or musty crawlspace' },
   { id: 'see-leak-signs', label: 'A warm/wet spot on the floor, or a sudden jump in your water bill' },
@@ -504,11 +560,12 @@ const siteOptions = [
 ];
 const foundationOptions = [
   { id: 'fnd-slab', label: 'Slab on grade' },
+  { id: 'fnd-monolithic', label: 'Monolithic slab (turned-down edge)' },
   { id: 'fnd-posttension', label: 'Post-tension slab' },
+  { id: 'fnd-spreadfooting', label: 'Spread footing' },
   { id: 'fnd-pierbeam', label: 'Pier and beam / crawlspace' },
   { id: 'fnd-unsure', label: 'Not sure' },
 ];
-
 const verdictDefs: Record<string, string> = {
   'verdict-strong': 'Usually the right call once the cause is confirmed.',
   'verdict-conditional': 'Depends on specifics — moisture, extent, or site conditions decide it.',
@@ -527,26 +584,30 @@ const verdictDefs: Record<string, string> = {
   <div class="sg-page">
     <section class="page-hero">
       <div class="page-hero-inner">
-        <span class="hero-eyebrow">Resources · Reference</span>
+        <span class="hero-eyebrow">Interactive Guides · Differential Diagnosis</span>
         <h1>The Cause <em>Library</em></h1>
-        <p class="page-hero-sub">Twenty-six specific causes, organized by mechanism. Check what applies and we'll sort which ones best match — companion to <a href="/why-foundations-move-v2">Why Foundations Move</a>.</p>
+        <p class="page-hero-sub">
+          <a href="/symptom-guide-v2">Symptom Guide</a> is what you notice — the crack, the sticking door, the floor
+          that dips. This is what's underneath. A symptom doesn't diagnose itself — the twenty-six causes below are
+          sorted into three tiers: what's worth ruling out first, what needs a closer look, and what's usually
+          structural.
+        </p>
       </div>
     </section>
 
     <div class="page">
       <div class="diagnostic-note">
         <p>
-          Foundation movement has many causes, organized here by mechanism — understanding why matters as
-          much as what. <strong>This is a reference, not a diagnosis</strong>; no visual inspection alone
-          can tell these apart.
+          A headache doesn't always mean something serious, and a crack doesn't always mean the foundation is
+          failing — but you can't tell which from the sign alone. That's the same logic here: rather than group
+          these by soil mechanism, they're grouped by what the sign actually means for you.
         </p>
-        <p>
-          Each entry carries a quick <strong>Underpinning?</strong> read so you can scan before you dig in:
-          <span class="legend-badge verdict-strong">Yes / Often</span> means it's usually the right call,
-          <span class="legend-badge verdict-conditional">Depends / Sometimes</span> means it's conditional on
-          specifics, and <span class="legend-badge verdict-weak">Rarely / No</span> means underpinning is
-          usually not the first move. Tap any badge below for its definition — no need to scroll back up.
+        <p class="tier-jump">
+          <a href="#tier-1"><span class="tier-jump-num">01</span> Rule This Out First</a>
+          <a href="#tier-2"><span class="tier-jump-num">02</span> Needs a Closer Look</a>
+          <a href="#tier-3"><span class="tier-jump-num">03</span> Usually Structural</a>
         </p>
+        <p><strong>This is a reference, not a diagnosis.</strong> No visual inspection alone — including this page — can tell these apart with certainty; a floor-level survey does that.</p>
       </div>
 
       <!-- CHECK ALL THAT APPLY -->
@@ -617,8 +678,8 @@ const verdictDefs: Record<string, string> = {
           <a href="tel:5059914180" class="outcome-phone">(505) 991-4180</a>
         </div>
         <div class="handoff">
-          <p class="handoff-text">Want to see these organized by what you're seeing instead of by mechanism? Your answers carry over automatically.</p>
-          <a href="/symptom-guide-v2" id="outcomePill" class="handoff-btn">Continue to the Symptom Guide →</a>
+          <p class="handoff-text">Want to check this against what you're actually seeing in the house, rather than by mechanism? Your answers carry over automatically.</p>
+          <a href="/symptom-guide-v2" id="outcomePill" class="handoff-btn">Go to the Symptom Guide →</a>
         </div>
       </div>
 
@@ -626,47 +687,61 @@ const verdictDefs: Record<string, string> = {
         <input type="search" id="causeSearch" placeholder="Search causes — e.g. &quot;caliche&quot;" aria-label="Search causes" />
       </div>
 
-      <p class="results-lead" id="resultsLead" hidden>Ranked for you — based on what you checked, this is likely the most useful reading on this page for your situation.</p>
+      <p class="results-lead" id="resultsLead" hidden>Ranked by how closely it matches what you checked — the tiers step aside once we're ranking; the closest matches simply rise to the top.</p>
 
-      <div class="symptom-grid" id="causeGrid">
-        {allCauses.map((c) => (
-          <article
-            class="specimen-card"
-            data-search={c.name.toLowerCase()}
-            data-group={c.groupId}
-            data-onset={c.onset.join(',')}
-            data-see={c.see.join(',')}
-            data-site={c.site.join(',')}
-            data-foundation={c.foundation.join(',')}
-          >
-            <button class="warning-trigger specimen-trigger">
-              <span class="specimen-code">{c.code}</span>
-              <span class="warning-trigger-text">{c.name}</span>
-              <span class={`verdict-badge ${c.verdictClass}`} data-def={verdictDefs[c.verdictClass]} tabindex="0" role="button" aria-label={`Underpinning verdict: ${c.verdict}. Tap for definition.`}>{c.verdict}</span>
-              <span class="verdict-def" hidden></span>
-              <span class="warning-trigger-icon">+</span>
-            </button>
-            <div class="warning-drawer" id={c.anchorId}>
-              <div class="warning-drawer-inner">
-                <span class="symptom-category-badge">{c.groupTitle}</span>
-                <p><span class="field-label">What it is</span>{c.what}</p>
-                {c.where && <p><span class="field-label">Where in NM</span>{c.where}</p>}
-                <p><span class="field-label">Underpinning appropriate?</span>{c.underpinning}</p>
-                {c.missed && <p><span class="field-label">Commonly missed</span>{c.missed}</p>}
-                {c.regional && <p><span class="field-label">Regional variations</span>{c.regional}</p>}
-                {c.related && (
-                  <p class="specimen-related">
-                    {c.related.map((r, i) => (
-                      <>
-                        {i > 0 && ' | '}
-                        <a href={r.href}>{r.text}</a>
-                      </>
-                    ))}
-                  </p>
-                )}
+      <div class="tier-grid" id="causeGrid">
+        {causesByTier.map((tier) => (
+          <>
+            <div class="tier-header" id={tier.id} data-tier-header style={`order:${tierHeaderOrder[tier.id]}`}>
+              <span class="tier-number">{tier.number}</span>
+              <div class="tier-header-text">
+                <h2>{tier.title}</h2>
+                <p>{tier.tagline}</p>
               </div>
             </div>
-          </article>
+            {tier.causes.map((c) => (
+              <article
+                class="specimen-card"
+                data-search={c.name.toLowerCase()}
+                data-code={c.code}
+                data-order={causeOrder[c.code]}
+                style={`order:${causeOrder[c.code]}`}
+                data-onset={c.onset.join(',')}
+                data-see={c.see.join(',')}
+                data-site={c.site.join(',')}
+                data-foundation={c.foundation.join(',')}
+              >
+                <button class="warning-trigger specimen-trigger">
+                  <span class="specimen-code">{c.code}</span>
+                  <span class="warning-trigger-text">{c.name}</span>
+                  <span class={`verdict-badge ${c.verdictClass}`} data-def={verdictDefs[c.verdictClass]} tabindex="0" role="button" aria-label={`Underpinning verdict: ${c.verdict}. Tap for definition.`}>{c.verdict}</span>
+                  <span class="verdict-def" hidden></span>
+                  <span class="warning-trigger-icon">+</span>
+                </button>
+                <p class="cause-match-tag" data-match-tag hidden></p>
+                <div class="warning-drawer" id={c.anchorId}>
+                  <div class="warning-drawer-inner">
+                    <span class="symptom-category-badge">{c.groupTitle}</span>
+                    <p><span class="field-label">What it is</span>{c.what}</p>
+                    {c.where && <p><span class="field-label">Where in NM</span>{c.where}</p>}
+                    <p><span class="field-label">Underpinning appropriate?</span>{c.underpinning}</p>
+                    {c.missed && <p><span class="field-label">Commonly missed</span>{c.missed}</p>}
+                    {c.regional && <p><span class="field-label">Regional variations</span>{c.regional}</p>}
+                    {c.related && (
+                      <p class="specimen-related">
+                        {c.related.map((r, i) => (
+                          <>
+                            {i > 0 && ' | '}
+                            <a href={r.href}>{r.text}</a>
+                          </>
+                        ))}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </>
         ))}
       </div>
 
@@ -685,25 +760,34 @@ const verdictDefs: Record<string, string> = {
 </Layout>
 
 <script>
+  function track(name: string, params: Record<string, string> = {}) {
+    if (typeof (window as any).gtag === 'function') (window as any).gtag('event', name, params);
+  }
+
   const grid = document.getElementById('causeGrid') as HTMLElement;
   const otherStrip = document.getElementById('otherStrip') as HTMLButtonElement;
   const resultsLead = document.getElementById('resultsLead') as HTMLElement;
+  const tierHeaders = Array.from(document.querySelectorAll<HTMLElement>('[data-tier-header]'));
   const items = Array.from(grid.querySelectorAll<HTMLElement>('.specimen-card')).map((el) => ({
     el,
-    originalIndex: 0,
     onset: (el.dataset.onset || '').split(',').filter(Boolean),
     see: (el.dataset.see || '').split(',').filter(Boolean),
     site: (el.dataset.site || '').split(',').filter(Boolean),
     foundation: (el.dataset.foundation || '').split(',').filter(Boolean),
   }));
-  items.forEach((it, i) => (it.originalIndex = i));
 
   const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>('.facet-panel input[type="checkbox"], .facet-panel input[type="radio"]'));
+  const LABELS: Record<string, string> = {};
+  checkboxes.forEach((cb) => {
+    const span = cb.parentElement?.querySelector('span');
+    if (span) LABELS[cb.value] = span.textContent || cb.value;
+  });
   const clearBtn = document.getElementById('facetClear') as HTMLButtonElement;
   const outcomeBox = document.getElementById('outcomeBox') as HTMLElement;
   const outcomeText = document.getElementById('outcomeText') as HTMLElement;
   const outcomePill = document.getElementById('outcomePill') as HTMLAnchorElement;
   let stripOpen = false;
+  let searchQuery = '';
 
   function getChecked() {
     const onset = checkboxes.filter((c) => c.checked && c.name === 'onset').map((c) => c.value);
@@ -715,10 +799,25 @@ const verdictDefs: Record<string, string> = {
 
   function score(it: (typeof items)[number], checked: ReturnType<typeof getChecked>) {
     const seeMatches = it.see.filter((s) => checked.see.includes(s)).length;
+    // A cause can't register as a match without an actual observed-symptom
+    // match -- foundation type/onset/site alone (e.g. a uniquely-tagged site
+    // condition) must never outrank a real "what are you seeing" match. Same
+    // bug class found and fixed on symptom-guide-v2.
+    if (seeMatches === 0) return 0;
     const onsetMatches = it.onset.filter((s) => checked.onset.includes(s)).length;
     const siteMatches = it.site.filter((s) => checked.site.includes(s)).length;
     const foundationMatches = it.foundation.filter((s) => checked.foundation.includes(s)).length;
     return seeMatches * 3 + onsetMatches + siteMatches * 2 + foundationMatches * 2;
+  }
+
+  function buildMatchTag(it: (typeof items)[number], checked: ReturnType<typeof getChecked>) {
+    const parts: string[] = [];
+    (['see', 'onset', 'site', 'foundation'] as const).forEach((group) => {
+      it[group].forEach((id) => {
+        if (checked[group].includes(id) && LABELS[id]) parts.push(LABELS[id]);
+      });
+    });
+    return parts.length ? `Matches what you checked: ${parts.join(', ')}` : '';
   }
 
   function buildOutcome() {
@@ -752,42 +851,62 @@ const verdictDefs: Record<string, string> = {
     outcomePill.href = '/symptom-guide-v2' + (params.toString() ? '?' + params.toString() : '');
   }
 
+  function matchesSearch(it: (typeof items)[number]) {
+    if (!searchQuery) return true;
+    return it.el.dataset.search!.includes(searchQuery) || it.el.textContent!.toLowerCase().includes(searchQuery);
+  }
+
   function applySort() {
     const checked = getChecked();
     const anyChecked = checked.onset.length + checked.see.length + checked.site.length + checked.foundation.length > 0;
     clearBtn.hidden = !anyChecked;
-
-    const scored = items.map((it) => ({ it, s: anyChecked ? score(it, checked) : 0 }));
-    scored.sort((a, b) => (anyChecked ? b.s - a.s || a.it.originalIndex - b.it.originalIndex : a.it.originalIndex - b.it.originalIndex));
-
-    const matched = scored.filter((x) => x.s > 0);
-    const rest = scored.filter((x) => x.s === 0);
-
-    [...matched, ...rest].forEach(({ it }) => grid.appendChild(it.el));
-
     resultsLead.hidden = !anyChecked;
+    tierHeaders.forEach((h) => (h.hidden = anyChecked || !!searchQuery));
 
     if (!anyChecked) {
-      items.forEach((it) => it.el.classList.remove('collapsed', 'matched'));
+      items.forEach((it) => {
+        it.el.classList.remove('matched');
+        it.el.hidden = !matchesSearch(it);
+        it.el.style.order = it.el.dataset.order || '0';
+        const tag = it.el.querySelector<HTMLElement>('[data-match-tag]');
+        if (tag) tag.hidden = true;
+      });
       otherStrip.hidden = true;
       stripOpen = false;
-    } else {
-      matched.forEach(({ it }) => {
-        it.el.classList.add('matched');
-        it.el.classList.remove('collapsed');
-      });
-      rest.forEach(({ it }) => {
-        it.el.classList.remove('matched');
-        it.el.classList.toggle('collapsed', !stripOpen);
-      });
-      if (rest.length > 0) {
-        otherStrip.hidden = false;
-        otherStrip.textContent = stripOpen
-          ? `Hide ${rest.length} other cause${rest.length === 1 ? '' : 's'}`
-          : `${rest.length} other cause${rest.length === 1 ? '' : 's'}, less likely — tap to show`;
-      } else {
-        otherStrip.hidden = true;
+      buildOutcome();
+      return;
+    }
+
+    const scored = items.map((it) => ({ it, s: score(it, checked) }));
+    const matched = scored.filter((x) => x.s > 0).sort((a, b) => b.s - a.s);
+    const rest = scored.filter((x) => x.s === 0);
+
+    matched.forEach(({ it }, i) => {
+      it.el.classList.add('matched');
+      it.el.hidden = !matchesSearch(it);
+      it.el.style.order = String(i - 10000);
+      const tag = it.el.querySelector<HTMLElement>('[data-match-tag]');
+      if (tag) {
+        const text = buildMatchTag(it, checked);
+        tag.textContent = text;
+        tag.hidden = !text;
       }
+    });
+    rest.forEach(({ it }) => {
+      it.el.classList.remove('matched');
+      it.el.hidden = !stripOpen || !matchesSearch(it);
+      it.el.style.order = it.el.dataset.order || '0';
+      const tag = it.el.querySelector<HTMLElement>('[data-match-tag]');
+      if (tag) tag.hidden = true;
+    });
+
+    if (rest.length > 0) {
+      otherStrip.hidden = false;
+      otherStrip.textContent = stripOpen
+        ? `Hide ${rest.length} other cause${rest.length === 1 ? '' : 's'}`
+        : `${rest.length} other cause${rest.length === 1 ? '' : 's'}, less likely — tap to show`;
+    } else {
+      otherStrip.hidden = true;
     }
 
     buildOutcome();
@@ -798,14 +917,20 @@ const verdictDefs: Record<string, string> = {
     applySort();
   });
 
-  checkboxes.forEach((cb) => cb.addEventListener('change', applySort));
+  checkboxes.forEach((cb) =>
+    cb.addEventListener('change', () => {
+      if (cb.name === 'foundation') track('foundation_type_selected', { value: cb.value });
+      applySort();
+    })
+  );
   clearBtn.addEventListener('click', () => {
     checkboxes.forEach((cb) => (cb.checked = false));
     stripOpen = false;
     applySort();
   });
+  outcomePill.addEventListener('click', () => track('cross_page_handoff', { from: 'cause-library', to: 'symptom-guide' }));
 
-  // Arriving via the pill from symptom-guide-v2 -- pre-check boxes from the URL.
+  // Arriving via the handoff from symptom-guide-v2 -- pre-check boxes from the URL.
   const params = new URLSearchParams(window.location.search);
   ['onset', 'see', 'site', 'foundation'].forEach((group) => {
     const val = params.get(group);
@@ -819,11 +944,8 @@ const verdictDefs: Record<string, string> = {
 
   const search = document.getElementById('causeSearch') as HTMLInputElement;
   search.addEventListener('input', () => {
-    const q = search.value.trim().toLowerCase();
-    grid.querySelectorAll<HTMLElement>('.specimen-card').forEach((item) => {
-      const visible = !q || item.dataset.search!.includes(q) || item.textContent!.toLowerCase().includes(q);
-      item.hidden = !visible;
-    });
+    searchQuery = search.value.trim().toLowerCase();
+    applySort();
   });
 
   // Accordion open/close, one at a time.
@@ -930,14 +1052,33 @@ const verdictDefs: Record<string, string> = {
   }
   .diagnostic-note p + p { margin-top: 16px; }
   .diagnostic-note strong { color: var(--blue); }
-  .legend-badge {
-    display: inline-block;
+  .tier-jump { display: flex; flex-wrap: wrap; gap: 10px; }
+  .tier-jump a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 0.5px;
-    padding: 2px 8px;
+    color: var(--blue);
+    background: var(--white);
+    border: 1px solid var(--stone);
     border-radius: 20px;
-    margin: 0 2px;
+    padding: 6px 12px 6px 8px;
+    text-decoration: none;
+  }
+  .tier-jump a:hover { border-color: var(--gold); color: var(--gold-text); }
+  .tier-jump-num {
+    font-weight: 600;
+    color: var(--gold-text);
+    background: var(--sand);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
   }
 
   /* ── Check-all-that-apply panel (shared with symptom-guide-v2) ── */
@@ -1037,11 +1178,33 @@ const verdictDefs: Record<string, string> = {
     margin: 0 0 16px;
   }
 
-  /* ── Specimen cards (flat grid, sortable) ── */
-  .symptom-grid { display: flex; flex-direction: column; gap: 10px; }
+  /* ── Tier grid (flex + `order` so a relevance sort can reorder without
+       moving elements out of their tier sections in the DOM) ── */
+  .tier-grid { display: flex; flex-direction: column; gap: 10px; }
+  .tier-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 22px 4px 10px;
+    border-top: 2px solid var(--blue);
+    margin-top: 14px;
+  }
+  .tier-header:first-child { margin-top: 0; border-top: none; padding-top: 4px; }
+  .tier-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 400;
+    color: var(--gold-light);
+    line-height: 1;
+    flex-shrink: 0;
+    -webkit-text-stroke: 1px var(--gold-text);
+  }
+  .tier-header-text h2 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; color: var(--blue); margin: 0 0 6px; }
+  .tier-header-text p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin: 0; max-width: 620px; }
+
+  /* ── Specimen cards ── */
   .specimen-card { background: var(--white); border: 1px solid var(--stone); border-radius: 8px; transition: opacity 0.2s, border-color 0.2s; }
   .specimen-card.matched { border-color: rgba(184, 134, 11, 0.5); }
-  .specimen-card.collapsed .warning-drawer { display: none; }
   .specimen-trigger {
     width: 100%;
     background: none;
@@ -1055,7 +1218,6 @@ const verdictDefs: Record<string, string> = {
     text-align: left;
     font-family: 'Source Serif 4', serif;
   }
-  .specimen-card.collapsed .specimen-trigger { padding: 12px 20px; }
   .specimen-code {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
@@ -1093,6 +1255,16 @@ const verdictDefs: Record<string, string> = {
   .verdict-weak { background: var(--sand); color: var(--muted); border: 1px solid var(--stone); }
   .warning-trigger-icon { color: var(--gold-text); font-size: 16px; flex-shrink: 0; }
   .specimen-card.open .warning-trigger-icon { transform: rotate(45deg); }
+  .cause-match-tag {
+    margin: -8px 20px 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2px;
+    color: var(--gold-text);
+    background: var(--sand);
+    border-radius: 6px;
+    padding: 6px 10px;
+  }
   .warning-drawer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
   .warning-drawer-inner {
     font-size: 15px;
@@ -1140,6 +1312,7 @@ const verdictDefs: Record<string, string> = {
     .verdict-badge { order: 2; }
     .verdict-def { order: 4; }
     .warning-trigger-icon { order: 3; margin-left: auto; }
+    .tier-number { font-size: 28px; }
   }
 
   .contact-footer { margin-top: 20px; text-align: center; padding: 32px; background: var(--sand); border-left: 4px solid var(--gold); }
