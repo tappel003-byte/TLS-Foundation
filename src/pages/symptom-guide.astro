@@ -1540,11 +1540,18 @@ const schema = [
   .symptom.collapsed .symptom-detail-toggle,
   .symptom.collapsed .symptom-detail { display: none; }
 
-  .symptom-match-tag {
+  /*
+   * ".symptom p" (a class+element selector, specificity 0-1-1) beats a
+   * bare ".symptom-match-tag" (0-1-0) regardless of source order -- that
+   * silently overrode font-size here, so this was rendering at full
+   * body-paragraph size no matter what number was set. Qualifying with
+   * ".symptom" makes it 0-2-0, which actually wins.
+   */
+  .symptom .symptom-match-tag {
     font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.4px;
-    color: var(--gold-text);
+    font-size: 10px;
+    letter-spacing: 0.3px;
+    color: var(--muted);
     display: block;
     margin-bottom: 14px;
   }
