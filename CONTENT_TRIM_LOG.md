@@ -12,7 +12,7 @@ Entries are newest first.
 
 ## Glossary (`src/pages/glossary.astro`)
 
-**Commit:** `<pending>`
+**Commit:** `66aa0d4`
 
 Ran the systematic repeated-phrase scan (7-word shingles) across the
 full 86-term glossary rather than spot-reading a sample, given the file's
