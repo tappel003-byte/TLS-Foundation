@@ -12,7 +12,7 @@ Entries are newest first.
 
 ## Rio Rancho (`src/pages/rio-rancho-nm.astro`)
 
-**Commit:** _pending_
+**Commit:** `d374b44`
 
 - **Section 5 ("Our Approach") lost its opening paragraph** — the
   Glengarry Glen Ross "ABC" callback ("That instruction never left the
@@ -40,7 +40,7 @@ Entries are newest first.
 
 ## Albuquerque (`src/pages/albuquerque-nm.astro`)
 
-**Commit:** _pending_ (second pass)
+**Commit:** `d374b44`
 
 - **Section 7 ("Duke City") lost its retelling of the 1706 founding
   story** — Section 1 already tells it, with the better line ("The extra
