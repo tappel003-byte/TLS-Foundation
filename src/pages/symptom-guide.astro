@@ -974,22 +974,22 @@ const schema = [
     const geotechClause = geotech
       ? ' If the site conditions point toward a deeper geotechnical question, we can loop in our affiliate Sandia GEO as well.'
       : '';
-    // What the real diagnostic process actually is, stated plainly and
-    // without naming or implying any specific repair method -- we don't
-    // know soil conditions until this happens, so nothing here should
-    // sound like a recommendation for piers, foam, or anything else. It's
-    // also not one single thing: a floor-level survey establishes the
-    // baseline, a distress investigation is where we actually look at the
-    // house -- both together are "the diagnostic," not just the survey.
+    // Symptom Guide's whole reason to exist is calibrating worry -- someone
+    // just noticed something and wants to know if it's a big deal. So the
+    // close leans into that: confirming it is a real, low-pressure look at
+    // the house, not another checklist, and the call itself is the easy
+    // part. (Cause Library's close is deliberately different -- see its
+    // own buildOutcome -- since that tool's moment is "which of these
+    // mechanisms is it," not "should I be worried.")
     const surveyClause =
-      "The real diagnostic process is usually two things together: a <a href=\"/glossary#floor-level-survey\" class=\"glossary-link\">floor-level survey</a> and a distress investigation. The survey gives us the objective baseline; the investigation is where we actually look at the house and how it's behaved over time. That combination is what tells us what's happening — not a guess from a checklist.";
+      "Confirming it takes an actual look at the house, not another checklist — usually a short <a href=\"/glossary#floor-level-survey\" class=\"glossary-link\">floor-level survey</a> and a walk-through of what you're describing.";
 
     // Every tier ends the same way on purpose: the ask is a phone call,
     // not "schedule a survey" -- in practice we go look at the house
     // first, build some rapport, and the formal survey follows later.
     // Promising a scheduled survey up front oversells where things
     // actually stand after just checking some boxes.
-    const callToAction = "Call us today to see how we can help.";
+    const callToAction = "Call us today; most of these calls start with questions, not a sales pitch.";
 
     let text = '';
     if (tier === 'watch') {

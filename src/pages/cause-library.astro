@@ -1102,14 +1102,14 @@ const verdictDefs: Record<string, string> = {
     // `names` and `geotechClause` are both built from our own controlled
     // strings (card titles rendered by us, a fixed clause), never from
     // unescaped user input.
-    // The real diagnostic process is two things together, not one: a
-    // floor-level survey (the objective baseline) and a distress
-    // investigation (actually looking at the house and how it's behaved
-    // over time). The ask at the end is a phone call, not "schedule a
-    // survey" -- in practice we go look at the house first and the
-    // formal survey follows later, so promising one up front oversells
-    // where things actually stand after just checking some boxes.
-    outcomeText.innerHTML = `Based on what you selected, the closest matches below are ${names}. That's a starting point, not a determination. The real diagnostic process is usually two things together: a <a href="/glossary#floor-level-survey" class="glossary-link">floor-level survey</a> and a distress investigation. The survey gives us the objective baseline; the investigation is where we actually look at the house and how it's behaved over time.${geotechClause} Call us today to see how we can help.`;
+    // Cause Library's moment is different from Symptom Guide's -- someone
+    // here is narrowing down *why*, among 26 possible mechanisms, not
+    // asking whether to worry. So the close leans into that: matching a
+    // cause on this page is a hypothesis, and a floor-level survey read
+    // against the actual pattern of movement is what confirms or rules it
+    // out. (Deliberately not the same closing as Symptom Guide's own
+    // buildOutcome -- see the comment there.)
+    outcomeText.innerHTML = `Based on what you selected, the closest matches below are ${names}. That's a starting point, not a determination. Matching a cause here is a hypothesis, not a confirmation -- the only way to know which one is actually happening at your house is a <a href="/glossary#floor-level-survey" class="glossary-link">floor-level survey</a> read against the pattern you're seeing.${geotechClause} Call us today and we'll help you confirm it.`;
 
     const params = new URLSearchParams();
     if (checked.onset.length) params.set('onset', checked.onset.join(','));
