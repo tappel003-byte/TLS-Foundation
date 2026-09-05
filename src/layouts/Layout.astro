@@ -3,6 +3,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import MinimalFooter from '../components/MinimalFooter.astro';
 import BackToTop from '../components/BackToTop.astro';
+import MobilePageFlowNav from '../components/MobilePageFlowNav.astro';
 import PageSummary from '../components/PageSummary.astro';
 import '../styles/global.css';
 
@@ -149,6 +150,7 @@ const websiteSchema = {
     </main>
     {footer === 'full' ? <Footer {...footerProps} /> : <MinimalFooter {...footerProps} />}
     <BackToTop />
+    <MobilePageFlowNav />
     {summary && <PageSummary summary={summary} pageName={pageName} nextPage={nextPage} />}
   </body>
 </html>

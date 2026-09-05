@@ -1,0 +1,106 @@
+---
+// Small "prev / next" chevron pair, mobile-only, next to the existing
+// back-to-top circle. The sitewide reading order already exists as an
+// unbroken chain via every page's own `nextPage` prop (see pageFlow.ts) --
+// the only place it surfaced was buried inside the Summarize popup, which
+// meant a trip through an extra tap-and-scroll to reach it. On desktop the
+// regional/city pages' left-nav sidebar gives some sense of place, but
+// that sidebar is hidden entirely on mobile, so this is mobile-only by
+// design, not a smaller version of a desktop feature.
+import { pageFlow } from '../data/pageFlow';
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const idx = pageFlow.findIndex((p) => p.path === currentPath);
+const prev = idx > 0 ? pageFlow[idx - 1] : null;
+const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
+---
+
+{
+  (prev || next) && (
+    <>
+      {prev && (
+        <a id="tls-pagenav-prev" class="tls-pagenav-btn" href={prev.path} aria-label={`Previous: ${prev.name}`}>
+          <svg viewBox="0 0 24 24">
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </a>
+      )}
+      {next && (
+        <a id="tls-pagenav-next" class="tls-pagenav-btn" href={next.path} aria-label={`Next: ${next.name}`}>
+          <svg viewBox="0 0 24 24">
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </a>
+      )}
+    </>
+  )
+}
+
+<style>
+  .tls-pagenav-btn {
+    display: none;
+  }
+  @media (max-width: 640px) {
+    .tls-pagenav-btn {
+      display: flex;
+      position: fixed;
+      bottom: 28px;
+      width: 44px;
+      height: 44px;
+      background: var(--blue);
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s, background 0.2s;
+      pointer-events: none;
+      text-decoration: none;
+    }
+    .tls-pagenav-btn.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .tls-pagenav-btn:hover {
+      background: var(--gold);
+    }
+    .tls-pagenav-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    /* Immediately left of #tls-btt (right: 28px, 48px wide), 8px gaps. */
+    #tls-pagenav-next {
+      right: 84px;
+    }
+    #tls-pagenav-prev {
+      right: 136px;
+    }
+  }
+</style>
+
+<script>
+  let ticking = false;
+  function update() {
+    const y = window.pageYOffset || document.documentElement.scrollTop || 0;
+    document.querySelectorAll('.tls-pagenav-btn').forEach((btn) => btn.classList.toggle('show', y > 400));
+    ticking = false;
+  }
+  window.addEventListener(
+    'scroll',
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+</script>
