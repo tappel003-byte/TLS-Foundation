@@ -79,14 +79,17 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
       stroke-linecap: round;
       stroke-linejoin: round;
     }
-    /* Reads "back, up, next" left to right: prev leftmost, #tls-btt
-       (back-to-top, 48px) takes the middle slot, next claims the rightmost
-       slot #tls-btt used to sit in. 14px gaps on each side of #tls-btt. */
+    /* Reads "back, up, next" left to right, flanking #tls-btt (back-to-top),
+       which is dead-centered on the viewport (see BackToTop.astro). Same
+       math, from screen-center: #tls-btt spans center ±24px (its 48px
+       width); prev/next sit 14px out from that on each side. */
     #tls-pagenav-next {
-      right: 34px;
+      right: auto;
+      left: calc(50% + 38px);
     }
     #tls-pagenav-prev {
-      right: 146px;
+      right: auto;
+      left: calc(50% - 74px);
     }
   }
 </style>
