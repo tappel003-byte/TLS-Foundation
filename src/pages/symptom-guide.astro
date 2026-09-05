@@ -389,6 +389,25 @@ const regionCities = [
   },
 ];
 
+// One blurb per destination, keyed by href -- shown on every inline
+// "further reading" link below a card (so a reader knows what they're
+// about to leave the page for) and reused as-is by the client-side
+// "related reading" feature built from the top-ranked matches. Single
+// source of truth, passed to the client via a JSON script tag below,
+// so the two never drift out of sync with each other.
+const linkBlurbs: Record<string, string> = {
+  '/expansive-soil': 'How clay soils that swell and shrink with moisture drive seasonal cracking and heave.',
+  '/common-concerns#heave': 'Why heave and settlement look identical but need opposite repairs.',
+  '/common-concerns#wait': "When it's safe to monitor and when waiting makes things worse.",
+  '/common-concerns#insurance': 'What homeowners insurance actually covers here.',
+  '/collapsible-soil': 'Soils that hold for decades dry, then collapse suddenly once wet.',
+  '/foundation-repair-methods': 'The full range of repair approaches, not just piers.',
+  '/foundation-repair-methods#drainage-correction': 'Often the cheapest fix, and sometimes the only one you need.',
+  '/northern-new-mexico': 'Soil conditions specific to Santa Fe, Taos, and the north.',
+  '/central-new-mexico': 'Soil conditions specific to Albuquerque and the Rio Grande corridor.',
+  '/our-approach': "Why New Mexico's soil and climate make foundation problems here different from anywhere else.",
+};
+
 const allSymptoms = categories.flatMap((c) => c.items);
 
 // Facet definitions -- shared vocabulary with cause-library.astro so
@@ -524,6 +543,7 @@ const schema = [
           </div>
           <p class="facet-tip" id="regionLinkTip" hidden></p>
           <script type="application/json" id="regionCitiesData" set:html={JSON.stringify(regionCities)} />
+          <script type="application/json" id="linkBlurbsData" set:html={JSON.stringify(linkBlurbs)} />
         </fieldset>
 
         <fieldset class="facet-group">
@@ -673,7 +693,10 @@ const schema = [
               {s.links.length > 0 && (
                 <div class="symptom-links">
                   {s.links.map((l) => (
-                    <a href={l.href} class="symptom-link">{l.text} →</a>
+                    <a href={l.href} class="symptom-link-item">
+                      <span class="symptom-link-title">{l.text} →</span>
+                      {linkBlurbs[l.href] && <span class="symptom-link-blurb">{linkBlurbs[l.href]}</span>}
+                    </a>
                   ))}
                 </div>
               )}
@@ -846,17 +869,9 @@ const schema = [
   const relatedReadingList = document.getElementById('relatedReadingList') as HTMLElement;
   let stripOpen = false;
 
-  const LINK_BLURBS: Record<string, string> = {
-    '/expansive-soil': 'How clay soils that swell and shrink with moisture drive seasonal cracking and heave.',
-    '/common-concerns#heave': 'Why heave and settlement look identical but need opposite repairs.',
-    '/common-concerns#wait': "When it's safe to monitor and when waiting makes things worse.",
-    '/collapsible-soil': 'Soils that hold for decades dry, then collapse suddenly once wet.',
-    '/foundation-repair-methods': 'The full range of repair approaches, not just piers.',
-    '/foundation-repair-methods#drainage-correction': 'Often the cheapest fix, and sometimes the only one you need.',
-    '/northern-new-mexico': 'Soil conditions specific to Santa Fe, Taos, and the north.',
-    '/central-new-mexico': 'Soil conditions specific to Albuquerque and the Rio Grande corridor.',
-    '/common-concerns#insurance': 'What homeowners insurance actually covers here.',
-  };
+  // Same map the per-card inline links use, server-rendered into the
+  // frontmatter's linkBlurbs -- read back here so the two can't drift.
+  const LINK_BLURBS = JSON.parse(document.getElementById('linkBlurbsData')!.textContent || '{}') as Record<string, string>;
 
   const LABELS: Record<string, string> = {
     sudden: 'sudden onset',
@@ -1001,12 +1016,13 @@ const schema = [
     const found: { href: string; text: string }[] = [];
     const topMatched = Array.from(document.querySelectorAll<HTMLElement>('.symptom.matched')).slice(0, 3);
     topMatched.forEach((card) => {
-      card.querySelectorAll<HTMLAnchorElement>('.symptom-link').forEach((a) => {
+      card.querySelectorAll<HTMLAnchorElement>('.symptom-link-item').forEach((a) => {
         if (found.length >= 4) return;
         const href = a.getAttribute('href') || '';
         if (!href || seen.has(href)) return;
         seen.add(href);
-        found.push({ href, text: a.textContent?.replace(/\s*→\s*$/, '').trim() || href });
+        const title = a.querySelector('.symptom-link-title')?.textContent || href;
+        found.push({ href, text: title.replace(/\s*→\s*$/, '').trim() });
       });
     });
 
@@ -1615,17 +1631,33 @@ const schema = [
    */
   .symptom .needs-repair { background: rgba(27, 58, 92, 0.06); border-left: 3px solid var(--blue); padding: 16px 20px; color: var(--blue); border-radius: 0 6px 6px 0; }
   .symptom .nm-note { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-bottom: 0; }
-  .symptom-links { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--stone); display: flex; flex-wrap: wrap; gap: 12px; }
-  .symptom-link {
+  .symptom-links { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--stone); display: flex; flex-direction: column; gap: 8px; }
+  .symptom-link-item {
+    display: block;
+    text-decoration: none;
+    background: var(--cream);
+    border: 1px solid var(--stone);
+    border-radius: 6px;
+    padding: 10px 14px;
+    transition: border-color 0.15s;
+  }
+  .symptom-link-item:hover { border-color: var(--gold); }
+  .symptom-link-title {
+    display: block;
     font-family: 'DM Mono', monospace;
     font-size: 0.7rem;
     letter-spacing: 1px;
     text-transform: uppercase;
     color: var(--blue);
-    text-decoration: none;
-    border-bottom: 1px dotted var(--gold);
   }
-  .symptom-link:hover { color: var(--gold-text); }
+  .symptom-link-item:hover .symptom-link-title { color: var(--gold-text); }
+  .symptom-link-blurb {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
   .glossary-link {
     color: inherit;
     text-decoration: underline;
