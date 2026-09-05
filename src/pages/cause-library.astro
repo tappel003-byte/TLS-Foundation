@@ -1150,7 +1150,18 @@ const verdictDefs: Record<string, string> = {
     });
   }
 
+  // The checked pill's blue fill is styled with :has(input:checked), a
+  // relatively new CSS selector -- on a browser without it (older
+  // Safari/WebKit especially), the checkbox itself still gets checked
+  // and works correctly, but the pill silently never turns blue, which
+  // reads as "the boxes didn't stay checked." This makes the visual
+  // state deterministic in every browser, independent of :has() support.
+  function syncChipVisuals() {
+    checkboxes.forEach((cb) => cb.closest('.facet-chip')?.classList.toggle('is-checked', cb.checked));
+  }
+
   function applySort() {
+    syncChipVisuals();
     const checked = getChecked();
     const anyChecked = checked.onset.length + checked.see.length + checked.site.length + checked.foundation.length > 0;
     clearBtn.hidden = !anyChecked;
@@ -1475,7 +1486,8 @@ const verdictDefs: Record<string, string> = {
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
   }
-  .facet-chip:has(input:checked) { background: var(--blue); border-color: var(--blue); color: var(--white); }
+  .facet-chip:has(input:checked),
+  .facet-chip.is-checked { background: var(--blue); border-color: var(--blue); color: var(--white); }
   .facet-chip input { width: 14px; height: 14px; accent-color: var(--gold); flex-shrink: 0; }
   .facet-actions { display: flex; justify-content: flex-end; }
   .facet-clear {
