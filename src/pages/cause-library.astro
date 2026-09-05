@@ -816,7 +816,6 @@ const verdictDefs: Record<string, string> = {
         </div>
 
         <div class="outcome-more" id="outcomeMore">
-          <p class="outcome-triage">A floor-level survey measures the relative elevation of your floors at dozens of points across the house, building an objective map of potential soil-related patterns. We don't know how level the floors were before the survey — it's a snapshot in time, not a before-and-after — but that snapshot is often what leads to a proper diagnosis, and it establishes the baseline everything after is measured against. It's the first step in triage: like a doctor taking vital signs before treating you, we need real data before recommending anything else. The checkboxes narrow down what it's likely to be; the survey confirms it.</p>
           <div class="related-reading" id="relatedReading" hidden>
             <span class="related-reading-label">Related reading, based on your closest matches</span>
             <div class="related-reading-list" id="relatedReadingList"></div>
@@ -1514,15 +1513,6 @@ const verdictDefs: Record<string, string> = {
     margin-bottom: 12px;
   }
   .outcome-text { color: rgba(255, 255, 255, 0.92); font-size: 0.98rem; line-height: 1.8; margin: 0 0 16px; }
-  .outcome-triage {
-    color: rgba(255, 255, 255, 0.6);
-    font-size: 0.82rem;
-    line-height: 1.7;
-    font-style: italic;
-    border-left: 2px solid rgba(212, 160, 23, 0.4);
-    padding-left: 14px;
-    margin: 0 0 20px;
-  }
   .outcome-cta { margin-bottom: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .outcome-phone { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); text-decoration: none; border-bottom: 1px solid var(--gold); }
   .outcome-print {
@@ -1872,7 +1862,7 @@ const verdictDefs: Record<string, string> = {
     .page { padding: 0; max-width: 100%; }
     .outcome-box { background: none; border: 1px solid #999; padding: 16px; }
     .outcome-label, .related-reading-label { color: #444; }
-    .outcome-text, .outcome-triage, .outcome-phone {
+    .outcome-text, .outcome-phone {
       color: #000 !important;
     }
     :global(.related-reading-title), :global(.related-reading-blurb) {
