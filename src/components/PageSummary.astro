@@ -243,8 +243,14 @@ const { summary, pageName, nextPage } = Astro.props;
     #tls-summarize-btn {
       left: 20px;
       right: auto;
-      padding: 0 16px;
-      font-size: 10px;
+      /* Matches the smaller back/next circles' height and vertical center
+         (bottom: 34px + 18px half-height = same 52px center-line as the
+         48px back-to-top button) so the whole floating row reads as one
+         cohesive bar instead of two different-sized rows. */
+      bottom: 34px;
+      height: 36px;
+      padding: 0 14px;
+      font-size: 9px;
     }
     .tls-summarize-btn-full {
       display: none;

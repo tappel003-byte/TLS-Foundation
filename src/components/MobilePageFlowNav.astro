@@ -44,9 +44,12 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
     .tls-pagenav-btn {
       display: flex;
       position: fixed;
-      bottom: 28px;
-      width: 44px;
-      height: 44px;
+      /* Smaller than #tls-btt (48px) on purpose -- back/next flank the
+         back-to-top button as the secondary pair, so bottom is nudged down
+         from 28px to keep all three circles sharing one visual center line. */
+      bottom: 34px;
+      width: 36px;
+      height: 36px;
       background: var(--blue);
       border: 2px solid var(--gold);
       border-radius: 50%;
@@ -68,8 +71,8 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
       background: var(--gold);
     }
     .tls-pagenav-btn svg {
-      width: 16px;
-      height: 16px;
+      width: 13px;
+      height: 13px;
       fill: none;
       stroke: #fff;
       stroke-width: 2.5;
@@ -77,13 +80,13 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
       stroke-linejoin: round;
     }
     /* Reads "back, up, next" left to right: prev leftmost, #tls-btt
-       (back-to-top) takes the middle 84px slot itself, next claims the
-       rightmost 28px slot that #tls-btt used to sit in. 8px gaps. */
+       (back-to-top, 48px) takes the middle slot, next claims the rightmost
+       slot #tls-btt used to sit in. 14px gaps on each side of #tls-btt. */
     #tls-pagenav-next {
-      right: 28px;
+      right: 34px;
     }
     #tls-pagenav-prev {
-      right: 136px;
+      right: 146px;
     }
   }
 </style>
