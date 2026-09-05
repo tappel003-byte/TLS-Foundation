@@ -47,7 +47,7 @@ const categories: Category[] = [
         needsRepair: 'Often not urgent. Monitor for progression. If actively widening, have it evaluated before assuming the cause.',
         nmContext:
           "Clay soil cycles drive seasonal cracking across the Rio Grande corridor. Heave and settlement produce identical-looking cracks — the wrong diagnosis leads to the wrong repair. A rough rule of thumb people use: a hairline crack is one thing, a crack wide enough to fit a coin or fingernail into is worth documenting closely.",
-        links: [{ text: 'Expansive Soils', href: '/expansive-soil' }],
+        links: [{ text: 'Expansive Soils', href: '/expansive-soil#misdiagnosis' }],
         onset: ['gradual', 'seasonal'],
         see: ['see-crack-diagonal'],
         site: ['site-clay'],
@@ -60,7 +60,7 @@ const categories: Category[] = [
         needsRepair: 'Yes, evaluate promptly. Horizontal cracks are a different category from diagonal or vertical cracking. Active inward movement requires attention.',
         nmContext:
           'Expansive clays exert significant lateral pressure after monsoon saturation. Poorly drained sites in the Rio Grande Valley and Four Corners are highest risk.',
-        links: [{ text: 'Expansive Soils', href: '/expansive-soil' }],
+        links: [{ text: 'Expansive Soils', href: '/expansive-soil#what-is' }],
         onset: ['gradual'],
         see: ['see-crack-horizontal', 'see-foundation-cracks'],
         site: ['site-clay'],
@@ -163,7 +163,7 @@ const categories: Category[] = [
           "Collapsible soils are widespread across New Mexico's basin floors — the West Mesa, Estancia Valley, and river corridors. They can collapse rapidly when moisture is introduced for the first time. Some homeowners notice it first because a ball or marble left on the floor rolls to one side by itself.",
         links: [
           { text: 'Common Concerns: Timing', href: '/common-concerns#wait' },
-          { text: 'Collapsible Soils', href: '/collapsible-soil' },
+          { text: 'Collapsible Soils', href: '/collapsible-soil#signs' },
         ],
         onset: ['gradual', 'sudden'],
         see: ['see-floors'],
@@ -192,7 +192,7 @@ const categories: Category[] = [
           'A small gap that has been stable is often just settling. A gap that is growing, or that appeared suddenly, is worth investigating — particularly if other symptoms are present in the same area of the house.',
         nmContext:
           'Kitchen and bath areas are often first indicators of localized movement — plumbing leaks beneath slabs in these areas are a common trigger for sudden soil changes.',
-        links: [{ text: 'Collapsible Soils', href: '/collapsible-soil' }],
+        links: [{ text: 'Collapsible Soils', href: '/collapsible-soil#signs' }],
         onset: ['gradual', 'sudden'],
         see: ['see-gaps'],
         site: ['site-plumbing'],
@@ -206,7 +206,7 @@ const categories: Category[] = [
         nmContext:
           'Expansive clay exerts significant lateral pressure after monsoon saturation. Poorly drained sites in the Rio Grande Valley and Four Corners are highest risk for wall bowing.',
         links: [
-          { text: 'Expansive Soils', href: '/expansive-soil' },
+          { text: 'Expansive Soils', href: '/expansive-soil#what-is' },
           { text: 'Repair Methods', href: '/foundation-repair-methods' },
         ],
         onset: ['gradual'],
@@ -256,7 +256,7 @@ const categories: Category[] = [
           'This is extremely common across New Mexico during drought cycles. The visible gap is the surface expression of what is happening at depth. Backfill the gap and monitor for recurrence — recurring gaps indicate ongoing active soil volume change.',
         links: [
           { text: 'Drainage Correction', href: '/foundation-repair-methods#drainage-correction' },
-          { text: 'Expansive Soils', href: '/expansive-soil' },
+          { text: 'Expansive Soils', href: '/expansive-soil#what-is' },
         ],
         onset: ['seasonal', 'gradual'],
         see: ['see-foundation-gap'],
@@ -311,7 +311,7 @@ const categories: Category[] = [
           "Waste line leaks cause more foundation damage than supply line leaks in our experience — they introduce water continuously and go undetected longer. Both sides need to be tested. A warm spot on the floor, the sound of running water when nothing's on, or a water bill that jumped for no reason are all common ways homeowners notice a slab leak before anything else shows up. Worth checking before you pay out of pocket: many homeowners policies cover locating a sudden, accidental leak even though they exclude the resulting soil movement — read your policy or call your agent and ask specifically.",
         links: [
           { text: 'Common Concerns: Insurance', href: '/common-concerns#insurance' },
-          { text: 'Collapsible Soils', href: '/collapsible-soil' },
+          { text: 'Collapsible Soils', href: '/collapsible-soil#signs' },
         ],
         onset: ['sudden'],
         see: ['see-leak-signs'],
@@ -396,11 +396,12 @@ const regionCities = [
 // source of truth, passed to the client via a JSON script tag below,
 // so the two never drift out of sync with each other.
 const linkBlurbs: Record<string, string> = {
-  '/expansive-soil': 'How clay soils that swell and shrink with moisture drive seasonal cracking and heave.',
+  '/expansive-soil#what-is': 'How clay soils that swell and shrink with moisture drive seasonal cracking and heave.',
+  '/expansive-soil#misdiagnosis': 'Why soil movement gets misread as settlement — and why the mix-up leads to the wrong repair.',
   '/common-concerns#heave': 'Why heave and settlement look identical but need opposite repairs.',
   '/common-concerns#wait': "When it's safe to monitor and when waiting makes things worse.",
   '/common-concerns#insurance': 'What homeowners insurance actually covers here.',
-  '/collapsible-soil': 'Soils that hold for decades dry, then collapse suddenly once wet.',
+  '/collapsible-soil#signs': 'What actually triggers a collapse, and why it can happen suddenly after decades of stability.',
   '/foundation-repair-methods': 'The full range of repair approaches, not just piers.',
   '/foundation-repair-methods#drainage-correction': 'Often the cheapest fix, and sometimes the only one you need.',
   '/northern-new-mexico': 'Soil conditions specific to Santa Fe, Taos, and the north.',
