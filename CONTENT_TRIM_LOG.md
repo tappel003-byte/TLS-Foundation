@@ -10,6 +10,37 @@ Entries are newest first.
 
 ---
 
+## Foundation Repair Methods (`src/pages/foundation-repair-methods.astro`)
+
+**Commit:** `<pending>`
+
+This page already avoided the "same argument restated" problem — it
+correctly never imports the investigation-first/Sandia GEO argument that
+belongs to `/our-approach`. The real issue was narrower: 4 of the 8
+method cards (Push Piers, Micropiles, Compaction Grouting, Foam
+Injection) had "expand for more" bodies that were pure filler — vaguer
+restatements of the preview text with zero new information ("one of
+several tools we may use," "not a one-size-fits-all answer") — unlike
+the Drainage card right next to them, which names specific real hazards
+(Mancos Shale heave, karst voids, mine subsidence).
+
+- Replaced all 4 filler bodies with genuine technical distinctions:
+  Push Piers now states the real reason they're usually wrong for NM
+  residential work (not enough dead load in wood-frame construction to
+  seat them) — a fact already stated on `index.astro`'s services list
+  but missing from this page's own dedicated card. Micropiles now
+  explains why they're chosen (drilled/grouted, not driven/torqued —
+  works where hard rock or caliche stops a helical pier). Compaction
+  Grouting and Foam Injection now explicitly distinguish themselves
+  from each other (densifying soil under pressure vs. lifting by
+  expansion force) instead of each just disclaiming "not a universal
+  fix" in different words.
+- **Kept as-is:** the 4-step process flow, the stats bar, the Drainage
+  card's original body (already the strongest of the 8), and all 6
+  symptom flip-cards.
+
+---
+
 ## Draft promotions (Home, Why NM's Different, Why Foundations Move, Common Concerns)
 
 **Commit:** `74024eb`

@@ -3,6 +3,19 @@
 // code blocks: Ken Burns hero, a fully self-contained page (stats bar,
 // 4-step process flow, 8 expandable method cards, 6 flip-card symptoms),
 // and a page-specific footer service-area paragraph.
+//
+// Content check (see CONTENT_TRIM_LOG.md): this page already avoided the
+// "same argument restated" problem -- it correctly never imports the
+// investigation-first/Sandia GEO argument that belongs to /our-approach.
+// The real issue was narrower: 4 of the 8 method cards (Push Piers,
+// Micropiles, Compaction Grouting, Foam Injection) had "expand for more"
+// bodies that were pure filler, restating the preview in vaguer words
+// with no new information -- unlike the Drainage card next to them,
+// which names specific real hazards (Mancos Shale, karst, mine
+// subsidence). Replaced all 4 with genuine technical distinctions,
+// including the wood-frame/push-pier limitation already stated
+// elsewhere on the site (index.astro's services list) but missing from
+// this page's own dedicated Push Piers card.
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Foundation Repair Methods | TLS Foundations New Mexico';
@@ -178,7 +191,7 @@ const schema = [
             </div>
             <p class="method-preview">Used when the structure and site conditions call for a driven deep support system.</p>
             <div class="method-body">
-              <p>One of several tools we may use when the foundation needs to be stabilized or adjusted based on actual site conditions.</p>
+              <p>Push piers rely on the structure's own weight to seat them, which is exactly why they're the right call for heavy commercial buildings and the wrong call for most New Mexico wood-frame homes — there isn't enough dead load to drive them properly.</p>
               <div class="method-fit"><strong>When it fits:</strong> Commercial buildings, multi-storey homes, or heavy structures where driven support is the right approach.</div>
             </div>
           </div>
@@ -194,7 +207,7 @@ const schema = [
             </div>
             <p class="method-preview">Useful where access is limited or where the site calls for a drilled deep foundation solution.</p>
             <div class="method-body">
-              <p>One option in a broader toolbox, selected only when they make sense for the structure and the ground.</p>
+              <p>Drilled and grouted rather than driven or torqued in, which is what makes them work where hard rock, cobbles, or dense caliche would stop a helical pier cold.</p>
               <div class="method-fit"><strong>When it fits:</strong> Tight spaces, deep unstable soil, or limited access where other equipment can't reach.</div>
             </div>
           </div>
@@ -210,7 +223,7 @@ const schema = [
             </div>
             <p class="method-preview">Used where voids, loose zones, or settlement conditions call for densification and support.</p>
             <div class="method-body">
-              <p>It works when the soil and the problem match the method. Not a one-size-fits-all answer.</p>
+              <p>A different tool than foam injection: this densifies the soil itself under pressure rather than filling a void from beneath a slab — the right call when the ground has lost density, not just when a slab has dropped.</p>
               <div class="method-fit"><strong>When it fits:</strong> Settled slabs, voids under foundations, collapsible soil, or loose zones that need densification.</div>
             </div>
           </div>
@@ -226,7 +239,7 @@ const schema = [
             </div>
             <p class="method-preview">Often used for slab lifting and void filling where the movement is more about the slab than the larger foundation system.</p>
             <div class="method-body">
-              <p>A practical solution when the problem is localized and the conditions support it.</p>
+              <p>Lifts by expansion force, which is plenty for a sidewalk or a light slab but not a substitute for piers under a structure carrying real structural load.</p>
               <div class="method-fit"><strong>When it fits:</strong> Sunken driveways, sidewalks, light interior slabs, or small voids under concrete.</div>
             </div>
           </div>
