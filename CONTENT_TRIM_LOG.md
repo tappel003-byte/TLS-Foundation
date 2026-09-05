@@ -12,7 +12,7 @@ Entries are newest first.
 
 ## Information-architecture check: is content on the right page?
 
-**Commit:** `<pending>`
+**Commit:** `ec4ec8a`
 
 Tim's question this time wasn't about duplication -- it was whether
 information is actually located where it's logical for it to be. Found
