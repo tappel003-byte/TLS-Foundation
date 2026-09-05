@@ -10,6 +10,19 @@ Entries are newest first.
 
 ---
 
+## Expansive Soil + Collapsible Soil (`src/pages/expansive-soil.astro`, `src/pages/collapsible-soil.astro`)
+
+**Audited, no changes.** These are the two strongest reference pages on
+the site. Ran the repeated-phrase scan across both together (checking
+for cross-page duplication as well as within-page) and the manifesto-
+phrase grep — both came back completely clean, including zero mentions
+of "you reach the owner" (these pages use the minimal footer, no
+persistent sidebar CTA, so there's nothing to over-repeat). Each article
+properly cross-links to its companion instead of restating it — e.g.
+Collapsible Soil says "Expansive clay causes heave, which looks similar
+but requires a different response" and links out, rather than
+explaining expansive clay's whole mechanism again.
+
 ## New Mexico Soil Conditions (`src/pages/new-mexico-soil-conditions.astro`)
 
 **Audited, no changes.** Ran the repeated-phrase scan and a manifesto-
