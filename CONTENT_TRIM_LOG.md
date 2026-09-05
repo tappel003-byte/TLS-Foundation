@@ -12,7 +12,7 @@ Entries are newest first.
 
 ## The 5 regional pages (northern/central/southern/eastern-new-mexico, four-corners)
 
-**Commit:** `<pending>`
+**Commit:** `02ba1bc`
 
 Ran the repeated-phrase scan across all 5 (4,265 lines combined) rather
 than reading every zone by hand. The scan surfaced a lot of matches, but
