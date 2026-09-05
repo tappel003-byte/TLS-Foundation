@@ -10,6 +10,21 @@ Entries are newest first.
 
 ---
 
+## Contact Us (`src/pages/contact-us.astro`)
+
+**Audited, no content changes.** Ran the same repeated-phrase and
+manifesto-phrase checks. Clean — the Sandia GEO structural note and
+"the owner(s) answer" line each appear exactly once, appropriately, on
+the page whose entire job is the final call-to-action.
+
+**Separate, non-content finding worth flagging directly:** `WEB3FORMS_ACCESS_KEY`
+(line 14) is still an empty string with a `TODO(Tim)` comment. The
+contact form's submit handler explicitly checks for this and shows "This
+form isn't hooked up yet" instead of sending, if it's empty. This isn't
+a content-trim item — it's a functional gap on the one page whose whole
+purpose is capturing a call, worth Tim's attention independent of this
+pass.
+
 ## The 5 regional pages (northern/central/southern/eastern-new-mexico, four-corners)
 
 **Commit:** `02ba1bc`
