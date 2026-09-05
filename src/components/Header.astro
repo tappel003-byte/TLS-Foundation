@@ -230,13 +230,25 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     top: 100%;
     left: 0;
     background: var(--blue-mid);
-    border-bottom: 2px solid var(--gold);
+    border-bottom: 3px solid var(--gold);
     min-width: 220px;
     padding: 8px 0;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-6px);
     transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
+    /*
+     * Safari has a known repaint bug on elements combining an absolute
+     * position, a border, and a transform transition: after the
+     * transform settles, the border along the transform's trailing edge
+     * can fail to repaint, and the taller the panel's transformed
+     * bounding box, the more likely it shows -- which matches "the
+     * short dropdowns are fine, the 6-item NM Soils one loses its
+     * bottom border" exactly. backface-visibility: hidden forces Safari
+     * onto a compositing path that doesn't have this bug.
+     */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
   .has-dropdown.open .dropdown-panel,
   .has-dropdown:focus-within .dropdown-panel {
