@@ -1098,7 +1098,11 @@ const verdictDefs: Record<string, string> = {
       ? " Given the site conditions you noted, this is also the kind of case where we'd likely loop in our affiliate Sandia GEO for a deeper geotechnical read."
       : '';
 
-    outcomeText.textContent = `Based on what you selected, the closest matches below are ${names}. That's a starting point, not a determination — the way to know for sure is a floor-level survey and distress investigation, which gives an objective baseline to work from and something to monitor over time.${geotechClause} Call us and we'll walk you through it.`;
+    // innerHTML, not textContent -- embeds a glossary link. Safe here:
+    // `names` and `geotechClause` are both built from our own controlled
+    // strings (card titles rendered by us, a fixed clause), never from
+    // unescaped user input.
+    outcomeText.innerHTML = `Based on what you selected, the closest matches below are ${names}. That's a starting point, not a determination — the way to know for sure is a <a href="/glossary#floor-level-survey" class="glossary-link">floor-level survey</a> and distress investigation, which gives an objective baseline to work from and something to monitor over time.${geotechClause} Call us and we'll walk you through it.`;
 
     const params = new URLSearchParams();
     if (checked.onset.length) params.set('onset', checked.onset.join(','));
@@ -1513,6 +1517,16 @@ const verdictDefs: Record<string, string> = {
     margin-bottom: 12px;
   }
   .outcome-text { color: rgba(255, 255, 255, 0.92); font-size: 0.98rem; line-height: 1.8; margin: 0 0 16px; }
+  /*
+   * :global() is required, not optional -- this link is injected via JS
+   * innerHTML (the outcome-text survey clause), and Astro only adds its
+   * scoping data-attribute to elements in the component's own static
+   * template. A scoped rule silently never matches dynamically-injected
+   * HTML, so without :global() this would render as unstyled browser-
+   * default blue no matter what color was set here.
+   */
+  :global(.outcome-text .glossary-link) { color: var(--white); text-decoration: underline; text-decoration-style: dotted; text-decoration-color: var(--gold); }
+  :global(.outcome-text .glossary-link:hover) { color: var(--gold-light); }
   .outcome-cta { margin-bottom: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .outcome-phone { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); text-decoration: none; border-bottom: 1px solid var(--gold); }
   .outcome-print {

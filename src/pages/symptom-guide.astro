@@ -978,7 +978,8 @@ const schema = [
     // naming or implying any specific repair method -- we don't know soil
     // conditions until this happens, so nothing here should sound like a
     // recommendation for piers, foam, or anything else.
-    const surveyClause = 'The first step is almost always the same: a floor-level survey and a distress investigation — think of it as triage, real data before anything else gets decided.';
+    const surveyClause =
+      'The first step is almost always the same: a <a href="/glossary#floor-level-survey" class="glossary-link">floor-level survey</a> and a distress investigation — think of it as triage, real data before anything else gets decided.';
 
     let text = '';
     if (tier === 'watch') {
@@ -988,7 +989,10 @@ const schema = [
     } else {
       text = `${pattern} — especially sudden onset with more than one symptom at once — is the kind of pattern that usually warrants a closer look sooner rather than later. ${surveyClause}${geotechClause} Call us and we'll get that scheduled.`;
     }
-    outcomeText.textContent = text;
+    // innerHTML, not textContent -- surveyClause carries a glossary link.
+    // Safe here: every piece of `text` is built from our own LABELS/pattern
+    // strings, never from unescaped user input.
+    outcomeText.innerHTML = text;
 
     const params = new URLSearchParams();
     if (checked.onset.length) params.set('onset', checked.onset.join(','));
@@ -1623,8 +1627,19 @@ const schema = [
   }
   .symptom h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--blue); margin: 0 0 18px; line-height: 1.3; }
   .symptom p { font-size: 0.92rem; line-height: 1.75; color: var(--slate); margin: 0 0 14px; }
-  .glossary-link { color: var(--blue); text-decoration: underline; text-decoration-style: dotted; text-decoration-color: var(--gold); }
-  .glossary-link:hover { color: var(--gold-text); }
+  /*
+   * :global() is required, not optional -- every glossary-link on this
+   * page is injected via <Fragment set:html> or JS innerHTML (dynamic
+   * whatsHappening/needsRepair content, and the outcome-text survey
+   * clause), and Astro only ever adds its scoping data-attribute to
+   * elements present in the component's own static template. Content
+   * injected as a raw HTML string never gets that attribute, so a plain
+   * (scoped) `.glossary-link` rule silently never matches it -- these
+   * links have been rendering as unstyled browser-default blue this
+   * whole time, not the intended dotted-gold-underline treatment.
+   */
+  :global(.glossary-link) { color: var(--blue); text-decoration: underline; text-decoration-style: dotted; text-decoration-color: var(--gold); }
+  :global(.glossary-link:hover) { color: var(--gold-text); }
   /*
    * Distinct blue tint (not the sand/cream the category badge and page
    * background already use) so this is the one box on the card that
@@ -1661,14 +1676,17 @@ const schema = [
     margin-top: 4px;
     line-height: 1.5;
   }
-  .glossary-link {
-    color: inherit;
+  /* Same :global() reasoning as above -- scoped specifically to the dark
+     outcome box, where a glossary link needs to read against navy, not
+     the page's white background. */
+  :global(.outcome-text .glossary-link) {
+    color: var(--white);
     text-decoration: underline;
     text-decoration-style: dotted;
     text-decoration-color: var(--gold);
     text-underline-offset: 2px;
   }
-  .glossary-link:hover { color: var(--gold-text); }
+  :global(.outcome-text .glossary-link:hover) { color: var(--gold-text); }
 
   .contact-footer { margin-top: 20px; text-align: center; padding: 32px; background: var(--sand); border-left: 4px solid var(--gold); }
   .contact-footer p { margin-bottom: 8px; font-size: 0.9rem; color: var(--slate); }

@@ -43,6 +43,7 @@ const terms: { id: string; name: string; description: string }[] = [
   { id: 'expansive-soil', name: 'Expansive Soil', description: 'Soil containing clay minerals that swell when wet and shrink when dry. Common in the Four Corners (Mancos Shale) and parts of the Rio Grande Valley.' },
   { id: 'finish-materials', name: 'Finish Materials', description: 'Visible interior and exterior surfaces — drywall, stucco, tile, trim — as distinct from structural framing.' },
   { id: 'first-wetting-collapse', name: 'First-Wetting Collapse', description: 'The consolidation of a collapsible soil when it is subjected to sustained moisture for the first time in its history.' },
+  { id: 'floor-level-survey', name: 'Floor-Level Survey', description: 'A relative elevation survey — measuring the elevation of the floor at dozens of points across the house relative to each other, not to any external fixed reference. It is the standard diagnostic tool for establishing an objective baseline before recommending a repair.' },
   { id: 'free-estimate', name: 'Free Estimate', description: 'A no-cost price quote for a proposed repair, typically offered after a free inspection.' },
   { id: 'free-inspection', name: 'Free Inspection', description: 'An inspection offered at no cost, typically performed by someone compensated to sell the repair that follows.' },
   { id: 'geotechnical-investigation', name: 'Geotechnical Investigation', description: 'A systematic program to characterize soil and groundwater conditions at a site.' },
@@ -535,6 +536,18 @@ const definedTermSetSchema = {
             <span class="related-term" data-term="collapsible-soil">Collapsible Soil</span>
             <span class="related-term" data-term="jornada-del-muerto">Jornada del Muerto</span>
             <span class="related-term" data-term="settlement">Settlement</span>
+          </div>
+        </div>
+        <div class="term-card" id="floor-level-survey">
+          <div class="term-name">Floor-Level Survey</div>
+          <div class="term-definition">
+            <p>A relative elevation survey — measuring the elevation of the floor at dozens of points across the house relative to each other, not to any external fixed reference like sea level. It is a snapshot in time, not a before-and-after: it can't say how level the floor used to be, only how it sits right now. That objective baseline is what a differential-diagnosis actually needs — it's the standard first step before recommending any repair, and the standard way to monitor whether movement is ongoing.</p>
+          </div>
+          <div class="related-terms">
+            <span class="related-label">Related:</span>
+            <span class="related-term" data-term="active-movement">Active Movement</span>
+            <span class="related-term" data-term="differential-settlement">Differential Settlement</span>
+            <span class="related-term" data-term="geotechnical-investigation">Geotechnical Investigation</span>
           </div>
         </div>
         <div class="term-card" id="free-estimate">
