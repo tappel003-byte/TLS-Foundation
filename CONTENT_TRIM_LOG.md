@@ -12,7 +12,7 @@ Entries are newest first.
 
 ## Cross-page duplicate audit (2nd content audit)
 
-**Commit:** `<pending>`
+**Commit:** `cbbb474`
 
 Every previous audit in this log checked pages one at a time (or, for
 the Grok audit, in pairs Grok happened to compare). None of them checked
