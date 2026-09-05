@@ -27,7 +27,7 @@ Entries are newest first.
 
 ## Santa Fe (`src/pages/santa-fe-nm.astro`)
 
-**Commit:** `<pending>`
+**Commit:** `c821337`
 
 - **Cut entirely: the "A-E-G" pro-card grid** in Section 6 ("The Difference")
   — three cards (architects, structural engineers, geotechnical
