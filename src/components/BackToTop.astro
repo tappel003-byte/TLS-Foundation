@@ -44,16 +44,12 @@
     stroke-linecap: round;
     stroke-linejoin: round;
   }
-  /* On mobile this is the centerpiece of a three-button row (prev / this /
-     next) -- dead-centered on the viewport via calc() (half its own 48px
-     width) rather than tied to the right edge, so the row reads "back, up,
-     next" left to right with #tls-btt sitting at true screen-center. See
-     MobilePageFlowNav.astro, which positions prev/next relative to this
-     same center point. */
+  /* On mobile this sits in the middle of a three-button row (prev / this /
+     next) so the row reads "back, up, next" left to right -- see
+     MobilePageFlowNav.astro, which claims the 28px slot instead. */
   @media (max-width: 640px) {
     #tls-btt {
-      right: auto;
-      left: calc(50% - 24px);
+      right: 84px;
     }
   }
 </style>

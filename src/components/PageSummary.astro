@@ -241,19 +241,10 @@ const { summary, pageName, nextPage } = Astro.props;
 
   @media (max-width: 640px) {
     #tls-summarize-btn {
-      /* Matches #tls-pagenav-next's 34px right gap (MobilePageFlowNav.astro)
-         so the pill and the button cluster sit the same distance from their
-         respective screen edges. */
-      left: 34px;
+      left: 20px;
       right: auto;
-      /* Matches the smaller back/next circles' height and vertical center
-         (bottom: 34px + 18px half-height = same 52px center-line as the
-         48px back-to-top button) so the whole floating row reads as one
-         cohesive bar instead of two different-sized rows. */
-      bottom: 34px;
-      height: 36px;
-      padding: 0 14px;
-      font-size: 9px;
+      padding: 0 16px;
+      font-size: 10px;
     }
     .tls-summarize-btn-full {
       display: none;
