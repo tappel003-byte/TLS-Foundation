@@ -2,12 +2,20 @@
 // DRAFT -- not linked from live nav except the temp "Draft (temp)" folder.
 // Live /our-approach is untouched.
 //
-// Same content and copy as the live page. The 5-accordion stack (the same
-// mechanism Home and Why Foundations Move both also use) is replaced with
-// a numbered stepper rail -- click a number, the panel below swaps. This
-// page already closes with a numbered "01-06" differences grid further
-// down, so a numbered rail up top gives the page one consistent numbered-
-// system motif instead of a generic accordion pile.
+// First pass reskinned the widgets only (5-accordion stack -> numbered
+// stepper rail), content unchanged. This pass fixes actual repetition:
+// this page -- the canonical "Why NM's Different" statement every other
+// page is supposed to link to rather than re-derive -- was repeating
+// ITSELF three times in three wrappers. The stepper's "investigation"
+// and "toolkit" panels covered investigation-before-recommendation and
+// the Sandia GEO revenue-separation point; the differences grid then had
+// a card for each of those same two points again; the Model section
+// then named the same mechanisms a third time as a supporting list. Cut
+// the two duplicate diff-grid cards (now 4 things, not 6 -- the 4
+// remaining ones are genuinely new material) and trimmed the Model
+// section's mechanism list down to the point it's actually making. Also
+// cut the closing "Land of Entrapment" dark band, which just re-said
+// Section 1's own pull-quote with no new information.
 import Layout from '../layouts/Layout.astro';
 
 const title = "Why NM's Different — TLS Foundations";
@@ -192,36 +200,26 @@ const schema = [
     <section class="diff-section">
       <div class="diff-header">
         <span class="eyebrow">What this looks like in practice</span>
-        <h2 class="section-headline">Six things that are structurally different about the way TLS works.</h2>
+        <h2 class="section-headline">Four things that are structurally different about the way TLS works.</h2>
       </div>
       <div class="diff-landscape">
         <div class="diff-card">
           <span class="diff-number">01</span>
-          <h3>Investigation before recommendation</h3>
-          <p>No method is selected before the soil profile is understood. The investigation confirms, refines, and documents what the ground is doing. It does not rubber-stamp a decision already made before the site visit.</p>
-        </div>
-        <div class="diff-card">
-          <span class="diff-number">02</span>
           <h3>Drainage referred out honestly</h3>
           <p>When drainage correction is the right first step — and in New Mexico it often is — we say so and refer to contractors who do that work well. Starting with piers when drainage correction would suffice is not a service. It is a sale. If it's wet, keep it wet. If it's dry, keep it dry.</p>
         </div>
         <div class="diff-card">
-          <span class="diff-number">03</span>
+          <span class="diff-number">02</span>
           <h3>Monitoring as a real recommendation</h3>
           <p>When the evidence does not support structural intervention, we recommend monitoring. A documented baseline, a return visit, a determination of whether movement is active or historic. Most companies cannot afford to recommend this. We can.</p>
         </div>
         <div class="diff-card">
-          <span class="diff-number">04</span>
+          <span class="diff-number">03</span>
           <h3>Honest about method limitations</h3>
           <p>Every repair method has conditions where it fails. We explain those conditions — including when helical piers are the wrong choice, when push piers won't work in light New Mexico residential construction, and when foam injection is being sold as something it is not.</p>
         </div>
         <div class="diff-card">
-          <span class="diff-number">05</span>
-          <h3>Investigation revenue changes the equation</h3>
-          <p>Geotechnical investigation through our affiliate Sandia GEO means the evaluation is never a loss leader for a repair sale. The recommendation can follow the evidence without financial consequence for being honest.</p>
-        </div>
-        <div class="diff-card">
-          <span class="diff-number">06</span>
+          <span class="diff-number">04</span>
           <h3>Custom solutions when standard methods don't fit</h3>
           <p>When the soil profile, structural conditions, or access constraints put a situation outside what standard systems address, we design around the problem. The goal is the right answer — not the nearest available product in the lineup.</p>
         </div>
@@ -236,18 +234,7 @@ const schema = [
           <p>We solve problems. We do not sell products. In New Mexico, that distinction matters more than anywhere else — because the problems here are genuinely different, and a product sold without understanding the problem is worse than no repair at all.</p>
         </div>
         <p class="body-p">Most foundation repair companies are sales organizations. The evaluation visit exists to close a contract — shaped by what the company sells, what generates the largest invoice, and what the estimator is trained to identify as an opportunity. The homeowner is rarely in a position to know whether the recommendation is right. That is precisely why the model works for the company.</p>
-        <p class="body-p">TLS was built as the opposite. Two owners who came out of the industry, watched it become something they disagreed with, and built a structure where honesty has no financial consequence — investigation revenue, referred work, monitoring when repair is premature. Anti-sales pressure is not a positioning statement. It is how the business is designed.</p>
-      </div>
-    </section>
-
-    <section class="dark-band">
-      <div class="dark-inner">
-        <span class="dark-eyebrow">New Mexico</span>
-        <p class="dark-pull">"The Land of Entrapment.<br />We chose it too."</p>
-        <div class="dark-divider"></div>
-        <div class="dark-callout">
-          <p class="dark-body">New Mexico. It is not a state that inspires indifference — you either understand it or you don't, and most people who understand it stay.</p>
-        </div>
+        <p class="body-p">TLS was built as the opposite. Two owners who came out of the industry, watched it become something they disagreed with, and built a structure where honesty has no financial consequence. Anti-sales pressure is not a positioning statement. It is how the business is designed.</p>
       </div>
     </section>
 
@@ -548,7 +535,7 @@ const schema = [
     max-width: var(--col-wide);
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
   .diff-card {
@@ -603,36 +590,6 @@ const schema = [
     border-radius: 0 8px 8px 0;
   }
   .model-lead p { font-size: 24px; font-weight: 300; font-style: italic; color: var(--cream); line-height: 1.5; margin: 0; }
-
-  .dark-band { background: var(--blue-dark); padding: 96px var(--gutter); border-bottom: 2px solid var(--gold); text-align: center; }
-  .dark-inner { max-width: 760px; margin: 0 auto; }
-  .dark-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold);
-    display: block;
-    margin-bottom: 40px;
-  }
-  .dark-pull {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(24px, 3.5vw, 42px);
-    font-weight: 400;
-    font-style: italic;
-    color: #fff;
-    line-height: 1.3;
-    margin-bottom: 56px;
-  }
-  .dark-divider { width: 48px; height: 1px; background: rgba(184, 134, 11, 0.4); margin: 0 auto 56px; }
-  .dark-callout { border-left: 3px solid var(--gold); background: rgba(255, 255, 255, 0.05); padding: 28px 36px; text-align: left; }
-  .dark-body {
-    font-size: clamp(16px, 1.8vw, 19px);
-    font-weight: 300;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.75);
-    line-height: 1.95;
-  }
 
   .contact-close { background: var(--sand); padding: 96px var(--gutter); border-bottom: 2px solid var(--gold); text-align: center; }
   .contact-inner { max-width: 720px; margin: 0 auto; }
@@ -689,7 +646,6 @@ const schema = [
   @media (max-width: 900px) {
     .stat-grid { grid-template-columns: 1fr; gap: 48px; }
     .stat-item { max-width: 400px; margin: 0 auto; }
-    .diff-landscape { grid-template-columns: 1fr 1fr; }
     .pull { margin-left: 0; }
     .model-lead { margin-left: 0; }
   }
@@ -697,7 +653,6 @@ const schema = [
     .diff-landscape { grid-template-columns: 1fr; }
     .pull, .model-lead { padding: 24px; }
     .pull p, .model-lead p { font-size: 18px; }
-    .dark-band { padding: 72px 24px; }
     .contact-close { padding: 64px 24px; }
     .contact-options { flex-direction: column; gap: 40px; }
     .contact-option { border-right: none; border-bottom: 1px solid var(--stone); padding: 0 0 40px; width: 100%; }

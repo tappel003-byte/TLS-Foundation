@@ -10,6 +10,67 @@ Entries are newest first.
 
 ---
 
+## Draft redesigns (home-v2, our-approach-v2, why-foundations-move-v2,
+## common-concerns-v2)
+
+**Commit:** `<pending>`
+
+Tim's call: the 4 redesign drafts were widget reskins (accordion → tabs,
+accordion → stepper, static grid → clickable spectrum) with content left
+verbatim identical to what they replaced — which is the exact "same page,
+different wrapper" problem flagged sitewide. This pass went after content
+duplication *within* each draft, not just visual variety.
+
+- **home-v2.astro**: cut the "Dark Band" section entirely — it restated
+  the "55 years / NM soil knowledge" stat the page had already made in the
+  stat band, word for word in mood, zero new information. Trimmed the
+  first tab panel's opening paragraph, which restated the Method
+  Statement directly above it ("the method follows the diagnosis") in
+  different words. Cut "you reach the owner(s)" from 4 mentions on one
+  page down to 1 explicit statement + a fresh, non-verbatim callback.
+  Fixed a real contradiction: the closing CTA claimed "we don't have an
+  About Us page... it's not about us" directly under a Story section
+  (the "Jerry Maguire moment" narrative) that IS about-us content —
+  rewrote the close to argue urgency instead of a claim the page itself
+  was disproving. Removed the orphaned `.dark-band` CSS left behind by
+  the cut.
+- **our-approach-v2.astro**: this is the canonical "Why NM's Different"
+  page every other page is supposed to link to rather than re-derive —
+  and it was repeating *itself* three times in three wrappers. The
+  stepper's "investigation" and "toolkit" panels covered
+  investigation-before-recommendation and the Sandia GEO revenue-
+  separation point; the differences grid then had a card for each of
+  those same two points again; the Model section then named the same
+  mechanisms a third time as a supporting list. Cut the two duplicate
+  diff-grid cards (six things → four things — the four remaining are
+  genuinely new material), trimmed the Model section's mechanism list
+  down to the point it's actually making, and cut the closing "Land of
+  Entrapment" dark band, which just re-said Section 1's own pull-quote
+  with no new information. Diff-grid CSS reflowed from a 3-column (now
+  orphaned) layout to a clean 2×2.
+- **why-foundations-move-v2.astro**: cut "The Honest Caveat" section,
+  which restated the introduction's own closing paragraph almost
+  word-for-word ("not a diagnostic tool... gives you vocabulary to ask
+  better questions") nine sections later, right before the closing CTA.
+  Also removed orphaned `.video-link` CSS in both this draft and the
+  live page — leftover from the "prefer it on camera" video-page link
+  removed when the video pages came down.
+- **common-concerns-v2.astro**: this page didn't have the other three
+  drafts' problem — its 18 FAQ answers are deliberately cross-referenced,
+  and topical overlap between related questions is intentional (each
+  answer needs to stand alone for someone landing on it directly from a
+  search). The one real redundancy was structural: the hero tagline, the
+  intro paragraph, and the "mission-note" block all made the same "these
+  are expensive keywords, here's an honest answer instead of a sales
+  pitch" point back to back before the reader reached the actual tool.
+  Trimmed mission-note down to the one detail the other two don't cover
+  (that contractors pay for these searches).
+- **Kept as-is:** all 18 Common Concerns answers, the Symptom Matrix, the
+  Intervention Spectrum, "What the Industry Gets Wrong," the geology
+  stepper panels, and every diff-grid card that wasn't a duplicate.
+
+---
+
 ## Fixes to earlier cuts (regressions caught and closed)
 
 **Commit:** `e7126f3`

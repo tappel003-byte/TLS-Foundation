@@ -7,6 +7,18 @@
 // and the list re-sorts, the same interaction language as the facet panels
 // on Symptom Guide and Cause Library, so this page finally feels like part
 // of that family instead of a leftover static FAQ page next to them.
+//
+// Content check: unlike Home/Our Approach/Why Foundations Move, the 18
+// answers here don't have the "same argument restated in a fancier
+// widget" problem -- topical overlap between related questions (e.g.
+// "settlement vs. heave" and "wrong repair method") is intentional, since
+// each answer needs to stand alone for someone who lands on it directly
+// from a search. The one real redundancy was structural, not content:
+// the hero tagline, the intro paragraph, and the "mission-note" block all
+// made the same "these are expensive keywords, here's an honest answer
+// instead of a sales pitch" point back to back before the reader reached
+// the actual tool. Trimmed mission-note down to the one detail the other
+// two don't already cover (that contractors pay for these searches).
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Common Concerns — TLS Foundations';
@@ -302,7 +314,7 @@ const faqSchema = {
       </div>
 
       <div class="mission-note">
-        <p>The most common search terms for foundation repair in New Mexico are: "Foundation repair Albuquerque." "Foundation repair Rio Rancho." "Foundation repair Santa Fe." "Foundation repair Las Cruces." Those are among the most expensive search terms in New Mexico — contractors pay for them because homeowners search them when they're worried and don't know where to turn. Every click on that keyword costs someone money. This page doesn't. It exists because the answer to that search shouldn't be a sales call — it should be honest information about what's happening under your house, what it means, and what your options actually are. That's what's here.</p>
+        <p>"Foundation repair Albuquerque." "Foundation repair cost." "Free foundation inspection." Contractors bid real money on these searches, because a worried homeowner who doesn't know where to turn is a valuable click. This page is what should show up instead.</p>
       </div>
 
       <div class="facet-panel" id="facetPanel">

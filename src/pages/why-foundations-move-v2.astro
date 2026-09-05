@@ -12,6 +12,13 @@
 // contact CTA are merged into one section instead of two stacked bands --
 // a third distinct closing treatment (Home v2 is a split layout, Why NM's
 // Different kept the centered three-column version).
+//
+// Content pass: cut "The Honest Caveat" section, which restated the
+// introduction's own closing paragraph almost word-for-word ("not a
+// diagnostic tool... gives you vocabulary to ask better questions") nine
+// sections later, right before the closing CTA. Also removed the
+// orphaned .video-link CSS left over from an earlier cut (the "prefer it
+// on camera" video-page link, removed when the video pages came down).
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Why Foundations Move in New Mexico — TLS Foundations';
@@ -298,14 +305,6 @@ const spectrum = [
           <li>If you remove a large tree, watch for soil rebound (swelling).</li>
         </ul>
         <p>None of this costs much. All of it matters.</p>
-      </section>
-
-      <!-- SECTION 10 — CAVEAT -->
-      <section>
-        <h2>The Honest Caveat</h2>
-        <p>This page explains conditions that can lead to foundation movement. It is not a diagnostic tool. Several different mechanisms can create identical-looking cracks. Only site-specific investigation confirms what's happening beneath your home.</p>
-        <p>Determining the correct response requires understanding whether movement is ongoing, what's driving it, and whether that driver can be corrected without structural intervention.</p>
-        <p>This page gives you vocabulary to ask better questions. It does not give you the ability to diagnose your own home.</p>
       </section>
     </div>
   </div>
@@ -651,7 +650,6 @@ const spectrum = [
   }
   .tls-body section:first-of-type { padding-top: 40px; }
   .tls-body section:last-child { border-bottom: none; }
-  .video-link { margin-top: 20px; font-size: 16px; color: var(--muted); }
   .tls-body :global(.body-link) {
     color: var(--blue);
     text-decoration: underline;
