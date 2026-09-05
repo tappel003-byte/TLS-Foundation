@@ -974,20 +974,30 @@ const schema = [
     const geotechClause = geotech
       ? ' If the site conditions point toward a deeper geotechnical question, we can loop in our affiliate Sandia GEO as well.'
       : '';
-    // What a floor-level survey actually does, stated plainly and without
-    // naming or implying any specific repair method -- we don't know soil
-    // conditions until this happens, so nothing here should sound like a
-    // recommendation for piers, foam, or anything else.
+    // What the real diagnostic process actually is, stated plainly and
+    // without naming or implying any specific repair method -- we don't
+    // know soil conditions until this happens, so nothing here should
+    // sound like a recommendation for piers, foam, or anything else. It's
+    // also not one single thing: a floor-level survey establishes the
+    // baseline, a distress investigation is where we actually look at the
+    // house -- both together are "the diagnostic," not just the survey.
     const surveyClause =
-      'The first step is almost always the same: a <a href="/glossary#floor-level-survey" class="glossary-link">floor-level survey</a> and a distress investigation — think of it as triage, real data before anything else gets decided.';
+      "The real diagnostic process is usually two things together: a <a href=\"/glossary#floor-level-survey\" class=\"glossary-link\">floor-level survey</a> and a distress investigation. The survey gives us the objective baseline; the investigation is where we actually look at the house and how it's behaved over time. That combination is what tells us what's happening — not a guess from a checklist.";
+
+    // Every tier ends the same way on purpose: the ask is a phone call,
+    // not "schedule a survey" -- in practice we go look at the house
+    // first, build some rapport, and the formal survey follows later.
+    // Promising a scheduled survey up front oversells where things
+    // actually stand after just checking some boxes.
+    const callToAction = "Call us today to see how we can help.";
 
     let text = '';
     if (tier === 'watch') {
-      text = `${pattern} is a common, usually lower-urgency pattern. The way to know for sure is still to check. ${surveyClause}${geotechClause} Call us and we'll walk you through what a simple monitoring program looks like.`;
+      text = `${pattern} is a common, usually lower-urgency pattern. The way to know for sure is still to check. ${surveyClause}${geotechClause} ${callToAction}`;
     } else if (tier === 'evaluate') {
-      text = `${pattern} is worth having a professional look at, even if nothing here points to an emergency. ${surveyClause}${geotechClause} Call us and we'll get that scheduled.`;
+      text = `${pattern} is worth having a professional look at, even if nothing here points to an emergency. ${surveyClause}${geotechClause} ${callToAction}`;
     } else {
-      text = `${pattern} — especially sudden onset with more than one symptom at once — is the kind of pattern that usually warrants a closer look sooner rather than later. ${surveyClause}${geotechClause} Call us and we'll get that scheduled.`;
+      text = `${pattern} — especially sudden onset with more than one symptom at once — is the kind of pattern that usually warrants a closer look sooner rather than later. ${surveyClause}${geotechClause} ${callToAction}`;
     }
     // innerHTML, not textContent -- surveyClause carries a glossary link.
     // Safe here: every piece of `text` is built from our own LABELS/pattern

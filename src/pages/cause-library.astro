@@ -1102,7 +1102,14 @@ const verdictDefs: Record<string, string> = {
     // `names` and `geotechClause` are both built from our own controlled
     // strings (card titles rendered by us, a fixed clause), never from
     // unescaped user input.
-    outcomeText.innerHTML = `Based on what you selected, the closest matches below are ${names}. That's a starting point, not a determination — the way to know for sure is a <a href="/glossary#floor-level-survey" class="glossary-link">floor-level survey</a> and distress investigation, which gives an objective baseline to work from and something to monitor over time.${geotechClause} Call us and we'll walk you through it.`;
+    // The real diagnostic process is two things together, not one: a
+    // floor-level survey (the objective baseline) and a distress
+    // investigation (actually looking at the house and how it's behaved
+    // over time). The ask at the end is a phone call, not "schedule a
+    // survey" -- in practice we go look at the house first and the
+    // formal survey follows later, so promising one up front oversells
+    // where things actually stand after just checking some boxes.
+    outcomeText.innerHTML = `Based on what you selected, the closest matches below are ${names}. That's a starting point, not a determination. The real diagnostic process is usually two things together: a <a href="/glossary#floor-level-survey" class="glossary-link">floor-level survey</a> and a distress investigation. The survey gives us the objective baseline; the investigation is where we actually look at the house and how it's behaved over time.${geotechClause} Call us today to see how we can help.`;
 
     const params = new URLSearchParams();
     if (checked.onset.length) params.set('onset', checked.onset.join(','));
