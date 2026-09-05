@@ -11,8 +11,12 @@ const topLevel = [
   { text: 'Why Foundations Move', href: '/why-foundations-move' },
   { text: 'Common Concerns', href: '/common-concerns' },
   { text: 'Services', href: '/foundation-repair-methods' },
-  { text: 'Contact Us', href: '/contact-us' },
 ];
+
+// Rendered last, after every dropdown folder, on both the desktop and
+// mobile nav -- the conventional "contact" spot is the far end of the
+// nav, not buried before the folders.
+const contactUs = { text: 'Contact Us', href: '/contact-us' };
 
 const folders = [
   {
@@ -96,6 +100,11 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
             </li>
           ))
         }
+        <li>
+          <a href={contactUs.href} aria-current={currentPath === contactUs.href ? 'page' : undefined}>
+            {contactUs.text}
+          </a>
+        </li>
       </ul>
     </nav>
 
@@ -130,6 +139,9 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
           </li>
         ))
       }
+      <li>
+        <a href={contactUs.href}>{contactUs.text}</a>
+      </li>
     </ul>
     <a class="mobile-phone-cta" href="tel:5059914180">(505) 991-4180</a>
   </div>
@@ -143,12 +155,10 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     z-index: 100;
   }
   .site-header-inner {
-    max-width: 1600px;
-    margin: 0 auto;
     display: flex;
     align-items: center;
     gap: 32px;
-    padding: 18px 32px;
+    padding: 18px 20px;
   }
   .header-brand {
     display: flex;
@@ -203,7 +213,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     position: relative;
     z-index: 1;
   }
-  .has-dropdown:hover,
+  .has-dropdown.open,
   .has-dropdown:focus-within {
     /*
      * On the wrapped 2-row nav (below ~1536px), a dropdown panel can
@@ -228,7 +238,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     transform: translateY(-6px);
     transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s;
   }
-  .has-dropdown:hover .dropdown-panel,
+  .has-dropdown.open .dropdown-panel,
   .has-dropdown:focus-within .dropdown-panel {
     opacity: 1;
     visibility: visible;
@@ -383,5 +393,60 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
         btn.setAttribute('aria-expanded', 'true');
       }
     });
+  });
+
+  // Desktop dropdowns: JS-driven .open class instead of pure CSS :hover.
+  // Pure :hover has no way to force-close from outside -- if the pointer
+  // leaves the browser window entirely (alt-tab, a screenshot tool
+  // grabbing focus, a fast diagonal mouse move the OS never delivers a
+  // clean mouseleave for) the panel can visually stay open with nothing
+  // to tell it otherwise. This closes every dropdown on blur/visibility
+  // change as a hard reset, on top of the normal hover-in/hover-out.
+  const dropdowns = Array.from(document.querySelectorAll<HTMLLIElement>('.has-dropdown'));
+  const closeTimers = new WeakMap<HTMLLIElement, ReturnType<typeof setTimeout>>();
+
+  function closeDropdown(d: HTMLLIElement) {
+    d.classList.remove('open');
+    d.querySelector('.dropdown-trigger')?.setAttribute('aria-expanded', 'false');
+  }
+  function closeAllDropdowns() {
+    dropdowns.forEach(closeDropdown);
+  }
+
+  dropdowns.forEach((d) => {
+    const trigger = d.querySelector<HTMLButtonElement>('.dropdown-trigger');
+    d.addEventListener('mouseenter', () => {
+      const timer = closeTimers.get(d);
+      if (timer) clearTimeout(timer);
+      dropdowns.forEach((other) => other !== d && closeDropdown(other));
+      d.classList.add('open');
+      trigger?.setAttribute('aria-expanded', 'true');
+    });
+    d.addEventListener('mouseleave', () => {
+      closeTimers.set(
+        d,
+        setTimeout(() => closeDropdown(d), 150)
+      );
+    });
+    trigger?.addEventListener('click', () => {
+      const isOpen = d.classList.contains('open');
+      closeAllDropdowns();
+      if (!isOpen) {
+        d.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAllDropdowns();
+  });
+  document.addEventListener('click', (e) => {
+    if (!(e.target instanceof Node)) return;
+    if (!dropdowns.some((d) => d.contains(e.target as Node))) closeAllDropdowns();
+  });
+  window.addEventListener('blur', closeAllDropdowns);
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) closeAllDropdowns();
   });
 </script>
