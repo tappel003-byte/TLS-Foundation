@@ -151,7 +151,7 @@ const schema = [
             <div class="two-col-wide">
               <div class="reveal sticky-col">
                 <p class="lede">Most of what the foundation repair industry knows was built for concrete and wood frame. Santa Fe has both — and 400 years of adobe that behaves completely differently under stress.</p>
-                <p>Heave and settlement express themselves differently in adobe walls than in concrete slabs. A crack pattern that means one thing in a slab can mean something entirely different in an earthen wall. Getting it wrong causes more damage, not less. <mark class="key">A contractor who learned their trade in Dallas or Denver hasn't seen what we've seen in Santa Fe, New Mexico.</mark></p>
+                <p><mark class="key">A contractor who learned their trade in Dallas or Denver hasn't seen what we've seen in Santa Fe, New Mexico</mark> — adobe and concrete don't fail the same way, and getting that wrong causes more damage, not less. More on that below.</p>
                 <p>Foundation inspection in Santa Fe requires someone who understands this city's construction history — not a national franchise running the same checklist they use in Phoenix and Tulsa with the city name swapped out.</p>
               </div>
               <div class="reveal">
@@ -209,7 +209,7 @@ const schema = [
               </div>
               <div>
                 <div class="pull">The city has been different for over 400 years. The approach to its foundations should be too.</div>
-                <p>Aggressive pier installation or excavation appropriate for a modern concrete slab can cause additional damage to an earthen structure. The foundation repair method has to match the structure — not just the symptom. That's not how most foundation repair companies in Santa Fe operate. It's how we operate.</p>
+                <p>That distinction shows up in the small decisions, not just the diagnosis — which pier system, how much excavation, how aggressive the fix. That's not how most foundation repair companies in Santa Fe operate. It's how we operate.</p>
               </div>
             </div>
           </div>
@@ -323,24 +323,7 @@ const schema = [
           <div class="section-inner">
             <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Why Santa Fe Is Different</span></div>
             <h2 class="section-heading reveal">Santa Fe foundation repair isn't <em>one size fits all</em> — and neither are we</h2>
-            <p class="lede reveal">The construction stock is different. The soil is different. The professional community here — architects, structural engineers, geotechnical investigators — understands nuances that a contractor from outside this market won't encounter for years, if ever.</p>
-            <div class="pro-grid">
-              <div class="pro-card">
-                <span class="pro-card-letter">A</span>
-                <h3>Architects who know adobe</h3>
-                <p>Santa Fe has a deep bench of architects experienced in historic earthen construction. For foundation work touching a historic structure, an architect familiar with this building type belongs in the conversation — not as an afterthought.</p>
-              </div>
-              <div class="pro-card">
-                <span class="pro-card-letter">E</span>
-                <h3>Structural engineers with local context</h3>
-                <p><mark class="key">A structural engineer who understands Santa Fe's soil variability and construction history brings something a national franchise's inspection process doesn't: the right questions for this specific place.</mark></p>
-              </div>
-              <div class="pro-card">
-                <span class="pro-card-letter">G</span>
-                <h3>Geotechnical investigation when it matters</h3>
-                <p>TLS works with Sandia GEO when the site warrants formal soil investigation. In Santa Fe, that threshold is lower than almost anywhere else we operate. The soil variability is real. The investigation cost is modest compared to the cost of getting it wrong.</p>
-              </div>
-            </div>
+            <p class="lede reveal">The construction stock is different. The soil is different. Santa Fe has a deep bench of architects experienced in historic earthen construction — for foundation work touching a historic structure, that's a conversation worth having early, not after the fact.</p>
           </div>
         </section>
 
@@ -430,18 +413,6 @@ const schema = [
     { rootMargin: '0px 0px -60px 0px' }
   );
   document.querySelectorAll('.reveal').forEach((el) => revealObs.observe(el));
-
-  const proCards = document.querySelectorAll('.pro-card');
-  const proObs = new IntersectionObserver(
-    (entries) => {
-      if (entries[0].isIntersecting) {
-        proCards.forEach((c, i) => setTimeout(() => c.classList.add('visible'), i * 120));
-        proObs.disconnect();
-      }
-    },
-    { rootMargin: '0px 0px -40px 0px' }
-  );
-  if (proCards.length) proObs.observe(proCards[0]);
 
   function animateCount(el: Element) {
     const target = parseInt((el as HTMLElement).dataset.target || '');
@@ -1231,47 +1202,6 @@ const schema = [
     color: var(--gold-text);
   }
 
-  .pro-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--stone);
-    border: 1px solid var(--stone);
-    margin-top: 80px;
-  }
-  .pro-card {
-    background: var(--white);
-    padding: 48px 40px;
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-  }
-  .pro-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .pro-card-letter {
-    font-family: 'Playfair Display', serif;
-    font-size: 40px;
-    font-weight: 700;
-    color: var(--gold-text);
-    opacity: 0.3;
-    display: block;
-    margin-bottom: 16px;
-    line-height: 1;
-  }
-  .pro-card h3 {
-    font-size: 18px;
-    margin-bottom: 14px;
-  }
-  .pro-card p {
-    font-size: 16px;
-    color: var(--muted);
-    line-height: 1.75;
-    margin: 0;
-    max-width: none;
-  }
-
   .contact-closer {
     background: var(--navy);
     padding: 160px 96px;
@@ -1531,9 +1461,6 @@ const schema = [
       flex-direction: column;
       gap: 12px;
       border: none;
-    }
-    .pro-grid {
-      grid-template-columns: 1fr;
     }
     .contact-closer {
       padding: 72px 24px;

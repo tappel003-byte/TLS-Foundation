@@ -25,6 +25,43 @@ Entries are newest first.
 
 ---
 
+## Santa Fe (`src/pages/santa-fe-nm.astro`)
+
+**Commit:** `<pending>`
+
+- **Cut entirely: the "A-E-G" pro-card grid** in Section 6 ("The Difference")
+  — three cards (architects, structural engineers, geotechnical
+  investigation) where two of the three just restated points already made
+  elsewhere on the page. Card "E" (structural engineers) and card "G"
+  (Sandia GEO / investigation threshold) were near-repeats of Section 3
+  ("Our Approach"), which already says the investigation-threshold point in
+  full. Kept the one genuinely new fact — Santa Fe has a deep bench of
+  architects experienced in historic earthen construction — folded into the
+  section's lede paragraph instead of its own card. Full original text is
+  in the commit diff.
+- **Deduplicated a verbatim sentence** that appeared almost word-for-word
+  in both Section 2 ("Adobe & Construction") and Section 3 ("Our
+  Approach"): "Aggressive pier installation or excavation appropriate for
+  a modern concrete slab can cause additional damage to an earthen
+  structure. The repair method has to match the structure — not just the
+  symptom." Kept it in Section 2, where it belongs thematically. Section
+  3's copy was rewritten to make its own point (repair-method decisions,
+  not just diagnosis, are where TLS operates differently) without
+  restating the adobe-damage fact Section 2 already owns.
+- **Trimmed Section 1's ("What We See") heave/settlement/crack-pattern
+  paragraph** — it restated Section 2's opening paragraph almost
+  word-for-word ("Heave and settlement express themselves differently in
+  adobe walls than in concrete slabs..."). Section 2 exists specifically to
+  go deep on this; Section 1 now makes the point in one sentence and points
+  forward instead of re-explaining it in full.
+- **Kept as-is:** the three geology flip-cards (each covers a genuinely
+  distinct soil hazard), the History section (Palace of the Governors / San
+  Miguel Chapel facts aren't repeated anywhere else), and the 12-item
+  desktop / 8-item mobile concern accordions (a proper media-query split,
+  not a triple-stack like Albuquerque's original bug).
+
+---
+
 ## Rio Rancho (`src/pages/rio-rancho-nm.astro`)
 
 **Commit:** `d374b44`
