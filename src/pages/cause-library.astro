@@ -710,7 +710,7 @@ const verdictDefs: Record<string, string> = {
         <div class="facet-panel-head">
           <span class="facet-panel-label">Check all that apply</span>
           <p class="facet-panel-sub">This describes common patterns, not an evaluation of your home — the safest step, if you're ever unsure, is to have someone look.</p>
-          <p class="facet-panel-note">Same checklist on the <a href="/symptom-guide">Symptom Guide</a> — check it once and we'll carry your answers over, either direction.</p>
+          <p class="facet-panel-note">Same checklist on the <a href="/symptom-guide" id="crossToolLink">Symptom Guide</a> — check it once and we'll carry your answers over, either direction.</p>
         </div>
 
         <fieldset class="facet-group">
@@ -1042,6 +1042,7 @@ const verdictDefs: Record<string, string> = {
   const outcomeBox = document.getElementById('outcomeBox') as HTMLElement;
   const outcomeText = document.getElementById('outcomeText') as HTMLElement;
   const outcomePill = document.getElementById('outcomePill') as HTMLAnchorElement;
+  const crossToolLink = document.getElementById('crossToolLink') as HTMLAnchorElement;
   const relatedReading = document.getElementById('relatedReading') as HTMLElement;
   const relatedReadingList = document.getElementById('relatedReadingList') as HTMLElement;
   let stripOpen = false;
@@ -1079,6 +1080,22 @@ const verdictDefs: Record<string, string> = {
 
   function buildOutcome() {
     const checked = getChecked();
+
+    // Built unconditionally, ahead of the any-checked gate below, so the
+    // "check it once and we'll carry your answers over" link up in the
+    // facet panel note stays in sync from the very first checkbox --
+    // not just once there's enough checked to produce a match.
+    const crossParams = new URLSearchParams();
+    if (checked.onset.length) crossParams.set('onset', checked.onset.join(','));
+    if (checked.see.length) crossParams.set('see', checked.see.join(','));
+    if (checked.site.length) crossParams.set('site', checked.site.join(','));
+    if (checked.foundation.length) crossParams.set('foundation', checked.foundation.join(','));
+    if (regionSelect.value) crossParams.set('region', regionSelect.value);
+    if (citySelect.value) crossParams.set('city', citySelect.value);
+    const crossHref = '/symptom-guide' + (crossParams.toString() ? '?' + crossParams.toString() : '');
+    outcomePill.href = crossHref;
+    crossToolLink.href = crossHref;
+
     const any = checked.onset.length + checked.see.length + checked.site.length + checked.foundation.length > 0;
     if (!any) {
       outcomeBox.hidden = true;
@@ -1110,15 +1127,6 @@ const verdictDefs: Record<string, string> = {
     // out. (Deliberately not the same closing as Symptom Guide's own
     // buildOutcome -- see the comment there.)
     outcomeText.innerHTML = `Based on what you selected, the closest matches below are ${names}. That's a starting point, not a determination. Matching a cause here is a hypothesis, not a confirmation -- the only way to know which one is actually happening at your house is a <a href="/glossary#floor-level-survey" class="glossary-link">floor-level survey</a> read against the pattern you're seeing.${geotechClause} Call us today and we'll help you confirm it.`;
-
-    const params = new URLSearchParams();
-    if (checked.onset.length) params.set('onset', checked.onset.join(','));
-    if (checked.see.length) params.set('see', checked.see.join(','));
-    if (checked.site.length) params.set('site', checked.site.join(','));
-    if (checked.foundation.length) params.set('foundation', checked.foundation.join(','));
-    if (regionSelect.value) params.set('region', regionSelect.value);
-    if (citySelect.value) params.set('city', citySelect.value);
-    outcomePill.href = '/symptom-guide' + (params.toString() ? '?' + params.toString() : '');
 
     buildRelatedReading(scored);
   }
