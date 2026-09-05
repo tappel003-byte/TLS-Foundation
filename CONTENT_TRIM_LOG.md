@@ -10,6 +10,45 @@ Entries are newest first.
 
 ---
 
+## Information-architecture check: is content on the right page?
+
+**Commit:** `<pending>`
+
+Tim's question this time wasn't about duplication -- it was whether
+information is actually located where it's logical for it to be. Found
+one real, previously-uncaught bug: `new-mexico-soil-conditions.astro`'s
+region table-of-contents claimed Northern New Mexico covers "Santa Fe,
+Taos, Española, Las Vegas," while Central New Mexico's own description
+only claimed "Albuquerque, Rio Rancho, Belen, Bernalillo."
+
+Both were wrong, and they contradicted each other. Central New Mexico's
+actual page content (three zones: Albuquerque Basin, Española Basin,
+Estancia Basin) explicitly covers Santa Fe, Española, and Los Alamos
+under its "Española Basin" zone -- consistent with its own hero-sub,
+"Three basins along the Rio Grande Rift." Northern New Mexico's actual
+page content (Taos Plateau, Mora Valley, Raton Basin) never covers
+Santa Fe or Española at all -- consistent with its own hero-sub,
+"Elevation is the dominant variable... frost, basalt-derived clays, and
+coal mine subsidence unique to the Raton Basin." A reader who trusted
+the hub's promise and clicked into Northern New Mexico looking for Santa
+Fe coverage would have found nothing about it there.
+
+Notably, the page's own AEO summary (used by the "Summarize this page"
+feature and schema) already had this right -- "Central (Rio Grande Rift
+basins), Northern (frost heave and volcanic clays)" -- so the bug was
+isolated to the visible on-page description text, not a
+sitewide misunderstanding.
+
+- Rewrote both region descriptions in the `regions` array to match what
+  each region page actually contains, rather than what the hub
+  incorrectly assumed.
+- Checked the other 3 regions (Four Corners, Eastern, Southern) against
+  their own pages' actual city lists -- no dedicated city pages overlap
+  with them, so no equivalent contradiction there.
+
+Verified: clean build, screenshot-checked the region table-of-contents
+renders correctly with the corrected descriptions.
+
 ## Cross-page duplicate audit (2nd content audit)
 
 **Commit:** `cbbb474`
