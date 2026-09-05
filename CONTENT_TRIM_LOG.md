@@ -10,6 +10,19 @@ Entries are newest first.
 
 ---
 
+## Symptom Guide + Cause Library — full re-audit (`src/pages/symptom-guide.astro`, `src/pages/cause-library.astro`)
+
+**Audited, no changes.** These two only ever got a targeted fix earlier
+(differentiating their shared outcome-text CTA), never a full page
+audit like the city pages got. Ran the complete battery now: the
+repeated-phrase scan (both came back clean on 1,763 and 1,901 lines),
+the manifesto-phrase grep (one "you reach the owner" in Symptom Guide,
+one "Sandia GEO" mention each — both single, appropriately placed, not
+padding), and a structural read of both heroes/intros/closers. No dark
+bands, no redundant sections, no restated argument. Both intros are
+tight and distinct from each other. Nothing to fix — the earlier
+targeted fix was sufficient; these didn't have the wider problem.
+
 ## Contact Us (`src/pages/contact-us.astro`)
 
 **Audited, no content changes.** Ran the same repeated-phrase and
