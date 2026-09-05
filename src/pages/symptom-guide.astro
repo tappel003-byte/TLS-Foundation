@@ -156,7 +156,8 @@ const categories: Category[] = [
     items: [
       {
         q: 'Sloping, uneven, or sinking floors',
-        whatsHappening: 'Foundation settlement, collapsible soil subsidence, or framing deflection. The floor is following the foundation.',
+        whatsHappening:
+          "A sloping floor is almost never a floor problem — floors follow whatever is underneath them. If the foundation has settled unevenly, the floor tilts with it. If collapsible soil beneath the slab consolidated after getting wet for the first time, the drop can be sudden rather than gradual. In older pier-and-beam homes, sometimes it's simpler: the floor joists themselves have sagged between supports, which is a carpentry issue, not a soil one. Whether it came on suddenly or crept in over years, and which part of the house moved, usually points to which of the three is actually happening.",
         needsRepair: 'Monitor whether the slope is changing. A static slope that has been there for years is often normal; a progressive one warrants investigation.',
         nmContext:
           "Collapsible soils are widespread across New Mexico's basin floors — the West Mesa, Estancia Valley, and river corridors. They can collapse rapidly when moisture is introduced for the first time. Some homeowners notice it first because a ball or marble left on the floor rolls to one side by itself.",
@@ -1508,12 +1509,12 @@ const schema = [
   }
 
   /* ── Symptom cards (flat grid, sortable) ── */
-  .symptom-grid { display: flex; flex-direction: column; gap: 16px; }
+  .symptom-grid { display: flex; flex-direction: column; gap: 20px; }
   .symptom {
     background: var(--white);
     border: 1px solid var(--stone);
     border-radius: 12px;
-    padding: 24px 28px;
+    padding: 28px 32px;
     transition: opacity 0.2s, border-color 0.2s, padding 0.2s;
   }
   .symptom.matched { border-color: rgba(184, 134, 11, 0.5); }
@@ -1541,14 +1542,11 @@ const schema = [
 
   .symptom-match-tag {
     font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.5px;
+    font-size: 0.62rem;
+    letter-spacing: 0.4px;
     color: var(--gold-text);
-    background: var(--sand);
-    display: inline-block;
-    border-radius: 4px;
-    padding: 3px 9px;
-    margin-bottom: 10px;
+    display: block;
+    margin-bottom: 14px;
   }
   .symptom-detail-toggle {
     display: block;
@@ -1561,14 +1559,14 @@ const schema = [
     border-top: 1px solid var(--stone);
     text-align: left;
     width: 100%;
-    padding: 12px 0 0;
-    margin-top: 12px;
+    padding: 16px 0 0;
+    margin-top: 20px;
     cursor: pointer;
   }
   .symptom-detail-toggle:hover { color: var(--gold-text); }
-  .symptom-detail { padding-top: 4px; }
+  .symptom-detail { padding-top: 12px; }
   .symptom-detail .whats-happening,
-  .symptom-detail .nm-note { margin: 8px 0 0; }
+  .symptom-detail .nm-note { margin: 10px 0 0; }
   .other-strip {
     display: block;
     width: 100%;
@@ -1595,14 +1593,21 @@ const schema = [
     background: var(--sand);
     border-radius: 4px;
     padding: 3px 8px;
-    margin-bottom: 10px;
+    margin-bottom: 14px;
   }
-  .symptom h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--blue); margin: 0 0 14px; line-height: 1.3; }
-  .symptom p { font-size: 0.92rem; line-height: 1.75; color: var(--slate); margin: 0 0 10px; }
+  .symptom h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--blue); margin: 0 0 18px; line-height: 1.3; }
+  .symptom p { font-size: 0.92rem; line-height: 1.75; color: var(--slate); margin: 0 0 14px; }
   .glossary-link { color: var(--blue); text-decoration: underline; text-decoration-style: dotted; text-decoration-color: var(--gold); }
   .glossary-link:hover { color: var(--gold-text); }
-  .symptom .needs-repair { background: var(--sand); border-left: 3px solid var(--gold); padding: 10px 14px; color: var(--blue); border-radius: 0 6px 6px 0; }
-  .symptom .nm-note { font-size: 0.82rem; color: var(--muted); border-left: 3px solid var(--gold); padding-left: 12px; font-style: italic; margin-bottom: 0; }
+  /*
+   * Distinct blue tint (not the sand/cream the category badge and page
+   * background already use) so this is the one box on the card that
+   * reads as "the actionable callout" -- nm-note below deliberately
+   * carries no box treatment at all, so the two don't compete as two
+   * interchangeable "boxes."
+   */
+  .symptom .needs-repair { background: rgba(27, 58, 92, 0.06); border-left: 3px solid var(--blue); padding: 16px 20px; color: var(--blue); border-radius: 0 6px 6px 0; }
+  .symptom .nm-note { font-size: 0.82rem; color: var(--muted); font-style: italic; margin-bottom: 0; }
   .symptom-links { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--stone); display: flex; flex-wrap: wrap; gap: 12px; }
   .symptom-link {
     font-family: 'DM Mono', monospace;
