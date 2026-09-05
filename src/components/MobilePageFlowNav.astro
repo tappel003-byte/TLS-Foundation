@@ -77,13 +77,16 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
       stroke-linejoin: round;
     }
     /* Reads "back, up, next" left to right: prev leftmost, #tls-btt
-       (back-to-top) takes the middle 84px slot itself, next claims the
-       rightmost 28px slot that #tls-btt used to sit in. 8px gaps. */
+       (back-to-top, 48px wide) takes the middle 84px slot itself, next
+       claims the rightmost slot. #tls-btt is 4px wider than these 44px
+       buttons, so matching "right" offsets by the same 8px step (28/84/140)
+       left an 4px gap on one side and 12px on the other -- next and prev
+       are offset here so both gaps come out equal at 8px. */
     #tls-pagenav-next {
-      right: 28px;
+      right: 32px;
     }
     #tls-pagenav-prev {
-      right: 136px;
+      right: 140px;
     }
   }
 </style>
