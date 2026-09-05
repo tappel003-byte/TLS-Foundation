@@ -10,6 +10,77 @@ Entries are newest first.
 
 ---
 
+## Cross-page duplicate audit (2nd content audit)
+
+**Commit:** `<pending>`
+
+Every previous audit in this log checked pages one at a time (or, for
+the Grok audit, in pairs Grok happened to compare). None of them checked
+whether the SAME sentence was quietly reused verbatim across unrelated
+pages -- so Tim asked for another audit, and this is the gap it closed.
+Built a cross-file duplicate-phrase scanner (9-word shingles, matched
+across all 19 live pages at once) instead of relying on memory or
+per-page re-reads. It surfaced a lot of expected shared chrome (phone
+numbers, nav labels, the common-concerns/cause-library/symptom-guide
+shared disclaimer text, which is intentional -- those three are meant
+to feel like one family) -- but also eight real, previously-uncaught
+echoes: the same distinctive sentence or metaphor, reused word-for-word
+on two different pages that had each been individually audited and
+signed off as clean.
+
+- **Rio Rancho / Santa Fe** shared a verbatim 33-word sentence
+  introducing the Sandia GEO investigation model ("TLS Foundations works
+  with Sandia GEO, a New Mexico geotechnical investigation firm, when
+  site conditions warrant a formal soil investigation before repair is
+  recommended"). Reworded Santa Fe's to lead with what's actually
+  specific to it (the lower investigation threshold) instead of opening
+  with the shared template line.
+- **Santa Fe's own Section 1 and Section 2** still opened with
+  near-identical sentences about the industry being built for
+  concrete/wood-frame construction, missed in the original per-page
+  audit. Trimmed Section 1's lede to a single distinct sentence.
+- **Albuquerque / Santa Fe** independently used the identical sentence
+  "misdiagnosed by contractors unfamiliar with New Mexico soil behavior"
+  and the identical "a foundation that appears stable in September may
+  be actively moving by March." Reworded both of Albuquerque's/Santa
+  Fe's instances to make the same point in fresh words.
+- **Albuquerque's South Valley** and **Santa Fe's adobe concern card**
+  both opened with "Adobe walls respond to soil movement differently
+  than concrete" verbatim. Reworded Albuquerque's version.
+- **Central NM / Southern NM** both used the identical "hard ceiling
+  over a soft floor" caliche metaphor. Reworded Central's version.
+- **Northern NM / Southern NM** both closed a wetting-history point with
+  "not the same as clay/soil in its natural state." Reworded Northern's
+  version.
+- **Eastern NM / Southern NM** both used "creating voids beneath
+  foundations with no surface warning" for evaporite/gypsum dissolution.
+  Reworded Southern's version.
+- **index.astro / new-mexico-soil-conditions.astro** shared two full
+  sentences verbatim (the "repair method that works in one basin"
+  sentence and the "difference between heave and settlement" sentence
+  right after it) — the homepage's NM-soils tab was essentially quoting
+  the Soil Roadmap hub page's own overview paragraph. Reworded both
+  sentences on the homepage to make the same point freshly, since the
+  hub page is where this argument should live in full.
+- **foundation-repair-methods.astro repeated itself internally**: its
+  own footer text and its own on-page section intro both said "we carry
+  a broad enough toolkit that the method genuinely follows the
+  diagnosis" — the same sentence also used verbatim on `our-approach.astro`.
+  Reworded the on-page instance (the more prominent, reader-facing one)
+  to something distinct; left the footer text and the our-approach.astro
+  instance as a single remaining pair, which is a normal level of
+  cross-page consistency for the site's core thesis stated once on its
+  canonical page and echoed once in a footer aside elsewhere.
+- **Checked and ruled out as non-issues**: the Collapsible Soil article
+  and its own Glossary entry share close phrasing because a glossary
+  should define a concept consistently with the article that explains
+  it in full — that's correct, not padding. Several other matches
+  (field labels, a shared "Symptom Guide" nav-link line, warning-trigger
+  button titles) were consistent UI scaffolding, not restated content.
+
+Verified: clean build, all edited pages screenshot-checked, cross-file
+scan re-run after the fixes to confirm each pair no longer matches.
+
 ## Symptom Guide + Cause Library — full re-audit (`src/pages/symptom-guide.astro`, `src/pages/cause-library.astro`)
 
 **Audited, no changes.** These two only ever got a targeted fix earlier
