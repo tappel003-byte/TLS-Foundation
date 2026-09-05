@@ -37,8 +37,6 @@ export const pageFlow: { path: string; name: string }[] = [
   { path: '/collapsible-soil', name: 'Collapsible Soil' },
   { path: '/symptom-guide', name: 'Symptom Guide' }, // Interactive Guides
   { path: '/cause-library', name: 'Cause Library' },
-  { path: '/soil-movement', name: 'Soil & Movement' }, // In Depth
-  { path: '/homeowner-decision-series', name: 'Homeowner Decision Series' },
   // contactUs (Header.astro), rendered last
   { path: '/contact-us', name: 'Contact Us' },
 ];

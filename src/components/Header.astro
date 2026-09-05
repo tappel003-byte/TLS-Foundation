@@ -1,7 +1,11 @@
 ---
 // Site-wide header/nav. Matches the live site's confirmed structure:
-// 6 top-level links + 4 dropdown folders (City Pages, NM Soils, Reference, In Depth),
-// non-sticky, background #1B3A5C, phone CTA in DM Mono gold.
+// 5 top-level links + 4 dropdown folders (City Pages, NM Soils, Reference,
+// Interactive Guides), non-sticky, background #1B3A5C, phone CTA in DM Mono
+// gold. The former "In Depth" folder (Soil & Movement, Homeowner Decision
+// Series) was removed -- both were AI-narrated re-recordings of text
+// content that already lives elsewhere on the site, not a reason to visit
+// a whole extra page. Still live on YouTube, just not embedded here.
 // Nav data pulled directly from the live header markup at tlsfoundations.com.
 import Logo from './Logo.astro';
 
@@ -51,13 +55,6 @@ const folders = [
     items: [
       { text: 'Symptom Guide', href: '/symptom-guide' },
       { text: 'Cause Library', href: '/cause-library' },
-    ],
-  },
-  {
-    title: 'In Depth',
-    items: [
-      { text: 'Soil & Movement', href: '/soil-movement' },
-      { text: 'Homeowner Decision Series', href: '/homeowner-decision-series' },
     ],
   },
   {
