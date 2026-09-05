@@ -143,7 +143,10 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
         <a href={contactUs.href}>{contactUs.text}</a>
       </li>
     </ul>
-    <a class="mobile-phone-cta" href="tel:5059914180">(505) 991-4180</a>
+    <div class="mobile-contact-cta">
+      <a class="mobile-phone-cta" href="tel:5059914180">(505) 991-4180</a>
+      <a class="mobile-text-cta" href="sms:5059914180">or text</a>
+    </div>
   </div>
 </header>
 
@@ -347,14 +350,28 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     padding-bottom: 12px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
-  .mobile-phone-cta {
-    display: block;
+  .mobile-contact-cta {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    flex-wrap: wrap;
     margin: 20px 28px 0;
+  }
+  .mobile-phone-cta {
     font-family: 'DM Mono', monospace;
     font-size: 16px;
     color: var(--gold-light);
     letter-spacing: 0.05em;
     text-decoration: none;
+  }
+  .mobile-text-cta {
+    font-family: 'Source Serif 4', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: underline;
+    text-decoration-color: rgba(184, 134, 11, 0.5);
+    text-underline-offset: 2px;
   }
 
   /*
