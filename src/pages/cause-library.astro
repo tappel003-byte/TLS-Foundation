@@ -915,6 +915,13 @@ const verdictDefs: Record<string, string> = {
     if (typeof (window as any).gtag === 'function') (window as any).gtag('event', name, params);
   }
 
+  // Same idea as STORAGE_KEY below, but for the facet checkboxes: shared
+  // with symptom-guide.astro so a choice made on either page is remembered
+  // on both, no matter which link (or nav item, or back button) carries
+  // someone from one to the other -- not just the two links that pass it
+  // along explicitly as URL params.
+  const FACET_STORAGE_KEY = 'tls-facets';
+
   // Region picker first, city picker populated from that region's real city
   // list once a region is chosen. Same localStorage key as symptom-guide.astro
   // so a choice made on either page is remembered on both.
@@ -1181,6 +1188,12 @@ const verdictDefs: Record<string, string> = {
   function applySort() {
     syncChipVisuals();
     const checked = getChecked();
+    // Persisted on every change so the choice survives arriving at the
+    // Symptom Guide by any route -- not just the two links that also
+    // pass it along as URL params.
+    try {
+      localStorage.setItem(FACET_STORAGE_KEY, JSON.stringify(checked));
+    } catch {}
     const anyChecked = checked.onset.length + checked.see.length + checked.site.length + checked.foundation.length > 0;
     clearBtn.hidden = !anyChecked;
     resultsLead.hidden = !anyChecked;
@@ -1328,15 +1341,36 @@ const verdictDefs: Record<string, string> = {
     }
   });
 
-  // Arriving via the handoff from the Symptom Guide -- pre-check boxes from the URL.
-  ['onset', 'see', 'site', 'foundation'].forEach((group) => {
+  // Arriving via a link that carries state (the pill, or the facet-panel-
+  // note link) -- pre-check boxes from the URL. If the URL carried none of
+  // these at all, fall back to whatever was last checked on either page --
+  // covers arriving via the header nav, the footer, ReferenceNav's tab, a
+  // bookmark, or the back button, not just the two links built to pass
+  // state along explicitly.
+  const FACET_GROUPS = ['onset', 'see', 'site', 'foundation'] as const;
+  let sawUrlFacets = false;
+  FACET_GROUPS.forEach((group) => {
     const val = urlParams.get(group);
     if (!val) return;
+    sawUrlFacets = true;
     val.split(',').forEach((id) => {
       const cb = checkboxes.find((c) => c.name === group && c.value === id);
       if (cb) cb.checked = true;
     });
   });
+  if (!sawUrlFacets) {
+    try {
+      const saved = JSON.parse(localStorage.getItem(FACET_STORAGE_KEY) || 'null');
+      if (saved) {
+        FACET_GROUPS.forEach((group) => {
+          (saved[group] || []).forEach((id: string) => {
+            const cb = checkboxes.find((c) => c.name === group && c.value === id);
+            if (cb) cb.checked = true;
+          });
+        });
+      }
+    } catch {}
+  }
   applySort();
 
   // Each card opens and closes independently -- no more "closes whatever
