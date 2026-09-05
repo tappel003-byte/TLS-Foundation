@@ -690,6 +690,18 @@ const verdictDefs: Record<string, string> = {
   nextPage={{ path: '/expansive-soil', name: 'Expansive Soils' }}
 >
   <div class="sg-page">
+    <!-- Screen-hidden, print-only -- becomes the actual header of the
+         printed page since the site nav, hero, and checkboxes are all
+         stripped out for print. -->
+    <div class="print-header">
+      <div class="print-header-brand">TLS Foundations</div>
+      <div class="print-header-phone">(505) 991-4180 · tlsfoundations.com</div>
+      <p class="print-header-disclaimer">
+        Educational reference only — not a diagnosis or professional evaluation. Prepared from checkboxes
+        selected on <span id="printDate"></span>.
+      </p>
+    </div>
+
     <section class="page-hero">
       <div class="page-hero-inner">
         <span class="hero-eyebrow">Interactive Guides · Differential Diagnosis</span>
@@ -789,6 +801,7 @@ const verdictDefs: Record<string, string> = {
         <p class="outcome-text" id="outcomeText"></p>
         <div class="outcome-cta">
           <a href="tel:5059914180" class="outcome-phone">(505) 991-4180</a>
+          <button type="button" id="printResults" class="outcome-print">Print your results</button>
           <button type="button" id="sendResultsToggle" class="outcome-print" aria-expanded="false">Send this to TLS</button>
         </div>
 
@@ -849,8 +862,8 @@ const verdictDefs: Record<string, string> = {
                 data-foundation={c.foundation.join(',')}
               >
                 <div class="specimen-head">
-                  <span class="specimen-tier-badge" title={tier.title}>{tier.number}</span>
                   <h3 class="warning-trigger-text">{c.name}</h3>
+                  <span class="specimen-tier-badge">{tier.title}</span>
                 </div>
                 <div class="verdict-line">
                   <span class={`verdict-badge ${c.verdictClass}`} data-def={verdictDefs[c.verdictClass]} tabindex="0" role="button" aria-label={`Is underpinning the first choice for this cause? ${c.verdict}. Tap for more.`}>
@@ -1220,6 +1233,14 @@ const verdictDefs: Record<string, string> = {
     stripOpen = false;
     applySort();
   });
+  const printBtn = document.getElementById('printResults') as HTMLButtonElement;
+  const printDate = document.getElementById('printDate') as HTMLElement;
+  printBtn.addEventListener('click', () => {
+    printDate.textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    track('print_results_clicked');
+    window.print();
+  });
+
   outcomePill.addEventListener('click', () => track('cross_page_handoff', { from: 'cause-library', to: 'symptom-guide' }));
 
   // "Send this to TLS" -- same content as what's on the page, sent through
@@ -1623,6 +1644,11 @@ const verdictDefs: Record<string, string> = {
     border-top: 2px solid var(--blue);
     margin-top: 14px;
   }
+  /* `display: flex` above has the same specificity as the browser's own
+     `[hidden] { display: none }` rule and, being an author style, wins the
+     tie -- without this, setting the `hidden` property in JS silently did
+     nothing and tier headers stayed visible the whole time. */
+  .tier-header[hidden] { display: none; }
   .tier-header:first-child { margin-top: 0; border-top: none; padding-top: 4px; }
   .tier-number {
     font-family: 'Playfair Display', serif;
@@ -1639,17 +1665,16 @@ const verdictDefs: Record<string, string> = {
   /* ── Specimen cards ── */
   .specimen-card { background: var(--white); border: 1px solid var(--stone); border-radius: 8px; transition: opacity 0.2s, border-color 0.2s; }
   .specimen-card.matched { border-color: rgba(184, 134, 11, 0.5); }
-  .specimen-head { padding: 16px 20px 0; display: flex; align-items: baseline; gap: 10px; }
+  .specimen-head { padding: 16px 20px 0; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
   .specimen-tier-badge {
     flex-shrink: 0;
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
     color: var(--gold-text);
-    background: var(--sand);
-    border: 1px solid var(--gold);
-    border-radius: 4px;
-    padding: 2px 6px;
+    white-space: nowrap;
   }
   .warning-trigger-text { font-size: 16px; color: var(--blue); font-weight: 600; line-height: 1.4; margin: 0; }
   .verdict-line { padding: 0 20px 14px; }
@@ -1711,19 +1736,18 @@ const verdictDefs: Record<string, string> = {
   .continue-reading {
     display: block;
     width: 100%;
-    background: var(--sand);
+    background: none;
     border: none;
-    border-top: 1px solid var(--stone);
     font-family: 'DM Mono', monospace;
     font-weight: 700;
     font-size: 0.85rem;
     letter-spacing: 0.5px;
     color: var(--gold-text);
-    padding: 14px 20px;
-    text-align: left;
+    padding: 12px 20px 18px;
+    text-align: right;
     cursor: pointer;
   }
-  .continue-reading:hover { background: var(--stone); }
+  .continue-reading:hover { color: var(--gold); }
   .warning-drawer-inner {
     font-size: 15px;
     line-height: 1.8;
@@ -1816,5 +1840,50 @@ const verdictDefs: Record<string, string> = {
   }
   @media (max-width: 640px) {
     .page-hero h1 { font-size: 2rem; }
+  }
+
+  .print-header { display: none; }
+
+  /* ── Print: only the matched results + outcome, TLS branding as the
+       header since the site nav is gone, everything forced open since
+       collapse/accordion state is a screen-only affordance. ── */
+  @media print {
+    :global(.site-header),
+    :global(.mobile-panel),
+    :global(.minimal-footer),
+    :global(.reference-nav),
+    :global(#tls-summarize-btn),
+    :global(#tls-summarize-overlay),
+    :global(#tls-summarize-panel),
+    :global(#tls-btt) {
+      display: none !important;
+    }
+    .page-hero, .cause-lede, .facet-panel,
+    .results-lead, .other-strip, .handoff, .contact-footer,
+    .outcome-print, .send-form-wrap {
+      display: none !important;
+    }
+    .outcome-more { display: block !important; padding-top: 0; border-top: none; margin-top: 0; }
+    .print-header { display: block; margin-bottom: 28px; border-bottom: 2px solid #000; padding-bottom: 16px; }
+    .print-header-brand { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #000; }
+    .print-header-phone { font-family: 'DM Mono', monospace; font-size: 13px; color: #000; margin-top: 4px; }
+    .print-header-disclaimer { font-size: 11px; color: #444; font-style: italic; margin-top: 10px; }
+    .page { padding: 0; max-width: 100%; }
+    .outcome-box { background: none; border: 1px solid #999; padding: 16px; }
+    .outcome-label, .related-reading-label { color: #444; }
+    .outcome-text, .outcome-triage, .outcome-phone {
+      color: #000 !important;
+    }
+    :global(.related-reading-title), :global(.related-reading-blurb) {
+      color: #000 !important;
+    }
+    .specimen-card:not(.matched) { display: none; }
+    /* Same reasoning as the outcome box's toggle: no interactivity on
+       paper, so force the per-card drawer open and hide the button that
+       would otherwise do nothing. */
+    .continue-reading { display: none !important; }
+    .warning-drawer { max-height: none !important; overflow: visible !important; }
+    .warning-drawer[hidden] { display: block !important; }
+    .specimen-card { break-inside: avoid; border: 1px solid #ccc; }
   }
 </style>
