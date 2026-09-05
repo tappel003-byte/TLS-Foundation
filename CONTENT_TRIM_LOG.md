@@ -12,7 +12,7 @@ Entries are newest first.
 
 ## Fixes to earlier cuts (regressions caught and closed)
 
-**Commit:** _pending_
+**Commit:** `e7126f3`
 
 - **Albuquerque lost its only on-page mentions of "foam injection" and
   "mudjacking"** when the SEO accordion was deleted (`f8db413`) — verified
