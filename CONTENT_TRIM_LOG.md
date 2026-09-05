@@ -13,7 +13,7 @@ Entries are newest first.
 ## Draft redesigns (home-v2, our-approach-v2, why-foundations-move-v2,
 ## common-concerns-v2)
 
-**Commit:** `<pending>`
+**Commit:** `fc783e5`
 
 Tim's call: the 4 redesign drafts were widget reskins (accordion → tabs,
 accordion → stepper, static grid → clickable spectrum) with content left
