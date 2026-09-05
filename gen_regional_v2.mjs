@@ -15,6 +15,16 @@ function renderZoneSection(zone, sectionNum, zoneNum) {
     )
     .join('\n');
 
+  const cityLinksHtml = zone.cityLinks
+    ? `                <div class="zone-city-links">
+                  <span class="zone-city-links-label">City pages for this basin</span>
+                  <ul class="zone-city-links-list">
+${zone.cityLinks.map((c) => `                    <li><a href="${c.url}">${c.name}</a></li>`).join('\n')}
+                  </ul>
+                </div>
+`
+    : '';
+
   return `        <!-- ${String(sectionNum).padStart(2, '0')} ${zone.title.toUpperCase()} -->
         <section class="section" id="${zone.id}">
           <span class="section-num">${String(sectionNum).padStart(2, '0')}</span>
@@ -40,7 +50,7 @@ function renderZoneSection(zone, sectionNum, zoneNum) {
 ${hazardsHtml}
                   </ul>
                 </div>
-              </div>
+${cityLinksHtml}              </div>
             </div>
 
             <div class="communities-band reveal">
@@ -646,6 +656,32 @@ ${zonesHtml}
   .warning-trigger-icon { color: var(--gold-text); font-size: 16px; flex-shrink: 0; }
   .warning-drawer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
   .warning-drawer-inner { font-size: 14px; line-height: 1.75; color: var(--muted); padding-bottom: 18px; }
+
+  .zone-city-links {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--stone);
+  }
+  .zone-city-links-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    margin-bottom: 10px;
+  }
+  .zone-city-links-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .zone-city-links-list a {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: rgba(184, 134, 11, 0.4);
+    text-underline-offset: 3px;
+  }
+  .zone-city-links-list a:hover { color: var(--gold-text); }
 
   .communities-band {
     margin-top: 40px;
@@ -1301,6 +1337,10 @@ const central = {
       ],
       communities:
         'Albuquerque · Los Ranchos de Albuquerque · Rio Rancho · Tijeras · Edgewood · Corrales · Bernalillo · Placitas · Belen · Los Lunas · Bosque Farms · Peralta · South Valley · North Valley · Sandia Heights · Cedar Crest · Isleta · Pajarito Mesa · Algodones',
+      cityLinks: [
+        { name: 'Albuquerque', url: '/albuquerque-nm' },
+        { name: 'Rio Rancho', url: '/rio-rancho-nm' },
+      ],
     },
     {
       id: 'espanola-basin',
@@ -1328,6 +1368,7 @@ const central = {
       ],
       communities:
         'Santa Fe · Española · Los Alamos · White Rock · Pojoaque · Nambé · Tesuque · Chimayó · Alcalde · Dixon · Velarde · Abiquiu · El Rito · Truchas · La Cienega · Galisteo · Pecos · Glorieta · Lamy',
+      cityLinks: [{ name: 'Santa Fe', url: '/santa-fe-nm' }],
     },
     {
       id: 'estancia-basin',
