@@ -12,7 +12,7 @@ Entries are newest first.
 
 ## Grok independent-audit fixes (Albuquerque, Santa Fe)
 
-**Commit:** `<pending>`
+**Commit:** `851102f`
 
 Tim brought in Grok for a second-opinion content audit against this repo.
 Most of Grok's findings didn't hold up on inspection (Rio Rancho's "Always
