@@ -10,6 +10,34 @@ Entries are newest first.
 
 ---
 
+## The 5 regional pages (northern/central/southern/eastern-new-mexico, four-corners)
+
+**Commit:** `<pending>`
+
+Ran the repeated-phrase scan across all 5 (4,265 lines combined) rather
+than reading every zone by hand. The scan surfaced a lot of matches, but
+almost all of them traced back to two legitimate, deliberate patterns
+already validated on the city pages, not new instances of the
+"manifesto restated" problem:
+1. Consistent field-label scaffolding ("What we see when we drive up,"
+   "What TLS sees and repairs most here") repeated across zones by
+   design — the label is the same, the paragraph under it is different
+   every time.
+2. A narrative paragraph + an expandable "warning-drawer" detail list
+   per zone, restating the same underlying fact in two different
+   formats (full sentences vs. scannable bullet) — the same
+   prose-plus-detail pairing the city pages use, not padding.
+- **One real echo found and fixed:** Northern New Mexico's Raton zone
+  used the identical distinctive phrase — "does not exist anywhere else
+  in New Mexico" — in both its punchy tagline and its accordion detail.
+  Reworded the detail to add something the tagline didn't (that a mine
+  map matters as much as a boring log here) instead of repeating the
+  same hook.
+- Checked several other flagged matches by hand (frost-depth phrasing
+  across Taos vs. Mora Valley, sulfate/gypsum mechanism phrasing in
+  southern NM's zones) and confirmed they're different zones citing
+  different specific numbers and locations, not copy-paste duplicates.
+
 ## Expansive Soil + Collapsible Soil (`src/pages/expansive-soil.astro`, `src/pages/collapsible-soil.astro`)
 
 **Audited, no changes.** These are the two strongest reference pages on
