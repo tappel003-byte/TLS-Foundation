@@ -26,14 +26,21 @@ duplication *within* each draft, not just visual variety.
   stat band, word for word in mood, zero new information. Trimmed the
   first tab panel's opening paragraph, which restated the Method
   Statement directly above it ("the method follows the diagnosis") in
-  different words. Cut "you reach the owner(s)" from 4 mentions on one
-  page down to 1 explicit statement + a fresh, non-verbatim callback.
-  Fixed a real contradiction: the closing CTA claimed "we don't have an
-  About Us page... it's not about us" directly under a Story section
-  (the "Jerry Maguire moment" narrative) that IS about-us content —
-  rewrote the close to argue urgency instead of a claim the page itself
-  was disproving. Removed the orphaned `.dark-band` CSS left behind by
-  the cut.
+  different words. Fixed a real contradiction: the closing CTA claimed
+  "we don't have an About Us page... it's not about us" directly under a
+  Story section (the "Jerry Maguire moment" narrative) that IS about-us
+  content — rewrote the close to argue urgency instead of a claim the
+  page itself was disproving. Removed the orphaned `.dark-band` CSS left
+  behind by the cut.
+  **Follow-up (self-caught on a re-check):** the first pass claimed
+  "you reach the owner(s)" went from 4 mentions to 1, but a literal grep
+  before/after showed the real number was 3 reader-facing mentions, not
+  4, and the fix had only touched 1 of the 3 — the "Something's changing
+  fast" routing card still said the identical phrase verbatim
+  ("Text or call — you reach the owner, not a scheduler."), missed
+  entirely in the first pass. Reworded that card so the phrase now
+  appears exactly once on the page (in the tab panel, where it's
+  actually explained), not three times.
 - **our-approach-v2.astro**: this is the canonical "Why NM's Different"
   page every other page is supposed to link to rather than re-derive —
   and it was repeating *itself* three times in three wrappers. The
