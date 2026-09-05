@@ -10,6 +10,39 @@ Entries are newest first.
 
 ---
 
+## Draft promotions (Home, Why NM's Different, Why Foundations Move, Common Concerns)
+
+**Commit:** `<pending>`
+
+Tim: "go balls deep, get it all done" -- the 4 already-fixed, already-
+verified drafts are promoted to replace their live counterparts, since
+redoing the same fix twice (once in draft, once live) would be wasted
+work. The live pages now have the interactive widgets (tabs, stepper,
+clickable spectrum, faceted concern-finder) and the content fixes
+described in the "Draft redesigns" entry below.
+
+- `index.astro` (Home) replaced with the fixed home-v2 content.
+- `our-approach.astro` (the canonical "Why NM's Different" page)
+  replaced with the fixed our-approach-v2 content -- this was the
+  single highest-priority promotion, since every other page is
+  supposed to link to this page rather than re-derive its argument,
+  and it was the most repetitive page on the site until now.
+- `why-foundations-move.astro` replaced with the fixed
+  why-foundations-move-v2 content.
+- `common-concerns.astro` replaced with the fixed common-concerns-v2
+  content. Its 18 "related question" links pointed at
+  `/common-concerns-v2#...` anchors -- rewrote all 18 to
+  `/common-concerns#...` before promoting, since those are now the
+  live page's own anchors, not a separate draft's.
+- All 4 `-v2.astro` draft files deleted; the temp "Draft (temp)" nav
+  folder removed from `Header.astro` since there are no more drafts
+  to route to separately.
+- Verified: clean build (22 pages, down from 26 with drafts), zero
+  dangling `-v2` references except in this repo's own explanatory
+  comments, all 4 promoted pages screenshot-checked, every interactive
+  element re-tested after promotion (tab clicks, stepper clicks,
+  spectrum clicks, facet-checkbox filtering all still work).
+
 ## Grok independent-audit fixes (Albuquerque, Santa Fe)
 
 **Commit:** `851102f`

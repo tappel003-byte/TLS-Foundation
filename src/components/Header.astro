@@ -57,18 +57,6 @@ const folders = [
       { text: 'Cause Library', href: '/cause-library' },
     ],
   },
-  {
-    // TEMP -- overnight redesign drafts for Tim to review, not live routes.
-    // Remove this folder (and the -v2 pages it points to) once each draft
-    // is either promoted to its live URL or discarded.
-    title: 'Draft (temp)',
-    items: [
-      { text: 'Common Concerns v2', href: '/common-concerns-v2' },
-      { text: 'Home v2', href: '/home-v2' },
-      { text: "Why NM's Different v2", href: '/our-approach-v2' },
-      { text: 'Why Foundations Move v2', href: '/why-foundations-move-v2' },
-    ],
-  },
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';

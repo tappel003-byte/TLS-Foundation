@@ -1,11 +1,11 @@
 ---
-// Homepage. Hero photo + text-overlay code block, with the Ken Burns
-// pan/zoom effect applied per explicit user direction (all hero photos
-// site-wide get Ken Burns, even though the live Squarespace page's native
-// picker currently has imageEffect: none). Everything below the hero is
-// three stacked code blocks: story/stat-band/method-statement/accordion/
-// services, a dark quote band, and the contact-close band — pulled
-// verbatim from the live page source.
+// Homepage. Promoted from the home-v2 draft after a content-redesign pass
+// (see CONTENT_TRIM_LOG.md) -- the "How we operate" accordion stack became
+// a tab strip, the "Dark Band" section (a pure restatement of the 55-years
+// stat already made above) was cut, "you reach the owner(s)" went from 4
+// mentions down to 1 explained instance plus one fresh callback, and the
+// close no longer claims "we don't have an About Us page" directly under
+// a Story section that is one -- it argues urgency instead.
 import Layout from '../layouts/Layout.astro';
 
 const title = 'TLS Foundations — New Mexico Foundation Repair';
@@ -101,7 +101,7 @@ const schema = [
           </a>
           <a href="/contact-us" class="notice-card notice-card-urgent">
             <span class="notice-card-title">Something's changing fast</span>
-            <span class="notice-card-desc">Text or call — you reach the owner, not a scheduler.</span>
+            <span class="notice-card-desc">Text or call. Skip the form — this shouldn't wait.</span>
             <span class="notice-card-arrow">→</span>
           </a>
         </div>
@@ -148,76 +148,37 @@ const schema = [
       </div>
     </section>
 
-    <div class="accordion">
-      <button class="accordion-header" data-acc>
-        <div class="accordion-header-inner">
-          <div class="accordion-header-text">
-            <span class="accordion-eyebrow">How we operate</span>
-            <div class="accordion-title">Three things that make an evaluation worth having.</div>
-            <div class="accordion-summary">Investigation before recommendation. You reach the owner. The evaluation is honest.</div>
-          </div>
-          <div class="accordion-toggle">
-            <svg class="icon-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            <svg class="icon-minus" viewBox="0 0 24 24" style="display:none;"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-          </div>
+    <section class="tabs-block">
+      <div class="tabs-inner">
+        <div class="tabs-header">
+          <span class="tabs-eyebrow">How we operate</span>
+          <div class="tabs-title">Three things that make an evaluation worth having.</div>
         </div>
-      </button>
-      <div class="accordion-body">
-        <div class="accordion-body-inner">
-          <p><strong>Investigation before recommendation.</strong> Foundation problems in New Mexico are <a href="/common-concerns#causes" class="body-link">soil problems</a>. We understand what the soil is doing before we recommend anything — including whether repair is warranted at all.</p>
-          <p><strong>You reach the owner(s).</strong> When you contact TLS, you are talking with an ownership team that has worked in these conditions for 55 years and counting. Not a scheduler. Not a salesperson. The people who will be on your property.</p>
-          <p><strong>The evaluation is honest.</strong> We have told homeowners their foundation did not need repair. We will tell you the same thing, if that is what the evidence shows. The goal is the right answer.</p>
+        <div class="tabs-nav" role="tablist">
+          <button class="tab-btn active" data-tab="investigation" role="tab" aria-selected="true">Investigation before recommendation</button>
+          <button class="tab-btn" data-tab="owner" role="tab" aria-selected="false">The model</button>
+          <button class="tab-btn" data-tab="soils" role="tab" aria-selected="false">New Mexico soils</button>
         </div>
-      </div>
-    </div>
-
-    <div class="accordion">
-      <button class="accordion-header" data-acc>
-        <div class="accordion-header-inner">
-          <div class="accordion-header-text">
-            <span class="accordion-eyebrow">The model</span>
-            <div class="accordion-title">The evaluation is not a loss leader. It is the work.</div>
-            <div class="accordion-summary">Most inspections have a financial interest in finding something wrong. Ours don't.</div>
+        <div class="tabs-panels">
+          <div class="tab-panel active" data-panel="investigation" role="tabpanel">
+            <p><strong>You reach the owner(s).</strong> When you contact TLS, you are talking with an ownership team that has worked in these conditions for 55 years and counting. Not a scheduler. Not a salesperson. The people who will be on your property.</p>
+            <p><strong>The evaluation is honest.</strong> We have told homeowners their foundation did not need <a href="/common-concerns#causes" class="body-link">repair</a>. We will tell you the same thing, if that is what the evidence shows. The goal is the right answer, not a sale.</p>
           </div>
-          <div class="accordion-toggle">
-            <svg class="icon-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            <svg class="icon-minus" viewBox="0 0 24 24" style="display:none;"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <div class="tab-panel" data-panel="owner" role="tabpanel">
+            <p>Most foundation inspections are structured around finding something to sell. The inspector visiting your home typically has a financial interest in the outcome — their compensation depends on closing a job, not on giving you the most accurate picture of what your foundation is doing.</p>
+            <div class="pull">
+              <p>We stand behind our work. More importantly, we don't recommend work we can't stand behind.</p>
+            </div>
+            <p>TLS Foundations is built around a different model. Our geotechnical affiliate, Sandia GEO, generates investigation revenue independent of repair sales. When a situation calls for <a href="/our-approach#investigation" class="body-link">professional investigation rather than immediate repair</a>, we recommend it — and the business still works. The evaluation is not a loss leader. It is the work.</p>
           </div>
-        </div>
-      </button>
-      <div class="accordion-body">
-        <div class="accordion-body-inner">
-          <p>Most foundation inspections are structured around finding something to sell. The inspector visiting your home typically has a financial interest in the outcome — their compensation depends on closing a job, not on giving you the most accurate picture of what your foundation is doing.</p>
-          <div class="pull">
-            <p>We stand behind our work. More importantly, we don't recommend work we can't stand behind.</p>
+          <div class="tab-panel" data-panel="soils" role="tabpanel">
+            <p>The Rio Grande Rift running through Albuquerque. Mancos Shale in the Four Corners. Permian karst dissolution beneath the Pecos Valley. Gypsum deposits in the Tularosa. <a href="/collapsible-soil#what-is" class="body-link">Collapsible desert soils</a> across the Jornada del Muerto. The geological knowledge that lives in this work is not in any national training manual.</p>
+            <p>A repair method that works in one basin can make conditions worse in another. The difference between <a href="/glossary#heave" class="body-link">heave</a> and <a href="/glossary#settlement" class="body-link">settlement</a> — <a href="/expansive-soil#what-is" class="body-link">soil pushing up</a> versus soil pulling down — determines everything about how to respond. Misdiagnosis is consequential.</p>
+            <a href="/new-mexico-soil-conditions" class="acc-link">Explore all five regions and New Mexico soils →</a>
           </div>
-          <p>TLS Foundations is built around a different model. Our geotechnical affiliate, Sandia GEO, generates investigation revenue independent of repair sales. When a situation calls for <a href="/our-approach#investigation" class="body-link">professional investigation rather than immediate repair</a>, we recommend it — and the business still works. The evaluation is not a loss leader. It is the work.</p>
         </div>
       </div>
-    </div>
-
-    <div class="accordion">
-      <button class="accordion-header" data-acc>
-        <div class="accordion-header-inner">
-          <div class="accordion-header-text">
-            <span class="accordion-eyebrow">New Mexico soils</span>
-            <div class="accordion-title">New Mexico soils are just as unique as New Mexicans.</div>
-            <div class="accordion-summary">Sixteen geologically distinct basins. Each one behaves differently under a foundation.</div>
-          </div>
-          <div class="accordion-toggle">
-            <svg class="icon-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            <svg class="icon-minus" viewBox="0 0 24 24" style="display:none;"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-          </div>
-        </div>
-      </button>
-      <div class="accordion-body">
-        <div class="accordion-body-inner">
-          <p>The Rio Grande Rift running through Albuquerque. Mancos Shale in the Four Corners. Permian karst dissolution beneath the Pecos Valley. Gypsum deposits in the Tularosa. <a href="/collapsible-soil#what-is" class="body-link">Collapsible desert soils</a> across the Jornada del Muerto. The geological knowledge that lives in this work is not in any national training manual.</p>
-          <p>A repair method that works in one basin can make conditions worse in another. The difference between <a href="/glossary#heave" class="body-link">heave</a> and <a href="/glossary#settlement" class="body-link">settlement</a> — <a href="/expansive-soil#what-is" class="body-link">soil pushing up</a> versus soil pulling down — determines everything about how to respond. Misdiagnosis is consequential.</p>
-          <a href="/new-mexico-soil-conditions" class="acc-link">Explore all five regions and New Mexico soils →</a>
-        </div>
-      </div>
-    </div>
+    </section>
 
     <section class="services-section">
       <div class="services-section-inner">
@@ -273,30 +234,17 @@ const schema = [
       </div>
     </section>
 
-    <section class="dark-band">
-      <div class="dark-inner">
-        <span class="dark-eyebrow">New Mexico</span>
-        <p class="dark-pull">"New Mexico soils are just as unique as New Mexicans."</p>
-        <div class="dark-divider"></div>
-        <div class="dark-callout">
-          <p class="dark-body">
-            The foundation repair knowledge we've built 55 years and counting — basin by basin, decade by
-            decade — green chile cheeseburger by green chile cheeseburger — is the result of choosing New
-            Mexico and staying. It is not in any training manual. It lives in the work.
-          </p>
-        </div>
-      </div>
-    </section>
-
     <section class="contact-close">
-      <div class="contact-inner">
-        <span class="contact-eyebrow">Ready when you are</span>
-        <h2 class="contact-headline">
-          You'll notice we don't have an About Us page. That's because it's not about us — we just have
-          Home, because this place is HOME.
-        </h2>
-        <p class="contact-sub">Text or call — you reach the owner(s).</p>
-        <div class="contact-options">
+      <div class="contact-split">
+        <div class="contact-split-text">
+          <span class="contact-eyebrow">Ready when you are</span>
+          <h2 class="contact-headline">
+            Foundation problems don't get better while you wait. Text or call — you'll reach the people
+            who'll actually be at your house, not a scheduler.
+          </h2>
+          <p class="contact-sub">Real answers, no sales script.</p>
+        </div>
+        <div class="contact-card">
           <div class="contact-option">
             <span class="contact-option-label">Text</span>
             <a href="sms:5059914180" class="contact-option-value">Send a text →</a>
@@ -305,7 +253,7 @@ const schema = [
           <div class="contact-option">
             <span class="contact-option-label">Call</span>
             <a href="tel:5059914180" class="contact-option-value">(505) 991-4180</a>
-            <span class="contact-option-note">The owner(s) answer</span>
+            <span class="contact-option-note">No hold music, no script</span>
           </div>
           <div class="contact-option">
             <span class="contact-option-label">Location</span>
@@ -319,24 +267,23 @@ const schema = [
 </Layout>
 
 <script>
-  function initAccordions() {
-    document.querySelectorAll<HTMLButtonElement>('[data-acc]').forEach((btn) => {
-      if ((btn as any)._accBound) return;
-      (btn as any)._accBound = true;
+  function initTabs() {
+    const nav = document.querySelector('.tabs-nav');
+    if (!nav) return;
+    const buttons = Array.from(nav.querySelectorAll<HTMLButtonElement>('.tab-btn'));
+    const panels = Array.from(document.querySelectorAll<HTMLElement>('.tab-panel'));
+    buttons.forEach((btn) => {
       btn.addEventListener('click', () => {
-        const body = btn.nextElementSibling as HTMLElement;
-        const toggle = btn.querySelector('.accordion-toggle');
-        const isOpen = body.classList.contains('open');
-        document.querySelectorAll('.accordion-body').forEach((b) => b.classList.remove('open'));
-        document.querySelectorAll('.accordion-toggle').forEach((t) => t.classList.remove('is-open'));
-        if (!isOpen) {
-          body.classList.add('open');
-          toggle?.classList.add('is-open');
-        }
+        const key = btn.dataset.tab;
+        buttons.forEach((b) => {
+          b.classList.toggle('active', b === btn);
+          b.setAttribute('aria-selected', String(b === btn));
+        });
+        panels.forEach((p) => p.classList.toggle('active', p.dataset.panel === key));
       });
     });
   }
-  document.addEventListener('DOMContentLoaded', initAccordions);
+  document.addEventListener('DOMContentLoaded', initTabs);
 </script>
 
 <style>
@@ -633,33 +580,21 @@ const schema = [
     line-height: var(--body-line);
     max-width: 560px;
   }
-  .accordion {
-    border-bottom: 1px solid var(--stone);
+
+  /* ── TABS (replaces the old 3-accordion stack) ── */
+  .tabs-block {
+    padding: 72px var(--gutter);
+    border-bottom: 2px solid var(--gold);
     background: var(--cream);
   }
-  .accordion-header {
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 40px var(--gutter);
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    cursor: pointer;
-    text-align: left;
-  }
-  .accordion-header-inner {
+  .tabs-inner {
     max-width: var(--acc-max);
-    width: 100%;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 24px;
+    margin: 0 auto;
   }
-  .accordion-header-text {
-    flex: 1;
+  .tabs-header {
+    margin-bottom: 32px;
   }
-  .accordion-eyebrow {
+  .tabs-eyebrow {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 4px;
@@ -668,74 +603,63 @@ const schema = [
     display: block;
     margin-bottom: 12px;
   }
-  .accordion-title {
+  .tabs-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(22px, 2.8vw, 32px);
+    font-size: clamp(24px, 3vw, 34px);
     font-weight: 400;
     line-height: 1.25;
     color: var(--blue);
   }
-  .accordion-summary {
-    font-size: 15px;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.8;
-    margin-top: 8px;
-  }
-  .accordion-toggle {
-    flex-shrink: 0;
-    width: 44px;
-    height: 44px;
-    border: 1.5px solid var(--stone);
-    border-radius: 50%;
+  .tabs-nav {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 4px;
-    transition: border-color 0.2s, background 0.2s;
-    background: var(--cream);
+    flex-wrap: wrap;
+    gap: 8px;
+    border-bottom: 1px solid var(--stone);
+    margin-bottom: 32px;
   }
-  .accordion-header:hover .accordion-toggle {
-    border-color: var(--gold);
-    background: var(--sand);
+  .tab-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    background: none;
+    border: none;
+    padding: 14px 4px 16px;
+    margin-right: 28px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transform: translateY(1px);
+    transition: color 0.2s, border-color 0.2s;
   }
-  .accordion-toggle svg {
-    width: 16px;
-    height: 16px;
-    stroke: var(--gold);
-    stroke-width: 2;
-    fill: none;
-    stroke-linecap: round;
-    transition: transform 0.3s;
+  .tab-btn:hover {
+    color: var(--blue);
   }
-  .accordion-toggle.is-open svg.icon-plus {
+  .tab-btn.active {
+    color: var(--blue);
+    border-bottom-color: var(--gold);
+  }
+  .tabs-panels {
+    min-height: 220px;
+  }
+  .tab-panel {
     display: none;
   }
-  .accordion-toggle.is-open svg.icon-minus {
-    display: block !important;
+  .tab-panel.active {
+    display: block;
+    animation: tabFadeIn 0.3s ease;
   }
-  .accordion-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease, padding 0.35s ease;
+  @keyframes tabFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
   }
-  .accordion-body.open {
-    max-height: 2000px;
-    padding: 0 var(--gutter) 64px;
-    overflow: visible;
-  }
-  .accordion-body-inner {
-    max-width: var(--acc-max);
-    margin: 0 auto;
-  }
-  .accordion-body p {
+  .tab-panel p {
     font-size: var(--body-size);
     font-weight: 300;
     color: var(--slate);
     line-height: var(--body-line);
     margin-bottom: 28px;
   }
-  .accordion-body p:last-child {
+  .tab-panel p:last-child {
     margin-bottom: 0;
   }
   .pull {
@@ -769,6 +693,16 @@ const schema = [
     color: var(--blue);
     border-color: rgba(27, 58, 92, 0.4);
   }
+  @media (max-width: 640px) {
+    .tabs-nav {
+      gap: 4px;
+    }
+    .tab-btn {
+      margin-right: 16px;
+      font-size: 11px;
+    }
+  }
+
   .services-section {
     background: var(--sand);
     border-top: 2px solid var(--gold);
@@ -884,65 +818,21 @@ const schema = [
     margin-top: 40px;
   }
 
-  .dark-band {
-    background: var(--blue-dark);
-    padding: 96px 80px;
-    border-top: 2px solid var(--gold);
-    border-bottom: 2px solid var(--gold);
-    text-align: center;
-  }
-  .dark-inner {
-    max-width: 760px;
-    margin: 0 auto;
-  }
-  .dark-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold);
-    display: block;
-    margin-bottom: 40px;
-  }
-  .dark-pull {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(24px, 3.5vw, 42px);
-    font-weight: 400;
-    font-style: italic;
-    color: #fff;
-    line-height: 1.3;
-    margin-bottom: 56px;
-  }
-  .dark-divider {
-    width: 48px;
-    height: 1px;
-    background: rgba(184, 134, 11, 0.4);
-    margin: 0 auto 56px;
-  }
-  .dark-callout {
-    border-left: 3px solid var(--gold);
-    background: rgba(255, 255, 255, 0.05);
-    padding: 28px 36px;
-    text-align: left;
-  }
-  .dark-body {
-    font-size: clamp(16px, 1.8vw, 19px);
-    font-weight: 300;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.75);
-    line-height: 1.95;
-  }
-
+  /* ── CONTACT CLOSE: split layout, distinct from Why NM's Different /
+       Why Foundations Move's centered three-column band ── */
   .contact-close {
     background: var(--sand);
-    padding: 96px 80px;
+    padding: 96px var(--gutter);
     border-top: 2px solid var(--gold);
     border-bottom: 2px solid var(--gold);
-    text-align: center;
   }
-  .contact-inner {
-    max-width: 720px;
+  .contact-split {
+    max-width: var(--acc-max);
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 56px;
+    align-items: center;
   }
   .contact-eyebrow {
     font-family: 'DM Mono', monospace;
@@ -951,39 +841,38 @@ const schema = [
     text-transform: uppercase;
     color: var(--gold-text);
     display: block;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
   }
   .contact-headline {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 4vw, 48px);
+    font-size: clamp(26px, 3.4vw, 40px);
     font-weight: 400;
-    line-height: 1.2;
+    line-height: 1.25;
     color: var(--blue);
-    margin-bottom: 28px;
+    margin-bottom: 20px;
   }
   .contact-sub {
     font-size: 17px;
     font-weight: 300;
     color: var(--slate);
-    line-height: 1.85;
-    margin-bottom: 64px;
+    line-height: 1.7;
   }
-  .contact-options {
+  .contact-card {
+    background: white;
+    border: 1px solid var(--stone);
+    border-top: 3px solid var(--gold);
+    padding: 32px;
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 0;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 24px;
   }
   .contact-option {
-    flex: 1;
-    min-width: 160px;
-    padding: 0 32px;
-    border-right: 1px solid var(--stone);
-    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--stone);
   }
   .contact-option:last-child {
-    border-right: none;
+    border-bottom: none;
+    padding-bottom: 0;
   }
   .contact-option-label {
     font-family: 'DM Mono', monospace;
@@ -992,17 +881,16 @@ const schema = [
     text-transform: uppercase;
     color: var(--gold-text);
     display: block;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   .contact-option-value {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(18px, 2.2vw, 24px);
+    font-size: clamp(18px, 2.2vw, 22px);
     font-weight: 400;
     color: var(--blue);
     text-decoration: none;
     display: block;
-    margin-bottom: 8px;
-    white-space: nowrap;
+    margin-bottom: 6px;
     transition: color 0.2s;
   }
   .contact-option-value:hover {
@@ -1045,25 +933,14 @@ const schema = [
     .svc-item:last-child {
       border-bottom: none;
     }
-  }
-  @media (max-width: 640px) {
-    .dark-band,
-    .contact-close {
-      padding: 64px 24px;
-    }
-    .contact-options {
-      flex-direction: column;
+    .contact-split {
+      grid-template-columns: 1fr;
       gap: 40px;
     }
-    .contact-option {
-      border-right: none;
-      border-bottom: 1px solid var(--stone);
-      padding: 0 0 40px;
-      width: 100%;
-    }
-    .contact-option:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
+  }
+  @media (max-width: 640px) {
+    .contact-close {
+      padding: 64px 24px;
     }
   }
 </style>

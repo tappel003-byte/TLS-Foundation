@@ -1,9 +1,16 @@
 ---
-// Why NM's Different / Our Approach. Built from the user-pasted code blocks:
-// hero (tls-hero-wrap), main body (place/stat-band/2 accordions/diff-grid/
-// model-section), dark-band closing quote, contact-close, and a page-specific
-// footer service-area paragraph (confirmed to differ from Home's via live
-// fetch -- see Footer.astro).
+// Why NM's Different. Promoted from the our-approach-v2 draft after a
+// content-redesign pass (see CONTENT_TRIM_LOG.md) -- this is the canonical
+// "why we're different" page every other page is supposed to link to
+// rather than re-derive, and it was repeating itself three times in three
+// wrappers (a 5-panel stepper, a 6-card differences grid, and a Model
+// section, all making the investigation-first / Sandia GEO points more
+// than once). Cut the two duplicate diff-grid cards (six things down to
+// four -- the four remaining are genuinely new material), trimmed the
+// Model section's mechanism list down to the point it's actually making,
+// and cut the closing "Land of Entrapment" dark band, which just re-said
+// Section 1's own pull-quote with no new information. The 5-accordion
+// stack from the original page is now a numbered stepper rail.
 import Layout from '../layouts/Layout.astro';
 
 const title = "Why NM's Different — TLS Foundations";
@@ -114,159 +121,100 @@ const schema = [
       </div>
     </div>
 
-    <div class="accordion-wrapper">
-      <div class="accordion">
-        <button class="accordion-header" data-acc>
-          <div class="accordion-header-inner">
-            <div class="accordion-header-text">
-              <span class="accordion-eyebrow">The ground</span>
-              <div class="accordion-title">New Mexico has more soil variation than most states. That variation is not subtle.</div>
-              <div class="accordion-summary">The Rio Grande Rift. Mancos Shale. Permian karst. Each basin behaves differently under a foundation.</div>
-            </div>
-            <div class="accordion-toggle">
-              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            </div>
-          </div>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
+    <!-- Five accordions replaced with one numbered stepper rail. Anchor ids
+         (#toolkit, #investigation, #rising-tide) preserved -- other pages
+         link straight to these. -->
+    <section class="stepper-block">
+      <div class="stepper-inner">
+        <div class="stepper-header">
+          <span class="eyebrow">What this means in practice</span>
+          <h2 class="section-headline">Five things worth understanding before you call anyone.</h2>
+        </div>
+        <div class="stepper-rail" role="tablist">
+          <button class="step-btn active" data-step="ground" role="tab" aria-selected="true">
+            <span class="step-num">01</span>
+            <span class="step-label">The ground</span>
+          </button>
+          <button class="step-btn" data-step="knowledge" role="tab" aria-selected="false">
+            <span class="step-num">02</span>
+            <span class="step-label">The knowledge</span>
+          </button>
+          <button class="step-btn" data-step="toolkit" role="tab" aria-selected="false">
+            <span class="step-num">03</span>
+            <span class="step-label">The toolkit</span>
+          </button>
+          <button class="step-btn" data-step="investigation" role="tab" aria-selected="false">
+            <span class="step-num">04</span>
+            <span class="step-label">The investigation</span>
+          </button>
+          <button class="step-btn" data-step="rising-tide" role="tab" aria-selected="false">
+            <span class="step-num">05</span>
+            <span class="step-label">The competition</span>
+          </button>
+        </div>
+
+        <div class="stepper-panels">
+          <div class="step-panel active" id="ground" data-panel="ground">
+            <h3 class="step-title">New Mexico has more soil variation than most states. That variation is not subtle.</h3>
             <p class="body-p">The Rio Grande Rift runs the length of the state — a zone where the earth's crust is actively pulling apart, filling long basins with thousands of feet of sediment. Those basin sediments range from <a href="/expansive-soil" class="body-link">expansive clays</a> to <a href="/collapsible-soil" class="body-link">collapsible desert silts</a> to alluvial river gravels, sometimes within a few miles of each other. The mountain ranges that frame the basins produce their own soil character at their margins. The high desert plains, the Colorado Plateau, the Permian formations of the southeast, the volcanic fields — each brings its own geological history and its own foundation implications.</p>
             <p class="body-p">What this means in practice: a repair method that works reliably in the South Valley may be the wrong choice in Rio Rancho two miles away. The soil under a foundation in Corrales — alluvial, moisture-influenced by centuries of acequia irrigation — behaves differently than the soil under a foundation in Tijeras, where bedrock proximity and elevation change the calculation entirely. Socorro sits in a seismically active corridor on Rio Grande alluvial deposits with specific liquefaction considerations that do not apply in Albuquerque's East Mesa neighborhoods.</p>
             <p class="body-p">A national company operating from a standardized playbook cannot account for that variation. Their evaluation process is designed for a generic soil condition that does not exist in New Mexico. The method gets selected before the soil is understood. The result is a repair that addresses the symptom the company knows how to treat rather than the condition the soil actually presents.</p>
             <p class="body-p"><a href="/why-foundations-move" class="body-link">See our full reference: Why Foundations Move in New Mexico →</a></p>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="accordion-wrapper">
-      <div class="accordion">
-        <button class="accordion-header" data-acc>
-          <div class="accordion-header-inner">
-            <div class="accordion-header-text">
-              <span class="accordion-eyebrow">The knowledge</span>
-              <div class="accordion-title">Regional geotechnical knowledge takes decades to build. It cannot be onboarded.</div>
-              <div class="accordion-summary">It accumulates from showing up in the same formations, across multiple moisture cycles, until the site reads before the boring goes in.</div>
-            </div>
-            <div class="accordion-toggle">
-              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            </div>
-          </div>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
+          <div class="step-panel" id="knowledge" data-panel="knowledge">
+            <h3 class="step-title">Regional geotechnical knowledge takes decades to build. It cannot be onboarded.</h3>
             <p class="body-p">Regional geotechnical knowledge takes decades to build. It accumulates from showing up in the same formations, in the same climate, across multiple construction eras and moisture cycles, until the site reads before the boring goes in. That kind of knowledge isn't in any training manual. It lives in the people who have done the work — in this state, in these soils, long enough for the ground to stop surprising them.</p>
             <p class="body-p">We work closely with geotechnical engineers and refer to them often. That relationship works because we speak the same language — not because we took a course, but because 25 years of New Mexico field work produces a shared frame of reference. When an engineer hands us an investigation report, we know what it means for the repair. When we refer a homeowner to an engineer, we know who to call for which formation.</p>
             <p class="body-p">That knowledge base — built across every region of the state and informed by geotechnical investigation through our affiliate <a href="https://www.sandiageo.com" target="_blank" rel="noopener" class="body-link">Sandia GEO</a> — was assembled here and remains here. In the people doing the work.</p>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="accordion-wrapper" id="toolkit">
-      <div class="accordion">
-        <button class="accordion-header" data-acc>
-          <div class="accordion-header-inner">
-            <div class="accordion-header-text">
-              <span class="accordion-eyebrow">The toolkit</span>
-              <div class="accordion-title">We use the same tools as everyone else. We just don't sell them before we understand your building.</div>
-              <div class="accordion-summary">Helical piers, push piers, micropiles — none of it is proprietary. The difference is whether the method is chosen before or after the soil is understood.</div>
-            </div>
-            <div class="accordion-toggle">
-              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            </div>
-          </div>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
+          <div class="step-panel" id="toolkit" data-panel="toolkit">
+            <h3 class="step-title">We use the same tools as everyone else. We just don't sell them before we understand your building.</h3>
             <p class="body-p">The methods are not proprietary. Helical piers, push piers, micropiles, compaction grouting, foam injection — these are industry-standard approaches available to any contractor. The difference is not the tool. The difference is whether the tool is selected before or after the soil is understood.</p>
             <p class="body-p">A company with one system evaluates every problem through that system. We carry a broad enough toolkit that the method genuinely follows the diagnosis — and when no standard method fits, we design around the problem rather than force a fit.</p>
             <p class="body-p"><a href="/foundation-repair-methods" class="body-link">See the full toolkit and how we decide →</a></p>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="accordion-wrapper" id="investigation">
-      <div class="accordion">
-        <button class="accordion-header" data-acc>
-          <div class="accordion-header-inner">
-            <div class="accordion-header-text">
-              <span class="accordion-eyebrow">The investigation</span>
-              <div class="accordion-title">There's a real difference between a contractor inspection and a geotechnical investigation. Most homeowners are never told what it is.</div>
-              <div class="accordion-summary">One is paid to sell you a repair. The other is paid to tell you the truth about your soil, regardless of what it finds.</div>
-            </div>
-            <div class="accordion-toggle">
-              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            </div>
-          </div>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
+          <div class="step-panel" id="investigation" data-panel="investigation">
+            <h3 class="step-title">There's a real difference between a contractor inspection and a geotechnical investigation. Most homeowners are never told what it is.</h3>
             <p class="body-p">A contractor inspection is performed by someone whose business depends on repair sales. The evaluation is real — an experienced contractor can identify significant problems — but the business model creates an inherent conflict of interest. Every visit that does not end in a proposal is a cost. That structure shapes recommendations, even unconsciously.</p>
             <p class="body-p">A geotechnical investigation is performed by a licensed geotechnical engineer whose fee is paid for the investigation itself, not the repair that follows. The report is independent. It documents soil conditions, identifies the mechanism driving movement, and recommends a course of action without a financial stake in what that action is. When the decision involves significant money — or when you are not sure whether you need repair at all — an independent investigation is the more reliable starting point.</p>
             <p class="body-p">Our affiliate <a href="https://www.sandiageo.com" target="_blank" rel="noopener" class="body-link">Sandia GEO</a> provides geotechnical investigation separate from repair sales. We can also refer you to independent structural engineers when that level of analysis is warranted.</p>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <div class="accordion-wrapper" id="rising-tide">
-      <div class="accordion">
-        <button class="accordion-header" data-acc>
-          <div class="accordion-header-inner">
-            <div class="accordion-header-text">
-              <span class="accordion-eyebrow">The competition</span>
-              <div class="accordion-title">Are we worried competitors will use this website to get better at their jobs?</div>
-              <div class="accordion-summary">No. A rising tide lifts all boats — and the knowledge that makes TLS different was never something you could read off a page.</div>
-            </div>
-            <div class="accordion-toggle">
-              <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            </div>
-          </div>
-        </button>
-        <div class="accordion-body">
-          <div class="accordion-body-inner">
+          <div class="step-panel" id="rising-tide" data-panel="rising-tide">
+            <h3 class="step-title">Are we worried competitors will use this website to get better at their jobs?</h3>
             <p class="body-p">No. A rising tide lifts all boats. If the content on this site makes any contractor — including a competitor — think more carefully about soil conditions before recommending a repair method, homeowners benefit. That is the point.</p>
             <p class="body-p">The knowledge that makes TLS different is not in a document. It is in the people who have spent decades in New Mexico soils, building the kind of field library that cannot be read or downloaded. That does not transfer.</p>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <section class="diff-section">
       <div class="diff-header">
         <span class="eyebrow">What this looks like in practice</span>
-        <h2 class="section-headline">Six things that are structurally different about the way TLS works.</h2>
+        <h2 class="section-headline">Four things that are structurally different about the way TLS works.</h2>
       </div>
       <div class="diff-landscape">
         <div class="diff-card">
           <span class="diff-number">01</span>
-          <h3>Investigation before recommendation</h3>
-          <p>No method is selected before the soil profile is understood. The investigation confirms, refines, and documents what the ground is doing. It does not rubber-stamp a decision already made before the site visit.</p>
-        </div>
-        <div class="diff-card">
-          <span class="diff-number">02</span>
           <h3>Drainage referred out honestly</h3>
           <p>When drainage correction is the right first step — and in New Mexico it often is — we say so and refer to contractors who do that work well. Starting with piers when drainage correction would suffice is not a service. It is a sale. If it's wet, keep it wet. If it's dry, keep it dry.</p>
         </div>
         <div class="diff-card">
-          <span class="diff-number">03</span>
+          <span class="diff-number">02</span>
           <h3>Monitoring as a real recommendation</h3>
           <p>When the evidence does not support structural intervention, we recommend monitoring. A documented baseline, a return visit, a determination of whether movement is active or historic. Most companies cannot afford to recommend this. We can.</p>
         </div>
         <div class="diff-card">
-          <span class="diff-number">04</span>
+          <span class="diff-number">03</span>
           <h3>Honest about method limitations</h3>
           <p>Every repair method has conditions where it fails. We explain those conditions — including when helical piers are the wrong choice, when push piers won't work in light New Mexico residential construction, and when foam injection is being sold as something it is not.</p>
         </div>
         <div class="diff-card">
-          <span class="diff-number">05</span>
-          <h3>Investigation revenue changes the equation</h3>
-          <p>Geotechnical investigation through our affiliate Sandia GEO means the evaluation is never a loss leader for a repair sale. The recommendation can follow the evidence without financial consequence for being honest.</p>
-        </div>
-        <div class="diff-card">
-          <span class="diff-number">06</span>
+          <span class="diff-number">04</span>
           <h3>Custom solutions when standard methods don't fit</h3>
           <p>When the soil profile, structural conditions, or access constraints put a situation outside what standard systems address, we design around the problem. The goal is the right answer — not the nearest available product in the lineup.</p>
         </div>
@@ -281,18 +229,7 @@ const schema = [
           <p>We solve problems. We do not sell products. In New Mexico, that distinction matters more than anywhere else — because the problems here are genuinely different, and a product sold without understanding the problem is worse than no repair at all.</p>
         </div>
         <p class="body-p">Most foundation repair companies are sales organizations. The evaluation visit exists to close a contract — shaped by what the company sells, what generates the largest invoice, and what the estimator is trained to identify as an opportunity. The homeowner is rarely in a position to know whether the recommendation is right. That is precisely why the model works for the company.</p>
-        <p class="body-p">TLS was built as the opposite. Two owners who came out of the industry, watched it become something they disagreed with, and built a structure where honesty has no financial consequence — investigation revenue, referred work, monitoring when repair is premature. Anti-sales pressure is not a positioning statement. It is how the business is designed.</p>
-      </div>
-    </section>
-
-    <section class="dark-band">
-      <div class="dark-inner">
-        <span class="dark-eyebrow">New Mexico</span>
-        <p class="dark-pull">"The Land of Entrapment.<br />We chose it too."</p>
-        <div class="dark-divider"></div>
-        <div class="dark-callout">
-          <p class="dark-body">New Mexico. It is not a state that inspires indifference — you either understand it or you don't, and most people who understand it stay.</p>
-        </div>
+        <p class="body-p">TLS was built as the opposite. Two owners who came out of the industry, watched it become something they disagreed with, and built a structure where honesty has no financial consequence. Anti-sales pressure is not a positioning statement. It is how the business is designed.</p>
       </div>
     </section>
 
@@ -324,24 +261,40 @@ const schema = [
 </Layout>
 
 <script>
-  function initAccordions() {
-    document.querySelectorAll<HTMLButtonElement>('[data-acc]').forEach((btn) => {
-      if ((btn as any)._accBound) return;
-      (btn as any)._accBound = true;
+  function initStepper() {
+    const rail = document.querySelector('.stepper-rail');
+    if (!rail) return;
+    const steps = Array.from(rail.querySelectorAll<HTMLButtonElement>('.step-btn'));
+    const panels = Array.from(document.querySelectorAll<HTMLElement>('.step-panel'));
+
+    function select(key: string, opts: { scroll?: boolean } = {}) {
+      steps.forEach((s) => {
+        const active = s.dataset.step === key;
+        s.classList.toggle('active', active);
+        s.setAttribute('aria-selected', String(active));
+      });
+      panels.forEach((p) => p.classList.toggle('active', p.dataset.panel === key));
+      if (opts.scroll) {
+        document.querySelector('.stepper-rail')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    steps.forEach((btn) => {
       btn.addEventListener('click', () => {
-        const body = btn.nextElementSibling as HTMLElement;
-        const toggle = btn.querySelector('.accordion-toggle');
-        const isOpen = body.classList.contains('open');
-        document.querySelectorAll('.accordion-body').forEach((b) => b.classList.remove('open'));
-        document.querySelectorAll('.accordion-toggle').forEach((t) => t.classList.remove('is-open'));
-        if (!isOpen) {
-          body.classList.add('open');
-          toggle?.classList.add('is-open');
+        const key = btn.dataset.step;
+        if (key) {
+          select(key);
+          history.replaceState(null, '', `#${key}`);
         }
       });
     });
+
+    const initialId = window.location.hash.replace('#', '');
+    if (steps.some((s) => s.dataset.step === initialId)) {
+      select(initialId, { scroll: true });
+    }
   }
-  document.addEventListener('DOMContentLoaded', initAccordions);
+  document.addEventListener('DOMContentLoaded', initStepper);
 </script>
 
 <style>
@@ -363,18 +316,10 @@ const schema = [
     animation: kenburns 20s ease-in-out infinite alternate;
   }
   @keyframes kenburns {
-    0% {
-      transform: scale(1) translate(1%, 0);
-    }
-    100% {
-      transform: scale(1.06) translate(-1%, 0.5%);
-    }
+    0% { transform: scale(1) translate(1%, 0); }
+    100% { transform: scale(1.06) translate(-1%, 0.5%); }
   }
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(13, 34, 56, 0.15);
-  }
+  .hero-overlay { position: absolute; inset: 0; background: rgba(13, 34, 56, 0.15); }
   .tls-hero-wrap {
     position: relative;
     z-index: 1;
@@ -382,11 +327,7 @@ const schema = [
     background: transparent;
     padding: 0 clamp(20px, 5vw, 80px) clamp(40px, 6vw, 80px);
   }
-  .tls-hero-box {
-    display: inline-block;
-    background: rgba(13, 34, 56, 0.65);
-    padding: 28px 40px 32px;
-  }
+  .tls-hero-box { display: inline-block; background: rgba(13, 34, 56, 0.65); padding: 28px 40px 32px; }
   .tls-hero-headline {
     font-family: 'Playfair Display', serif;
     font-size: clamp(36px, 6vw, 72px);
@@ -405,16 +346,13 @@ const schema = [
     display: block;
   }
 
-  /* ── page-specific layout tokens ── */
   .tls-approach {
     --gutter: 80px;
     --col: 720px;
     --col-wide: 960px;
   }
   @media (max-width: 768px) {
-    .tls-approach {
-      --gutter: 24px;
-    }
+    .tls-approach { --gutter: 24px; }
   }
 
   .body-link {
@@ -424,18 +362,10 @@ const schema = [
     text-underline-offset: 3px;
     transition: color 0.2s;
   }
-  .body-link:hover {
-    color: var(--gold-text);
-  }
+  .body-link:hover { color: var(--gold-text); }
 
-  .section {
-    padding: 100px var(--gutter);
-    border-bottom: 2px solid var(--gold);
-  }
-  .section-inner {
-    max-width: var(--col);
-    margin: 0 auto;
-  }
+  .section { padding: 100px var(--gutter); border-bottom: 2px solid var(--gold); }
+  .section-inner { max-width: var(--col); margin: 0 auto; }
   .eyebrow {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
@@ -462,9 +392,7 @@ const schema = [
     margin-bottom: 28px;
     max-width: 620px;
   }
-  .body-p:last-child {
-    margin-bottom: 0;
-  }
+  .body-p:last-child { margin-bottom: 0; }
 
   .pull {
     border-left: 4px solid var(--gold);
@@ -498,12 +426,7 @@ const schema = [
     grid-template-columns: repeat(3, 1fr);
     gap: 40px;
   }
-  .stat-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
+  .stat-item { display: flex; flex-direction: column; align-items: center; text-align: center; }
   .stat-number {
     font-family: 'Playfair Display', serif;
     font-size: clamp(72px, 8vw, 110px);
@@ -531,120 +454,83 @@ const schema = [
     max-width: 280px;
   }
 
-  .accordion-wrapper {
-    border-bottom: 2px solid var(--gold);
-  }
-  .accordion {
-    background: var(--cream);
-    transition: background 0.3s;
-  }
-  .accordion:hover {
-    background: var(--sand);
-  }
-  .accordion-header {
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 48px var(--gutter);
-    cursor: pointer;
-    text-align: left;
-  }
-  .accordion-header-inner {
-    max-width: var(--col);
-    margin: 0 auto;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 40px;
-  }
-  .accordion-header-text {
-    flex: 1;
-  }
-  .accordion-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold-text);
-    display: block;
-    margin-bottom: 12px;
-  }
-  .accordion-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(24px, 3vw, 34px);
-    font-weight: 400;
-    line-height: 1.25;
-    color: var(--blue);
-    margin-bottom: 12px;
-  }
-  .accordion-summary {
-    font-size: 16px;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.8;
-    max-width: 500px;
-  }
-  .accordion-toggle {
-    flex-shrink: 0;
-    width: 48px;
-    height: 48px;
-    border: 2px solid var(--stone);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 8px;
-    transition: all 0.3s;
-    background: var(--cream);
-  }
-  .accordion:hover .accordion-toggle {
-    border-color: var(--gold);
-    background: var(--sand);
-    transform: scale(1.05);
-  }
-  .accordion-toggle svg {
-    width: 18px;
-    height: 18px;
-    stroke: var(--gold);
-    stroke-width: 2;
-    fill: none;
-    stroke-linecap: round;
-    transition: transform 0.4s;
-  }
-  .accordion-toggle.is-open svg {
-    transform: rotate(45deg);
-  }
-  .accordion-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s cubic-bezier(0.33, 1, 0.68, 1);
-    background: var(--cream);
-    border-top: 1px solid transparent;
-  }
-  .accordion-body.open {
-    max-height: 2000px;
-    border-top-color: var(--stone);
-  }
-  .accordion-body-inner {
-    max-width: var(--col);
-    margin: 0 auto;
-    padding: 0 var(--gutter) 56px;
-  }
-
-  .diff-section {
+  /* ── STEPPER (replaces the old 5-accordion stack) ── */
+  .stepper-block {
     padding: 100px var(--gutter);
     background: var(--cream);
     border-bottom: 2px solid var(--gold);
   }
-  .diff-header {
-    max-width: var(--col);
-    margin: 0 auto 56px;
+  .stepper-inner { max-width: var(--col-wide); margin: 0 auto; }
+  .stepper-header { max-width: var(--col); margin-bottom: 48px; }
+  .stepper-rail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 48px;
   }
+  .step-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--sand);
+    border: 1.5px solid var(--stone);
+    border-radius: 999px;
+    padding: 10px 20px 10px 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .step-btn:hover { border-color: var(--gold); }
+  .step-btn.active { background: var(--blue); border-color: var(--blue); }
+  .step-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--gold-text);
+    background: var(--cream);
+    border-radius: 999px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-btn.active .step-num { background: var(--gold); color: var(--blue-dark); }
+  .step-label {
+    font-family: 'Source Serif 4', serif;
+    font-size: 14px;
+    color: var(--blue);
+  }
+  .step-btn.active .step-label { color: #fff; }
+
+  .stepper-panels { max-width: var(--col); }
+  .step-panel { display: none; animation: stepFadeIn 0.35s ease; }
+  .step-panel.active { display: block; }
+  @keyframes stepFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--blue);
+    margin: 0 0 28px;
+  }
+  @media (max-width: 640px) {
+    .stepper-rail { gap: 8px; }
+    .step-btn { padding: 8px 14px 8px 10px; }
+    .step-label { font-size: 13px; }
+  }
+
+  .diff-section { padding: 100px var(--gutter); background: var(--cream); border-bottom: 2px solid var(--gold); }
+  .diff-header { max-width: var(--col); margin: 0 auto 56px; }
   .diff-landscape {
     max-width: var(--col-wide);
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
   .diff-card {
@@ -677,13 +563,7 @@ const schema = [
     margin: 0 0 16px;
     line-height: 1.25;
   }
-  .diff-card p {
-    font-size: 16px;
-    font-weight: 300;
-    color: var(--slate);
-    line-height: 1.8;
-    margin: 0;
-  }
+  .diff-card p { font-size: 16px; font-weight: 300; color: var(--slate); line-height: 1.8; margin: 0; }
 
   .model-section {
     background: var(--blue);
@@ -691,24 +571,11 @@ const schema = [
     position: relative;
     border-bottom: 2px solid var(--gold);
   }
-  .model-inner {
-    max-width: var(--col);
-    margin: 0 auto;
-  }
-  .model-section .eyebrow {
-    color: var(--gold-light);
-  }
-  .model-section .section-headline {
-    color: var(--cream);
-  }
-  .model-section .body-p {
-    color: rgba(255, 255, 255, 0.8);
-    max-width: 620px;
-  }
-  .model-section .body-link {
-    color: var(--gold-light);
-    text-decoration-color: var(--gold-light);
-  }
+  .model-inner { max-width: var(--col); margin: 0 auto; }
+  .model-section .eyebrow { color: var(--gold-light); }
+  .model-section .section-headline { color: var(--cream); }
+  .model-section .body-p { color: rgba(255, 255, 255, 0.8); max-width: 620px; }
+  .model-section .body-link { color: var(--gold-light); text-decoration-color: var(--gold-light); }
   .model-lead {
     border-left: 4px solid var(--gold);
     padding: 36px 48px;
@@ -717,73 +584,10 @@ const schema = [
     max-width: 700px;
     border-radius: 0 8px 8px 0;
   }
-  .model-lead p {
-    font-size: 24px;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--cream);
-    line-height: 1.5;
-    margin: 0;
-  }
+  .model-lead p { font-size: 24px; font-weight: 300; font-style: italic; color: var(--cream); line-height: 1.5; margin: 0; }
 
-  .dark-band {
-    background: var(--blue-dark);
-    padding: 96px var(--gutter);
-    border-bottom: 2px solid var(--gold);
-    text-align: center;
-  }
-  .dark-inner {
-    max-width: 760px;
-    margin: 0 auto;
-  }
-  .dark-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold);
-    display: block;
-    margin-bottom: 40px;
-  }
-  .dark-pull {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(24px, 3.5vw, 42px);
-    font-weight: 400;
-    font-style: italic;
-    color: #fff;
-    line-height: 1.3;
-    margin-bottom: 56px;
-  }
-  .dark-divider {
-    width: 48px;
-    height: 1px;
-    background: rgba(184, 134, 11, 0.4);
-    margin: 0 auto 56px;
-  }
-  .dark-callout {
-    border-left: 3px solid var(--gold);
-    background: rgba(255, 255, 255, 0.05);
-    padding: 28px 36px;
-    text-align: left;
-  }
-  .dark-body {
-    font-size: clamp(16px, 1.8vw, 19px);
-    font-weight: 300;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.75);
-    line-height: 1.95;
-  }
-
-  .contact-close {
-    background: var(--sand);
-    padding: 96px var(--gutter);
-    border-bottom: 2px solid var(--gold);
-    text-align: center;
-  }
-  .contact-inner {
-    max-width: 720px;
-    margin: 0 auto;
-  }
+  .contact-close { background: var(--sand); padding: 96px var(--gutter); border-bottom: 2px solid var(--gold); text-align: center; }
+  .contact-inner { max-width: 720px; margin: 0 auto; }
   .contact-eyebrow {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
@@ -801,29 +605,10 @@ const schema = [
     color: var(--blue);
     margin-bottom: 28px;
   }
-  .contact-sub {
-    font-size: 17px;
-    font-weight: 300;
-    color: var(--slate);
-    line-height: 1.85;
-    margin-bottom: 64px;
-  }
-  .contact-options {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 0;
-    flex-wrap: nowrap;
-  }
-  .contact-option {
-    flex: 1;
-    padding: 0 32px;
-    border-right: 1px solid var(--stone);
-    text-align: center;
-  }
-  .contact-option:last-child {
-    border-right: none;
-  }
+  .contact-sub { font-size: 17px; font-weight: 300; color: var(--slate); line-height: 1.85; margin-bottom: 64px; }
+  .contact-options { display: flex; align-items: flex-start; justify-content: center; gap: 0; flex-wrap: nowrap; }
+  .contact-option { flex: 1; padding: 0 32px; border-right: 1px solid var(--stone); text-align: center; }
+  .contact-option:last-child { border-right: none; }
   .contact-option-label {
     font-family: 'DM Mono', monospace;
     font-size: 9px;
@@ -844,9 +629,7 @@ const schema = [
     white-space: nowrap;
     transition: color 0.2s;
   }
-  .contact-option-value:hover {
-    color: var(--gold-text);
-  }
+  .contact-option-value:hover { color: var(--gold-text); }
   .contact-option-note {
     font-family: 'DM Mono', monospace;
     font-size: 9px;
@@ -856,62 +639,18 @@ const schema = [
   }
 
   @media (max-width: 900px) {
-    .stat-grid {
-      grid-template-columns: 1fr;
-      gap: 48px;
-    }
-    .stat-item {
-      max-width: 400px;
-      margin: 0 auto;
-    }
-    .diff-landscape {
-      grid-template-columns: 1fr 1fr;
-    }
-    .pull {
-      margin-left: 0;
-    }
-    .model-lead {
-      margin-left: 0;
-    }
+    .stat-grid { grid-template-columns: 1fr; gap: 48px; }
+    .stat-item { max-width: 400px; margin: 0 auto; }
+    .pull { margin-left: 0; }
+    .model-lead { margin-left: 0; }
   }
   @media (max-width: 640px) {
-    .diff-landscape {
-      grid-template-columns: 1fr;
-    }
-    .accordion-header-inner {
-      flex-direction: column;
-      gap: 20px;
-    }
-    .accordion-toggle {
-      align-self: flex-end;
-    }
-    .pull,
-    .model-lead {
-      padding: 24px;
-    }
-    .pull p,
-    .model-lead p {
-      font-size: 18px;
-    }
-    .dark-band {
-      padding: 72px 24px;
-    }
-    .contact-close {
-      padding: 64px 24px;
-    }
-    .contact-options {
-      flex-direction: column;
-      gap: 40px;
-    }
-    .contact-option {
-      border-right: none;
-      border-bottom: 1px solid var(--stone);
-      padding: 0 0 40px;
-      width: 100%;
-    }
-    .contact-option:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
+    .diff-landscape { grid-template-columns: 1fr; }
+    .pull, .model-lead { padding: 24px; }
+    .pull p, .model-lead p { font-size: 18px; }
+    .contact-close { padding: 64px 24px; }
+    .contact-options { flex-direction: column; gap: 40px; }
+    .contact-option { border-right: none; border-bottom: 1px solid var(--stone); padding: 0 0 40px; width: 100%; }
+    .contact-option:last-child { border-bottom: none; padding-bottom: 0; }
   }
 </style>
