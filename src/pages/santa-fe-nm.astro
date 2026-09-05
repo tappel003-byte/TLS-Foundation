@@ -109,14 +109,6 @@ const schema = [
           <span class="w3">Different.</span>
         </h1>
         <p class="hero-sub">Foundation repair in Santa Fe requires a different approach — because the ground under it is. Three converging soil hazards, 400 years of adobe, and a professional community that understands this city.</p>
-        <div class="hero-cta">
-          <div>
-            <a href="tel:5059914180" class="hero-phone">(505) 991-4180</a>
-            <span class="hero-note">You reach the owner(s)</span>
-          </div>
-          <div class="hero-sep"></div>
-          <p class="hero-aside">55 combined years in New Mexico soils.</p>
-        </div>
       </div>
     </div>
 
@@ -625,7 +617,7 @@ const schema = [
       Text-shadow alone (even a tight one, after an earlier fix removed
       a halo-causing ambient glow layer) still faded on a pale sky at
       normal viewing size -- fine up close, not fine as a glance-by
-      label. A background box (same treatment as hero-sub/hero-cta)
+      label. A background box (same treatment as hero-sub)
       gives it a fixed, reliable backdrop no matter what's in the photo
       behind it, so the shadow here is just a small edge assist, not
       the primary contrast mechanism.
@@ -684,52 +676,6 @@ const schema = [
     animation: fadeUp 0.65s ease forwards 1.1s;
     border-left: 2px solid rgba(184, 134, 11, 0.5);
     padding: 20px 28px 20px 24px;
-  }
-  .hero-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 36px;
-    background: rgba(13, 34, 56, 0.55);
-    border-left: 2px solid rgba(184, 134, 11, 0.5);
-    padding: 20px 32px;
-    opacity: 0;
-    animation: fadeUp 0.65s ease forwards 1.4s;
-  }
-  .hero-phone {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(24px, 3vw, 32px);
-    font-weight: 400;
-    color: var(--white);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(184, 134, 11, 0.6);
-    padding-bottom: 4px;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .hero-phone:hover {
-    color: var(--gold);
-    border-color: var(--gold);
-  }
-  .hero-note {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gold);
-    display: block;
-    margin-top: 8px;
-  }
-  .hero-sep {
-    width: 1px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.2);
-    flex-shrink: 0;
-  }
-  .hero-content .hero-aside {
-    font-size: 17px;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.9);
-    max-width: 200px;
-    line-height: 1.6;
   }
   @keyframes fadeUp {
     to {
@@ -1606,10 +1552,6 @@ const schema = [
     .hero-content {
       padding: 0 24px 64px;
     }
-    .hero-sep,
-    .hero-aside {
-      display: none;
-    }
     .desktop-accordion {
       display: none;
     }
@@ -1627,11 +1569,6 @@ const schema = [
   @media (max-width: 480px) {
     .hero-h1 {
       letter-spacing: -1px;
-    }
-    .hero-cta {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 16px;
     }
   }
 </style>
