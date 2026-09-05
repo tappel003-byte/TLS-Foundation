@@ -12,7 +12,7 @@ Entries are newest first.
 
 ## Draft promotions (Home, Why NM's Different, Why Foundations Move, Common Concerns)
 
-**Commit:** `<pending>`
+**Commit:** `74024eb`
 
 Tim: "go balls deep, get it all done" -- the 4 already-fixed, already-
 verified drafts are promoted to replace their live counterparts, since
