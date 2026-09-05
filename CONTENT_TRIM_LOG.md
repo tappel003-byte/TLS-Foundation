@@ -10,6 +10,21 @@ Entries are newest first.
 
 ---
 
+## Fixes to earlier cuts (regressions caught and closed)
+
+**Commit:** _pending_
+
+- **Albuquerque lost its only on-page mentions of "foam injection" and
+  "mudjacking"** when the SEO accordion was deleted (`f8db413`) — verified
+  by grep after the fact, not caught during the original cut. Both terms
+  are covered site-wide on `/foundation-repair-methods`, but this specific
+  page had zero mentions left. Fixed by naming both methods in the West
+  Mesa section's existing concrete-lifting line, which already touched the
+  topic without naming the methods. No padding added back — just closed
+  the gap the cut opened.
+
+---
+
 ## Rio Rancho (`src/pages/rio-rancho-nm.astro`)
 
 **Commit:** `d374b44`
