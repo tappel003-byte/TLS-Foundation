@@ -10,6 +10,33 @@ Entries are newest first.
 
 ---
 
+## Glossary (`src/pages/glossary.astro`)
+
+**Commit:** `<pending>`
+
+Ran the systematic repeated-phrase scan (7-word shingles) across the
+full 86-term glossary rather than spot-reading a sample, given the file's
+size. Came back almost entirely clean — this is reference content where
+topical closeness between related terms (Expansive Clay vs. Expansive
+Soil, Settlement vs. Differential Settlement) is intentional, each term
+needs to stand alone. Also grepped for the sitewide manifesto phrases
+("Sandia GEO," "you reach the owner," "55 years," etc.) — found exactly
+one mention of Sandia GEO, appropriately placed inside the definition of
+"Conflict of Interest" (the one term where it's actually the relevant
+example), not scattered as padding.
+
+- **One real duplicate found:** the "Dead Load" and "Push Pier" entries
+  each independently derived the identical conclusion — that wood-frame
+  NM homes lack enough dead load to drive push piers to depth — in
+  near-identical wording. Trimmed Dead Load's version down to a pointer
+  ("see Push Pier for why...") linking to the entry where that
+  conclusion actually belongs, using the existing inline related-term
+  popup mechanism rather than writing new UI.
+- **Kept as-is:** all 86 term definitions, the two-tier short/long
+  description structure (brief text feeds the DefinedTermSet schema and
+  the popup; longer text is the full definition), the A-Z letter nav,
+  and the autocomplete search.
+
 ## Foundation Repair Methods (`src/pages/foundation-repair-methods.astro`)
 
 **Commit:** `e99b09c`
