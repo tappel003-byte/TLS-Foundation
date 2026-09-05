@@ -10,6 +10,39 @@ Entries are newest first.
 
 ---
 
+## Grok independent-audit fixes (Albuquerque, Santa Fe)
+
+**Commit:** `<pending>`
+
+Tim brought in Grok for a second-opinion content audit against this repo.
+Most of Grok's findings didn't hold up on inspection (Rio Rancho's "Always
+Be Closing" heading was already removed in an earlier commit; the claim
+that common-concerns-v2's 18 answers only exist in client-side JS was
+checked against the actual build output and is false — they're fully
+present in the static HTML). But four findings were real and are fixed
+here:
+
+- **Albuquerque, North Valley section**: the body paragraph and the
+  pull-quote next to it said almost the identical sentence about the
+  river determining where the city was founded in 1706 — a duplicate
+  within one section that both my own pass and Grok's read caught (Grok
+  first). Removed the 1706 callback from the body paragraph (Section 1
+  and the Duke City section already own that fact) and replaced the
+  pull-quote with a fresh point about moisture undermining pier repairs,
+  which also naturally added a second "helical pier" mention to a page
+  where that term had gone thin after the SEO-accordion cut.
+- **Albuquerque zone names weren't headings.** West Mesa, North Valley,
+  South Valley, East Side, and The Heights were styled `<div>`s, not
+  `<h3>`s — real structural weakness for a page whose actual unique
+  value is "here's what's different zone to zone." Converted all five to
+  `<h3>` (with a margin reset so the conversion is visually invisible).
+- **Santa Fe had the identical `<h3>` twice** — "Common foundation
+  concerns in Santa Fe homes" in both Section 1 and Section 2. I'd
+  actually noted this in the original Santa Fe review and left it as
+  minor; fixing it now. Section 2's heading (which sits over a paragraph
+  about the *pattern* of repeat problems, not the list Section 1 has)
+  is now "Why these signs repeat across Santa Fe."
+
 ## Draft redesigns (home-v2, our-approach-v2, why-foundations-move-v2,
 ## common-concerns-v2)
 
