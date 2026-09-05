@@ -1,0 +1,712 @@
+---
+// DRAFT -- not linked from the live nav. Rebuild of Common Concerns as an
+// interactive concern-finder instead of a static two-column FAQ (which
+// needed a separate "mobile carousel" hack to work on phones at all).
+// Same 18 questions, same answer content verbatim -- the change is entirely
+// in how you get to an answer: check what you're actually wondering about
+// and the list re-sorts, the same interaction language as the facet panels
+// on Symptom Guide and Cause Library, so this page finally feels like part
+// of that family instead of a leftover static FAQ page next to them.
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Common Concerns — TLS Foundations';
+const summary =
+  "\"Foundation repair Albuquerque,\" \"foundation repair cost,\" \"free foundation inspection\" -- these are among the most expensive search terms in New Mexico, because contractors pay for them knowing homeowners search when they're worried and don't know where to turn. This page answers the eighteen questions behind those searches directly -- cost, warning signs, settlement vs. heave, insurance coverage, warranties, how to choose a company -- instead of routing that worry into a sales call. Click any question to see the honest answer, no contact form required first.";
+const description =
+  "Eighteen questions New Mexico homeowners actually search for. Answered honestly -- cost, signs, settlement vs. heave, insurance, warranties, and more.";
+
+const serviceAreaText = `This page exists because the most common foundation repair search terms in New Mexico — foundation repair Albuquerque, foundation repair cost, signs of foundation problems, free foundation inspection — lead homeowners to sales calls, not answers. TLS Foundations is a New Mexico foundation repair contractor. We answer these questions honestly because homeowners who understand their situation make better decisions, ask better questions, and are better to work with. The eighteen questions on this page cover foundation repair cost in New Mexico, how to recognize foundation problems, the difference between settlement and heave, when foundation repair is not the right answer, how to choose a foundation contractor, what expansive soil does to a house, whether homeowners insurance covers foundation repair, and what happens when the wrong repair method is used. If your question isn't here, call or text — you reach the owner.`;
+
+// Facet groups -- "what's actually on your mind," not the questions
+// themselves. Checking one or more re-sorts the list below so the closest
+// matches surface first, same scoring pattern as the Symptom Guide/Cause
+// Library facet panels.
+const facetGroups = [
+  { id: 'money', label: 'Cost, insurance, or warranty' },
+  { id: 'diagnosis', label: "What's actually wrong, or how serious it is" },
+  { id: 'trust', label: 'Whether a contractor is being straight with me' },
+  { id: 'timing', label: 'Whether to act now or wait' },
+  { id: 'repair', label: 'What the repair itself involves' },
+  { id: 'selling', label: 'Selling the house' },
+];
+
+interface Concern {
+  id: string;
+  q: string;
+  teaser: string;
+  tags: string[];
+  p: string;
+  nmNote: string;
+  industryNote: string;
+  primaryLinks: { href: string; text: string }[];
+  relatedTerms: { href: string; text: string }[];
+  relatedFaq: { href: string; text: string }[];
+}
+
+const concerns: Concern[] = [
+  {
+    id: 'cost',
+    q: 'How much does foundation repair cost in New Mexico?',
+    teaser: 'Depends on soil, depth, and method — never a phone quote.',
+    tags: ['money'],
+    p: 'Cost depends on soil, depth, and method. A price given before investigation is a guess. In New Mexico, pier depth varies dramatically by region — a 20‑foot pier in the South Valley and a 20‑foot pier in the East Mountains are not the same job.',
+    nmNote: 'Helical piers in residential work typically range from $1,500–$5,000 per pier, but the number depends on soil investigation, primarily depth of problematic soils.',
+    industryNote: 'No reputable contractor can give you a price over the phone without knowing your soil. Anyone who does is selling a system, not solving your problem.',
+    primaryLinks: [{ href: '/foundation-repair-methods', text: 'Repair Methods →' }, { href: '/contact-us', text: 'Get an evaluation →' }],
+    relatedTerms: [{ href: '/glossary#helical-pier', text: 'Helical pier' }, { href: '/glossary#push-pier', text: 'Push pier' }, { href: '/glossary#soil-investigation', text: 'Soil investigation' }, { href: '/glossary#bearing-capacity', text: 'Bearing capacity' }],
+    relatedFaq: [{ href: '/common-concerns-v2#timeline', text: 'How long does repair take?' }, { href: '/common-concerns-v2#engineer', text: 'Do I need an engineer?' }],
+  },
+  {
+    id: 'signs',
+    q: 'What are the signs of foundation problems?',
+    teaser: 'Cracks, sticking doors, sloped floors, gaps, water pooling.',
+    tags: ['diagnosis'],
+    p: 'Diagonal cracks at door/window corners, sticking doors or windows, sloping floors, gaps at trim, stair‑step cracks in brick, water pooling near foundation.',
+    nmNote: 'The same symptom can mean heave or settlement — they require opposite repairs. Signs point toward investigation, not toward a specific repair.',
+    industryNote: 'The industry knows symptoms are ambiguous, but they rarely explain this. A crack from heave and a crack from settlement look nearly identical. The wrong repair makes it worse.',
+    primaryLinks: [{ href: '/expansive-soil', text: 'Expansive Soils in NM →' }, { href: '/collapsible-soil', text: 'Collapsible Soils in NM →' }],
+    relatedTerms: [{ href: '/glossary#heave', text: 'Heave' }, { href: '/glossary#settlement', text: 'Settlement' }, { href: '/glossary#expansive-soil', text: 'Expansive soil' }, { href: '/glossary#collapsible-soil', text: 'Collapsible soil' }],
+    relatedFaq: [{ href: '/common-concerns-v2#heave', text: "What's the difference between settlement and heave?" }, { href: '/common-concerns-v2#wait', text: 'Is this serious?' }],
+  },
+  {
+    id: 'engineer',
+    q: 'Do I need a structural engineer or a foundation company?',
+    teaser: 'A free inspection is a sales visit. An investigation isn’t.',
+    tags: ['trust'],
+    p: "A free inspection is a sales call. An engineer's investigation is independent of repair sales. If you're making a larger financial decision, an independent assessment matters.",
+    nmNote: 'Our affiliate Sandia GEO does geotechnical investigation separate from repair sales — investigation revenue is intentionally separate.',
+    industryNote: "The person inspecting your home for a free inspection is compensated to sell repairs. That's the business model — not a criticism, just a fact worth understanding before you make a large financial decision.",
+    primaryLinks: [{ href: '/our-approach', text: "Why NM's Different →" }, { href: '/contact-us', text: 'Contact Sandia GEO →' }],
+    relatedTerms: [{ href: '/glossary#geotechnical-investigation', text: 'Geotechnical investigation' }, { href: '/glossary#structural-engineer', text: 'Structural engineer' }, { href: '/glossary#free-inspection', text: 'Free inspection' }, { href: '/glossary#conflict-of-interest', text: 'Conflict of interest' }],
+    relatedFaq: [{ href: '/common-concerns-v2#free-inspection', text: 'Is a free inspection really free?' }, { href: '/common-concerns-v2#choose', text: 'How do I choose a company?' }],
+  },
+  {
+    id: 'heave',
+    q: "What's the difference between settlement and heave?",
+    teaser: 'Settlement sinks, heave lifts — same symptoms, opposite fixes.',
+    tags: ['diagnosis'],
+    p: 'Settlement = sinking. Heave = lifting. Symptoms look identical. Repairs are opposite. Installing settlement piers on a heaving foundation makes it worse.',
+    nmNote: 'Expansive clay soils cause heave. Collapsible soils cause settlement. Both are common in New Mexico.',
+    industryNote: 'Misdiagnosis in this industry is more common than anyone admits. Heave treated as settlement — piers installed on a lifting foundation — makes the problem worse and the repair irreversible. Investigation before repair is the only protection.',
+    primaryLinks: [{ href: '/expansive-soil', text: 'Expansive Soils →' }, { href: '/collapsible-soil', text: 'Collapsible Soils →' }],
+    relatedTerms: [{ href: '/glossary#expansive-clay', text: 'Expansive clay' }, { href: '/glossary#swell-pressure', text: 'Swell pressure' }, { href: '/glossary#active-zone', text: 'Active zone' }, { href: '/glossary#moisture-trigger', text: 'Moisture trigger' }],
+    relatedFaq: [{ href: '/common-concerns-v2#causes', text: 'What causes foundation problems?' }, { href: '/common-concerns-v2#watering', text: 'Will watering my foundation help?' }],
+  },
+  {
+    id: 'free-inspection',
+    q: 'Is a free foundation inspection really free?',
+    teaser: "It's free because the repair sale pays for it.",
+    tags: ['trust', 'money'],
+    p: "The inspection is free because the business model recoups the cost on the repair. It's a sales presentation, not an independent assessment. Ask who inspects your home.",
+    nmNote: 'A paid geotechnical investigation produces an independent report. The distinction matters when you’re making a financial decision.',
+    industryNote: "The 'free inspection' is the industry's lead‑gen machine. The person showing up works for the company proposing the repair. Every visit that doesn't end in a sale is a loss. That structure shapes every recommendation.",
+    primaryLinks: [{ href: '/our-approach', text: "Why NM's Different →" }],
+    relatedTerms: [{ href: '/glossary#free-estimate', text: 'Free estimate' }, { href: '/glossary#sales-inspection', text: 'Sales inspection' }, { href: '/glossary#geotechnical-investigation', text: 'Geotechnical investigation' }],
+    relatedFaq: [{ href: '/common-concerns-v2#engineer', text: 'Do I need an engineer?' }, { href: '/common-concerns-v2#choose', text: 'How do I choose a company?' }],
+  },
+  {
+    id: 'insurance',
+    q: 'Does homeowners insurance cover foundation repair?',
+    teaser: 'Almost never for soil movement.',
+    tags: ['money'],
+    p: 'Almost never for soil movement — settlement, heave, expansive clay are excluded. Possible for sudden plumbing breaks, but rare. Don’t make decisions expecting coverage.',
+    nmNote: 'Standard policies exclude earth movement. Read your policy before you call anyone.',
+    industryNote: 'Insurance coverage for foundation problems is rarely what homeowners hope it will be. Standard policies exclude earth movement. Understand your policy before anyone else shapes the conversation.',
+    primaryLinks: [],
+    relatedTerms: [{ href: '/glossary#earth-movement-exclusion', text: 'Earth movement exclusion' }, { href: '/glossary#plumbing-leak-coverage', text: 'Plumbing leak coverage' }],
+    relatedFaq: [{ href: '/common-concerns-v2#sell', text: 'Can I sell my house with foundation problems?' }],
+  },
+  {
+    id: 'wait',
+    q: 'Will foundation problems get worse if I wait?',
+    teaser: 'Sometimes. Depends whether movement is active or seasonal.',
+    tags: ['timing'],
+    p: 'It depends. Seasonal movement can stabilize. Some movement is cosmetic. If movement is active and progressive, act. If stable, monitoring is legitimate.',
+    nmNote: 'Monsoon/drought cycles cause normal seasonal movement. Not every crack needs repair.',
+    industryNote: "Urgency is the industry's default setting. Sometimes it's warranted. Sometimes movement is seasonal and stabilizes on its own. The honest answer depends on what's causing the movement — not on a sales timeline.",
+    primaryLinks: [{ href: '/foundation-repair-methods', text: 'Repair Methods →' }],
+    relatedTerms: [{ href: '/glossary#active-movement', text: 'Active movement' }, { href: '/glossary#seasonal-movement', text: 'Seasonal movement' }, { href: '/glossary#monitoring', text: 'Monitoring' }],
+    relatedFaq: [{ href: '/common-concerns-v2#monitor', text: 'When is monitoring the right answer?' }],
+  },
+  {
+    id: 'choose',
+    q: 'How do I choose a foundation repair company in New Mexico?',
+    teaser: "Ask who inspects, and whether they'll recommend monitoring.",
+    tags: ['trust'],
+    p: 'Ask: Who inspects? Licensed professional or commissioned salesperson? Can you recommend monitoring? Have you worked in my specific soil type and region?',
+    nmNote: 'The answers tell you more than any review count. Does the company know NM soils?',
+    industryNote: "The best question you can ask: 'Can you recommend an independent structural engineer before you give me a proposal?' A company that says yes is different. A company that hesitates is telling you something.",
+    primaryLinks: [{ href: '/our-approach', text: "Why NM's Different →" }],
+    relatedTerms: [{ href: '/glossary#free-inspection', text: 'Free inspection' }, { href: '/glossary#sales-metric', text: 'Sales metric' }, { href: '/glossary#scope-of-work', text: 'Scope of work' }],
+    relatedFaq: [{ href: '/common-concerns-v2#engineer', text: 'Do I need an engineer?' }, { href: '/common-concerns-v2#free-inspection', text: 'Is a free inspection really free?' }],
+  },
+  {
+    id: 'causes',
+    q: 'What causes foundation problems in New Mexico?',
+    teaser: 'Expansive clay, collapsible soil, caliche, drainage, cycles.',
+    tags: ['diagnosis'],
+    p: 'Expansive clay, collapsible soil, caliche, poor drainage, monsoon/drought cycles. Sixteen geologic regions — each behaves differently.',
+    nmNote: 'Mancos Shale in the Four Corners is highly expansive. Collapsible soils are common in the Rio Grande valley.',
+    industryNote: "National franchises train inspectors on generic soil conditions. New Mexico has sixteen distinct geologic regions. A training manual can't prepare someone for what's under your house.",
+    primaryLinks: [{ href: '/new-mexico-soil-conditions', text: 'NM Soils Hub →' }, { href: '/expansive-soil', text: 'Expansive Soils →' }, { href: '/collapsible-soil', text: 'Collapsible Soils →' }],
+    relatedTerms: [{ href: '/glossary#mancos-shale', text: 'Mancos Shale' }, { href: '/glossary#caliche', text: 'Caliche' }, { href: '/glossary#alluvial-soils', text: 'Alluvial soils' }, { href: '/glossary#karst', text: 'Karst' }],
+    relatedFaq: [{ href: '/common-concerns-v2#heave', text: "What's the difference between settlement and heave?" }, { href: '/common-concerns-v2#expansive', text: 'What is expansive soil?' }],
+  },
+  {
+    id: 'timeline',
+    q: 'How long does foundation repair take?',
+    teaser: 'Depends on scope — we tell you after we know, not before.',
+    tags: ['timing', 'repair'],
+    p: 'Helical piers: depends on the scope of work; two to three piers a day should be completed. Drainage correction varies. We tell you before we start, not after.',
+    nmNote: 'Soil complexity can affect timeline — reaching bearing in some formations takes longer than national averages.',
+    industryNote: 'A company that gives you a firm timeline before investigating your soil is guessing. Depth requirements vary. Access matters. We tell you after we know what we’re working with.',
+    primaryLinks: [],
+    relatedTerms: [{ href: '/glossary#helical-pier', text: 'Helical pier' }, { href: '/glossary#drainage-correction', text: 'Drainage correction' }],
+    relatedFaq: [{ href: '/common-concerns-v2#cost', text: 'How much does it cost?' }, { href: '/common-concerns-v2#methods', text: 'What methods are there?' }],
+  },
+  {
+    id: 'sell',
+    q: 'Can I sell my house with foundation problems in New Mexico?',
+    teaser: 'Yes, with disclosure. Severity drives the real decision.',
+    tags: ['selling'],
+    p: 'Yes, but disclosure laws apply. Repair or sell as‑is depends on severity. We give you the honest picture of what the problem is.',
+    nmNote: 'Disclosure requirements vary by county. Know what you’re required to disclose.',
+    industryNote: 'You can sell a home with foundation issues. Whether repair improves your net position depends on severity, buyer pool, and market conditions. Get the honest picture of what the problem is before anyone tells you what you have to do.',
+    primaryLinks: [],
+    relatedTerms: [{ href: '/glossary#disclosure', text: 'Disclosure' }, { href: '/glossary#home-inspection', text: 'Home inspection' }, { href: '/glossary#value-impact', text: 'Value impact' }],
+    relatedFaq: [{ href: '/common-concerns-v2#insurance', text: 'Does insurance cover foundation repair?' }, { href: '/common-concerns-v2#wait', text: 'Is this serious?' }],
+  },
+  {
+    id: 'warranty',
+    q: 'Does foundation repair come with a warranty?',
+    teaser: 'Usually — but read who enforces it, and for how long.',
+    tags: ['money', 'repair'],
+    p: 'Yes — but what does it actually cover? Who enforces it if the company is acquired? Read the fine print. A transferable warranty is standard.',
+    nmNote: 'National warranties look strong until the local operation changes hands. We explain our warranty honestly, including limitations.',
+    industryNote: 'A warranty is only as good as the company backing it. When a national franchise gets acquired, the local office changes. Your warranty? Read the transfer terms carefully.',
+    primaryLinks: [],
+    relatedTerms: [{ href: '/glossary#transferable-warranty', text: 'Transferable warranty' }, { href: '/glossary#lifetime-warranty', text: 'Lifetime warranty' }, { href: '/glossary#workmanship-warranty', text: 'Workmanship warranty' }],
+    relatedFaq: [{ href: '/common-concerns-v2#choose', text: 'How do I choose a company?' }, { href: '/common-concerns-v2#wrong-repair', text: 'What happens if the wrong repair is used?' }],
+  },
+  {
+    id: 'expansive',
+    q: 'What is expansive soil and how does it affect my house?',
+    teaser: 'Clay that swells wet, shrinks dry. Testing confirms it.',
+    tags: ['diagnosis'],
+    p: 'Clay soil that swells when wet, shrinks when dry. Pushes foundations up (heave). Without testing, no one can tell you if your soil is expansive.',
+    nmNote: 'Common in the Albuquerque Basin, Four Corners, and Rio Grande Valley.',
+    industryNote: "A contractor who looks at your house and tells you 'you have expansive soil' without testing is guessing. Expansive clay requires lab testing to confirm. Guessing is not engineering.",
+    primaryLinks: [{ href: '/expansive-soil', text: 'Expansive Soils in NM →' }, { href: '/new-mexico-soil-conditions', text: 'NM Soils →' }],
+    relatedTerms: [{ href: '/glossary#heave', text: 'Heave' }, { href: '/glossary#montmorillonite', text: 'Montmorillonite' }, { href: '/glossary#swell-pressure', text: 'Swell pressure' }, { href: '/glossary#plasticity-index', text: 'Plasticity index' }],
+    relatedFaq: [{ href: '/common-concerns-v2#causes', text: 'What causes foundation problems?' }, { href: '/common-concerns-v2#watering', text: 'Will watering my foundation help?' }],
+  },
+  {
+    id: 'monitor',
+    q: 'When is "monitor and wait" the right answer?',
+    teaser: 'The right call when movement is cosmetic or stable.',
+    tags: ['timing'],
+    p: 'When movement is cosmetic, stable, or seasonal. Not every crack needs repair. Monitoring is a legitimate recommendation — we recommend it when it’s the honest answer.',
+    nmNote: 'Seasonal cycling means some movement is normal and does not progress.',
+    industryNote: "No sales‑only company can recommend monitoring — it generates no revenue. TLS can, and does. We've told homeowners to wait. We'll tell you too, if that's the honest answer.",
+    primaryLinks: [],
+    relatedTerms: [{ href: '/glossary#cosmetic-crack', text: 'Cosmetic crack' }, { href: '/glossary#active-movement', text: 'Active movement' }, { href: '/glossary#seasonal-movement', text: 'Seasonal movement' }],
+    relatedFaq: [{ href: '/common-concerns-v2#wait', text: 'Will problems get worse if I wait?' }],
+  },
+  {
+    id: 'wrong-repair',
+    q: 'What happens if the wrong repair method is used?',
+    teaser: 'Wrong diagnosis, wrong repair — it can make things worse.',
+    tags: ['diagnosis', 'repair'],
+    p: 'Installing settlement piers on a heaving foundation makes it worse. Misdiagnosis is real. Investigation before repair is the only protection.',
+    nmNote: 'Heave is common but symptoms look like settlement. Getting the wrong repair is expensive.',
+    industryNote: 'This is the risk the industry never discusses. A misdiagnosed foundation — heave treated as settlement — can be actively damaged by the repair. Investigation is not optional.',
+    primaryLinks: [{ href: '/expansive-soil', text: 'Expansive Soils →' }],
+    relatedTerms: [{ href: '/glossary#heave', text: 'Heave' }, { href: '/glossary#settlement', text: 'Settlement' }, { href: '/glossary#misdiagnosis', text: 'Misdiagnosis' }, { href: '/glossary#pier-selection', text: 'Pier selection' }],
+    relatedFaq: [{ href: '/common-concerns-v2#heave', text: "What's the difference between settlement and heave?" }, { href: '/common-concerns-v2#choose', text: 'How do I choose a company?' }],
+  },
+  {
+    id: 'methods',
+    q: 'What are the different foundation repair methods?',
+    teaser: 'Piers, grouting, drainage — the method follows the soil.',
+    tags: ['repair'],
+    p: 'Helical piers, push piers, drainage correction, poly foam, carbon fiber, etc. The method follows the investigation. No method is selected before we know the soil.',
+    nmNote: "Helical piers are appropriate where piers are warranted. Push piers often don't work for residential weight in NM soils.",
+    industryNote: "Every company promotes the method they sell. The honest answer: the method follows the investigation. If someone is selling you a method before they've seen your soil, they're selling a product, not a solution.",
+    primaryLinks: [{ href: '/foundation-repair-methods', text: 'Repair Methods →' }],
+    relatedTerms: [{ href: '/glossary#helical-pier', text: 'Helical pier' }, { href: '/glossary#push-pier', text: 'Push pier' }, { href: '/glossary#drainage-correction', text: 'Drainage correction' }, { href: '/glossary#polyurethane-foam', text: 'Polyurethane foam' }],
+    relatedFaq: [{ href: '/common-concerns-v2#cost', text: 'How much does it cost?' }, { href: '/common-concerns-v2#wrong-repair', text: 'What happens if the wrong repair is used?' }],
+  },
+  {
+    id: 'doors-after',
+    q: 'Will foundation repair fix my sticking doors or cracked walls?',
+    teaser: 'Structural repair stabilizes. Cosmetic fit may not return.',
+    tags: ['repair'],
+    p: 'Structural repair stabilizes the foundation. Cosmetic finishes may not return to perfect alignment. We explain what to expect before you commit — not after.',
+    nmNote: 'If a door frame has been distorted for years, it may remain out of square after stabilization.',
+    industryNote: 'A company that promises every door will close perfectly after repair is overpromising. Structural repair stabilizes; cosmetic finishes may not return. We tell you the truth up front.',
+    primaryLinks: [],
+    relatedTerms: [{ href: '/glossary#cosmetic-crack', text: 'Cosmetic crack' }, { href: '/glossary#structural-repair', text: 'Structural repair' }, { href: '/glossary#finish-materials', text: 'Finish materials' }],
+    relatedFaq: [{ href: '/common-concerns-v2#wait', text: 'Is this serious?' }],
+  },
+  {
+    id: 'watering',
+    q: 'Will watering my foundation help?',
+    teaser: 'Can help or hurt, depending on your soil. Know it first.',
+    tags: ['diagnosis'],
+    p: 'In some cases, consistent moisture can reduce clay shrinkage. In others, it triggers heave. Do not start a watering regimen without understanding your soil type.',
+    nmNote: 'Over‑watering expansive clay can cause heave. Know your soil first.',
+    industryNote: "Without knowing your soil, watering can cause the very heave you're trying to prevent. Get the soil data first.",
+    primaryLinks: [{ href: '/expansive-soil', text: 'Expansive Soils →' }],
+    relatedTerms: [{ href: '/glossary#moisture-content', text: 'Moisture content' }, { href: '/glossary#expansive-soil', text: 'Expansive soil' }, { href: '/glossary#heave', text: 'Heave' }, { href: '/glossary#drainage', text: 'Drainage' }],
+    relatedFaq: [{ href: '/common-concerns-v2#causes', text: 'What causes foundation problems?' }, { href: '/common-concerns-v2#heave', text: "What's the difference between settlement and heave?" }],
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: concerns.map((c) => ({ '@type': 'Question', name: c.q, acceptedAnswer: { '@type': 'Answer', text: c.p } })),
+};
+---
+
+<Layout
+  title={title}
+  description={description}
+  footer="full"
+  ogImage="/images/common-concerns-hero.webp"
+  summary={summary}
+  pageName="Common Concerns"
+  nextPage={{ path: '/foundation-repair-methods', name: 'Foundation Repair Methods' }}
+  footerProps={{
+    serviceAreaLabel: "Six methods (not to mention a couple others we have up our sleeves). The right one depends on your soil.",
+    serviceAreaText,
+  }}
+  schema={[faqSchema]}
+>
+  <section class="hero">
+    <img class="hero-photo" src="/images/common-concerns-hero.webp" alt="New Mexico adobe home foundation" fetchpriority="high" />
+    <div class="hero-overlay"></div>
+    <div class="tls-hero-wrap">
+      <div class="tls-hero-box">
+        <span class="tls-hero-headline">Google says these are important.</span>
+        <span class="tls-hero-sub">(So we answered them.)</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="cc-page">
+    <div class="cc-container">
+      <div class="cc-header">
+        <h1 class="cc-title">Common Concerns</h1>
+        <p class="cc-description">Eighteen questions New Mexico homeowners actually search for. Check what's actually on your mind and we'll sort what's most useful to the top — or just scroll, it's only eighteen.</p>
+      </div>
+
+      <div class="mission-note">
+        <p>The most common search terms for foundation repair in New Mexico are: "Foundation repair Albuquerque." "Foundation repair Rio Rancho." "Foundation repair Santa Fe." "Foundation repair Las Cruces." Those are among the most expensive search terms in New Mexico — contractors pay for them because homeowners search them when they're worried and don't know where to turn. Every click on that keyword costs someone money. This page doesn't. It exists because the answer to that search shouldn't be a sales call — it should be honest information about what's happening under your house, what it means, and what your options actually are. That's what's here.</p>
+      </div>
+
+      <div class="facet-panel" id="facetPanel">
+        <div class="facet-panel-head">
+          <span class="facet-panel-label">What's actually on your mind? (check all that apply)</span>
+          <p class="facet-panel-sub">Check any that fit and the closest matches move to the top. Leave it blank and all eighteen show in the order homeowners ask them most.</p>
+        </div>
+        <div class="facet-options">
+          {facetGroups.map((g) => (
+            <label class="facet-chip">
+              <input type="checkbox" name="concern-tag" value={g.id} />
+              {g.label}
+            </label>
+          ))}
+        </div>
+        <div class="facet-actions">
+          <button type="button" id="facetClear" class="facet-clear" hidden>Clear all</button>
+        </div>
+      </div>
+
+      <p class="matched-lead" id="matchedLead" hidden></p>
+
+      <div class="concern-list" id="concernList">
+        {concerns.map((c) => (
+          <div
+            class="concern-card"
+            id={c.id}
+            data-tags={c.tags.join(',')}
+          >
+            <button type="button" class="concern-head" data-toggle aria-expanded="false">
+              <div class="concern-head-text">
+                <span class="concern-teaser">{c.teaser}</span>
+                <h2 class="concern-q">{c.q}</h2>
+              </div>
+              <span class="concern-toggle-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              </span>
+            </button>
+            <div class="concern-body">
+              <div class="concern-body-inner">
+                <p>{c.p}</p>
+                <div class="nm-note">NM context: {c.nmNote}</div>
+                <div class="industry-note">{c.industryNote}</div>
+                <div class="card-links">
+                  {c.primaryLinks.length > 0 && (
+                    <div class="primary-links">
+                      {c.primaryLinks.map((l) => <a href={l.href} class="card-link">{l.text}</a>)}
+                    </div>
+                  )}
+                  <div class="related-terms"><span>Related terms</span>{c.relatedTerms.map((t) => <a href={t.href}>{t.text}</a>)}</div>
+                  <div class="related-faq"><span>Related questions</span>{c.relatedFaq.map((f) => <a href={f.href} class="related-faq-link" data-target={f.href.split('#')[1]}>{f.text}</a>)}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="matrix-footer">
+      <p>If you don't see your question here, <a href="/contact-us">contact us directly</a> — you reach the owner.</p>
+      <p class="matrix-footer-sub">Or watch the <a href="/homeowner-decision-series">Homeowner Decision Series</a> — four short videos on these same questions, on camera.</p>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 560px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: -4%;
+    width: 108%;
+    height: 108%;
+    object-fit: cover;
+    object-position: center;
+    animation: kenburns 20s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns {
+    0% { transform: scale(1) translate(1%, 0); }
+    100% { transform: scale(1.06) translate(-1%, 0.5%); }
+  }
+  .hero-overlay { position: absolute; inset: 0; background: rgba(13, 34, 56, 0.15); }
+  .tls-hero-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    background: transparent;
+    padding: 0 clamp(20px, 5vw, 80px) clamp(40px, 6vw, 80px);
+  }
+  .tls-hero-box { display: inline-block; background: rgba(13, 34, 56, 0.65); padding: 28px 40px 32px; }
+  .tls-hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    display: block;
+  }
+  .tls-hero-sub {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(15px, 1.8vw, 18px);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.75);
+    font-style: italic;
+    margin-top: 12px;
+    display: block;
+  }
+
+  .cc-page {
+    background: var(--cream, #fdfaf6);
+    font-family: 'Source Serif 4', Georgia, serif;
+    padding: 4rem 0 2rem;
+  }
+  .cc-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+  .cc-header { text-align: center; margin-bottom: 2rem; }
+  .cc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: var(--blue);
+    margin-bottom: 0.75rem;
+  }
+  .cc-description {
+    font-size: 1.05rem;
+    color: var(--slate);
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  .mission-note {
+    background: var(--sand);
+    border-left: 4px solid var(--gold-text);
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #2e2e2e;
+  }
+  .mission-note p { margin: 0; }
+
+  .facet-panel { background: var(--white); border: 1px solid var(--stone); border-radius: 12px; padding: 28px 28px 20px; margin-bottom: 8px; }
+  .facet-panel-head { margin-bottom: 18px; }
+  .facet-panel-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    margin-bottom: 8px;
+  }
+  .facet-panel-sub { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin: 0; }
+  .facet-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .facet-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.85rem;
+    color: var(--slate);
+    background: var(--cream);
+    border: 1px solid var(--stone);
+    border-radius: 20px;
+    padding: 9px 16px 9px 12px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
+  }
+  .facet-chip:has(input:checked) { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .facet-chip input { width: 14px; height: 14px; accent-color: var(--gold); flex-shrink: 0; }
+  .facet-actions { display: flex; justify-content: flex-end; margin-top: 4px; }
+  .facet-clear {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 0;
+  }
+  .facet-clear:hover { color: var(--blue); }
+
+  .matched-lead {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    margin: 24px 2px 12px;
+  }
+
+  .concern-list { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+  .concern-card {
+    background: #fff;
+    border: 1px solid var(--stone);
+    border-radius: 10px;
+    overflow: hidden;
+    scroll-margin-top: 100px;
+    transition: border-color 0.2s;
+  }
+  .concern-card.is-open { border-color: var(--gold); }
+  .concern-card.is-dimmed { opacity: 0.45; }
+  .concern-head {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+  }
+  .concern-head-text { display: flex; flex-direction: column; gap: 4px; }
+  .concern-teaser {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+  }
+  .concern-q {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--blue);
+    line-height: 1.35;
+    margin: 0;
+  }
+  .concern-toggle-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border: 1.5px solid var(--stone);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .concern-head:hover .concern-toggle-icon { border-color: var(--gold); background: var(--sand); }
+  .concern-toggle-icon svg { width: 14px; height: 14px; stroke: var(--gold-text); stroke-width: 2; fill: none; stroke-linecap: round; transition: transform 0.3s; }
+  .concern-card.is-open .concern-toggle-icon svg { transform: rotate(45deg); }
+  .concern-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .concern-card.is-open .concern-body { max-height: 2000px; }
+  .concern-body-inner { padding: 0 1.5rem 1.75rem; border-top: 1px solid var(--stone); margin-top: -1px; padding-top: 1.25rem; }
+  .concern-body-inner p { font-size: 1rem; line-height: 1.7; color: #2e2e2e; margin-bottom: 1rem; }
+  .nm-note { font-size: 0.9rem; color: #54626f; border-left: 3px solid var(--gold); padding-left: 1rem; margin: 1rem 0; font-style: italic; }
+  .industry-note { background: #fef9f0; border-left: 3px solid var(--gold); padding: 1rem; margin: 1rem 0; font-size: 0.9rem; color: #2e2e2e; }
+  .card-links { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--stone); display: flex; flex-direction: column; gap: 0.85rem; }
+  .primary-links { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .card-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    transition: color 0.2s;
+  }
+  .card-link:hover { color: var(--gold-text); }
+  .related-terms, .related-faq { font-size: 0.85rem; }
+  .related-terms span, .related-faq span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--gold-text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .related-terms a, .related-faq a {
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    margin-right: 0.75rem;
+    font-size: 0.85rem;
+  }
+  .related-terms a:hover, .related-faq a:hover { color: var(--gold-text); }
+
+  .matrix-footer {
+    max-width: 800px;
+    margin: 3rem auto 0;
+    padding: 0 1.25rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--muted);
+    border-top: 1px solid var(--stone);
+    padding-top: 1.75rem;
+  }
+  .matrix-footer-sub { margin-top: 0.5rem; }
+  .matrix-footer a { color: var(--blue); text-decoration: underline; text-decoration-color: var(--gold); }
+
+  @media (max-width: 640px) {
+    .cc-page { padding: 3rem 0 1.5rem; }
+    .facet-panel { padding: 20px 18px 16px; }
+    .concern-head { padding: 1.1rem 1.15rem; gap: 12px; }
+    .concern-body-inner { padding: 1.1rem 1.15rem 1.5rem; }
+  }
+</style>
+
+<script>
+  interface ConcernEl { el: HTMLElement; tags: string[] }
+
+  function initCommonConcerns() {
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('.concern-card'));
+    const items: ConcernEl[] = cards.map((el) => ({ el, tags: (el.dataset.tags || '').split(',').filter(Boolean) }));
+    const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="concern-tag"]'));
+    const clearBtn = document.getElementById('facetClear') as HTMLButtonElement | null;
+    const matchedLead = document.getElementById('matchedLead') as HTMLElement | null;
+    const list = document.getElementById('concernList') as HTMLElement | null;
+
+    function openCard(el: HTMLElement) {
+      el.classList.add('is-open');
+      const head = el.querySelector('.concern-head');
+      head?.setAttribute('aria-expanded', 'true');
+    }
+    function closeCard(el: HTMLElement) {
+      el.classList.remove('is-open');
+      const head = el.querySelector('.concern-head');
+      head?.setAttribute('aria-expanded', 'false');
+    }
+    function toggleCard(el: HTMLElement) {
+      if (el.classList.contains('is-open')) closeCard(el);
+      else openCard(el);
+    }
+
+    cards.forEach((card) => {
+      const head = card.querySelector<HTMLButtonElement>('[data-toggle]');
+      head?.addEventListener('click', () => toggleCard(card));
+    });
+
+    function reorder() {
+      const checked = checkboxes.filter((c) => c.checked).map((c) => c.value);
+      clearBtn?.toggleAttribute('hidden', checked.length === 0);
+
+      if (checked.length === 0) {
+        if (matchedLead) matchedLead.hidden = true;
+        cards.forEach((c) => c.classList.remove('is-dimmed'));
+        // Restore original document order.
+        items.forEach(({ el }) => list?.appendChild(el));
+        return;
+      }
+
+      const scored = items.map((it) => ({ it, score: it.tags.filter((t) => checked.includes(t)).length }));
+      scored.sort((a, b) => b.score - a.score);
+      scored.forEach(({ it, score }) => {
+        list?.appendChild(it.el);
+        it.el.classList.toggle('is-dimmed', score === 0);
+      });
+      const matchCount = scored.filter((s) => s.score > 0).length;
+      if (matchedLead) {
+        matchedLead.hidden = false;
+        matchedLead.textContent = matchCount > 0
+          ? `${matchCount} of 18 closely match what you checked -- moved to the top`
+          : 'No close matches -- here are all eighteen, most-asked first';
+      }
+    }
+
+    checkboxes.forEach((cb) => cb.addEventListener('change', reorder));
+    clearBtn?.addEventListener('click', () => {
+      checkboxes.forEach((cb) => (cb.checked = false));
+      reorder();
+    });
+
+    // Related-question links point at #<id> anchors on this same page --
+    // open and scroll to that card instead of relying on default anchor jump.
+    document.querySelectorAll<HTMLAnchorElement>('.related-faq-link').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const targetId = a.dataset.target;
+        if (!targetId) return;
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        e.preventDefault();
+        openCard(target);
+        const offset = 100;
+        const pos = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: pos, behavior: 'smooth' });
+        history.replaceState(null, '', `#${targetId}`);
+      });
+    });
+
+    // Arriving with a #hash (from another page, or a shared link) -- open
+    // and scroll to that specific concern on load.
+    const initialId = window.location.hash.replace('#', '');
+    if (initialId) {
+      const target = document.getElementById(initialId);
+      if (target) {
+        openCard(target);
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+      }
+    }
+  }
+  document.addEventListener('DOMContentLoaded', initCommonConcerns);
+</script>
