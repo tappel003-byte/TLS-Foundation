@@ -12,7 +12,7 @@ Entries are newest first.
 
 ## Foundation Repair Methods (`src/pages/foundation-repair-methods.astro`)
 
-**Commit:** `<pending>`
+**Commit:** `e99b09c`
 
 This page already avoided the "same argument restated" problem — it
 correctly never imports the investigation-first/Sandia GEO argument that
