@@ -10,6 +10,14 @@ Entries are newest first.
 
 ---
 
+## New Mexico Soil Conditions (`src/pages/new-mexico-soil-conditions.astro`)
+
+**Audited, no changes.** Ran the repeated-phrase scan and a manifesto-
+phrase grep same as Glossary — came back clean on both. This is a
+table-of-contents hub page (Overview + a 5-region TOC list) and it
+already does that job tightly: no restated argument, no filler, single
+appropriate "you reach the owner" mention in the persistent nav sidebar.
+
 ## Glossary (`src/pages/glossary.astro`)
 
 **Commit:** `66aa0d4`
