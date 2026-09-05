@@ -1,0 +1,1022 @@
+---
+// DRAFT -- not linked from live nav except the temp "Draft (temp)" folder.
+// Live "/" (index.astro) is untouched.
+//
+// Same content and copy as the live homepage. What changed: the "How we
+// operate / The model / NM soils" accordion stack -- which is the exact
+// same interaction (stacked accordions) Why NM's Different and Why
+// Foundations Move both also lean on -- is now a tab strip instead, so
+// Home stops feeling like the same template repeated. The closing
+// contact band is also a distinct split layout instead of the centered
+// three-column block that's identical on the other two narrative pages.
+import Layout from '../layouts/Layout.astro';
+
+const title = 'TLS Foundations — New Mexico Foundation Repair';
+const summary =
+  "TLS Foundations is an owner-operated New Mexico foundation repair contractor with 55 combined years working the state's soils. The core position: the repair method should follow a real diagnosis, not the other way around, and TLS's affiliate Sandia GEO keeps investigation and repair as separate revenue streams so the recommendation isn't shaped by what gets sold. Six repair methods are carried -- helical piers, push piers, micropiles, compaction grouting, foam injection, and drainage correction -- because carrying a broad enough toolkit is what actually lets the diagnosis lead. The rest of the site exists to explain that reasoning in detail, region by region and question by question, rather than asking for trust upfront.";
+const description =
+  "We don't guess a fix and work backward; we read the site and let the remedy follow. 55 years of New Mexico foundation and geotechnical experience.";
+
+const services = [
+  { id: 'helical-piers', name: 'Helical Piers', description: 'A steel shaft with helical plates, rotated into the ground by torque -- not by pushing against the structure. The correct pier solution for most New Mexico residential foundations.' },
+  { id: 'push-piers', name: 'Push Piers', description: "Installed by jacking against the structure's dead load. Appropriate for commercial and heavy structures. Not the right solution for most NM wood-frame residential homes." },
+  { id: 'micropiles', name: 'Micropiles', description: 'Small-diameter drilled and grouted piers -- used when hard rock, cobbles, or dense caliche prevents helical installation, or when bearing depth is significant.' },
+  { id: 'compaction-grouting', name: 'Compaction Grouting', description: 'Pressure-injected grout that densifies loose or collapsible soils beneath a structure. Appropriate for specific soil conditions -- not a universal fix.' },
+  { id: 'foam-injection', name: 'Foam Injection', description: 'Void filling and slab stabilization using expanding polyurethane foam. Used where underlying soil conditions are understood and appropriate for the method.' },
+  { id: 'drainage-correction', name: 'Surface & Drainage Correction', description: 'Many New Mexico foundation problems are moisture problems. Correcting drainage and surface grade is sometimes the complete repair -- not a consolation prize.' },
+];
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Foundation Repair Services',
+    itemListElement: services.map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Service',
+        name: s.name,
+        description: s.description,
+        url: `https://www.tlsfoundations.com/foundation-repair-methods#${s.id}`,
+        provider: { '@type': 'LocalBusiness', name: 'TLS Foundations' },
+        areaServed: { '@type': 'State', name: 'New Mexico' },
+        serviceType: 'Foundation repair',
+      },
+    })),
+  },
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  footer="full"
+  schema={schema}
+  summary={summary}
+  pageName="Home"
+  nextPage={{ path: '/our-approach', name: 'Our Approach' }}
+>
+  <section class="hero">
+    <img class="hero-photo" src="/images/home-hero.webp" alt="Sandia Mountains sunrise, New Mexico" fetchpriority="high" />
+    <div class="hero-overlay"></div>
+    <div class="tls-hero-wrap">
+      <div class="tls-hero-box">
+        <h1 class="tls-hero-headline">We fix foundations.</h1>
+        <span class="tls-hero-sub"
+          >We don't guess a fix and work backward; we read the site and let the remedy follow.</span
+        >
+      </div>
+    </div>
+  </section>
+
+  <main class="tls-home">
+    <section class="notice-router">
+      <div class="notice-inner">
+        <span class="notice-eyebrow">Not sure where to start?</span>
+        <h2 class="notice-headline">What are you noticing?</h2>
+        <p class="notice-sub">Pick what's going on. Every card below leads to a real answer — not a contact form.</p>
+        <div class="notice-grid">
+          <a href="/symptom-guide" class="notice-card">
+            <span class="notice-card-title">Cracks, sticking doors, uneven floors</span>
+            <span class="notice-card-desc">See what it usually means, and how New Mexico soil factors in.</span>
+            <span class="notice-card-arrow">→</span>
+          </a>
+          <a href="/foundation-repair-methods#drainage-correction" class="notice-card">
+            <span class="notice-card-title">Water pooling, drainage, moisture</span>
+            <span class="notice-card-desc">Often the most important — and least expensive — first step.</span>
+            <span class="notice-card-arrow">→</span>
+          </a>
+          <a href="/foundation-repair-methods" class="notice-card">
+            <span class="notice-card-title">Already have a repair recommendation</span>
+            <span class="notice-card-desc">Understand the method before you commit to it.</span>
+            <span class="notice-card-arrow">→</span>
+          </a>
+          <a href="/our-approach#investigation" class="notice-card">
+            <span class="notice-card-title">Want a real investigation, not a sales visit</span>
+            <span class="notice-card-desc">The difference between a contractor inspection and a geotechnical one.</span>
+            <span class="notice-card-arrow">→</span>
+          </a>
+          <a href="/why-foundations-move" class="notice-card">
+            <span class="notice-card-title">Wondering why this is happening now</span>
+            <span class="notice-card-desc">The soil science behind foundation movement in New Mexico.</span>
+            <span class="notice-card-arrow">→</span>
+          </a>
+          <a href="/contact-us" class="notice-card notice-card-urgent">
+            <span class="notice-card-title">Something's changing fast</span>
+            <span class="notice-card-desc">Text or call — you reach the owner, not a scheduler.</span>
+            <span class="notice-card-arrow">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="story">
+      <div class="story-inner">
+        <p>
+          There was a moment — and anyone who's been in any industry long enough knows the moment — where
+          the work started feeling like work and not your calling. <span class="jm-moment"
+            >This was our Jerry Maguire moment.</span
+          >
+        </p>
+        <p>
+          Foundation repair has started going a different direction. Real evaluation is giving way to sales
+          volume. The soil isn't as important as the sales metric. We are watching what's happening in other
+          major metro markets start to creep into New Mexico.
+        </p>
+        <p>So we decided to do it differently. New Mexico is home, and the people calling us deserve better than a sales process dressed up as an inspection.</p>
+        <p class="story-closer">That's still the whole idea.</p>
+      </div>
+    </section>
+
+    <div class="stat-band">
+      <div class="stat-inner">
+        <div class="stat-number">55</div>
+        <div class="stat-divider"></div>
+        <div>
+          <span class="stat-label">Combined years and counting...</span>
+          <p class="stat-desc">
+            In New Mexico foundation repair and geotechnical investigation. The knowledge of this state's
+            soil behavior that only comes from being here, working here, for a long time.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <section class="method-statement">
+      <div class="method-inner">
+        <span class="method-eyebrow">Our approach</span>
+        <div class="method-headline">The method follows the diagnosis.</div>
+        <p class="method-sub">We don't lead with a solution. The soil tells us what it's doing. We listen first.</p>
+      </div>
+    </section>
+
+    <!-- Three accordions replaced with one tab strip -- same three
+         write-ups, one interaction instead of three separate toggles,
+         and a different mechanism than the accordion stacks on Why NM's
+         Different and Why Foundations Move. -->
+    <section class="tabs-block">
+      <div class="tabs-inner">
+        <div class="tabs-header">
+          <span class="tabs-eyebrow">How we operate</span>
+          <div class="tabs-title">Three things that make an evaluation worth having.</div>
+        </div>
+        <div class="tabs-nav" role="tablist">
+          <button class="tab-btn active" data-tab="investigation" role="tab" aria-selected="true">Investigation before recommendation</button>
+          <button class="tab-btn" data-tab="owner" role="tab" aria-selected="false">The model</button>
+          <button class="tab-btn" data-tab="soils" role="tab" aria-selected="false">New Mexico soils</button>
+        </div>
+        <div class="tabs-panels">
+          <div class="tab-panel active" data-panel="investigation" role="tabpanel">
+            <p><strong>Investigation before recommendation.</strong> Foundation problems in New Mexico are <a href="/common-concerns#causes" class="body-link">soil problems</a>. We understand what the soil is doing before we recommend anything — including whether repair is warranted at all.</p>
+            <p><strong>You reach the owner(s).</strong> When you contact TLS, you are talking with an ownership team that has worked in these conditions for 55 years and counting. Not a scheduler. Not a salesperson. The people who will be on your property.</p>
+            <p><strong>The evaluation is honest.</strong> We have told homeowners their foundation did not need repair. We will tell you the same thing, if that is what the evidence shows. The goal is the right answer.</p>
+          </div>
+          <div class="tab-panel" data-panel="owner" role="tabpanel">
+            <p>Most foundation inspections are structured around finding something to sell. The inspector visiting your home typically has a financial interest in the outcome — their compensation depends on closing a job, not on giving you the most accurate picture of what your foundation is doing.</p>
+            <div class="pull">
+              <p>We stand behind our work. More importantly, we don't recommend work we can't stand behind.</p>
+            </div>
+            <p>TLS Foundations is built around a different model. Our geotechnical affiliate, Sandia GEO, generates investigation revenue independent of repair sales. When a situation calls for <a href="/our-approach#investigation" class="body-link">professional investigation rather than immediate repair</a>, we recommend it — and the business still works. The evaluation is not a loss leader. It is the work.</p>
+          </div>
+          <div class="tab-panel" data-panel="soils" role="tabpanel">
+            <p>The Rio Grande Rift running through Albuquerque. Mancos Shale in the Four Corners. Permian karst dissolution beneath the Pecos Valley. Gypsum deposits in the Tularosa. <a href="/collapsible-soil#what-is" class="body-link">Collapsible desert soils</a> across the Jornada del Muerto. The geological knowledge that lives in this work is not in any national training manual.</p>
+            <p>A repair method that works in one basin can make conditions worse in another. The difference between <a href="/glossary#heave" class="body-link">heave</a> and <a href="/glossary#settlement" class="body-link">settlement</a> — <a href="/expansive-soil#what-is" class="body-link">soil pushing up</a> versus soil pulling down — determines everything about how to respond. Misdiagnosis is consequential.</p>
+            <a href="/new-mexico-soil-conditions" class="acc-link">Explore all five regions and New Mexico soils →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="services-section">
+      <div class="services-section-inner">
+        <div class="services-section-header">
+          <span class="services-eyebrow">What we do</span>
+          <h2 class="services-headline">Six methods. Hover to learn when each one applies.</h2>
+        </div>
+        <div class="services-grid">
+          <div class="svc-item">
+            Helical Piers
+            <div class="tip">
+              <p>A steel shaft with helical plates, rotated into the ground by torque — not by pushing against the structure. The correct pier solution for most New Mexico residential foundations.</p>
+              <a href="/foundation-repair-methods#helical-piers" class="tip-link">Learn more →</a>
+            </div>
+          </div>
+          <div class="svc-item">
+            Push Piers
+            <div class="tip">
+              <p>Installed by jacking against the structure's dead load. Appropriate for commercial and heavy structures. Not the right solution for most NM wood-frame residential homes.</p>
+              <a href="/foundation-repair-methods#push-piers" class="tip-link">Learn more →</a>
+            </div>
+          </div>
+          <div class="svc-item">
+            Micropiles
+            <div class="tip">
+              <p>Small-diameter drilled and grouted piers — used when hard rock, cobbles, or dense caliche prevents helical installation, or when bearing depth is significant.</p>
+              <a href="/foundation-repair-methods#micropiles" class="tip-link">Learn more →</a>
+            </div>
+          </div>
+          <div class="svc-item">
+            Compaction Grouting
+            <div class="tip">
+              <p>Pressure-injected grout that densifies loose or collapsible soils beneath a structure. Appropriate for specific soil conditions — not a universal fix.</p>
+              <a href="/foundation-repair-methods#compaction-grouting" class="tip-link">Learn more →</a>
+            </div>
+          </div>
+          <div class="svc-item">
+            Foam Injection
+            <div class="tip">
+              <p>Void filling and slab stabilization using expanding polyurethane foam. Used where underlying soil conditions are understood and appropriate for the method.</p>
+              <a href="/foundation-repair-methods#foam-injection" class="tip-link">Learn more →</a>
+            </div>
+          </div>
+          <div class="svc-item">
+            Surface &amp; Drainage Correction
+            <div class="tip">
+              <p>Many New Mexico foundation problems are moisture problems. Correcting drainage and surface grade is sometimes the complete repair — not a consolation prize.</p>
+              <a href="/foundation-repair-methods#drainage-correction" class="tip-link">Learn more →</a>
+            </div>
+          </div>
+        </div>
+        <a href="/foundation-repair-methods" class="acc-link">See how we approach each one →</a>
+      </div>
+    </section>
+
+    <section class="dark-band">
+      <div class="dark-inner">
+        <span class="dark-eyebrow">New Mexico</span>
+        <p class="dark-pull">"New Mexico soils are just as unique as New Mexicans."</p>
+        <div class="dark-divider"></div>
+        <div class="dark-callout">
+          <p class="dark-body">
+            The foundation repair knowledge we've built 55 years and counting — basin by basin, decade by
+            decade — green chile cheeseburger by green chile cheeseburger — is the result of choosing New
+            Mexico and staying. It is not in any training manual. It lives in the work.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact close: a split layout (headline left, contact card right)
+         instead of the centered three-column band used verbatim on Why
+         NM's Different and Why Foundations Move. -->
+    <section class="contact-close">
+      <div class="contact-split">
+        <div class="contact-split-text">
+          <span class="contact-eyebrow">Ready when you are</span>
+          <h2 class="contact-headline">
+            You'll notice we don't have an About Us page. That's because it's not about us — we just have
+            Home, because this place is HOME.
+          </h2>
+          <p class="contact-sub">Text or call — you reach the owner(s).</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-option">
+            <span class="contact-option-label">Text</span>
+            <a href="sms:5059914180" class="contact-option-value">Send a text →</a>
+            <span class="contact-option-note">Usually same day</span>
+          </div>
+          <div class="contact-option">
+            <span class="contact-option-label">Call</span>
+            <a href="tel:5059914180" class="contact-option-value">(505) 991-4180</a>
+            <span class="contact-option-note">The owner(s) answer</span>
+          </div>
+          <div class="contact-option">
+            <span class="contact-option-label">Location</span>
+            <span class="contact-option-value">Albuquerque,&nbsp;New Mexico</span>
+            <span class="contact-option-note">The state is our office</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  function initTabs() {
+    const nav = document.querySelector('.tabs-nav');
+    if (!nav) return;
+    const buttons = Array.from(nav.querySelectorAll<HTMLButtonElement>('.tab-btn'));
+    const panels = Array.from(document.querySelectorAll<HTMLElement>('.tab-panel'));
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.tab;
+        buttons.forEach((b) => {
+          b.classList.toggle('active', b === btn);
+          b.setAttribute('aria-selected', String(b === btn));
+        });
+        panels.forEach((p) => p.classList.toggle('active', p.dataset.panel === key));
+      });
+    });
+  }
+  document.addEventListener('DOMContentLoaded', initTabs);
+</script>
+
+<style>
+  /* ── HERO (native Squarespace section-background-image + text overlay code block) ── */
+  .hero {
+    position: relative;
+    min-height: 560px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: -4%;
+    width: 108%;
+    height: 108%;
+    object-fit: cover;
+    object-position: center;
+    animation: kenburns 20s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns {
+    0% {
+      transform: scale(1) translate(1%, 0);
+    }
+    100% {
+      transform: scale(1.06) translate(-1%, 0.5%);
+    }
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(13, 34, 56, 0.15);
+  }
+  .tls-hero-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    background: transparent;
+    padding: 0 clamp(20px, 5vw, 80px) clamp(40px, 6vw, 80px);
+  }
+  .tls-hero-box {
+    display: inline-block;
+    background: rgba(13, 34, 56, 0.65);
+    padding: 28px 40px 32px;
+  }
+  .tls-hero-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    display: block;
+  }
+  .tls-hero-sub {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(15px, 1.8vw, 18px);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.75);
+    font-style: italic;
+    margin-top: 12px;
+    display: block;
+  }
+
+  /* ── page-specific layout tokens (kept off :root — Astro scopes real elements, not :root) ── */
+  .tls-home {
+    --body-size: 18px;
+    --body-line: 1.95;
+    --gutter: 80px;
+    --col: 720px;
+    --acc-max: 800px;
+  }
+  @media (max-width: 768px) {
+    .tls-home {
+      --gutter: 24px;
+    }
+  }
+
+  .body-link {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .body-link:hover {
+    color: var(--gold-text);
+  }
+  /* ── NOTICE ROUTER ── */
+  .notice-router {
+    padding: 80px var(--gutter);
+    border-bottom: 1px solid var(--stone);
+    background: var(--sand);
+  }
+  .notice-inner {
+    max-width: var(--acc-max);
+    margin: 0 auto;
+    text-align: center;
+  }
+  .notice-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .notice-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 400;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+  .notice-sub {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--slate);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .notice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+    text-align: left;
+  }
+  .notice-card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 1px solid var(--stone);
+    border-left: 4px solid transparent;
+    padding: 28px 24px;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+  .notice-card:hover {
+    border-left-color: var(--gold);
+    box-shadow: 0 16px 28px -20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-3px);
+  }
+  .notice-card-urgent {
+    background: var(--blue);
+    border-color: var(--blue);
+  }
+  .notice-card-urgent:hover {
+    border-left-color: var(--gold-light);
+  }
+  .notice-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--blue);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .notice-card-urgent .notice-card-title {
+    color: white;
+  }
+  .notice-card-desc {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--slate);
+    line-height: 1.6;
+    flex: 1;
+  }
+  .notice-card-urgent .notice-card-desc {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .notice-card-arrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--gold-text);
+    margin-top: 16px;
+  }
+  @media (max-width: 900px) {
+    .notice-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 640px) {
+    .notice-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .story {
+    padding: 64px var(--gutter);
+    border-bottom: 1px solid var(--stone);
+    background: var(--cream);
+  }
+  .story-inner {
+    max-width: var(--col);
+    margin: 0 auto;
+  }
+  .story p {
+    font-size: var(--body-size);
+    font-weight: 300;
+    color: var(--slate);
+    line-height: var(--body-line);
+    margin-bottom: 28px;
+  }
+  .story p:last-child {
+    margin-bottom: 0;
+  }
+  .jm-moment {
+    color: var(--gold-text);
+    font-weight: 400;
+  }
+  .story-closer {
+    font-size: var(--body-size);
+    font-weight: 400;
+    color: var(--blue);
+    padding-top: 32px;
+    border-top: 1px solid var(--stone);
+    margin-top: 8px;
+  }
+  .stat-band {
+    background: var(--blue);
+    padding: 72px var(--gutter);
+    border-bottom: 2px solid var(--gold);
+  }
+  .stat-inner {
+    max-width: var(--col);
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 56px;
+  }
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 120px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1;
+    flex-shrink: 0;
+    letter-spacing: -4px;
+  }
+  .stat-divider {
+    width: 1px;
+    height: 96px;
+    background: rgba(255, 255, 255, 0.12);
+    flex-shrink: 0;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 14px;
+  }
+  .stat-desc {
+    font-size: 17px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.8;
+  }
+  .method-statement {
+    padding: 64px var(--gutter);
+    border-bottom: 2px solid var(--gold);
+    background: var(--cream);
+  }
+  .method-inner {
+    max-width: var(--col);
+    margin: 0 auto;
+  }
+  .method-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 20px;
+  }
+  .method-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4.5vw, 52px);
+    font-weight: 400;
+    color: var(--blue-dark);
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .method-sub {
+    font-size: var(--body-size);
+    font-weight: 300;
+    color: var(--slate);
+    line-height: var(--body-line);
+    max-width: 560px;
+  }
+
+  /* ── TABS (replaces the old 3-accordion stack) ── */
+  .tabs-block {
+    padding: 72px var(--gutter);
+    border-bottom: 2px solid var(--gold);
+    background: var(--cream);
+  }
+  .tabs-inner {
+    max-width: var(--acc-max);
+    margin: 0 auto;
+  }
+  .tabs-header {
+    margin-bottom: 32px;
+  }
+  .tabs-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .tabs-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--blue);
+  }
+  .tabs-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    border-bottom: 1px solid var(--stone);
+    margin-bottom: 32px;
+  }
+  .tab-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    background: none;
+    border: none;
+    padding: 14px 4px 16px;
+    margin-right: 28px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transform: translateY(1px);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .tab-btn:hover {
+    color: var(--blue);
+  }
+  .tab-btn.active {
+    color: var(--blue);
+    border-bottom-color: var(--gold);
+  }
+  .tabs-panels {
+    min-height: 220px;
+  }
+  .tab-panel {
+    display: none;
+  }
+  .tab-panel.active {
+    display: block;
+    animation: tabFadeIn 0.3s ease;
+  }
+  @keyframes tabFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .tab-panel p {
+    font-size: var(--body-size);
+    font-weight: 300;
+    color: var(--slate);
+    line-height: var(--body-line);
+    margin-bottom: 28px;
+  }
+  .tab-panel p:last-child {
+    margin-bottom: 0;
+  }
+  .pull {
+    border-left: 3px solid var(--gold);
+    padding: 32px 40px;
+    margin: 48px 0;
+    background: var(--sand);
+  }
+  .pull p {
+    font-size: 20px !important;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--blue) !important;
+    line-height: 1.65 !important;
+    margin-bottom: 0 !important;
+  }
+  .acc-link {
+    display: inline-block;
+    margin-top: 32px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+    padding-bottom: 3px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .acc-link:hover {
+    color: var(--blue);
+    border-color: rgba(27, 58, 92, 0.4);
+  }
+  @media (max-width: 640px) {
+    .tabs-nav {
+      gap: 4px;
+    }
+    .tab-btn {
+      margin-right: 16px;
+      font-size: 11px;
+    }
+  }
+
+  .services-section {
+    background: var(--sand);
+    border-top: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    padding: 64px var(--gutter);
+  }
+  .services-section-inner {
+    max-width: var(--acc-max);
+    margin: 0 auto;
+  }
+  .services-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .services-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 2.8vw, 30px);
+    font-weight: 400;
+    color: var(--blue-dark);
+    line-height: 1.2;
+    margin-bottom: 40px;
+  }
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  .svc-item {
+    position: relative;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(17px, 2vw, 20px);
+    font-weight: 400;
+    color: var(--blue);
+    padding: 20px 0;
+    border-bottom: 1px dashed var(--stone);
+    padding-right: 24px;
+  }
+  .svc-item:nth-child(odd) {
+    border-right: 1px dashed var(--stone);
+    padding-right: 32px;
+  }
+  .svc-item:nth-child(even) {
+    padding-left: 32px;
+  }
+  .svc-item:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+  .svc-item:hover {
+    color: var(--gold-text);
+  }
+  .svc-item .tip {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 12px;
+    background: var(--blue-dark);
+    color: white;
+    font-family: 'Source Serif 4', serif;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.6;
+    padding: 16px 20px;
+    border-radius: 8px;
+    width: 280px;
+    z-index: 1000;
+    border-top: 3px solid var(--gold);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+  }
+  .svc-item .tip p {
+    margin: 0 0 12px 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .svc-item .tip .tip-link {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+  }
+  .svc-item .tip .tip-link:hover {
+    color: white;
+    border-bottom-color: white;
+  }
+  .svc-item:hover .tip {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .svc-item .tip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 24px;
+    border: 8px solid transparent;
+    border-top-color: var(--blue-dark);
+  }
+  .services-section .acc-link {
+    margin-top: 40px;
+  }
+
+  .dark-band {
+    background: var(--blue-dark);
+    padding: 96px var(--gutter);
+    border-top: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    text-align: center;
+  }
+  .dark-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .dark-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 40px;
+  }
+  .dark-pull {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 3.5vw, 42px);
+    font-weight: 400;
+    font-style: italic;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 56px;
+  }
+  .dark-divider {
+    width: 48px;
+    height: 1px;
+    background: rgba(184, 134, 11, 0.4);
+    margin: 0 auto 56px;
+  }
+  .dark-callout {
+    border-left: 3px solid var(--gold);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 28px 36px;
+    text-align: left;
+  }
+  .dark-body {
+    font-size: clamp(16px, 1.8vw, 19px);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.75);
+    line-height: 1.95;
+  }
+
+  /* ── CONTACT CLOSE: split layout, distinct from Why NM's Different /
+       Why Foundations Move's centered three-column band ── */
+  .contact-close {
+    background: var(--sand);
+    padding: 96px var(--gutter);
+    border-top: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+  }
+  .contact-split {
+    max-width: var(--acc-max);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .contact-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 24px;
+  }
+  .contact-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 3.4vw, 40px);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--blue);
+    margin-bottom: 20px;
+  }
+  .contact-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+  .contact-card {
+    background: white;
+    border: 1px solid var(--stone);
+    border-top: 3px solid var(--gold);
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .contact-option {
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--stone);
+  }
+  .contact-option:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .contact-option-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 10px;
+  }
+  .contact-option-value {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(18px, 2.2vw, 22px);
+    font-weight: 400;
+    color: var(--blue);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 6px;
+    transition: color 0.2s;
+  }
+  .contact-option-value:hover {
+    color: var(--gold-text);
+  }
+  .contact-option-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  @media (max-width: 768px) {
+    .stat-number {
+      font-size: 80px;
+      letter-spacing: -2px;
+    }
+    .stat-inner {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .stat-divider {
+      width: 48px;
+      height: 1px;
+    }
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+    .svc-item:nth-child(odd) {
+      border-right: none;
+      padding-right: 0;
+    }
+    .svc-item:nth-child(even) {
+      padding-left: 0;
+    }
+    .svc-item:nth-last-child(-n + 2) {
+      border-bottom: 1px dashed var(--stone);
+    }
+    .svc-item:last-child {
+      border-bottom: none;
+    }
+    .contact-split {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+  @media (max-width: 640px) {
+    .dark-band,
+    .contact-close {
+      padding: 64px 24px;
+    }
+  }
+</style>
