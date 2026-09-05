@@ -1436,6 +1436,18 @@ const definedTermSetSchema = {
     const termCards = document.querySelectorAll<HTMLElement>('.term-card');
     if (!searchInput || !resultsContainer) return;
 
+    // The full hint ("... (type to see suggestions)") is ~44 characters of
+    // monospace text -- it doesn't fit a phone-width input without running
+    // past the field's edge, so narrow viewports get the shorter version.
+    const narrowViewport = window.matchMedia('(max-width: 480px)');
+    function updateSearchPlaceholder() {
+      (searchInput as HTMLInputElement).placeholder = narrowViewport.matches
+        ? 'Search for a term…'
+        : 'Search for a term… (type to see suggestions)';
+    }
+    updateSearchPlaceholder();
+    narrowViewport.addEventListener('change', updateSearchPlaceholder);
+
     const allTerms: { name: string; id: string; element: HTMLElement }[] = [];
     termCards.forEach((card) => {
       const termName = card.querySelector('.term-name')?.textContent?.trim();
