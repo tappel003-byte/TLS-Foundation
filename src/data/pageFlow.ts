@@ -4,6 +4,15 @@
 // appear, then Contact Us last) -- NOT the old narrative "read the story"
 // order, which buried the Reference/Interactive Guides folders' pages
 // right after Why Foundations Move instead of where they sit in the nav.
+//
+// Deliberately excludes the temp "Draft (temp)" folder -- those 4 pages
+// were spliced in here for review at one point, which meant a real
+// visitor clicking "next" on the real Homeowner Decision Series page (the
+// last item before Contact Us) got dropped into a draft page instead of
+// Contact Us. Drafts aren't part of the permanent nav, so they aren't
+// part of this chain either -- reach them via the Draft (temp) folder
+// directly, not prev/next.
+//
 // Single source of truth for MobilePageFlowNav's prev/next lookup --
 // keep this in sync if Header.astro's nav structure ever changes.
 export const pageFlow: { path: string; name: string }[] = [
@@ -30,13 +39,6 @@ export const pageFlow: { path: string; name: string }[] = [
   { path: '/cause-library', name: 'Cause Library' },
   { path: '/soil-movement', name: 'Soil & Movement' }, // In Depth
   { path: '/homeowner-decision-series', name: 'Homeowner Decision Series' },
-  // TEMP -- Draft (temp) folder, matching its own item order. Remove these
-  // 4 entries (and the folder itself in Header.astro) once each draft is
-  // promoted to its live URL or discarded.
-  { path: '/common-concerns-v2', name: 'Common Concerns v2 (draft)' },
-  { path: '/home-v2', name: 'Home v2 (draft)' },
-  { path: '/our-approach-v2', name: "Why NM's Different v2 (draft)" },
-  { path: '/why-foundations-move-v2', name: 'Why Foundations Move v2 (draft)' },
   // contactUs (Header.astro), rendered last
   { path: '/contact-us', name: 'Contact Us' },
 ];
