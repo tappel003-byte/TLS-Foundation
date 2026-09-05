@@ -243,8 +243,12 @@ const { summary, pageName, nextPage } = Astro.props;
     #tls-summarize-btn {
       left: 20px;
       right: auto;
-      padding: 0 16px;
-      font-size: 10px;
+      /* Same 48px height as the round buttons already; the mismatch was
+         width -- "Summary" in tight 16px padding at 10px font read as a
+         cramped stub next to a full 48px circle. Roomier padding and a
+         font-size matching desktop's give it comparable visual weight. */
+      padding: 0 26px;
+      font-size: 11px;
     }
     .tls-summarize-btn-full {
       display: none;
