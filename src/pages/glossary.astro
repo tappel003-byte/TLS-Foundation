@@ -101,7 +101,6 @@ const terms: { id: string; name: string; description: string }[] = [
   { id: 'undisturbed-sample', name: 'Undisturbed Sample', description: 'A soil sample collected in a way that preserves the natural structure, density, and moisture content.' },
   { id: 'value-impact', name: 'Value Impact', description: 'The effect a foundation\'s condition and repair history has on a property\'s market value.' },
   { id: 'void', name: 'Void', description: 'An open space in the subsurface where bearing material is absent. Can form from dissolution of evaporite or deterioration of mine workings.' },
-  { id: 'watering-foundation', name: 'Watering a Foundation', description: 'Attempting to control soil moisture around a foundation. Only appropriate for certain soil types.' },
   { id: 'workmanship-warranty', name: 'Workmanship Warranty', description: 'A warranty covering the quality of the installation itself, as distinct from future soil movement.' },
 ];
 
@@ -1312,17 +1311,6 @@ const definedTermSetSchema = {
       <!-- W -->
       <section class="letter-section" id="W">
         <h2 class="letter-heading">W</h2>
-        <div class="term-card" id="watering-foundation">
-          <div class="term-name">Watering a Foundation</div>
-          <div class="term-definition">
-            <p>Attempting to control soil moisture around a foundation. This is only appropriate for certain soil types; doing it on collapsible soil can cause settlement.</p>
-          </div>
-          <div class="related-terms">
-            <span class="related-label">Related:</span>
-            <span class="related-term" data-term="collapsible-soil">Collapsible Soil</span>
-            <span class="related-term" data-term="moisture-trigger">Moisture Trigger</span>
-          </div>
-        </div>
         <div class="term-card" id="workmanship-warranty">
           <div class="term-name">Workmanship Warranty</div>
           <div class="term-definition">
