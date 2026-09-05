@@ -44,6 +44,14 @@
     stroke-linecap: round;
     stroke-linejoin: round;
   }
+  /* On mobile this sits in the middle of a three-button row (prev / this /
+     next) so the row reads "back, up, next" left to right -- see
+     MobilePageFlowNav.astro, which claims the 28px slot instead. */
+  @media (max-width: 640px) {
+    #tls-btt {
+      right: 84px;
+    }
+  }
 </style>
 
 <script>

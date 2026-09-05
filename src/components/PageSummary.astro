@@ -15,7 +15,8 @@ const { summary, pageName, nextPage } = Astro.props;
 ---
 
 <button id="tls-summarize-btn" aria-haspopup="dialog" aria-controls="tls-summarize-panel">
-  Summarize this page
+  <span class="tls-summarize-btn-full">Summarize this page</span>
+  <span class="tls-summarize-btn-short">Summary</span>
 </button>
 
 <div id="tls-summarize-overlay" role="presentation"></div>
@@ -84,6 +85,9 @@ const { summary, pageName, nextPage } = Astro.props;
   }
   #tls-summarize-btn:hover {
     background: var(--gold);
+  }
+  .tls-summarize-btn-short {
+    display: none;
   }
 
   #tls-summarize-overlay {
@@ -241,6 +245,12 @@ const { summary, pageName, nextPage } = Astro.props;
       right: auto;
       padding: 0 16px;
       font-size: 10px;
+    }
+    .tls-summarize-btn-full {
+      display: none;
+    }
+    .tls-summarize-btn-short {
+      display: inline;
     }
     .tls-summarize-panel-inner {
       padding: 22px 22px 28px;
