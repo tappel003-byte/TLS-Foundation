@@ -1,7 +1,5 @@
 ---
-// DRAFT (temp) -- prototype only, linked from the "Draft (temp)" nav folder
-// in Header.astro. Fifth pass -- first real reimagining rather than a mirror
-// of symptom-guide-v2.astro. Same family (tokens, facet vocabulary, the
+// Same family as symptom-guide.astro (tokens, facet vocabulary, the
 // cross-page handoff), deliberately different structure:
 //
 // Symptom Guide is presenting symptoms -- what you notice around the house.
@@ -19,22 +17,13 @@
 // opened drawer -- it didn't stop being true, it's just not the lens the
 // page opens with anymore.
 //
-// Also carries the one objective bugfix proven necessary on symptom-guide-v2:
-// score() can no longer rank a cause above zero without an actual observed
-// "what are you seeing" match -- foundation type/onset/site alone can no
-// longer out-rank a real symptom match. And unmatched cards, once you've
-// checked something, are now actually hidden behind the "other causes" strip
-// instead of just losing their drawer -- the strip's own copy already implied
-// they'd be out of view.
+// score() can't rank a cause above zero without an actual observed "what
+// are you seeing" match -- foundation type/onset/site alone can't out-rank
+// a real symptom match. Facet vocabulary is synced with the Symptom Guide's
+// (chimney, monolithic slab, spread footing) so a handoff either direction
+// pre-checks correctly.
 //
-// Content itself (all 26 entries) is unchanged. Facet vocabulary synced with
-// symptom-guide-v2's expanded set (chimney, monolithic slab, spread footing)
-// so a handoff either direction pre-checks correctly.
-//
-// Sixth pass: dropped the per-card A1/C3-style code badge (a relic of the
-// old Group A-F layout, unread by any script). Dropped the search bar --
-// with the tier structure doing the organizing, it didn't have a place.
-// Added a "Try this yourself first" homeowner action item wherever one
+// A "Try this yourself first" homeowner action item is added wherever one
 // genuinely exists -- most of Tier 1 (plumbing/water bill, drainage,
 // irrigation, trees, animal burrows), plus a handful of Tier 2/3 causes
 // with a real partial piece even though the overall fix is structural
@@ -46,7 +35,7 @@
 // assess -- rather than inventing a step that isn't real.
 import Layout from '../layouts/Layout.astro';
 
-// Same Web3Forms delivery as contact-us.astro and symptom-guide-v2.astro --
+// Same Web3Forms delivery as contact-us.astro and symptom-guide.astro --
 // same access key, so signing up once (see the TODO in contact-us.astro)
 // turns this on everywhere at once.
 const WEB3FORMS_ACCESS_KEY = '';
@@ -581,7 +570,7 @@ causesByTier.forEach((tier) => {
 });
 
 // Region dropdown first, city dropdown populated from that region's real
-// city list once a region is picked -- identical to symptom-guide-v2's
+// city list once a region is picked -- identical to symptom-guide.astro's
 // picker (same data, same localStorage key) so the choice carries either
 // direction, same as the checkbox facets below.
 const regionCities = [
@@ -631,7 +620,7 @@ const regionCities = [
   },
 ];
 
-// Same facet vocabulary as symptom-guide-v2.astro -- checked boxes carry
+// Same facet vocabulary as symptom-guide.astro -- checked boxes carry
 // forward through the handoff link on either page via URL params.
 const onsetOptions = [
   { id: 'sudden', label: 'Started suddenly' },
@@ -721,7 +710,7 @@ const verdictDefs: Record<string, string> = {
         <div class="facet-panel-head">
           <span class="facet-panel-label">Check all that apply</span>
           <p class="facet-panel-sub">This describes common patterns, not an evaluation of your home — the safest step, if you're ever unsure, is to have someone look.</p>
-          <p class="facet-panel-note">Same checklist on the <a href="/symptom-guide-v2">Symptom Guide</a> — check it once and we'll carry your answers over, either direction.</p>
+          <p class="facet-panel-note">Same checklist on the <a href="/symptom-guide">Symptom Guide</a> — check it once and we'll carry your answers over, either direction.</p>
         </div>
 
         <fieldset class="facet-group">
@@ -834,7 +823,7 @@ const verdictDefs: Record<string, string> = {
           </div>
           <div class="handoff">
             <p class="handoff-text">Want to check this against what you're actually seeing in the house, rather than by mechanism? Your answers carry over automatically.</p>
-            <a href="/symptom-guide-v2" id="outcomePill" class="handoff-btn">Go to the Symptom Guide →</a>
+            <a href="/symptom-guide" id="outcomePill" class="handoff-btn">Go to the Symptom Guide →</a>
           </div>
         </div>
       </div>
@@ -914,7 +903,7 @@ const verdictDefs: Record<string, string> = {
           apart with certainty.
         </p>
         <p class="contact-footer-sub">
-          Prefer the short version first? <a href="/why-foundations-move-v2">Why Foundations Move</a> covers the
+          Prefer the short version first? <a href="/why-foundations-move">Why Foundations Move</a> covers the
           five most common patterns and how underpinning decisions actually get made.
         </p>
       </div>
@@ -928,7 +917,7 @@ const verdictDefs: Record<string, string> = {
   }
 
   // Region picker first, city picker populated from that region's real city
-  // list once a region is chosen. Same localStorage key as symptom-guide-v2
+  // list once a region is chosen. Same localStorage key as symptom-guide.astro
   // so a choice made on either page is remembered on both.
   const STORAGE_KEY = 'tls-region';
   const regionSelect = document.getElementById('regionSelect') as HTMLSelectElement;
@@ -983,7 +972,7 @@ const verdictDefs: Record<string, string> = {
   const urlParams = new URLSearchParams(window.location.search);
   const urlRegion = urlParams.get('region');
   if (urlRegion) {
-    // Arriving via the handoff from symptom-guide-v2 with a region already
+    // Arriving via the handoff from the Symptom Guide with a region already
     // picked -- URL wins over whatever's in localStorage from a prior visit.
     const opt = Array.from(regionSelect.options).find((o) => o.value === urlRegion);
     const url = opt?.dataset.regionUrl || '';
@@ -1071,7 +1060,7 @@ const verdictDefs: Record<string, string> = {
     // A cause can't register as a match without an actual observed-symptom
     // match -- foundation type/onset/site alone (e.g. a uniquely-tagged site
     // condition) must never outrank a real "what are you seeing" match. Same
-    // bug class found and fixed on symptom-guide-v2.
+    // bug class found and fixed on the Symptom Guide.
     if (seeMatches === 0) return 0;
     const onsetMatches = it.onset.filter((s) => checked.onset.includes(s)).length;
     const siteMatches = it.site.filter((s) => checked.site.includes(s)).length;
@@ -1119,7 +1108,7 @@ const verdictDefs: Record<string, string> = {
     if (checked.foundation.length) params.set('foundation', checked.foundation.join(','));
     if (regionSelect.value) params.set('region', regionSelect.value);
     if (citySelect.value) params.set('city', citySelect.value);
-    outcomePill.href = '/symptom-guide-v2' + (params.toString() ? '?' + params.toString() : '');
+    outcomePill.href = '/symptom-guide' + (params.toString() ? '?' + params.toString() : '');
 
     buildRelatedReading(scored);
   }
@@ -1129,7 +1118,7 @@ const verdictDefs: Record<string, string> = {
   // maintain, and no re-querying the DOM by class (cards are reordered
   // via CSS `order`, not DOM position, so `.matched` query order wouldn't
   // match score order). Capped at 3 cards / 4 links, same restraint as
-  // symptom-guide-v2's version, for the same reason: past a couple of
+  // the Symptom Guide's version, for the same reason: past a couple of
   // checked boxes this was turning into a wall of links again.
   function buildRelatedReading(scoredMatches: { it: (typeof items)[number]; s: number }[]) {
     const seen = new Set<string>();
@@ -1255,7 +1244,7 @@ const verdictDefs: Record<string, string> = {
     lines.push('');
     lines.push(outcomeText.textContent || '');
     lines.push('');
-    lines.push('Sent from the Cause Library at tlsfoundations.com/cause-library-v2');
+    lines.push('Sent from the Cause Library at tlsfoundations.com/cause-library');
     return lines.join('\n');
   }
 
@@ -1310,7 +1299,7 @@ const verdictDefs: Record<string, string> = {
     }
   });
 
-  // Arriving via the handoff from symptom-guide-v2 -- pre-check boxes from the URL.
+  // Arriving via the handoff from the Symptom Guide -- pre-check boxes from the URL.
   ['onset', 'see', 'site', 'foundation'].forEach((group) => {
     const val = urlParams.get(group);
     if (!val) return;
@@ -1416,7 +1405,7 @@ const verdictDefs: Record<string, string> = {
     margin: 40px 0 24px;
   }
 
-  /* ── Check-all-that-apply panel (shared with symptom-guide-v2) ── */
+  /* ── Check-all-that-apply panel (shared with symptom-guide.astro) ── */
   .facet-panel { background: var(--white); border: 1px solid var(--stone); border-radius: 12px; padding: 28px 28px 20px; margin-bottom: 24px; }
   .facet-panel-head { margin-bottom: 20px; }
   .facet-panel-label {

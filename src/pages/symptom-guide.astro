@@ -1,21 +1,22 @@
 ---
-// Foundation Symptom Guide — reimagined per explicit creative license (not
-// a family/sacred-cow page). Original content (19 symptoms, 5 categories)
-// kept verbatim from the live page; presentation rebuilt around three
-// goals: (1) answers visible without a click, so both readers and AI
-// answer engines can actually see them, (2) one region picker instead of
-// 19 duplicated ones, (3) FAQPage schema since the content already is Q&A.
-// Also fixes a real bug found on the live page: its <title> tag read
-// "Most Common Foundation Concerns in New Mexico" (a different page's
-// title) instead of anything about symptoms.
+// Interactive symptom triage: check-all-that-apply facets score and rank
+// the symptom cards below, with a region/city finder folded into the same
+// facet panel. Shares its facet vocabulary and region data with
+// cause-library.astro so answers carry over between the two.
 import Layout from '../layouts/Layout.astro';
+
+// Same Web3Forms delivery as contact-us.astro (no backend needed on a
+// static Cloudflare Workers site) -- same access key, so signing up once
+// (see the TODO in contact-us.astro) turns this on everywhere at once.
+// Until then, the form shows the same "not hooked up yet" fallback.
+const WEB3FORMS_ACCESS_KEY = '';
 import ReferenceNav from '../components/ReferenceNav.astro';
 
 const title = 'Foundation Symptom Guide — What Cracks, Sticking Doors & Uneven Floors Mean | TLS Foundations';
 const summary =
-  "This guide organizes the most common signs New Mexico homeowners notice -- cracks, sticking doors, uneven floors, foundation-specific symptoms, and water or drainage issues -- into a searchable, filterable set of symptom cards, each explaining what's typically happening and whether it usually warrants attention. It's explicitly a starting point, not a diagnosis: soil conditions, site drainage, and how long something has been changing all matter, and heave and settlement can look identical while requiring opposite repairs. A quick myth-buster section up front tackles the questions people actually have before digging in -- is this really \"foundation failure,\" does every crack matter, do you need repair right now.";
+  "This guide organizes the most common signs New Mexico homeowners notice -- cracks, sticking doors, uneven floors, foundation-specific symptoms, and water or drainage issues -- into a searchable, filterable set of symptom cards. A 'check all that apply' panel (region, foundation type, what you're seeing, when it started) re-sorts the list by relevance and assembles a short practical readout -- never a diagnosis, always a concrete next step. It's explicitly a starting point: soil conditions, site drainage, and how long something has been changing all matter, and heave and settlement can look identical while requiring opposite repairs.";
 const description =
-  "See something? Here's what it usually means and whether it warrants attention -- New Mexico foundation symptoms grouped by category and soil context.";
+  "Check what applies -- cracks, sticking doors, sloping floors -- and see what it usually means for a house like yours, organized by New Mexico foundation symptom.";
 
 interface Symptom {
   q: string;
@@ -23,6 +24,10 @@ interface Symptom {
   needsRepair: string;
   nmContext: string;
   links: { text: string; href: string }[];
+  onset: string[];
+  see: string[];
+  site: string[];
+  foundation: string[];
 }
 interface Category {
   id: string;
@@ -38,15 +43,15 @@ const categories: Category[] = [
       {
         q: 'Diagonal cracks near doors or windows',
         whatsHappening:
-          'Differential settlement, seasonal soil movement, or framing shrinkage concentrating stress at the weakest points in the wall — door and window openings.',
+          '<a href="/glossary#differential-settlement" class="glossary-link">Differential settlement</a>, seasonal soil movement, or framing shrinkage concentrating stress at the weakest points in the wall — door and window openings.',
         needsRepair: 'Often not urgent. Monitor for progression. If actively widening, have it evaluated before assuming the cause.',
         nmContext:
-          'Clay soil cycles drive seasonal cracking across the Rio Grande corridor. Heave and settlement produce identical-looking cracks — the wrong diagnosis leads to the wrong repair.',
-        links: [
-          { text: 'Common Concerns: Signs', href: '/common-concerns#signs' },
-          { text: 'Expansive Soils', href: '/expansive-soil' },
-          { text: 'Why Foundations Move', href: '/why-foundations-move' },
-        ],
+          "Clay soil cycles drive seasonal cracking across the Rio Grande corridor. Heave and settlement produce identical-looking cracks — the wrong diagnosis leads to the wrong repair. A rough rule of thumb people use: a hairline crack is one thing, a crack wide enough to fit a coin or fingernail into is worth documenting closely.",
+        links: [{ text: 'Expansive Soils', href: '/expansive-soil' }],
+        onset: ['gradual', 'seasonal'],
+        see: ['see-crack-diagonal'],
+        site: ['site-clay'],
+        foundation: [],
       },
       {
         q: 'Horizontal cracks in foundation or basement wall',
@@ -55,23 +60,24 @@ const categories: Category[] = [
         needsRepair: 'Yes, evaluate promptly. Horizontal cracks are a different category from diagonal or vertical cracking. Active inward movement requires attention.',
         nmContext:
           'Expansive clays exert significant lateral pressure after monsoon saturation. Poorly drained sites in the Rio Grande Valley and Four Corners are highest risk.',
-        links: [
-          { text: 'Common Concerns: Signs', href: '/common-concerns#signs' },
-          { text: 'Expansive Soils', href: '/expansive-soil' },
-          { text: 'Why Foundations Move', href: '/why-foundations-move' },
-        ],
+        links: [{ text: 'Expansive Soils', href: '/expansive-soil' }],
+        onset: ['gradual'],
+        see: ['see-crack-horizontal', 'see-foundation-cracks'],
+        site: ['site-clay'],
+        foundation: [],
       },
       {
         q: 'Ceiling cracks or gaps at ceiling-wall junction',
         whatsHappening:
           'Differential movement between the wall and ceiling plane — framing settling unevenly, or the wall moving relative to the roof structure above.',
-        needsRepair: 'Hairline ceiling cracks are common and usually cosmetic. A gap opening between the ceiling and wall — especially if progressive — warrants investigation.',
+        needsRepair: 'Hairline ceiling cracks are common and usually <a href="/glossary#cosmetic-crack" class="glossary-link">cosmetic</a>. A gap opening between the ceiling and wall — especially if progressive — warrants investigation.',
         nmContext:
           'Seasonal moisture cycling in clay soils produces cyclical movement that opens and closes ceiling gaps over the course of a year. Document with photos and dates before calling anyone.',
-        links: [
-          { text: 'Common Concerns: Signs', href: '/common-concerns#signs' },
-          { text: 'Why Foundations Move', href: '/why-foundations-move' },
-        ],
+        links: [],
+        onset: ['seasonal', 'gradual'],
+        see: ['see-crack-ceiling'],
+        site: ['site-clay'],
+        foundation: [],
       },
       {
         q: 'Cracks in concrete slab or garage floor',
@@ -79,10 +85,11 @@ const categories: Category[] = [
         needsRepair: "Most are cosmetic. If cracks are widening, if one side is higher than the other, or if you can feel a lip underfoot, evaluate.",
         nmContext:
           "New Mexico's extreme drying cycles accelerate concrete shrinkage cracking — more so than in humid climates. Not every slab crack is a foundation crack.",
-        links: [
-          { text: 'Common Concerns: Signs', href: '/common-concerns#signs' },
-          { text: 'Foam Injection', href: '/foundation-repair-methods#foam-injection' },
-        ],
+        links: [],
+        onset: ['gradual'],
+        see: ['see-cracks-slab'],
+        site: [],
+        foundation: ['fnd-slab'],
       },
       {
         q: 'Stucco cracks on exterior walls',
@@ -90,10 +97,11 @@ const categories: Category[] = [
         needsRepair: 'Most are cosmetic. Widening cracks, cracks with displacement, or cracks that correlate with interior symptoms warrant investigation.',
         nmContext:
           'High desert temperature swings — often 40°F in a single day — cause significant stucco movement. Evaluate interior symptoms alongside exterior cracking before concluding the cause.',
-        links: [
-          { text: 'Common Concerns: Signs', href: '/common-concerns#signs' },
-          { text: 'Why Foundations Move', href: '/why-foundations-move' },
-        ],
+        links: [],
+        onset: ['gradual'],
+        see: ['see-cracks-exterior'],
+        site: [],
+        foundation: [],
       },
     ],
   },
@@ -108,11 +116,11 @@ const categories: Category[] = [
           "Note whether it's seasonal or constant. A door that sticks only in summer and frees up in winter is often responding to humidity or soil cycling, not structural failure.",
         nmContext:
           'Seasonal clay soil movement — wet season expansion, dry season contraction — is the most common cause of sticking doors in New Mexico. Document the pattern before calling anyone.',
-        links: [
-          { text: 'Common Concerns: Signs', href: '/common-concerns#signs' },
-          { text: 'Heave vs. Settlement', href: '/common-concerns#heave' },
-          { text: 'Why Foundations Move', href: '/why-foundations-move' },
-        ],
+        links: [{ text: 'Heave vs. Settlement', href: '/common-concerns#heave' }],
+        onset: ['seasonal', 'gradual'],
+        see: ['see-doors'],
+        site: ['site-clay'],
+        foundation: [],
       },
       {
         q: "Windows that stick, won't open, or won't close fully",
@@ -121,10 +129,11 @@ const categories: Category[] = [
           'Check whether multiple windows on the same wall are affected, or if the pattern correlates with doors sticking on the same side of the house. Isolated window issues are often installation or expansion — multiple affected openings on one side suggest soil movement.',
         nmContext:
           'One side of a house affected, the other side fine — a common New Mexico pattern indicating differential soil movement under one corner or edge of the foundation.',
-        links: [
-          { text: 'Common Concerns: Signs', href: '/common-concerns#signs' },
-          { text: 'Why Foundations Move', href: '/why-foundations-move' },
-        ],
+        links: [],
+        onset: ['seasonal', 'gradual'],
+        see: ['see-windows'],
+        site: ['site-clay'],
+        foundation: [],
       },
       {
         q: 'Gaps at the top or bottom of door frames',
@@ -133,10 +142,11 @@ const categories: Category[] = [
         needsRepair: "A gap that has been stable for years is different from one that is growing. Photograph and measure. If it's changing, investigate.",
         nmContext:
           'A diagonal gap — wide at one corner, tight at the other — is a classic differential movement signature. Which corner is tight tells you the direction of movement.',
-        links: [
-          { text: 'Common Concerns: Signs', href: '/common-concerns#signs' },
-          { text: 'Heave vs. Settlement', href: '/common-concerns#heave' },
-        ],
+        links: [{ text: 'Heave vs. Settlement', href: '/common-concerns#heave' }],
+        onset: ['gradual'],
+        see: ['see-doors', 'see-gaps'],
+        site: ['site-clay'],
+        foundation: [],
       },
     ],
   },
@@ -149,12 +159,15 @@ const categories: Category[] = [
         whatsHappening: 'Foundation settlement, collapsible soil subsidence, or framing deflection. The floor is following the foundation.',
         needsRepair: 'Monitor whether the slope is changing. A static slope that has been there for years is often normal; a progressive one warrants investigation.',
         nmContext:
-          "Collapsible soils are widespread across New Mexico's basin floors — the West Mesa, Estancia Valley, and river corridors. They can collapse rapidly when moisture is introduced for the first time.",
+          "Collapsible soils are widespread across New Mexico's basin floors — the West Mesa, Estancia Valley, and river corridors. They can collapse rapidly when moisture is introduced for the first time. Some homeowners notice it first because a ball or marble left on the floor rolls to one side by itself.",
         links: [
           { text: 'Common Concerns: Timing', href: '/common-concerns#wait' },
           { text: 'Collapsible Soils', href: '/collapsible-soil' },
-          { text: 'Why Foundations Move', href: '/why-foundations-move' },
         ],
+        onset: ['gradual', 'sudden'],
+        see: ['see-floors'],
+        site: ['site-cutfill'],
+        foundation: [],
       },
       {
         q: 'Gaps between walls and floors or ceilings',
@@ -164,10 +177,11 @@ const categories: Category[] = [
           'A gap that is stable and has been present for years is different from one that is opening. If you can track the change over weeks or months, document it and get an evaluation.',
         nmContext:
           'Gaps that open in spring and close in fall — or vice versa — are often seasonal soil cycling, not progressive structural movement. The pattern matters as much as the gap itself.',
-        links: [
-          { text: 'Common Concerns: Signs', href: '/common-concerns#signs' },
-          { text: 'Why Foundations Move', href: '/why-foundations-move' },
-        ],
+        links: [],
+        onset: ['seasonal', 'gradual'],
+        see: ['see-gaps'],
+        site: ['site-clay'],
+        foundation: [],
       },
       {
         q: 'Cabinets or countertops pulling away from walls',
@@ -177,23 +191,27 @@ const categories: Category[] = [
           'A small gap that has been stable is often just settling. A gap that is growing, or that appeared suddenly, is worth investigating — particularly if other symptoms are present in the same area of the house.',
         nmContext:
           'Kitchen and bath areas are often first indicators of localized movement — plumbing leaks beneath slabs in these areas are a common trigger for sudden soil changes.',
-        links: [
-          { text: 'Collapsible Soils', href: '/collapsible-soil' },
-          { text: 'Common Concerns: Signs', href: '/common-concerns#signs' },
-        ],
+        links: [{ text: 'Collapsible Soils', href: '/collapsible-soil' }],
+        onset: ['gradual', 'sudden'],
+        see: ['see-gaps'],
+        site: ['site-plumbing'],
+        foundation: [],
       },
       {
         q: 'Bowed or leaning foundation wall',
-        whatsHappening: 'Lateral soil pressure, expansive clay heave, or hydrostatic pressure pushing against the foundation wall from outside.',
+        whatsHappening: 'Lateral soil pressure, expansive clay heave, or <a href="/glossary#hydrostatic-pressure" class="glossary-link">hydrostatic pressure</a> pushing against the foundation wall from outside.',
         needsRepair:
           'Active inward movement warrants evaluation. Some walls stabilize once drainage is corrected. The rate of movement matters — slow and stable is different from progressive.',
         nmContext:
           'Expansive clay exerts significant lateral pressure after monsoon saturation. Poorly drained sites in the Rio Grande Valley and Four Corners are highest risk for wall bowing.',
         links: [
-          { text: 'Common Concerns: Signs', href: '/common-concerns#signs' },
           { text: 'Expansive Soils', href: '/expansive-soil' },
           { text: 'Repair Methods', href: '/foundation-repair-methods' },
         ],
+        onset: ['gradual'],
+        see: ['see-foundation-cracks'],
+        site: ['site-clay'],
+        foundation: [],
       },
     ],
   },
@@ -208,22 +226,24 @@ const categories: Category[] = [
           'Hairline cracks in cured concrete are common and usually stable. Cracks wider than 1/4 inch, cracks with displacement (one side higher than the other), or cracks that are actively growing warrant evaluation.',
         nmContext:
           'Photograph and measure any foundation crack. A crack that has been unchanged for five years is a different situation from one that has doubled in width over six months. The record you create now is the evidence that matters later.',
-        links: [
-          { text: 'Common Concerns: Signs', href: '/common-concerns#signs' },
-          { text: 'Why Foundations Move', href: '/why-foundations-move' },
-        ],
+        links: [],
+        onset: ['gradual'],
+        see: ['see-foundation-cracks'],
+        site: [],
+        foundation: [],
       },
       {
         q: 'Gap between foundation and house framing',
         whatsHappening:
-          'The sill plate or mudsill — the wood framing member that sits on top of the foundation — has separated from the concrete below. Either the foundation has dropped, or the framing has lifted.',
+          'The sill plate or <a href="/glossary#mudsill" class="glossary-link">mudsill</a> — the wood framing member that sits on top of the foundation — has separated from the concrete below. Either the foundation has dropped, or the framing has lifted.',
         needsRepair: 'A visible gap at the foundation-to-framing connection is worth evaluating. It affects both structural integrity and pest and moisture intrusion.',
         nmContext:
           'Heave lifting the interior slab while perimeter walls settle — or vice versa — is a common New Mexico pattern that creates gaps at the foundation perimeter. The direction of the gap tells part of the story.',
-        links: [
-          { text: 'Heave vs. Settlement', href: '/common-concerns#heave' },
-          { text: 'Why Foundations Move', href: '/why-foundations-move' },
-        ],
+        links: [{ text: 'Heave vs. Settlement', href: '/common-concerns#heave' }],
+        onset: ['gradual'],
+        see: ['see-foundation-gap'],
+        site: ['site-clay'],
+        foundation: [],
       },
       {
         q: 'Soil pulling away from the foundation perimeter',
@@ -236,8 +256,11 @@ const categories: Category[] = [
         links: [
           { text: 'Drainage Correction', href: '/foundation-repair-methods#drainage-correction' },
           { text: 'Expansive Soils', href: '/expansive-soil' },
-          { text: 'Why Foundations Move', href: '/why-foundations-move' },
         ],
+        onset: ['seasonal', 'gradual'],
+        see: ['see-foundation-gap'],
+        site: ['site-clay'],
+        foundation: [],
       },
       {
         q: 'Chimney leaning or separating from the house',
@@ -248,10 +271,13 @@ const categories: Category[] = [
         nmContext:
           'Adobe and older masonry construction with separate chimney footings is common in historic Santa Fe, Taos, and Albuquerque properties. Differential movement between the chimney and the main structure is a frequent finding in these homes.',
         links: [
-          { text: 'Common Concerns: Signs', href: '/common-concerns#signs' },
           { text: 'Northern NM Soils', href: '/northern-new-mexico' },
           { text: 'Central NM Soils', href: '/central-new-mexico' },
         ],
+        onset: ['gradual'],
+        see: ['see-chimney'],
+        site: ['site-adobe'],
+        foundation: [],
       },
     ],
   },
@@ -262,14 +288,17 @@ const categories: Category[] = [
       {
         q: 'Water pooling near the foundation',
         whatsHappening: 'Negative site drainage, improper grade, or irrigation runoff collecting against the foundation instead of draining away from it.',
-        needsRepair: 'Fix drainage first. Correcting grade often eliminates the need for structural repair entirely — the moisture trigger is removed and the soil stabilizes.',
+        needsRepair: 'Fix drainage first. Correcting grade often eliminates the need for structural repair entirely — the <a href="/glossary#moisture-trigger" class="glossary-link">moisture trigger</a> is removed and the soil stabilizes.',
         nmContext:
-          'Moisture is the critical trigger for both expansive soil heave and collapsible soil collapse. Moisture migration is frequently the most important repair a New Mexico homeowner can make — and the least expensive.',
+          'Moisture is the critical trigger for both expansive soil heave and collapsible soil collapse. <a href="/glossary#moisture-migration" class="glossary-link">Moisture migration</a> is frequently the most important repair a New Mexico homeowner can make — and the least expensive.',
         links: [
-          { text: 'Drainage Correction', href: '/foundation-repair-methods#drainage-correction' },
           { text: 'Drainage Correction', href: '/foundation-repair-methods#drainage-correction' },
           { text: "Why NM's Different", href: '/our-approach' },
         ],
+        onset: ['seasonal', 'sudden'],
+        see: ['see-drainage'],
+        site: [],
+        foundation: [],
       },
       {
         q: 'Foundation symptoms appearing after a plumbing change',
@@ -278,11 +307,15 @@ const categories: Category[] = [
         needsRepair:
           'Rule out plumbing before scheduling any foundation evaluation. A pressure test on both supply and waste lines is the right first step when symptoms appeared suddenly or are concentrated in one area — significantly less expensive than foundation repair, and the right call when the pattern suggests it.',
         nmContext:
-          "Waste line leaks cause more foundation damage than supply line leaks in our experience — they introduce water continuously and go undetected longer. Both sides need to be tested. Worth checking before you pay out of pocket: many homeowners policies cover locating a sudden, accidental leak even though they exclude the resulting soil movement — read your policy or call your agent and ask specifically.",
+          "Waste line leaks cause more foundation damage than supply line leaks in our experience — they introduce water continuously and go undetected longer. Both sides need to be tested. A warm spot on the floor, the sound of running water when nothing's on, or a water bill that jumped for no reason are all common ways homeowners notice a slab leak before anything else shows up. Worth checking before you pay out of pocket: many homeowners policies cover locating a sudden, accidental leak even though they exclude the resulting soil movement — read your policy or call your agent and ask specifically.",
         links: [
           { text: 'Common Concerns: Insurance', href: '/common-concerns#insurance' },
           { text: 'Collapsible Soils', href: '/collapsible-soil' },
         ],
+        onset: ['sudden'],
+        see: ['see-leak-signs'],
+        site: ['site-plumbing'],
+        foundation: ['fnd-slab'],
       },
       {
         q: 'Crawlspace moisture or sagging floors',
@@ -296,20 +329,110 @@ const categories: Category[] = [
           { text: 'Drainage Correction', href: '/foundation-repair-methods#drainage-correction' },
           { text: "Why NM's Different", href: '/our-approach' },
         ],
+        onset: ['gradual', 'seasonal'],
+        see: ['see-crawlspace', 'see-floors'],
+        site: ['site-plumbing'],
+        foundation: ['fnd-pierbeam'],
       },
     ],
   },
 ];
 
-const regions = [
-  { name: 'Central New Mexico', url: '/central-new-mexico' },
-  { name: 'Northern New Mexico', url: '/northern-new-mexico' },
-  { name: 'Four Corners', url: '/four-corners' },
-  { name: 'Eastern New Mexico', url: '/eastern-new-mexico' },
-  { name: 'Southern New Mexico', url: '/southern-new-mexico' },
+// Region dropdown first, city dropdown populated from that region's real
+// city list once a region is picked. City lists are the ones already
+// published on each regional soil page's zone strips, not a guessed list.
+const regionCities = [
+  {
+    region: 'Four Corners',
+    url: '/four-corners',
+    cities: ['Farmington', 'Aztec', 'Bloomfield', 'Kirtland', 'Gallup', 'Grants', 'Shiprock'],
+  },
+  {
+    region: 'Northern New Mexico',
+    url: '/northern-new-mexico',
+    cities: [
+      'Taos', 'Ranchos de Taos', 'Arroyo Seco', 'Questa', 'Red River', 'Ojo Caliente',
+      'Mora', 'Wagon Mound', 'Chacon', 'Cleveland', 'Guadalupita', 'Roy',
+      'Raton', 'Springer', 'Angel Fire', 'Cimarron', 'Eagle Nest', 'Maxwell',
+    ],
+  },
+  {
+    region: 'Central New Mexico',
+    url: '/central-new-mexico',
+    cities: [
+      'Albuquerque', 'Rio Rancho', 'Corrales', 'Bernalillo', 'Los Lunas', 'Belen',
+      'Santa Fe', 'Española', 'Los Alamos', 'White Rock', 'Pojoaque', 'Chimayó',
+      'Estancia', 'Moriarty', 'Mountainair', 'Willard', 'McIntosh', 'Edgewood',
+    ],
+  },
+  {
+    region: 'Eastern New Mexico',
+    url: '/eastern-new-mexico',
+    cities: [
+      'Clovis', 'Portales', 'Tucumcari', 'Fort Sumner', 'Santa Rosa', 'Clayton',
+      'Roswell', 'Artesia', 'Carlsbad', 'Dexter', 'Hagerman', 'Loving',
+    ],
+  },
+  {
+    region: 'Southern New Mexico',
+    url: '/southern-new-mexico',
+    cities: [
+      'Las Cruces', 'Mesilla', 'Doña Ana', 'Anthony', 'Sunland Park', 'Organ',
+      'Hatch', 'Rincon', 'Garfield', 'Arrey', 'Derry',
+      'Alamogordo', 'Tularosa', 'La Luz', 'Holloman AFB', 'Three Rivers',
+      'Ruidoso', 'Cloudcroft', 'Alto', 'Capitan', 'Carrizozo',
+      'Socorro', 'Truth or Consequences', 'Magdalena', 'Elephant Butte',
+      'Deming', 'Silver City', 'Bayard', 'Columbus', 'Hurley',
+      'Lordsburg', 'Animas', 'Hachita', 'Rodeo', 'Playas',
+    ],
+  },
 ];
 
 const allSymptoms = categories.flatMap((c) => c.items);
+
+// Facet definitions -- shared vocabulary with cause-library.astro so
+// checked boxes carry forward through the pill at the bottom of the page.
+const onsetOptions = [
+  { id: 'sudden', label: 'Started suddenly' },
+  { id: 'gradual', label: "Been happening gradually, over time" },
+  { id: 'seasonal', label: 'Comes and goes with the seasons' },
+];
+const seeOptions = [
+  { id: 'see-crack-vertical', label: 'Vertical crack in a wall or drywall' },
+  { id: 'see-crack-horizontal', label: 'Horizontal crack in a wall or drywall' },
+  { id: 'see-crack-diagonal', label: 'Diagonal crack near a door or window' },
+  { id: 'see-crack-ceiling', label: 'Crack or gap where the wall meets the ceiling' },
+  { id: 'see-cracks-exterior', label: 'Cracks in stucco, brick, or exterior walls' },
+  { id: 'see-cracks-slab', label: 'Cracks in a concrete slab or garage floor' },
+  { id: 'see-doors', label: "Doors that won't close, latch, or stick" },
+  { id: 'see-windows', label: "Windows that won't open or close" },
+  { id: 'see-floors', label: 'Sloping, uneven, dipping, or bouncy floors' },
+  { id: 'see-gaps', label: 'Gaps around doors, windows, or baseboards' },
+  { id: 'see-foundation-cracks', label: 'Foundation cracks or crumbling concrete' },
+  { id: 'see-foundation-gap', label: 'A gap between the house and the foundation' },
+  { id: 'see-chimney', label: 'Chimney leaning or separating from the house' },
+  { id: 'see-drainage', label: 'Water pooling or poor drainage near the house' },
+  { id: 'see-crawlspace', label: 'Wet, damp, or musty crawlspace' },
+  { id: 'see-leak-signs', label: 'A warm/wet spot on the floor, or a sudden jump in your water bill' },
+];
+const siteOptions = [
+  { id: 'site-cutfill', label: 'Built on a cut-and-fill or hillside lot' },
+  { id: 'site-clay', label: 'Known clay or "heavy" soil in the area' },
+  { id: 'site-arroyo', label: 'Near an arroyo or drainage channel' },
+  { id: 'site-adobe', label: 'Older adobe or mud-brick construction' },
+  { id: 'site-plumbing', label: 'Recent plumbing leak or repair nearby' },
+  { id: 'site-trees', label: 'Large trees close to the house' },
+  { id: 'site-soil-issues', label: 'Known soil issues in the area' },
+  { id: 'site-settlement-issues', label: 'Known settlement issues in the neighborhood' },
+];
+const foundationOptions = [
+  { id: 'fnd-slab', label: 'Slab on grade' },
+  { id: 'fnd-monolithic', label: 'Monolithic slab (turned-down edge)' },
+  { id: 'fnd-posttension', label: 'Post-tension slab' },
+  { id: 'fnd-spreadfooting', label: 'Spread footing' },
+  { id: 'fnd-pierbeam', label: 'Pier and beam / crawlspace' },
+  { id: 'fnd-unsure', label: 'Not sure' },
+];
 
 const schema = [
   {
@@ -346,142 +469,227 @@ const schema = [
   nextPage={{ path: '/common-concerns', name: 'Common Concerns' }}
 >
   <div class="sg-page">
+    <!-- Screen-hidden, print-only -- becomes the actual header of the
+         printed page since the site nav, hero, and checkboxes are all
+         stripped out for print. -->
+    <div class="print-header">
+      <div class="print-header-brand">TLS Foundations</div>
+      <div class="print-header-phone">(505) 991-4180 · tlsfoundations.com</div>
+      <p class="print-header-disclaimer">
+        Educational reference only — not a diagnosis or professional evaluation. Prepared from checkboxes
+        selected on <span id="printDate"></span>.
+      </p>
+    </div>
+
     <section class="page-hero">
       <div class="page-hero-inner">
-        <span class="hero-eyebrow">Resources · Reference</span>
+        <span class="hero-eyebrow">Interactive Guides · Symptom Triage</span>
         <h1>Foundation <em>Symptom Guide</em></h1>
-        <p class="page-hero-sub">See something? Here's what it means — and how New Mexico soils affect it.</p>
+        <p class="page-hero-sub">See something? Check what applies below and we'll sort what it usually means — and how New Mexico soils affect it.</p>
       </div>
     </section>
 
     <div class="page">
       <div class="diagnostic-note">
         <p>
-          These are the most common signs New Mexico homeowners notice when something feels off with their
-          foundation. For each one, here's what's typically happening and whether it usually warrants
-          attention. Soil conditions, site drainage, and how long something has been changing all matter —
-          this is a <strong>starting point, not a diagnosis</strong>. If you're seeing signs that concern
-          you, <a href="/contact-us">call us</a>. You reach the owner, not a scheduler.{' '}
-          <a href="/common-concerns" class="body-link">If you have questions about cost, timing, or contractors, see our Common Concerns page.</a>
-        </p>
-        <p>
-          <strong>Before you call anyone, document what you're seeing.</strong> Photograph every crack — note
-          its location, orientation, and approximate width. Check whether doors or windows that are sticking
-          are doing so consistently or only seasonally. Mark crack edges with pencil and a date so you have a
-          reference point to measure change over time. A crack that's been stable for years is a different
-          conversation than one that opened last month, and documentation gives any evaluator — us, an
-          engineer, a geotechnical investigator — a starting point grounded in evidence rather than
-          impression. If you're seeing rapid, progressive change instead — cracks widening over days, doors
-          that suddenly won't close, visible structural distress — that's a different situation and warrants
-          a call sooner rather than later.
+          These are the signs New Mexico homeowners notice most. Check what applies and we'll show you what
+          it usually means — <strong>a starting point, not a diagnosis</strong>. Concerned?{' '}
+          <a href="/contact-us">Call us</a> — you reach the owner, not a scheduler.{' '}
+          <a href="/common-concerns" class="body-link">Questions about cost or timing? See Common Concerns.</a>
         </p>
       </div>
 
-      <div class="myth-section">
-        <span class="myth-label">Quick answers, before you dig in</span>
-        <div class="myth-grid">
-          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
-            <div class="myth-card-inner">
-              <div class="myth-front">
-                <div class="myth-title">Is it "foundation failure"?</div>
-                <span class="myth-hint">Tap to see</span>
-              </div>
-              <div class="myth-back">
-                <p>Rarely. Most of what homeowners call failure is soil movement — the ground moving, not the structure losing its ability to stand. "Failure" is urgency language more than an accurate description.</p>
-              </div>
-            </div>
+      <!-- CHECK ALL THAT APPLY -->
+      <div class="facet-panel" id="facetPanel">
+        <div class="facet-panel-head">
+          <span class="facet-panel-label">Check all that apply</span>
+          <p class="facet-panel-sub">This describes common patterns, not an evaluation of your home — the safest step, if you're ever unsure, is to have someone look.</p>
+          <p class="facet-panel-note">Same checklist on the <a href="/cause-library">Cause Library</a> — check it once and we'll carry your answers over, either direction.</p>
+        </div>
+
+        <fieldset class="facet-group">
+          <legend>Where are you in New Mexico?</legend>
+          <div class="region-row">
+            <select id="regionSelect" aria-label="Select your region (optional)">
+              <option value="">Select your region (optional)</option>
+              {regionCities.map((r) => (
+                <option value={r.region} data-region-url={r.url}>{r.region}</option>
+              ))}
+              <option value="Other / not listed">Other / not listed</option>
+            </select>
+            <select id="citySelect" aria-label="Select your city or town (optional)" disabled>
+              <option value="">Select your region first</option>
+            </select>
           </div>
-          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
-            <div class="myth-card-inner">
-              <div class="myth-front">
-                <div class="myth-title">Is every crack serious?</div>
-                <span class="myth-hint">Tap to see</span>
-              </div>
-              <div class="myth-back">
-                <p>No. Many reflect historic movement that already stabilized years ago. What matters is whether it's growing now — not whether it exists.</p>
-              </div>
-            </div>
+          <p class="facet-tip" id="regionLinkTip" hidden></p>
+          <script type="application/json" id="regionCitiesData" set:html={JSON.stringify(regionCities)} />
+        </fieldset>
+
+        <fieldset class="facet-group">
+          <legend>What kind of foundation do you have? <span class="facet-group-note">(check the one you're sure of)</span></legend>
+          <div class="facet-options">
+            {foundationOptions.map((o) => (
+              <label class="facet-chip">
+                <input type="radio" name="foundation" value={o.id} />
+                <span>{o.label}</span>
+              </label>
+            ))}
           </div>
-          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
-            <div class="myth-card-inner">
-              <div class="myth-front">
-                <div class="myth-title">Do I need repair right now?</div>
-                <span class="myth-hint">Tap to see</span>
-              </div>
-              <div class="myth-back">
-                <p>Depends on why it's moving, not on how alarming it looks. Some situations call for acting now; a lot of them call for documenting and watching first.</p>
-              </div>
-            </div>
+        </fieldset>
+
+        <fieldset class="facet-group">
+          <legend>Do you have building plans for your house?</legend>
+          <div class="facet-options">
+            <label class="facet-chip">
+              <input type="radio" name="plans" value="yes" id="plansYes" />
+              <span>Yes</span>
+            </label>
+            <label class="facet-chip">
+              <input type="radio" name="plans" value="no" id="plansNo" />
+              <span>No</span>
+            </label>
           </div>
-          <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
-            <div class="myth-card-inner">
-              <div class="myth-front">
-                <div class="myth-title">Can a repair itself fail?</div>
-                <span class="myth-hint">Tap to see</span>
-              </div>
-              <div class="myth-back">
-                <p>Yes — usually from misdiagnosis, not bad material. The most common cause is a repair designed for settlement applied to a foundation that's actually heaving.</p>
-              </div>
+          <p class="facet-tip" id="plansTip" hidden>Good — having a copy on hand at the time of an evaluation can speed things up.</p>
+        </fieldset>
+
+        <fieldset class="facet-group">
+          <legend>When did it start?</legend>
+          <div class="facet-options">
+            {onsetOptions.map((o) => (
+              <label class="facet-chip">
+                <input type="checkbox" name="onset" value={o.id} />
+                <span>{o.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset class="facet-group">
+          <legend>What are you seeing?</legend>
+          <div class="facet-options">
+            {seeOptions.map((o) => (
+              <label class="facet-chip">
+                <input type="checkbox" name="see" value={o.id} />
+                <span>{o.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset class="facet-group">
+          <legend>What do you know about your site?</legend>
+          <div class="facet-options">
+            {siteOptions.map((o) => (
+              <label class="facet-chip">
+                <input type="checkbox" name="site" value={o.id} />
+                <span>{o.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <div class="facet-actions">
+          <button type="button" id="facetClear" class="facet-clear" hidden>Clear all</button>
+        </div>
+      </div>
+
+      <!-- OUTCOME -->
+      <div class="outcome-box" id="outcomeBox" hidden>
+        <span class="outcome-label">Based on what you checked</span>
+        <p class="outcome-text" id="outcomeText"></p>
+        <div class="outcome-cta">
+          <a href="tel:5059914180" class="outcome-phone">(505) 991-4180</a>
+          <button type="button" id="printResults" class="outcome-print">Print your results</button>
+          <button type="button" id="sendResultsToggle" class="outcome-print" aria-expanded="false">Send this to TLS</button>
+        </div>
+
+        <div class="send-form-wrap" id="sendFormWrap" hidden>
+          <form id="sendResultsForm" class="send-form" novalidate>
+            <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+            <input type="hidden" name="subject" value="Symptom Guide results from tlsfoundations.com" />
+            <input type="hidden" name="from_name" value="TLS Foundations website" />
+            <input type="hidden" name="message" id="sendMessageField" />
+            <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" />
+            <p class="send-form-note">We'll send exactly what's on this page — what you checked, and the read above.</p>
+            <div class="form-row">
+              <label for="send-name">Name</label>
+              <input id="send-name" name="name" type="text" required autocomplete="name" />
             </div>
+            <div class="form-row">
+              <label for="send-contact">Best way to reach you (email or phone)</label>
+              <input id="send-contact" name="email" type="text" required autocomplete="email" />
+            </div>
+            <button type="submit" class="form-submit">Send my results</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <div class="outcome-more" id="outcomeMore">
+          <p class="outcome-triage">A floor-level survey measures the relative elevation of your floors at dozens of points across the house, building an objective map of potential soil-related patterns. We don't know how level the floors were before the survey — it's a snapshot in time, not a before-and-after — but that snapshot is often what leads to a proper diagnosis, and it establishes the baseline everything after is measured against. It's the first step in triage: like a doctor taking vital signs before treating you, we need real data before recommending anything else. The checkboxes narrow down what it's likely to be; the survey confirms it.</p>
+          <div class="related-reading" id="relatedReading" hidden>
+            <span class="related-reading-label">Related reading, based on your closest matches</span>
+            <div class="related-reading-list" id="relatedReadingList"></div>
+          </div>
+          <div class="handoff">
+            <p class="handoff-text">Want the deeper explanation of why this happens, mechanism by mechanism? Your answers carry over automatically.</p>
+            <a href="/cause-library" id="outcomePill" class="handoff-btn">Go to the Cause Library →</a>
           </div>
         </div>
       </div>
 
-      <div class="region-finder" id="regionFinder">
-        <span class="region-finder-label">Where are you in New Mexico?</span>
-        <div class="region-finder-row">
-          <select id="regionSelect" aria-label="Select your region">
-            <option value="">Select your region</option>
-            {regions.map((r) => <option value={r.url}>{r.name}</option>)}
-          </select>
-          <button id="regionSave" type="button">Remember my area →</button>
-        </div>
-        <p class="region-finder-current" id="regionCurrent" hidden>
-          Showing regional links for <strong id="regionCurrentName"></strong> ·
-          <button type="button" id="regionChange">change</button>
-        </p>
+      <div class="results-lead" id="resultsLead" hidden>
+        <h2 class="results-lead-heading">Ranked Reading</h2>
+        <p class="results-lead-text">Ranked for you — based on what you checked, this is likely the most useful reading on this page for your situation.</p>
       </div>
 
-      <div class="filter-bar">
-        <input type="search" id="symptomSearch" placeholder="Search symptoms — e.g. &quot;sticking door&quot;" aria-label="Search symptoms" />
-        <div class="filter-chips" id="filterChips">
-          <button type="button" class="chip active" data-filter="all">All</button>
-          {categories.map((c) => (
-            <button type="button" class="chip" data-filter={c.id}>{c.label}</button>
-          ))}
-        </div>
-      </div>
+      <div class="symptom-grid" id="symptomGrid">
+        {categories.map((cat) =>
+          cat.items.map((s) => (
+            <article
+              class="symptom"
+              data-search={s.q.toLowerCase()}
+              data-category={cat.id}
+              data-onset={s.onset.join(',')}
+              data-see={s.see.join(',')}
+              data-site={s.site.join(',')}
+              data-foundation={s.foundation.join(',')}
+            >
+              <span class="symptom-category-badge">{cat.label}</span>
+              <h2 class="symptom-title-row"><span>{s.q}</span><span class="rest-chevron" aria-hidden="true">⌄</span></h2>
+              <p class="needs-repair"><strong>Does it need repair?</strong> <Fragment set:html={s.needsRepair} /></p>
 
-      {categories.map((cat) => (
-        <div class="category-group" id={cat.id} data-category={cat.id}>
-          <div class="category-label">{cat.label}</div>
-          <div class="symptom-list">
-            {cat.items.map((s) => (
-              <article class="symptom" data-search={s.q.toLowerCase()}>
-                <h2>{s.q}</h2>
-                <p class="whats-happening"><strong>What's happening:</strong> {s.whatsHappening}</p>
-                <p class="needs-repair"><strong>Does it need repair?</strong> {s.needsRepair}</p>
-                <p class="nm-note">NM context: {s.nmContext}</p>
+              <button type="button" class="symptom-detail-toggle" data-detail-toggle="whats">What's happening →</button>
+              <div class="symptom-detail" data-detail="whats" hidden>
+                <p class="symptom-match-tag" data-match-tag hidden></p>
+                <p class="whats-happening"><Fragment set:html={s.whatsHappening} /></p>
+              </div>
+
+              <button type="button" class="symptom-detail-toggle" data-detail-toggle="nm">NM context →</button>
+              <div class="symptom-detail" data-detail="nm" hidden>
+                <p class="nm-note"><Fragment set:html={s.nmContext} /></p>
+              </div>
+
+              {s.links.length > 0 && (
                 <div class="symptom-links">
                   {s.links.map((l) => (
                     <a href={l.href} class="symptom-link">{l.text} →</a>
                   ))}
-                  <a href="/new-mexico-soil-conditions" class="symptom-link region-link" data-region-link>
-                    Explore regional soil pages →
-                  </a>
                 </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      ))}
+              )}
+            </article>
+          ))
+        )}
+      </div>
+
+      <button type="button" class="other-strip" id="otherStrip" hidden></button>
 
       <div class="contact-footer">
         <p><strong>Nothing beats talking through what you're seeing.</strong></p>
         <p><a href="tel:5059914180">(505) 991-4180</a> · <a href="/contact-us">Send a message</a></p>
         <p class="contact-footer-sub">
           Not ready to call yet? <a href="/homeowner-decision-series">Homeowner Decision Series</a> covers what to
-          document and watch for first, on camera.
+          document and watch for first, on camera. Want the full picture of why this happens?{' '}
+          <a href="/why-foundations-move">Why Foundations Move</a> covers the mechanism.
         </p>
       </div>
     </div>
@@ -491,95 +699,531 @@ const schema = [
 </Layout>
 
 <script>
-  document.querySelectorAll<HTMLElement>('.myth-card').forEach((card) => {
-    card.addEventListener('click', () => card.classList.toggle('flipped'));
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        card.classList.toggle('flipped');
+  // Fires a GA4 custom event if the tag is present, no-ops otherwise --
+  // Cloudflare Web Analytics (also on this page) doesn't support custom
+  // events, only page views, so this is GA4-specific by design.
+  function track(name: string, params?: Record<string, string>) {
+    if (typeof (window as any).gtag === 'function') (window as any).gtag('event', name, params || {});
+  }
+
+  // Region picker first, city picker populated from that region's real city
+  // list once a region is chosen. Remembers the choice across visits,
+  // tracks it, and surfaces a single link back to that region's soil page.
+  const STORAGE_KEY = 'tls-region';
+  const regionSelect = document.getElementById('regionSelect') as HTMLSelectElement;
+  const citySelect = document.getElementById('citySelect') as HTMLSelectElement;
+  const regionLinkTip = document.getElementById('regionLinkTip') as HTMLElement;
+  const regionData = JSON.parse(document.getElementById('regionCitiesData')!.textContent || '[]') as {
+    region: string;
+    url: string;
+    cities: string[];
+  }[];
+
+  function populateCities(regionName: string, selectedCity = '') {
+    citySelect.innerHTML = '';
+    const region = regionData.find((r) => r.region === regionName);
+    if (!region) {
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = regionName ? 'City (optional)' : 'Select your region first';
+      citySelect.appendChild(opt);
+      citySelect.disabled = true;
+      return;
+    }
+    citySelect.disabled = false;
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = 'Select your city or town (optional)';
+    citySelect.appendChild(placeholder);
+    region.cities.forEach((c) => {
+      const opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = c;
+      citySelect.appendChild(opt);
+    });
+    const other = document.createElement('option');
+    other.value = 'Other / not listed';
+    other.textContent = 'Other / not listed';
+    citySelect.appendChild(other);
+    citySelect.value = selectedCity;
+  }
+
+  function showRegionTip(region: string, url: string) {
+    if (region && url) {
+      regionLinkTip.hidden = false;
+      regionLinkTip.innerHTML = `<a href="${url}">More about the ${region} region →</a>`;
+    } else {
+      regionLinkTip.hidden = true;
+    }
+  }
+
+  populateCities('');
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlRegion = urlParams.get('region');
+  if (urlRegion) {
+    // Arriving via the handoff from the Cause Library with a region already
+    // picked -- URL wins over whatever's in localStorage from a prior visit.
+    const opt = Array.from(regionSelect.options).find((o) => o.value === urlRegion);
+    const url = opt?.dataset.regionUrl || '';
+    const urlCity = urlParams.get('city') || '';
+    regionSelect.value = urlRegion;
+    populateCities(urlRegion, urlCity);
+    showRegionTip(urlRegion, url);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ region: urlRegion, url, city: urlCity }));
+  } else {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const { region, url, city } = JSON.parse(saved);
+        if (region) {
+          regionSelect.value = region;
+          populateCities(region, city || '');
+          showRegionTip(region, url || '');
+        }
+      } catch {
+        /* ignore malformed storage */
+      }
+    }
+  }
+
+  regionSelect.addEventListener('change', () => {
+    const region = regionSelect.value;
+    const opt = regionSelect.options[regionSelect.selectedIndex];
+    const url = opt.dataset.regionUrl || '';
+    populateCities(region);
+    if (!region) {
+      localStorage.removeItem(STORAGE_KEY);
+      regionLinkTip.hidden = true;
+      return;
+    }
+    showRegionTip(region, url);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ region, url, city: '' }));
+    track('region_selected', { region });
+  });
+
+  citySelect.addEventListener('change', () => {
+    const city = citySelect.value;
+    const region = regionSelect.value;
+    const opt = regionSelect.options[regionSelect.selectedIndex];
+    const url = opt.dataset.regionUrl || '';
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ region, url, city }));
+    track('city_selected', { city, region: region || 'unspecified' });
+  });
+
+  // "Do you have building plans" is a prep tip, not a fact that predicts
+  // any cause -- it doesn't feed the scoring below at all, just reveals a
+  // one-line note when checked.
+  const plansTip = document.getElementById('plansTip') as HTMLElement;
+  (['plansYes', 'plansNo'] as const).forEach((id) => {
+    document.getElementById(id)?.addEventListener('change', () => {
+      plansTip.hidden = id !== 'plansYes';
+      track('house_plans_available', { value: id === 'plansYes' ? 'yes' : 'no' });
+    });
+  });
+
+  // ── Check-all-that-apply: score, sort (never hide), collapse, outcome ──
+  const grid = document.getElementById('symptomGrid') as HTMLElement;
+  const otherStrip = document.getElementById('otherStrip') as HTMLButtonElement;
+  const resultsLead = document.getElementById('resultsLead') as HTMLElement;
+  const items = Array.from(grid.querySelectorAll<HTMLElement>('.symptom')).map((el) => ({
+    el,
+    originalIndex: 0,
+    onset: (el.dataset.onset || '').split(',').filter(Boolean),
+    see: (el.dataset.see || '').split(',').filter(Boolean),
+    site: (el.dataset.site || '').split(',').filter(Boolean),
+    foundation: (el.dataset.foundation || '').split(',').filter(Boolean),
+  }));
+  items.forEach((it, i) => (it.originalIndex = i));
+
+  const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>('.facet-panel input[type="checkbox"], .facet-panel input[type="radio"]'));
+  const clearBtn = document.getElementById('facetClear') as HTMLButtonElement;
+  const outcomeBox = document.getElementById('outcomeBox') as HTMLElement;
+  const outcomeText = document.getElementById('outcomeText') as HTMLElement;
+  const outcomePill = document.getElementById('outcomePill') as HTMLAnchorElement;
+  const relatedReading = document.getElementById('relatedReading') as HTMLElement;
+  const relatedReadingList = document.getElementById('relatedReadingList') as HTMLElement;
+  let stripOpen = false;
+
+  const LINK_BLURBS: Record<string, string> = {
+    '/expansive-soil': 'How clay soils that swell and shrink with moisture drive seasonal cracking and heave.',
+    '/common-concerns#heave': 'Why heave and settlement look identical but need opposite repairs.',
+    '/common-concerns#wait': "When it's safe to monitor and when waiting makes things worse.",
+    '/collapsible-soil': 'Soils that hold for decades dry, then collapse suddenly once wet.',
+    '/foundation-repair-methods': 'The full range of repair approaches, not just piers.',
+    '/foundation-repair-methods#drainage-correction': 'Often the cheapest fix, and sometimes the only one you need.',
+    '/northern-new-mexico': 'Soil conditions specific to Santa Fe, Taos, and the north.',
+    '/central-new-mexico': 'Soil conditions specific to Albuquerque and the Rio Grande corridor.',
+    '/common-concerns#insurance': 'What homeowners insurance actually covers here.',
+  };
+
+  const LABELS: Record<string, string> = {
+    sudden: 'sudden onset',
+    gradual: 'gradual, over time',
+    seasonal: 'seasonal, comes and goes',
+    'see-crack-vertical': 'a vertical crack',
+    'see-crack-horizontal': 'a horizontal crack',
+    'see-crack-diagonal': 'a diagonal crack',
+    'see-crack-ceiling': 'a crack at the ceiling line',
+    'see-cracks-exterior': 'exterior cracking',
+    'see-cracks-slab': 'a slab or garage-floor crack',
+    'see-doors': 'doors that stick or won’t close',
+    'see-windows': 'windows that stick or won’t close',
+    'see-floors': 'sloping or uneven floors',
+    'see-gaps': 'gaps around doors, windows, or baseboards',
+    'see-foundation-cracks': 'foundation cracking',
+    'see-foundation-gap': 'a gap between the house and foundation',
+    'see-chimney': 'a leaning or separating chimney',
+    'see-drainage': 'water pooling near the house',
+    'see-crawlspace': 'a wet or musty crawlspace',
+    'see-leak-signs': 'signs of a possible leak',
+    'site-cutfill': 'a cut-and-fill or hillside lot',
+    'site-clay': 'known clay soil',
+    'site-arroyo': 'a site near an arroyo',
+    'site-adobe': 'older adobe construction',
+    'site-plumbing': 'a recent plumbing leak nearby',
+    'site-trees': 'large trees close to the house',
+    'fnd-slab': 'a slab-on-grade foundation',
+    'fnd-monolithic': 'a monolithic slab with a turned-down edge',
+    'fnd-posttension': 'a post-tension slab',
+    'fnd-spreadfooting': 'a spread-footing foundation',
+    'fnd-pierbeam': 'a pier-and-beam or crawlspace foundation',
+  };
+
+  // Literally shows the decision-tree logic instead of leaving it hidden
+  // behind the ranking -- which of the reader's own checked answers is
+  // the reason this specific card is showing up.
+  function buildMatchTag(it: (typeof items)[number], checked: ReturnType<typeof getChecked>): string {
+    const hits = [
+      ...it.see.filter((s) => checked.see.includes(s)),
+      ...it.onset.filter((s) => checked.onset.includes(s)),
+      ...it.site.filter((s) => checked.site.includes(s)),
+      ...it.foundation.filter((s) => checked.foundation.includes(s)),
+    ]
+      .map((id) => LABELS[id])
+      .filter(Boolean);
+    return hits.length ? `Matches what you checked: ${hits.join(', ')}` : '';
+  }
+
+  function getChecked() {
+    const onset = checkboxes.filter((c) => c.checked && c.name === 'onset').map((c) => c.value);
+    const see = checkboxes.filter((c) => c.checked && c.name === 'see').map((c) => c.value);
+    const site = checkboxes.filter((c) => c.checked && c.name === 'site').map((c) => c.value);
+    const foundation = checkboxes.filter((c) => c.checked && c.name === 'foundation' && c.value !== 'fnd-unsure').map((c) => c.value);
+    return { onset, see, site, foundation };
+  }
+
+  function score(it: (typeof items)[number], checked: ReturnType<typeof getChecked>) {
+    const seeMatches = it.see.filter((s) => checked.see.includes(s)).length;
+    // Onset/site/foundation only sharpen ranking among cards you've
+    // actually indicated a symptom for -- they never qualify a card on
+    // their own. Without this, a card could out-rank everything else
+    // purely from background facts (e.g. "older adobe construction")
+    // with no observed symptom checked at all, surfacing in "related
+    // reading" for something the reader never said they were seeing.
+    if (seeMatches === 0) return 0;
+    const onsetMatches = it.onset.filter((s) => checked.onset.includes(s)).length;
+    const siteMatches = it.site.filter((s) => checked.site.includes(s)).length;
+    const foundationMatches = it.foundation.filter((s) => checked.foundation.includes(s)).length;
+    return seeMatches * 3 + onsetMatches + siteMatches * 2 + foundationMatches * 2;
+  }
+
+  function urgencyTier(checked: ReturnType<typeof getChecked>) {
+    const seeCount = checked.see.length;
+    const sudden = checked.onset.includes('sudden');
+    if (sudden && seeCount >= 2) return 'call-soon';
+    if (sudden || seeCount >= 2) return 'evaluate';
+    if (seeCount === 0 && checked.onset.length === 0 && checked.site.length === 0 && checked.foundation.length === 0) return 'none';
+    return 'watch';
+  }
+
+  function buildPattern(checked: ReturnType<typeof getChecked>) {
+    const parts = [...checked.onset, ...checked.see, ...checked.site, ...checked.foundation].map((id) => LABELS[id]).filter(Boolean);
+    if (parts.length === 0) return 'What you checked';
+    if (parts.length === 1) return parts[0][0].toUpperCase() + parts[0].slice(1);
+    const last = parts[parts.length - 1];
+    return parts.slice(0, -1).join(', ') + ' together with ' + last;
+  }
+
+  function buildOutcome() {
+    const checked = getChecked();
+    const tier = urgencyTier(checked);
+    if (tier === 'none') {
+      outcomeBox.hidden = true;
+      return;
+    }
+    outcomeBox.hidden = false;
+    const pattern = buildPattern(checked);
+    const geotech = checked.site.includes('site-cutfill') || checked.site.includes('site-arroyo');
+    const geotechClause = geotech
+      ? ' If the site conditions point toward a deeper geotechnical question, we can loop in our affiliate Sandia GEO as well.'
+      : '';
+    // What a floor-level survey actually does, stated plainly and without
+    // naming or implying any specific repair method -- we don't know soil
+    // conditions until this happens, so nothing here should sound like a
+    // recommendation for piers, foam, or anything else.
+    const surveyClause = 'The first step is almost always the same: a floor-level survey and a distress investigation — think of it as triage, real data before anything else gets decided.';
+
+    let text = '';
+    if (tier === 'watch') {
+      text = `${pattern} is a common, usually lower-urgency pattern. The way to know for sure is still to check. ${surveyClause}${geotechClause} Call us and we'll walk you through what a simple monitoring program looks like.`;
+    } else if (tier === 'evaluate') {
+      text = `${pattern} is worth having a professional look at, even if nothing here points to an emergency. ${surveyClause}${geotechClause} Call us and we'll get that scheduled.`;
+    } else {
+      text = `${pattern} — especially sudden onset with more than one symptom at once — is the kind of pattern that usually warrants a closer look sooner rather than later. ${surveyClause}${geotechClause} Call us and we'll get that scheduled.`;
+    }
+    outcomeText.textContent = text;
+
+    const params = new URLSearchParams();
+    if (checked.onset.length) params.set('onset', checked.onset.join(','));
+    if (checked.see.length) params.set('see', checked.see.join(','));
+    if (checked.site.length) params.set('site', checked.site.join(','));
+    if (checked.foundation.length) params.set('foundation', checked.foundation.join(','));
+    if (regionSelect.value) params.set('region', regionSelect.value);
+    if (citySelect.value) params.set('city', citySelect.value);
+    outcomePill.href = '/cause-library' + (params.toString() ? '?' + params.toString() : '');
+
+    buildRelatedReading();
+  }
+
+  // Pulls the further-reading links straight off the matched cards -- no
+  // separate content to maintain, just the same links already rendered,
+  // deduplicated and given one line of context so they're worth clicking
+  // from inside the outcome box instead of scattered across every card.
+  function buildRelatedReading() {
+    // Only the top 3 matches, capped at 4 links total -- pulling from
+    // every matched card was recreating the "wall of links" problem this
+    // section was built to solve once more than a couple of boxes were
+    // checked. This should read as "here's what's worth reading," not
+    // "here's everything that happened to match."
+    const seen = new Set<string>();
+    const found: { href: string; text: string }[] = [];
+    const topMatched = Array.from(document.querySelectorAll<HTMLElement>('.symptom.matched')).slice(0, 3);
+    topMatched.forEach((card) => {
+      card.querySelectorAll<HTMLAnchorElement>('.symptom-link').forEach((a) => {
+        if (found.length >= 4) return;
+        const href = a.getAttribute('href') || '';
+        if (!href || seen.has(href)) return;
+        seen.add(href);
+        found.push({ href, text: a.textContent?.replace(/\s*→\s*$/, '').trim() || href });
+      });
+    });
+
+    relatedReadingList.innerHTML = '';
+    if (found.length === 0) {
+      relatedReading.hidden = true;
+      return;
+    }
+    relatedReading.hidden = false;
+    found.forEach(({ href, text }) => {
+      const row = document.createElement('a');
+      row.href = href;
+      row.className = 'related-reading-item';
+      const blurb = LINK_BLURBS[href];
+      row.innerHTML = `<span class="related-reading-title">${text} →</span>` + (blurb ? `<span class="related-reading-blurb">${blurb}</span>` : '');
+      relatedReadingList.appendChild(row);
+    });
+  }
+
+  // Individually-expanded "other symptom" rows -- separate from stripOpen
+  // (the "show all N" bulk toggle), so someone can peek at one collapsed
+  // row without having to open every other one too.
+  const individuallyOpened = new Set<HTMLElement>();
+
+  function applySort() {
+    const checked = getChecked();
+    const anyChecked = checked.onset.length + checked.see.length + checked.site.length + checked.foundation.length > 0;
+    clearBtn.hidden = !anyChecked;
+
+    const scored = items.map((it) => ({ it, s: anyChecked ? score(it, checked) : 0 }));
+    scored.sort((a, b) => (anyChecked ? b.s - a.s || a.it.originalIndex - b.it.originalIndex : a.it.originalIndex - b.it.originalIndex));
+
+    const matched = scored.filter((x) => x.s > 0);
+    const rest = scored.filter((x) => x.s === 0);
+
+    [...matched, ...rest].forEach(({ it }) => grid.appendChild(it.el));
+
+    resultsLead.hidden = !anyChecked;
+
+    if (!anyChecked) {
+      items.forEach((it) => {
+        it.el.classList.remove('collapsed', 'matched', 'rest');
+        const tag = it.el.querySelector<HTMLElement>('[data-match-tag]')!;
+        tag.hidden = true;
+      });
+      otherStrip.hidden = true;
+      stripOpen = false;
+      individuallyOpened.clear();
+    } else {
+      matched.forEach(({ it }) => {
+        it.el.classList.add('matched');
+        it.el.classList.remove('collapsed', 'rest');
+        const tag = it.el.querySelector<HTMLElement>('[data-match-tag]')!;
+        tag.textContent = buildMatchTag(it, checked);
+        tag.hidden = false;
+      });
+      rest.forEach(({ it }) => {
+        it.el.classList.remove('matched');
+        it.el.classList.add('rest');
+        it.el.classList.toggle('collapsed', !stripOpen && !individuallyOpened.has(it.el));
+        const tag = it.el.querySelector<HTMLElement>('[data-match-tag]')!;
+        tag.hidden = true;
+      });
+      if (rest.length > 0) {
+        otherStrip.hidden = false;
+        otherStrip.textContent = stripOpen
+          ? `Hide ${rest.length} other symptom${rest.length === 1 ? '' : 's'}`
+          : `${rest.length} other symptom${rest.length === 1 ? '' : 's'}, less likely — tap to show`;
+      } else {
+        otherStrip.hidden = true;
+      }
+    }
+
+    buildOutcome();
+  }
+
+  const printBtn = document.getElementById('printResults') as HTMLButtonElement;
+  const printDate = document.getElementById('printDate') as HTMLElement;
+  printBtn.addEventListener('click', () => {
+    printDate.textContent = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    track('print_results_clicked');
+    window.print();
+  });
+
+  outcomePill.addEventListener('click', () => track('handoff_to_cause_library'));
+
+  // "Send this to TLS" -- same content as the print version, sent through
+  // the same Web3Forms delivery as the main contact form (see the TODO on
+  // WEB3FORMS_ACCESS_KEY above).
+  function buildSendMessage(): string {
+    const checked = getChecked();
+    const lines: string[] = [];
+    if (regionSelect.value) lines.push(`Region: ${regionSelect.value}${citySelect.value ? ' — ' + citySelect.value : ''}`);
+    const parts = [...checked.onset, ...checked.see, ...checked.site, ...checked.foundation].map((id) => LABELS[id]).filter(Boolean);
+    if (parts.length) lines.push(`Checked: ${parts.join(', ')}`);
+    lines.push('');
+    lines.push(outcomeText.textContent || '');
+    lines.push('');
+    lines.push('Sent from the Symptom Guide at tlsfoundations.com/symptom-guide');
+    return lines.join('\n');
+  }
+
+  const sendToggle = document.getElementById('sendResultsToggle') as HTMLButtonElement;
+  const sendFormWrap = document.getElementById('sendFormWrap') as HTMLElement;
+  const sendForm = document.getElementById('sendResultsForm') as HTMLFormElement;
+  const sendMessageField = document.getElementById('sendMessageField') as HTMLInputElement;
+  const sendStatus = sendForm.querySelector('.form-status') as HTMLElement;
+  const sendSubmitBtn = sendForm.querySelector('.form-submit') as HTMLButtonElement;
+  const sendAccessKey = (sendForm.querySelector('input[name="access_key"]') as HTMLInputElement).value;
+
+  sendToggle.addEventListener('click', () => {
+    const open = sendFormWrap.hidden;
+    sendFormWrap.hidden = !open;
+    sendToggle.setAttribute('aria-expanded', String(open));
+    if (open) track('send_to_tls_opened');
+  });
+
+  sendForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    sendMessageField.value = buildSendMessage();
+
+    if (!sendAccessKey) {
+      sendStatus.textContent = "This isn't hooked up yet — text or call (505) 991-4180 in the meantime.";
+      sendStatus.classList.add('is-error');
+      return;
+    }
+
+    sendSubmitBtn.disabled = true;
+    sendStatus.classList.remove('is-error');
+    sendStatus.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(sendForm))),
+      });
+      const data = await res.json();
+      if (data.success) {
+        sendStatus.textContent = "Sent — we'll be in touch.";
+        sendForm.reset();
+        track('send_to_tls_submitted');
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
+    } catch {
+      sendStatus.textContent = "Something went wrong — text or call (505) 991-4180 instead.";
+      sendStatus.classList.add('is-error');
+    } finally {
+      sendSubmitBtn.disabled = false;
+    }
+  });
+
+  otherStrip.addEventListener('click', () => {
+    stripOpen = !stripOpen;
+    applySort();
+  });
+
+  // Each "other symptom" row's title doubles as its own accordion toggle --
+  // tapping it opens just that one card without needing the "show all"
+  // strip above. Only wired for cards currently marked .rest; matched
+  // cards always show full content already and have nothing to toggle.
+  document.querySelectorAll<HTMLElement>('.symptom-title-row').forEach((row) => {
+    row.addEventListener('click', () => {
+      const article = row.closest('.symptom') as HTMLElement;
+      if (!article.classList.contains('rest')) return;
+      const nowOpen = article.classList.contains('collapsed');
+      if (nowOpen) {
+        individuallyOpened.add(article);
+        article.classList.remove('collapsed');
+      } else {
+        individuallyOpened.delete(article);
+        article.classList.add('collapsed');
       }
     });
   });
 
-  const STORAGE_KEY = 'tls-region';
-  const regionSelect = document.getElementById('regionSelect') as HTMLSelectElement;
-  const regionSave = document.getElementById('regionSave') as HTMLButtonElement;
-  const regionCurrent = document.getElementById('regionCurrent') as HTMLElement;
-  const regionCurrentName = document.getElementById('regionCurrentName') as HTMLElement;
-  const regionChange = document.getElementById('regionChange') as HTMLButtonElement;
-  const finder = document.getElementById('regionFinder') as HTMLElement;
-
-  function applyRegion(url: string, name: string) {
-    document.querySelectorAll<HTMLAnchorElement>('[data-region-link]').forEach((a) => {
-      a.href = url;
-      a.textContent = `See ${name} soil context →`;
-    });
-    regionCurrentName.textContent = name;
-    regionCurrent.hidden = false;
-    finder.classList.add('is-set');
-  }
-
-  const saved = localStorage.getItem(STORAGE_KEY);
-  if (saved) {
-    try {
-      const { url, name } = JSON.parse(saved);
-      applyRegion(url, name);
-      regionSelect.value = url;
-    } catch {
-      /* ignore malformed storage */
-    }
-  }
-
-  regionSave.addEventListener('click', () => {
-    const url = regionSelect.value;
-    const name = regionSelect.options[regionSelect.selectedIndex]?.textContent || '';
-    if (!url) return;
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ url, name }));
-    applyRegion(url, name);
-  });
-
-  regionChange.addEventListener('click', () => {
-    localStorage.removeItem(STORAGE_KEY);
-    regionCurrent.hidden = true;
-    finder.classList.remove('is-set');
-    regionSelect.value = '';
-    document.querySelectorAll<HTMLAnchorElement>('[data-region-link]').forEach((a) => {
-      a.href = '/new-mexico-soil-conditions';
-      a.textContent = 'Explore regional soil pages →';
+  // Per-card "What's happening" / "NM context" dropdowns -- independent
+  // of each other, and independent of the outer matched/collapsed state.
+  // Content stays in the DOM either way, just visually toggled, so
+  // nothing here changes what a reader without JS or an AI crawler sees.
+  document.querySelectorAll<HTMLButtonElement>('.symptom-detail-toggle').forEach((btn) => {
+    const key = btn.dataset.detailToggle;
+    const panel = btn.parentElement!.querySelector<HTMLElement>(`[data-detail="${key}"]`)!;
+    const label = btn.textContent!.replace(' →', '').replace(' ↑', '');
+    btn.addEventListener('click', () => {
+      const open = panel.hidden;
+      panel.hidden = !open;
+      btn.textContent = open ? `${label} ↑` : `${label} →`;
     });
   });
 
-  // Search + category filter
-  const search = document.getElementById('symptomSearch') as HTMLInputElement;
-  const chips = document.querySelectorAll<HTMLButtonElement>('.chip');
-  const groups = document.querySelectorAll<HTMLElement>('.category-group');
-  let activeCategory = 'all';
+  checkboxes.forEach((cb) =>
+    cb.addEventListener('change', () => {
+      // Only the foundation-type question is tracked individually -- it's
+      // the one Tim specifically asked about, and it's a single fact
+      // about the house rather than one of a dozen interchangeable
+      // symptom checkboxes that would just be noise as separate events.
+      if (cb.checked && cb.name === 'foundation') track('foundation_type_selected', { foundation_type: cb.value });
+      applySort();
+    })
+  );
+  clearBtn.addEventListener('click', () => {
+    checkboxes.forEach((cb) => (cb.checked = false));
+    stripOpen = false;
+    applySort();
+  });
 
-  function applyFilters() {
-    const q = search.value.trim().toLowerCase();
-    groups.forEach((group) => {
-      const catId = group.dataset.category;
-      const categoryMatches = activeCategory === 'all' || activeCategory === catId;
-      let anyVisible = false;
-      group.querySelectorAll<HTMLElement>('.symptom').forEach((item) => {
-        const textMatches = !q || item.dataset.search!.includes(q) || item.textContent!.toLowerCase().includes(q);
-        const visible = categoryMatches && textMatches;
-        item.hidden = !visible;
-        if (visible) anyVisible = true;
-      });
-      group.hidden = !anyVisible;
-    });
-  }
-
-  chips.forEach((chip) => {
-    chip.addEventListener('click', () => {
-      chips.forEach((c) => c.classList.remove('active'));
-      chip.classList.add('active');
-      activeCategory = chip.dataset.filter || 'all';
-      applyFilters();
+  // Arriving via the pill from the Cause Library -- pre-check boxes from the URL.
+  ['onset', 'see', 'site', 'foundation'].forEach((group) => {
+    const val = urlParams.get(group);
+    if (!val) return;
+    val.split(',').forEach((id) => {
+      const cb = checkboxes.find((c) => c.name === group && c.value === id);
+      if (cb) cb.checked = true;
     });
   });
-  search.addEventListener('input', applyFilters);
+  applySort();
 </script>
 
 <style>
@@ -589,7 +1233,6 @@ const schema = [
     --blue-mid: #2a5480;
     --gold: #b8860b;
     --gold-light: #d4a017;
-    /* gold-text: darkened gold for text on cream/sand/white -- --gold itself only clears WCAG AA on dark backgrounds */
     --gold-text: #7d5c08;
     --sand: #f5efe6;
     --stone: #e0d5c5;
@@ -604,20 +1247,9 @@ const schema = [
     line-height: 1.9;
     font-weight: 300;
   }
-  .page {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 64px 80px;
-  }
-  .page-hero {
-    background: var(--blue);
-    padding: 52px 64px 44px;
-    border-bottom: 2px solid var(--gold);
-  }
-  .page-hero-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
+  .page { max-width: 1100px; margin: 0 auto; padding: 0 64px 80px; }
+  .page-hero { background: var(--blue); padding: 52px 64px 44px; border-bottom: 2px solid var(--gold); }
+  .page-hero-inner { max-width: 1100px; margin: 0 auto; }
   .hero-eyebrow {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
@@ -627,40 +1259,19 @@ const schema = [
     display: block;
     margin-bottom: 16px;
   }
-  .page-hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 4vw, 46px);
-    font-weight: 400;
-    color: var(--white);
-    line-height: 1.15;
-    margin-bottom: 16px;
-  }
-  .page-hero h1 em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
-  .page-hero-sub {
-    font-size: 17px;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.5);
-    line-height: 1.8;
-    max-width: 600px;
-  }
+  .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 46px); font-weight: 400; color: var(--white); line-height: 1.15; margin-bottom: 16px; }
+  .page-hero h1 em { font-style: italic; color: var(--gold-light); }
+  .page-hero-sub { font-size: 17px; font-weight: 300; color: rgba(255, 255, 255, 0.5); line-height: 1.8; max-width: 640px; }
   .diagnostic-note {
     background: var(--sand);
     border-left: 4px solid var(--gold);
     padding: 20px 28px;
-    margin: 40px 0 32px;
+    margin: 40px 0 24px;
     font-size: 0.9rem;
     line-height: 1.7;
     color: var(--slate);
   }
-  .diagnostic-note p + p {
-    margin-top: 16px;
-  }
-  .diagnostic-note strong {
-    color: var(--blue);
-  }
+  .diagnostic-note strong { color: var(--blue); }
   .diagnostic-note a,
   .sg-page .body-link {
     color: var(--blue);
@@ -668,119 +1279,76 @@ const schema = [
     text-decoration-color: var(--gold-text);
   }
 
-  /* ── Myth/reality flip cards ── */
-  .myth-section {
-    margin-bottom: 40px;
-  }
-  .myth-label {
+  /* ── Check-all-that-apply panel ── */
+  .facet-panel { background: var(--white); border: 1px solid var(--stone); border-radius: 12px; padding: 28px 28px 20px; margin-bottom: 24px; }
+  .facet-panel-head { margin-bottom: 20px; }
+  .facet-panel-label {
     display: block;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gold-text);
-    margin-bottom: 16px;
-  }
-  .myth-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-  }
-  .myth-card {
-    perspective: 1000px;
-    cursor: pointer;
-    height: 220px;
-  }
-  .myth-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    transform-style: preserve-3d;
-  }
-  .myth-card.flipped .myth-card-inner {
-    transform: rotateY(180deg);
-  }
-  .myth-front,
-  .myth-back {
-    grid-area: 1 / 1 / 2 / 2;
-    padding: 20px;
-    border-radius: 4px;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .myth-front {
-    background: var(--white);
-    border: 1px solid var(--stone);
-    transition: border-color 0.25s, box-shadow 0.25s;
-  }
-  .myth-card:hover .myth-front {
-    border-color: rgba(184, 134, 11, 0.3);
-    box-shadow: 0 2px 16px rgba(13, 34, 56, 0.06);
-  }
-  .myth-back {
-    background: var(--blue-dark);
-    border: 1px solid rgba(184, 134, 11, 0.3);
-    transform: rotateY(180deg);
-  }
-  .myth-back p {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 13px;
-    line-height: 1.55;
-    margin: 0;
-  }
-  .myth-title {
-    font-family: 'Source Serif 4', serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--blue);
-    line-height: 1.3;
-  }
-  .myth-hint {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gold-text);
-    margin-top: 8px;
-    opacity: 0.6;
-  }
-  @media (max-width: 640px) {
-    .myth-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-    .myth-card {
-      height: 300px;
-    }
-  }
-
-  /* ── Region finder: one picker, remembered ── */
-  .region-finder {
-    background: var(--white);
-    border: 1px solid var(--stone);
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 32px;
-  }
-  .region-finder-label {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--gold-text);
-    display: block;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
-  .region-finder-row {
+  .facet-panel-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin: 0; }
+  .facet-panel-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2px;
+    color: var(--gold-text);
+    margin: 8px 0 0;
+  }
+  .facet-panel-note a { color: inherit; text-decoration: underline; }
+  .facet-group { border: none; padding: 0; margin: 0 0 20px; }
+  .facet-group legend { font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 0.95rem; color: var(--blue); padding: 0; margin-bottom: 10px; }
+  .facet-group-note { font-weight: 400; font-size: 0.78rem; color: var(--muted); }
+  .facet-tip {
+    margin: 12px 0 0;
+    font-size: 0.82rem;
+    color: var(--gold-text);
+    background: var(--sand);
+    border-radius: 6px;
+    padding: 10px 14px;
+  }
+  .facet-tip a { color: inherit; font-weight: 600; text-decoration: underline; }
+  .facet-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .facet-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.82rem;
+    color: var(--slate);
+    background: var(--cream);
+    border: 1px solid var(--stone);
+    border-radius: 20px;
+    padding: 8px 14px 8px 10px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .facet-chip:has(input:checked) { background: var(--blue); border-color: var(--blue); color: var(--white); }
+  .facet-chip input { width: 14px; height: 14px; accent-color: var(--gold); flex-shrink: 0; }
+  .facet-actions { display: flex; justify-content: flex-end; }
+  .facet-clear {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
+  }
+  .region-row {
     display: flex;
-    gap: 10px;
     flex-wrap: wrap;
+    gap: 10px;
   }
-  .region-finder select {
+  .region-row select {
+    flex: 1 1 220px;
+    width: 100%;
     font-family: 'DM Mono', monospace;
     font-size: 0.8rem;
     color: var(--blue);
@@ -789,157 +1357,253 @@ const schema = [
     border-radius: 6px;
     padding: 10px 14px;
     cursor: pointer;
-    flex: 1;
-    min-width: 200px;
   }
-  .region-finder button {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--white);
-    background: var(--gold);
-    border: none;
-    border-radius: 6px;
-    padding: 10px 18px;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .region-finder button:hover {
-    background: var(--gold-light);
-  }
-  .region-finder.is-set {
-    border-color: rgba(184, 134, 11, 0.4);
-  }
-  .region-finder-current {
-    margin-top: 12px;
-    font-size: 0.8rem;
-    color: var(--slate);
-  }
-  .region-finder-current strong {
-    color: var(--blue);
-  }
-  .region-finder-current button {
-    background: none;
-    border: none;
-    padding: 0;
-    color: var(--gold-text);
-    text-decoration: underline;
-    cursor: pointer;
-    font-family: 'Source Serif 4', serif;
-    font-size: 0.8rem;
-    text-transform: none;
-    letter-spacing: 0;
+  .region-row select:disabled {
+    color: var(--muted);
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 
-  /* ── Search + filter ── */
-  .filter-bar {
-    margin-bottom: 40px;
+  /* ── Outcome ── */
+  .outcome-box { background: var(--blue-dark); border-radius: 12px; padding: 28px; margin-bottom: 20px; }
+  .outcome-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 12px;
   }
-  #symptomSearch {
-    width: 100%;
-    font-family: 'Source Serif 4', serif;
-    font-size: 16px;
-    padding: 14px 18px;
-    border: 1px solid var(--stone);
-    border-radius: 8px;
-    background: var(--white);
-    margin-bottom: 14px;
+  .outcome-text { color: rgba(255, 255, 255, 0.92); font-size: 0.98rem; line-height: 1.8; margin: 0 0 16px; }
+  .outcome-triage {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    font-style: italic;
+    border-left: 2px solid rgba(212, 160, 23, 0.4);
+    padding-left: 14px;
+    margin: 0 0 20px;
   }
-  #symptomSearch:focus {
-    outline: none;
-    border-color: var(--gold);
+  .outcome-cta { margin-bottom: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .outcome-phone { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); text-decoration: none; border-bottom: 1px solid var(--gold); }
+  .outcome-print {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.65);
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
   }
-  .filter-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  .chip {
+  .outcome-print:hover { color: var(--white); border-color: rgba(255, 255, 255, 0.5); }
+  .print-header { display: none; }
+  .send-form-wrap { margin-bottom: 20px; padding: 18px 20px; background: rgba(0, 0, 0, 0.18); border-radius: 8px; }
+  .send-form-note { font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); margin: 0 0 14px; line-height: 1.6; }
+  .send-form .form-row { margin-bottom: 14px; }
+  .send-form label {
+    display: block;
     font-family: 'DM Mono', monospace;
     font-size: 0.7rem;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     text-transform: uppercase;
-    color: var(--slate);
-    background: var(--white);
-    border: 1px solid var(--stone);
-    border-radius: 20px;
-    padding: 8px 16px;
-    cursor: pointer;
-    transition: all 0.15s;
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 6px;
   }
-  .chip:hover {
-    border-color: var(--gold);
-  }
-  .chip.active {
-    background: var(--blue);
-    border-color: var(--blue);
+  .send-form input[type='text'],
+  .send-form input[type='email'] {
+    width: 100%;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.95rem;
     color: var(--white);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 10px 12px;
   }
+  .send-form input[type='text']:focus,
+  .send-form input[type='email']:focus { outline: none; border-color: var(--gold); }
+  .send-form .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .send-form .form-submit {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+    color: var(--blue-dark);
+    background: var(--gold-light);
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  .send-form .form-submit:hover { background: var(--gold); }
+  .send-form .form-submit:disabled { opacity: 0.6; cursor: default; }
+  .send-form .form-status { margin: 10px 0 0; font-size: 0.82rem; color: rgba(255, 255, 255, 0.75); }
+  .send-form .form-status.is-error { color: #f0a; }
+  .outcome-more { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; margin-top: 20px; }
+  .related-reading { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; margin-bottom: 18px; }
+  .related-reading-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+  }
+  .related-reading-list { display: flex; flex-direction: column; gap: 10px; }
+  /* These three are built with document.createElement in JS, not present
+     in this file's template -- Astro only scopes elements it sees at
+     build time, so plain unscoped selectors here silently never match
+     and the links fall back to default browser blue/purple. :global()
+     is required for anything created at runtime. */
+  :global(.related-reading-item) {
+    display: block;
+    text-decoration: none;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  :global(.related-reading-item:last-child) { border-bottom: none; }
+  :global(.related-reading-title) {
+    display: block;
+    font-family: 'Source Serif 4', serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  :global(.related-reading-item:hover .related-reading-title) { color: var(--gold-light); }
+  :global(.related-reading-blurb) { display: block; font-size: 0.78rem; color: rgba(255, 255, 255, 0.55); line-height: 1.5; }
+  .handoff { border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 18px; }
+  .handoff-text { color: rgba(255, 255, 255, 0.65); font-size: 0.85rem; line-height: 1.6; margin: 0 0 12px; }
+  .handoff-btn {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+    color: var(--blue-dark);
+    background: var(--gold-light);
+    text-decoration: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+  }
+  .handoff-btn:hover { background: var(--gold); }
 
-  /* ── Categories & symptoms (always visible, no accordion) ── */
-  .category-group {
-    margin-bottom: 56px;
-    scroll-margin-top: 80px;
+  /* ── Results lead-in ── */
+  .results-lead { margin: 0 0 20px; }
+  .results-lead-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--blue);
+    margin: 0 0 6px;
   }
-  .category-label {
+  .results-lead-text {
     font-family: 'DM Mono', monospace;
     font-size: 0.75rem;
-    letter-spacing: 4px;
-    text-transform: uppercase;
+    letter-spacing: 0.5px;
     color: var(--gold-text);
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--stone);
+    margin: 0;
   }
-  .symptom-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
+
+  /* ── Symptom cards (flat grid, sortable) ── */
+  .symptom-grid { display: flex; flex-direction: column; gap: 16px; }
   .symptom {
     background: var(--white);
     border: 1px solid var(--stone);
     border-radius: 12px;
     padding: 24px 28px;
+    transition: opacity 0.2s, border-color 0.2s, padding 0.2s;
   }
-  .symptom h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--blue);
-    margin: 0 0 14px;
-    line-height: 1.3;
+  .symptom.matched { border-color: rgba(184, 134, 11, 0.5); }
+  .symptom.collapsed { padding: 14px 20px; }
+  .symptom.collapsed h2 { margin-bottom: 0; font-size: 1rem; }
+  .symptom-title-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .symptom.rest .symptom-title-row { cursor: pointer; }
+  .symptom.rest .symptom-title-row:hover { color: var(--gold-text); }
+  .rest-chevron {
+    display: none;
+    font-size: 13px;
+    color: var(--gold-text);
+    flex-shrink: 0;
+    transition: transform 0.15s ease;
   }
-  .symptom p {
-    font-size: 0.92rem;
-    line-height: 1.75;
-    color: var(--slate);
-    margin: 0 0 10px;
-  }
-  .symptom .needs-repair {
+  .symptom.rest .rest-chevron { display: inline-block; }
+  .symptom.rest.collapsed .rest-chevron { transform: rotate(-90deg); }
+  .symptom.collapsed .whats-happening,
+  .symptom.collapsed .needs-repair,
+  .symptom.collapsed .nm-note,
+  .symptom.collapsed .symptom-links,
+  .symptom.collapsed .symptom-category-badge,
+  .symptom.collapsed .symptom-detail-toggle,
+  .symptom.collapsed .symptom-detail { display: none; }
+
+  .symptom-match-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.5px;
+    color: var(--gold-text);
     background: var(--sand);
-    border-left: 3px solid var(--gold);
-    padding: 10px 14px;
+    display: inline-block;
+    border-radius: 4px;
+    padding: 3px 9px;
+    margin-bottom: 10px;
+  }
+  .symptom-detail-toggle {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.3px;
     color: var(--blue);
-    border-radius: 0 6px 6px 0;
-  }
-  .symptom .nm-note {
-    font-size: 0.82rem;
-    color: var(--muted);
-    border-left: 3px solid var(--gold);
-    padding-left: 12px;
-    font-style: italic;
-    margin-bottom: 0;
-  }
-  .symptom-links {
-    margin-top: 16px;
-    padding-top: 12px;
+    background: none;
+    border: none;
     border-top: 1px solid var(--stone);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+    text-align: left;
+    width: 100%;
+    padding: 12px 0 0;
+    margin-top: 12px;
+    cursor: pointer;
   }
+  .symptom-detail-toggle:hover { color: var(--gold-text); }
+  .symptom-detail { padding-top: 4px; }
+  .symptom-detail .whats-happening,
+  .symptom-detail .nm-note { margin: 8px 0 0; }
+  .other-strip {
+    display: block;
+    width: 100%;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    color: var(--gold-text);
+    background: var(--sand);
+    border: 1px dashed var(--stone);
+    border-radius: 8px;
+    padding: 14px;
+    margin: 4px 0 40px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .other-strip:hover { border-color: var(--gold); }
+  .symptom-category-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    background: var(--sand);
+    border-radius: 4px;
+    padding: 3px 8px;
+    margin-bottom: 10px;
+  }
+  .symptom h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 600; color: var(--blue); margin: 0 0 14px; line-height: 1.3; }
+  .symptom p { font-size: 0.92rem; line-height: 1.75; color: var(--slate); margin: 0 0 10px; }
+  .glossary-link { color: var(--blue); text-decoration: underline; text-decoration-style: dotted; text-decoration-color: var(--gold); }
+  .glossary-link:hover { color: var(--gold-text); }
+  .symptom .needs-repair { background: var(--sand); border-left: 3px solid var(--gold); padding: 10px 14px; color: var(--blue); border-radius: 0 6px 6px 0; }
+  .symptom .nm-note { font-size: 0.82rem; color: var(--muted); border-left: 3px solid var(--gold); padding-left: 12px; font-style: italic; margin-bottom: 0; }
+  .symptom-links { margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--stone); display: flex; flex-wrap: wrap; gap: 12px; }
   .symptom-link {
     font-family: 'DM Mono', monospace;
     font-size: 0.7rem;
@@ -949,54 +1613,77 @@ const schema = [
     text-decoration: none;
     border-bottom: 1px dotted var(--gold);
   }
-  .symptom-link:hover {
-    color: var(--gold-text);
-  }
-  .symptom-link.region-link {
-    color: var(--gold-text);
-    border-bottom-style: solid;
-  }
-
-  .contact-footer {
-    margin-top: 60px;
-    text-align: center;
-    padding: 32px;
-    background: var(--sand);
-    border-left: 4px solid var(--gold);
-  }
-  .contact-footer p {
-    margin-bottom: 8px;
-    font-size: 0.9rem;
-    color: var(--slate);
-  }
-  .contact-footer a {
-    color: var(--blue);
+  .symptom-link:hover { color: var(--gold-text); }
+  .glossary-link {
+    color: inherit;
     text-decoration: underline;
-    text-decoration-color: var(--gold-text);
+    text-decoration-style: dotted;
+    text-decoration-color: var(--gold);
+    text-underline-offset: 2px;
   }
-  .contact-footer-sub {
-    margin-top: 16px;
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
+  .glossary-link:hover { color: var(--gold-text); }
+
+  .contact-footer { margin-top: 20px; text-align: center; padding: 32px; background: var(--sand); border-left: 4px solid var(--gold); }
+  .contact-footer p { margin-bottom: 8px; font-size: 0.9rem; color: var(--slate); }
+  .contact-footer a { color: var(--blue); text-decoration: underline; text-decoration-color: var(--gold-text); }
+  .contact-footer-sub { margin-top: 16px; font-size: 0.85rem; color: var(--muted); }
 
   @media (max-width: 768px) {
-    .page {
-      padding: 0 24px 60px;
-    }
-    .page-hero {
-      padding: 40px 24px 36px;
-    }
+    .page { padding: 0 24px 60px; }
+    .page-hero { padding: 40px 24px 36px; }
+    .facet-panel { padding: 22px 20px 16px; }
   }
   @media (max-width: 640px) {
-    .page-hero h1 {
-      font-size: 2rem;
+    .page-hero h1 { font-size: 2rem; }
+  }
+
+  /* ── Print: only the matched results + outcome, TLS branding as the
+       header since the site nav is gone, everything forced open since
+       collapse/accordion state is a screen-only affordance. ── */
+  @media print {
+    :global(.site-header),
+    :global(.mobile-panel),
+    :global(.minimal-footer),
+    :global(.reference-nav),
+    :global(#tls-summarize-btn),
+    :global(#tls-summarize-overlay),
+    :global(#tls-summarize-panel),
+    :global(#tls-btt) {
+      display: none !important;
     }
-    .region-finder-row {
-      flex-direction: column;
+    .page-hero, .diagnostic-note, .facet-panel,
+    .filter-bar, .results-lead, .other-strip, .handoff, .contact-footer,
+    .outcome-print, .send-form-wrap {
+      display: none !important;
     }
-    .region-finder select {
-      width: 100%;
+    .outcome-more { display: block !important; padding-top: 0; border-top: none; margin-top: 0; }
+    .print-header { display: block; margin-bottom: 28px; border-bottom: 2px solid #000; padding-bottom: 16px; }
+    .print-header-brand { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #000; }
+    .print-header-phone { font-family: 'DM Mono', monospace; font-size: 13px; color: #000; margin-top: 4px; }
+    .print-header-disclaimer { font-size: 11px; color: #444; font-style: italic; margin-top: 10px; }
+    .page { padding: 0; max-width: 100%; }
+    .outcome-box { background: none; border: 1px solid #999; padding: 16px; }
+    .outcome-label, .related-reading-label { color: #444; }
+    .outcome-text, .outcome-triage, .outcome-phone {
+      color: #000 !important;
     }
+    :global(.related-reading-title), :global(.related-reading-blurb) {
+      color: #000 !important;
+    }
+    .symptom:not(.matched) { display: none; }
+    .symptom.collapsed { padding: 24px 28px; }
+    .symptom.collapsed .whats-happening,
+    .symptom.collapsed .needs-repair,
+    .symptom.collapsed .nm-note,
+    .symptom.collapsed .symptom-links,
+    .symptom.collapsed .symptom-category-badge {
+      display: block !important;
+    }
+    /* Same reasoning as the outcome box's toggle: no interactivity on
+       paper, so force the per-card dropdowns open and hide the buttons
+       that would otherwise do nothing. */
+    .symptom-detail-toggle { display: none !important; }
+    .symptom-detail { display: block !important; }
+    .symptom { break-inside: avoid; border: 1px solid #ccc; }
   }
 </style>
