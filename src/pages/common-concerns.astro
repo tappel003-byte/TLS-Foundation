@@ -1,11 +1,13 @@
 ---
-// Common Concerns. Promoted from the common-concerns-v2 draft -- an
-// interactive concern-finder instead of the old static two-column FAQ
-// (which needed a separate "mobile carousel" hack to work on phones at
-// all). Same 18 questions, same answer content -- the change is in how
-// you get to an answer: check what you're actually wondering about and
-// the list re-sorts, the same interaction language as the facet panels
-// on Symptom Guide and Cause Library.
+// Common Concerns. Grouped accordion FAQ -- eighteen questions New Mexico
+// homeowners actually search for, organized under the same six topics
+// (cost, diagnosis, trust, timing, repair, selling) that used to drive an
+// interactive "check what's on your mind, we'll re-sort and dim" panel.
+// Dropped that interactivity: with only 18 short, self-explanatory
+// questions, reading the list was already faster than checking boxes and
+// waiting for a re-sort. The six topics still do real work as static
+// section headers -- someone with a trust question can jump straight to
+// that section -- without asking for a click first.
 //
 // Content check (see CONTENT_TRIM_LOG.md): unlike Home/Our Approach/Why
 // Foundations Move, the 18 answers here didn't have the "same argument
@@ -29,17 +31,16 @@ const description =
 
 const serviceAreaText = `This page exists because the most common foundation repair search terms in New Mexico — foundation repair Albuquerque, foundation repair cost, signs of foundation problems, free foundation inspection — lead homeowners to sales calls, not answers. TLS Foundations is a New Mexico foundation repair contractor. We answer these questions honestly because homeowners who understand their situation make better decisions, ask better questions, and are better to work with. The eighteen questions on this page cover foundation repair cost in New Mexico, how to recognize foundation problems, the difference between settlement and heave, when foundation repair is not the right answer, how to choose a foundation contractor, what expansive soil does to a house, whether homeowners insurance covers foundation repair, and what happens when the wrong repair method is used. If your question isn't here, call or text — you reach the owner.`;
 
-// Facet groups -- "what's actually on your mind," not the questions
-// themselves. Checking one or more re-sorts the list below so the closest
-// matches surface first, same scoring pattern as the Symptom Guide/Cause
-// Library facet panels.
-const facetGroups = [
-  { id: 'money', label: 'Cost, insurance, or warranty' },
-  { id: 'diagnosis', label: "What's actually wrong, or how serious it is" },
-  { id: 'trust', label: 'Whether a contractor is being straight with me' },
-  { id: 'timing', label: 'Whether to act now or wait' },
-  { id: 'repair', label: 'What the repair itself involves' },
-  { id: 'selling', label: 'Selling the house' },
+// The six topics questions naturally cluster under. Each concern below
+// carries these same ids as tags[0] (its primary topic) -- used here to
+// group the page into static sections instead of an interactive filter.
+const sections = [
+  { id: 'money', heading: 'Cost, Insurance & Warranty' },
+  { id: 'diagnosis', heading: 'Diagnosis & Severity' },
+  { id: 'trust', heading: 'Trust & Choosing a Contractor' },
+  { id: 'timing', heading: 'Timing: Act Now or Wait' },
+  { id: 'repair', heading: 'The Repair Itself' },
+  { id: 'selling', heading: 'Selling the House' },
 ];
 
 interface Concern {
@@ -274,6 +275,15 @@ const concerns: Concern[] = [
   },
 ];
 
+// Group by each concern's primary topic (tags[0]) into the six static
+// sections above. A few concerns carry a second tag (e.g. warranty is
+// both money and repair) -- the first-listed tag decides which section
+// it lands in; related-question links handle the cross-references.
+const groupedConcerns = sections.map((s) => ({
+  ...s,
+  items: concerns.filter((c) => c.tags[0] === s.id),
+}));
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -310,68 +320,53 @@ const faqSchema = {
     <div class="cc-container">
       <div class="cc-header">
         <h1 class="cc-title">Common Concerns</h1>
-        <p class="cc-description">Eighteen questions New Mexico homeowners actually search for. Check what's actually on your mind and we'll sort what's most useful to the top — or just scroll, it's only eighteen.</p>
+        <p class="cc-description">Eighteen questions New Mexico homeowners actually search for, grouped below by what's usually on your mind — cost, diagnosis, trust, timing, repair, or selling.</p>
       </div>
 
       <div class="mission-note">
         <p>"Foundation repair Albuquerque." "Foundation repair cost." "Free foundation inspection." Contractors bid real money on these searches, because a worried homeowner who doesn't know where to turn is a valuable click. This page is what should show up instead.</p>
       </div>
 
-      <div class="facet-panel" id="facetPanel">
-        <div class="facet-panel-head">
-          <span class="facet-panel-label">What's actually on your mind? (check all that apply)</span>
-          <p class="facet-panel-sub">Check any that fit and the closest matches move to the top. Leave it blank and all eighteen show in the order homeowners ask them most.</p>
-        </div>
-        <div class="facet-options">
-          {facetGroups.map((g) => (
-            <label class="facet-chip">
-              <input type="checkbox" name="concern-tag" value={g.id} />
-              {g.label}
-            </label>
-          ))}
-        </div>
-        <div class="facet-actions">
-          <button type="button" id="facetClear" class="facet-clear" hidden>Clear all</button>
-        </div>
-      </div>
-
-      <p class="matched-lead" id="matchedLead" hidden></p>
-
-      <div class="concern-list" id="concernList">
-        {concerns.map((c) => (
-          <div
-            class="concern-card"
-            id={c.id}
-            data-tags={c.tags.join(',')}
-          >
-            <button type="button" class="concern-head" data-toggle aria-expanded="false">
-              <div class="concern-head-text">
-                <span class="concern-teaser">{c.teaser}</span>
-                <h2 class="concern-q">{c.q}</h2>
-              </div>
-              <span class="concern-toggle-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-              </span>
-            </button>
-            <div class="concern-body">
-              <div class="concern-body-inner">
-                <p>{c.p}</p>
-                <div class="nm-note">NM context: {c.nmNote}</div>
-                <div class="industry-note">{c.industryNote}</div>
-                <div class="card-links">
-                  {c.primaryLinks.length > 0 && (
-                    <div class="primary-links">
-                      {c.primaryLinks.map((l) => <a href={l.href} class="card-link">{l.text}</a>)}
+      {groupedConcerns.map((section) => (
+        <div class="concern-section">
+          <h2 class="section-heading">{section.heading}</h2>
+          <div class="concern-list">
+            {section.items.map((c) => (
+              <div
+                class="concern-card"
+                id={c.id}
+                data-tags={c.tags.join(',')}
+              >
+                <button type="button" class="concern-head" data-toggle aria-expanded="false">
+                  <div class="concern-head-text">
+                    <span class="concern-teaser">{c.teaser}</span>
+                    <h3 class="concern-q">{c.q}</h3>
+                  </div>
+                  <span class="concern-toggle-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  </span>
+                </button>
+                <div class="concern-body">
+                  <div class="concern-body-inner">
+                    <p>{c.p}</p>
+                    <div class="nm-note">NM context: {c.nmNote}</div>
+                    <div class="industry-note">{c.industryNote}</div>
+                    <div class="card-links">
+                      {c.primaryLinks.length > 0 && (
+                        <div class="primary-links">
+                          {c.primaryLinks.map((l) => <a href={l.href} class="card-link">{l.text}</a>)}
+                        </div>
+                      )}
+                      <div class="related-terms"><span>Related terms</span>{c.relatedTerms.map((t) => <a href={t.href}>{t.text}</a>)}</div>
+                      <div class="related-faq"><span>Related questions</span>{c.relatedFaq.map((f) => <a href={f.href} class="related-faq-link" data-target={f.href.split('#')[1]}>{f.text}</a>)}</div>
                     </div>
-                  )}
-                  <div class="related-terms"><span>Related terms</span>{c.relatedTerms.map((t) => <a href={t.href}>{t.text}</a>)}</div>
-                  <div class="related-faq"><span>Related questions</span>{c.relatedFaq.map((f) => <a href={f.href} class="related-faq-link" data-target={f.href.split('#')[1]}>{f.text}</a>)}</div>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
 
     <div class="matrix-footer">
@@ -454,69 +449,29 @@ const faqSchema = {
     line-height: 1.7;
   }
   .mission-note {
-    background: var(--sand);
-    border-left: 4px solid var(--gold-text);
+    background: #fff;
+    border-left: 4px solid var(--blue);
     padding: 1.5rem 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     font-size: 1rem;
     line-height: 1.7;
     color: #2e2e2e;
   }
   .mission-note p { margin: 0; }
 
-  .facet-panel { background: var(--white); border: 1px solid var(--stone); border-radius: 12px; padding: 28px 28px 20px; margin-bottom: 8px; }
-  .facet-panel-head { margin-bottom: 18px; }
-  .facet-panel-label {
-    display: block;
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold-text);
-    margin-bottom: 8px;
-  }
-  .facet-panel-sub { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin: 0; }
-  .facet-options { display: flex; flex-wrap: wrap; gap: 8px; }
-  .facet-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    font-family: 'Source Serif 4', serif;
-    font-size: 0.85rem;
-    color: var(--slate);
-    background: var(--cream);
-    border: 1px solid var(--stone);
-    border-radius: 20px;
-    padding: 9px 16px 9px 12px;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s, color 0.15s;
-  }
-  .facet-chip:has(input:checked) { background: var(--blue); border-color: var(--blue); color: #fff; }
-  .facet-chip input { width: 14px; height: 14px; accent-color: var(--gold); flex-shrink: 0; }
-  .facet-actions { display: flex; justify-content: flex-end; margin-top: 4px; }
-  .facet-clear {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--gold-text);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 6px 0;
-  }
-  .facet-clear:hover { color: var(--blue); }
-
-  .matched-lead {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gold-text);
-    margin: 24px 2px 12px;
+  .concern-section { margin-bottom: 2.75rem; }
+  .concern-section:last-child { margin-bottom: 0; }
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--blue);
+    margin: 0 0 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--stone);
   }
 
-  .concern-list { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+  .concern-list { display: flex; flex-direction: column; gap: 12px; }
   .concern-card {
     background: #fff;
     border: 1px solid var(--stone);
@@ -525,8 +480,7 @@ const faqSchema = {
     scroll-margin-top: 100px;
     transition: border-color 0.2s;
   }
-  .concern-card.is-open { border-color: var(--gold); }
-  .concern-card.is-dimmed { opacity: 0.45; }
+  .concern-card.is-open { border-color: var(--blue); }
   .concern-head {
     width: 100%;
     display: flex;
@@ -565,15 +519,15 @@ const faqSchema = {
     justify-content: center;
     transition: border-color 0.2s, background 0.2s;
   }
-  .concern-head:hover .concern-toggle-icon { border-color: var(--gold); background: var(--sand); }
-  .concern-toggle-icon svg { width: 14px; height: 14px; stroke: var(--gold-text); stroke-width: 2; fill: none; stroke-linecap: round; transition: transform 0.3s; }
+  .concern-head:hover .concern-toggle-icon { border-color: var(--blue); background: rgba(27, 58, 92, 0.06); }
+  .concern-toggle-icon svg { width: 14px; height: 14px; stroke: var(--blue); stroke-width: 2; fill: none; stroke-linecap: round; transition: transform 0.3s; }
   .concern-card.is-open .concern-toggle-icon svg { transform: rotate(45deg); }
   .concern-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
   .concern-card.is-open .concern-body { max-height: 2000px; }
   .concern-body-inner { padding: 0 1.5rem 1.75rem; border-top: 1px solid var(--stone); margin-top: -1px; padding-top: 1.25rem; }
   .concern-body-inner p { font-size: 1rem; line-height: 1.7; color: #2e2e2e; margin-bottom: 1rem; }
-  .nm-note { font-size: 0.9rem; color: #54626f; border-left: 3px solid var(--gold); padding-left: 1rem; margin: 1rem 0; font-style: italic; }
-  .industry-note { background: #fef9f0; border-left: 3px solid var(--gold); padding: 1rem; margin: 1rem 0; font-size: 0.9rem; color: #2e2e2e; }
+  .nm-note { font-size: 0.9rem; color: #54626f; border-left: 3px solid var(--blue); padding-left: 1rem; margin: 1rem 0; font-style: italic; }
+  .industry-note { background: rgba(224, 213, 197, 0.3); border-left: 3px solid var(--gold); padding: 1rem; margin: 1rem 0; font-size: 0.9rem; color: #2e2e2e; }
   .card-links { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--stone); display: flex; flex-direction: column; gap: 0.85rem; }
   .primary-links { display: flex; flex-wrap: wrap; gap: 1rem; }
   .card-link {
@@ -583,15 +537,15 @@ const faqSchema = {
     text-transform: uppercase;
     color: var(--blue);
     text-decoration: none;
-    border-bottom: 1px dotted var(--gold);
-    transition: color 0.2s;
+    border-bottom: 1px dotted var(--stone);
+    transition: color 0.2s, border-color 0.2s;
   }
-  .card-link:hover { color: var(--gold-text); }
+  .card-link:hover { color: var(--gold-text); border-color: var(--gold); }
   .related-terms, .related-faq { font-size: 0.85rem; }
   .related-terms span, .related-faq span {
     font-family: 'DM Mono', monospace;
     font-size: 0.7rem;
-    color: var(--gold-text);
+    color: var(--muted);
     text-transform: uppercase;
     letter-spacing: 1px;
     display: block;
@@ -600,11 +554,11 @@ const faqSchema = {
   .related-terms a, .related-faq a {
     color: var(--blue);
     text-decoration: none;
-    border-bottom: 1px dotted var(--gold);
+    border-bottom: 1px dotted var(--stone);
     margin-right: 0.75rem;
     font-size: 0.85rem;
   }
-  .related-terms a:hover, .related-faq a:hover { color: var(--gold-text); }
+  .related-terms a:hover, .related-faq a:hover { color: var(--gold-text); border-color: var(--gold); }
 
   .matrix-footer {
     max-width: 800px;
@@ -616,27 +570,18 @@ const faqSchema = {
     border-top: 1px solid var(--stone);
     padding-top: 1.75rem;
   }
-  .matrix-footer-sub { margin-top: 0.5rem; }
-  .matrix-footer a { color: var(--blue); text-decoration: underline; text-decoration-color: var(--gold); }
+  .matrix-footer a { color: var(--blue); text-decoration: underline; text-decoration-color: var(--stone); }
 
   @media (max-width: 640px) {
     .cc-page { padding: 3rem 0 1.5rem; }
-    .facet-panel { padding: 20px 18px 16px; }
     .concern-head { padding: 1.1rem 1.15rem; gap: 12px; }
     .concern-body-inner { padding: 1.1rem 1.15rem 1.5rem; }
   }
 </style>
 
 <script>
-  interface ConcernEl { el: HTMLElement; tags: string[] }
-
   function initCommonConcerns() {
     const cards = Array.from(document.querySelectorAll<HTMLElement>('.concern-card'));
-    const items: ConcernEl[] = cards.map((el) => ({ el, tags: (el.dataset.tags || '').split(',').filter(Boolean) }));
-    const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="concern-tag"]'));
-    const clearBtn = document.getElementById('facetClear') as HTMLButtonElement | null;
-    const matchedLead = document.getElementById('matchedLead') as HTMLElement | null;
-    const list = document.getElementById('concernList') as HTMLElement | null;
 
     function openCard(el: HTMLElement) {
       el.classList.add('is-open');
@@ -656,39 +601,6 @@ const faqSchema = {
     cards.forEach((card) => {
       const head = card.querySelector<HTMLButtonElement>('[data-toggle]');
       head?.addEventListener('click', () => toggleCard(card));
-    });
-
-    function reorder() {
-      const checked = checkboxes.filter((c) => c.checked).map((c) => c.value);
-      clearBtn?.toggleAttribute('hidden', checked.length === 0);
-
-      if (checked.length === 0) {
-        if (matchedLead) matchedLead.hidden = true;
-        cards.forEach((c) => c.classList.remove('is-dimmed'));
-        // Restore original document order.
-        items.forEach(({ el }) => list?.appendChild(el));
-        return;
-      }
-
-      const scored = items.map((it) => ({ it, score: it.tags.filter((t) => checked.includes(t)).length }));
-      scored.sort((a, b) => b.score - a.score);
-      scored.forEach(({ it, score }) => {
-        list?.appendChild(it.el);
-        it.el.classList.toggle('is-dimmed', score === 0);
-      });
-      const matchCount = scored.filter((s) => s.score > 0).length;
-      if (matchedLead) {
-        matchedLead.hidden = false;
-        matchedLead.textContent = matchCount > 0
-          ? `${matchCount} of 18 closely match what you checked -- moved to the top`
-          : 'No close matches -- here are all eighteen, most-asked first';
-      }
-    }
-
-    checkboxes.forEach((cb) => cb.addEventListener('change', reorder));
-    clearBtn?.addEventListener('click', () => {
-      checkboxes.forEach((cb) => (cb.checked = false));
-      reorder();
     });
 
     // Related-question links point at #<id> anchors on this same page --
