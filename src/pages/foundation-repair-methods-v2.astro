@@ -182,6 +182,12 @@ const schema = [
             <p class="step-desc">We check that the repair is working. Sometimes that means monitoring over time. We stay with the job until it's stable.</p>
           </div>
         </div>
+
+        <div class="honesty-note reveal">
+          <span class="honesty-note-label">Worth saying plainly</span>
+          <p>Most New Mexico foundation repairs land in a normal, predictable budget range. A smaller number don't, and it's worth saying why: this state's soils can require reaching genuinely deep bearing material, and depth drives cost more than almost anything else about a repair.</p>
+          <p>We know of real houses across New Mexico right now — we could name several — where the soil problem is well understood, the right repair method is known, and the repair still isn't happening, because doing it correctly would cost more than the house is worth. Engineers have a term for that: <a href="/glossary#economic-waste" class="honesty-note-link">economic waste</a>. It doesn't mean the problem is unsolvable or that the right tool doesn't exist. It means that in a small number of genuinely difficult cases, the honest next step with your contractor is a direct conversation about cost against value — not a promise that any budget can buy any fix.</p>
+        </div>
       </div>
     </section>
 
@@ -786,6 +792,43 @@ const schema = [
     padding: 0 12px;
     opacity: 0.4;
     align-self: center;
+  }
+
+  .honesty-note {
+    margin-top: 40px;
+    padding: 28px 32px;
+    background: var(--white);
+    border: 1px solid var(--stone);
+    border-left: 3px solid var(--gold);
+    border-radius: 4px;
+    max-width: 720px;
+  }
+  .honesty-note-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .honesty-note p {
+    font-size: 16px;
+    color: var(--slate);
+    line-height: 1.8;
+    margin-bottom: 14px;
+  }
+  .honesty-note p:last-child {
+    margin-bottom: 0;
+  }
+  .honesty-note-link {
+    color: var(--navy);
+    text-decoration: underline;
+    text-decoration-color: var(--gold);
+    text-underline-offset: 3px;
+  }
+  .honesty-note-link:hover {
+    color: var(--gold-text);
   }
 
   .methods-grid {
