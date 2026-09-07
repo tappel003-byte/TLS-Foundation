@@ -332,6 +332,7 @@ const definedTermSetSchema = {
           <div class="term-definition">
             <p>A ground improvement technique where low-slump grout is injected under pressure into the soil, compacting the surrounding material and filling voids. The grout forms a bulb that displaces and densifies the adjacent material.</p>
             <p>Used when the problem is loose, poorly consolidated soil rather than a condition requiring piers to transfer load to deeper bearing.</p>
+            <a href="/compaction-grouting-deep-dive" class="term-deep-link">Full technical breakdown →</a>
           </div>
           <div class="related-terms">
             <span class="related-label">Related:</span>
@@ -432,6 +433,7 @@ const definedTermSetSchema = {
           <div class="term-name">Drainage Correction</div>
           <div class="term-definition">
             <p>Modifications to the grading, gutters, downspouts, or surface drainage around a structure to direct water away from the foundation. In New Mexico, where the majority of foundation movement is moisture-driven, drainage correction is often the most effective first intervention — and sometimes the only one needed. Not a structural repair, but frequently more useful than one.</p>
+            <a href="/drainage-correction-deep-dive" class="term-deep-link">Full technical breakdown →</a>
           </div>
           <div class="related-terms">
             <span class="related-label">Related:</span>
@@ -613,6 +615,7 @@ const definedTermSetSchema = {
           <div class="term-definition">
             <p>A steel shaft with one or more helical plates, installed by rotating it into the ground using hydraulic torque equipment. The helical plates advance the pier like a screw, allowing it to reach bearing depth without requiring the structure's dead load.</p>
             <p>Helical piers are the correct residential pier solution for most New Mexico foundation work. Installation torque is monitored in real time and correlates directly to bearing capacity.</p>
+            <a href="/helical-piers-deep-dive" class="term-deep-link">Full technical breakdown →</a>
           </div>
           <div class="related-terms">
             <span class="related-label">Related:</span>
@@ -771,6 +774,7 @@ const definedTermSetSchema = {
           <div class="term-definition">
             <p>A small-diameter drilled and grouted deep foundation element, typically 3 to 12 inches in diameter. Micropiles are drilled rather than driven, allowing them to penetrate hard rock, cobbles, and dense caliche.</p>
             <p>Used when the soil profile requires reaching bearing at significant depth through materials that would prevent helical pier installation.</p>
+            <a href="/micropiles-deep-dive" class="term-deep-link">Full technical breakdown →</a>
           </div>
           <div class="related-terms">
             <span class="related-label">Related:</span>
@@ -832,6 +836,7 @@ const definedTermSetSchema = {
           <div class="term-name">Monitoring</div>
           <div class="term-definition">
             <p>Tracking a foundation's elevation or crack width over time, using periodic surveys or fixed monitoring points, to determine whether movement is active, has stabilized, or is progressing. Monitoring is sometimes the correct recommendation on its own — not every observed condition needs immediate structural intervention, and monitoring data can confirm that before any repair is proposed.</p>
+            <a href="/monitoring-deep-dive" class="term-deep-link">Full technical breakdown →</a>
           </div>
           <div class="related-terms">
             <span class="related-label">Related:</span>
@@ -975,6 +980,7 @@ const definedTermSetSchema = {
           <div class="term-name">Polyurethane Foam Injection</div>
           <div class="term-definition">
             <p>A method of injecting expanding polyurethane foam beneath slabs, into soil voids, or along foundation perimeters to fill gaps, stabilize loose material, and restore elevation. Applied through small drilled ports with minimal excavation. Sometimes used for slab leveling, void filling, compaction trench remediation, and perimeter soil stabilization.</p>
+            <a href="/foam-injection-deep-dive" class="term-deep-link">Full technical breakdown →</a>
           </div>
           <div class="related-terms">
             <span class="related-label">Related:</span>
@@ -1000,6 +1006,7 @@ const definedTermSetSchema = {
           <div class="term-definition">
             <p>A steel pier installed by hydraulically jacking it into the ground using the weight of the structure as a reaction force. The pier is driven until the resistance at depth equals the capacity of the hydraulic ram.</p>
             <p>Push piers are not appropriate for most New Mexico residential foundation work. Wood-frame homes do not generate enough dead load to drive piers to the depths required in our soil profiles.</p>
+            <a href="/push-piers-deep-dive" class="term-deep-link">Full technical breakdown →</a>
           </div>
           <div class="related-terms">
             <span class="related-label">Related:</span>
@@ -1720,6 +1727,19 @@ const definedTermSetSchema = {
   }
   .term-definition p:last-child {
     margin-bottom: 0;
+  }
+  .term-deep-link {
+    display: inline-block;
+    margin-top: 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--blue, #1b3a5c);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--tls-gold, #b8860b);
+  }
+  .term-deep-link:hover {
+    color: var(--gold-text, #7d5c08);
   }
   .related-terms {
     border-top: 1px solid var(--tls-stone);

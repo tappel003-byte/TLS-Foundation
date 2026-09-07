@@ -1,0 +1,341 @@
+---
+// PILOT-FOLLOWUP DRAFT -- not linked from nav (added to temp Draft folder
+// only), not live. Second of the method deep-dive pages, same template as
+// helical-piers-deep-dive.astro. Content adapted from Tim's own
+// myfoundationrepairconsultant.com for New Mexico specifics -- MFRC stays
+// completely separate (no mention, no link, either direction). [TIM: ...]
+// marks spots needing real NM numbers/field experience instead of guesses.
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Push Piers in New Mexico | TLS Foundations';
+const summary =
+  'Push piers -- also called resistance piers -- are steel pipe sections hydraulically pressed from a bracket at an existing footing, using the structure\'s own weight as the reaction force. That reaction requirement is the whole story: heavy enough structures drive them cleanly, light wood-frame construction usually can not. Capacity comes from end bearing and shaft friction in compression; installation pressure is useful field data but is not, by itself, proof of long-term capacity the way a soil investigation is.';
+const description =
+  'What push piers actually are, how they carry load using the structure\'s own weight, and when New Mexico construction does -- and does not -- call for them.';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Push Piers in New Mexico',
+    description,
+    about: description,
+    author: { '@type': 'Organization', name: 'TLS Foundations' },
+    publisher: { '@type': 'Organization', name: 'TLS Foundations' },
+    url: 'https://www.tlsfoundations.com/push-piers-deep-dive',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'Foundation Repair Methods', item: 'https://www.tlsfoundations.com/foundation-repair-methods' },
+      { '@type': 'ListItem', position: 3, name: 'Push Piers', item: 'https://www.tlsfoundations.com/push-piers-deep-dive' },
+    ],
+  },
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={schema}
+  summary={summary}
+  pageName="Push Piers"
+  nextPage={{ path: '/foundation-repair-methods', name: 'Foundation Repair Methods' }}
+>
+  <div class="tls-article" id="top">
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <span class="hero-eyebrow">Methods · Push Piers</span>
+        <h1>Push Piers —<br /><em>What the Reaction Force Actually Means</em></h1>
+        <p class="page-hero-sub">Also called resistance piers. What they are, how they use your own house to install themselves, and why that's exactly why they're wrong for most New Mexico homes.</p>
+      </div>
+    </section>
+
+    <div class="article-outer">
+      <article class="article-body">
+        <p class="article-lede">Push piers get recommended more often than New Mexico wood-frame construction can actually support. Understanding why comes down to one mechanical fact: the pier doesn't push itself into the ground. Your house does.</p>
+
+        <div class="article-section" id="what-they-are">
+          <h2>What a Push Pier <em>Actually Is</em></h2>
+          <p class="opening">A push pier — also called a resistance pier — is a steel pipe section advanced into the ground from a bracket mounted at an existing footing.</p>
+          <p>The name describes the installation itself: the existing structure supplies the reaction that presses the pier downward, section by section, as they're joined together. That's a fundamentally different mechanism from a helical pier, which is rotated in under torque, or a micropile, which is drilled and grouted. A push pier system is three parts — steel pipe sections, a foundation bracket at the footing, and a hydraulic ram using the building's own weight as reaction.</p>
+        </div>
+
+        <div class="article-section" id="how-they-work">
+          <h2>How They Actually <em>Carry Load</em></h2>
+          <p class="opening">Once installed, a push pier is meant to carry part of the foundation load through the bracket and steel section down to a deeper bearing layer, or to a depth where enough resistance has developed.</p>
+          <p>Installation pressure is useful field information while it's happening, but it isn't by itself proof of long-term capacity — the footing, the bracket, pier alignment, the soil profile, groundwater, and the structural load path all factor in too. It's also worth being precise about the vocabulary: pressure readings on a push pier are not the same thing as torque on a helical pier, and shouldn't be treated as interchangeable data.</p>
+          <div class="callout-block">
+            <span class="callout-label">Worth knowing</span>
+            <p>Push piers develop most of their capacity in compression, through end bearing and shaft friction. Resisting tension or uplift isn't typical of standard hardware — it requires a specifically engineered bracket or coupler detail that most installations don't include. If a job needs uplift resistance (wind, expansive-soil heave), that's a different conversation before piers are even proposed.</p>
+          </div>
+        </div>
+
+        <div class="article-section" id="good-better-best">
+          <h2>Good, Better, <em>Best</em></h2>
+          <p class="opening">The reaction-force requirement is the whole story here — everything about whether a push pier is the right call traces back to whether the structure above it is heavy enough to drive it properly.</p>
+          <div class="callout-block">
+            <span class="callout-label">Good fit</span>
+            <p>[TIM: to be filled in]</p>
+          </div>
+          <div class="callout-block">
+            <span class="callout-label">Better fit</span>
+            <p>[TIM: to be filled in]</p>
+          </div>
+          <div class="callout-block">
+            <span class="callout-label">Best fit</span>
+            <p>[TIM: to be filled in]</p>
+          </div>
+          <p>What rules a push pier out regardless of tier: an active plumbing leak, poor drainage, irrigation, or expansive-soil moisture change that's still unaddressed; a lightly loaded interior slab rather than an actual foundation load path; or a project that needs uplift/tension resistance without an engineered connection built for it.</p>
+        </div>
+
+        <div class="article-section" id="installation">
+          <h2>What Installation <em>Actually Involves</em></h2>
+          <p class="opening">Installation happens at the footing — excavation to expose it, the bracket mounted, then pipe sections hydraulically pressed and joined one at a time using the building's weight as reaction.</p>
+          <p>[TIM: anything specific to New Mexico construction worth a homeowner knowing — how this plays out on slab-on-grade vs. pier-and-beam, older adobe or masonry footings that need extra care taking a bracket load, access realities in tight backyards?]</p>
+        </div>
+
+        <div class="article-section" id="misconceptions">
+          <h2>What People <em>Get Wrong</em></h2>
+          <ul class="key-points">
+            <li><strong>"A pressure reading is the same as helical torque"</strong> — they measure different things on different systems. Don't let the numbers get treated as interchangeable.</li>
+            <li><strong>"Any house can take push piers"</strong> — the structure has to be heavy enough to supply real installation reaction. Most New Mexico wood-frame residential construction isn't.</li>
+            <li><strong>"Pressed concrete piles are the same as steel push piers"</strong> — they're a related system (stacked precast concrete sections, also pressed using the structure as reaction), but not automatically equivalent to an engineered steel resistance-pier system. Ask about documentation, joints, alignment, and the bracket connection before accepting "same thing" as an answer.</li>
+            <li><strong>"Push piers fix uplift too"</strong> — standard hardware is compression-only. Tension or uplift resistance needs a specifically engineered bracket or coupler most installations don't include.</li>
+          </ul>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ Back to top</a>
+
+        <p class="closing-link"><a href="/foundation-repair-methods" class="body-link">← Back to Foundation Repair Methods</a> · <a href="/glossary#push-pier" class="body-link">Glossary: Push Pier →</a></p>
+      </article>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .tls-article {
+    --blue: #1b3a5c;
+    --blue-dark: #0d2238;
+    --blue-mid: #2a5480;
+    --tls-gold: #b8860b;
+    --gold-light: #d4a017;
+    --gold-text: #7d5c08;
+    --tls-sand: #f5efe6;
+    --tls-stone: #e0d5c5;
+    --tls-slate: #4a5568;
+    --muted: #54626f;
+    --dark: #1a1a1a;
+    --tls-cream: #fdfaf6;
+    --gutter: 64px;
+    --content-max: 1100px;
+    --article-max: 720px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px;
+    background: #fff;
+    color: var(--dark);
+    line-height: 1.9;
+  }
+  .page-hero {
+    background: var(--blue);
+    padding: 52px var(--gutter) 44px;
+    border-bottom: 2px solid var(--tls-gold);
+  }
+  .page-hero-inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 46px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .page-hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.8;
+    max-width: 600px;
+  }
+  .article-outer {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 64px var(--gutter) 80px;
+  }
+  .article-body {
+    max-width: var(--article-max);
+    margin: 0 auto;
+  }
+  .article-lede {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--tls-slate);
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .article-section {
+    margin-bottom: 56px;
+    scroll-margin-top: 80px;
+  }
+  .article-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 400;
+    color: var(--blue);
+    line-height: 1.2;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .article-section h2 em {
+    font-style: italic;
+    color: var(--gold-text);
+  }
+  .article-section p {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+  .article-section p:last-child {
+    margin-bottom: 0;
+  }
+  .article-section p.opening {
+    font-size: 18px;
+    color: var(--blue);
+    font-weight: 400;
+  }
+  .pull-quote {
+    margin: 40px 0;
+    padding: 32px 40px;
+    border-left: 3px solid var(--gold-text);
+    background: var(--tls-sand);
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px !important;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--blue) !important;
+    line-height: 1.55 !important;
+    margin-bottom: 0 !important;
+  }
+  .callout-block {
+    margin: 40px 0;
+    padding: 28px 32px;
+    background: var(--tls-cream);
+    border-top: 2px solid var(--tls-gold);
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 14px;
+  }
+  .callout-block p {
+    font-size: 15px !important;
+    font-weight: 300;
+    color: var(--tls-slate) !important;
+    line-height: 1.8 !important;
+    margin-bottom: 10px !important;
+  }
+  .callout-block p:last-child {
+    margin-bottom: 0 !important;
+  }
+  .callout-block strong {
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .key-points {
+    margin: 32px 0;
+    list-style: none;
+  }
+  .key-points li {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.75;
+    padding: 12px 0 12px 24px;
+    border-bottom: 1px solid var(--tls-stone);
+    position: relative;
+  }
+  .key-points li:first-child {
+    border-top: 1px solid var(--tls-stone);
+  }
+  .key-points li::before {
+    content: '—';
+    font-family: 'DM Mono', monospace;
+    color: var(--gold-text);
+    position: absolute;
+    left: 0;
+    font-size: 13px;
+  }
+  .key-points li strong {
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .back-to-top {
+    display: block;
+    text-align: right;
+    margin-top: 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .back-to-top:hover {
+    color: var(--gold-text);
+  }
+  .closing-link {
+    margin-top: 32px;
+    font-size: 17px;
+  }
+  .tls-article :global(.body-link) {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--tls-gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .tls-article :global(.body-link):hover {
+    color: var(--gold-text);
+  }
+
+  @media (max-width: 768px) {
+    .article-outer {
+      padding: 40px 24px 56px;
+    }
+    .pull-quote {
+      padding: 24px 24px;
+    }
+  }
+</style>

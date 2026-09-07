@@ -1,0 +1,343 @@
+---
+// PILOT-FOLLOWUP DRAFT -- not linked from nav (added to temp Draft folder
+// only), not live. Same template as helical-piers-deep-dive.astro.
+// Content adapted from Tim's own myfoundationrepairconsultant.com for New
+// Mexico specifics -- MFRC stays completely separate (no mention, no
+// link, either direction). [TIM: ...] marks spots needing real NM
+// numbers/field experience instead of guesses. Per Tim: foam is
+// important to TLS's future and referred to a trusted partner for
+// smaller jobs today (no company names, per Tim's hard rule) -- that
+// referral fact belongs here, stated plainly, not downplayed.
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Foam Injection in New Mexico | TLS Foundations';
+const summary =
+  'Polyurethane foam injection fills voids and lifts concrete by expansion force, in small controlled stages -- plenty for a sidewalk or light slab, but not a substitute for piers under a structure carrying real structural load. It is not a pile, and it does not explain why support was lost in the first place; if the underlying cause -- water, erosion, poor compaction -- is still active, foam by itself does not fix that.';
+const description =
+  'What polyurethane foam injection actually does, why it cures fast enough to lift a slab in controlled stages, and when it is -- and is not -- the right call.';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Foam Injection in New Mexico',
+    description,
+    about: description,
+    author: { '@type': 'Organization', name: 'TLS Foundations' },
+    publisher: { '@type': 'Organization', name: 'TLS Foundations' },
+    url: 'https://www.tlsfoundations.com/foam-injection-deep-dive',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'Foundation Repair Methods', item: 'https://www.tlsfoundations.com/foundation-repair-methods' },
+      { '@type': 'ListItem', position: 3, name: 'Foam Injection', item: 'https://www.tlsfoundations.com/foam-injection-deep-dive' },
+    ],
+  },
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={schema}
+  summary={summary}
+  pageName="Foam Injection"
+  nextPage={{ path: '/foundation-repair-methods', name: 'Foundation Repair Methods' }}
+>
+  <div class="tls-article" id="top">
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <span class="hero-eyebrow">Methods · Foam Injection</span>
+        <h1>Foam Injection —<br /><em>Fast, Precise, and Not a Pile</em></h1>
+        <p class="page-hero-sub">Expanding polyurethane lifts by expansion force and cures in minutes. That speed is exactly what makes it good at one job and the wrong tool for another.</p>
+      </div>
+    </section>
+
+    <div class="article-outer">
+      <article class="article-body">
+        <p class="article-lede">Foam injection is one of the two methods in our toolkit — mud jacking is the other — that we typically bring in a trusted partner to handle for smaller jobs rather than run in-house. That's not a knock on the method. Foam is a growing part of where we're headed, and it deserves the same honest treatment as anything we do ourselves.</p>
+
+        <div class="article-section" id="what-they-are">
+          <h2>What Foam Injection <em>Actually Is</em></h2>
+          <p class="opening">Foam injection uses a two-component polyurethane that expands after it's injected — commonly used to fill voids, restore contact beneath slabs, and lift concrete in small, controlled stages.</p>
+          <p>It's not a helical pier, a push pier, or a micropile. It doesn't install a steel or grouted pile — it places expanding resin where there's a void or treatable ground, then relies on the foam and the soil around it to carry load after injection. That's a fundamentally different kind of fix than a deep-foundation load path, and it's worth being clear-eyed about which job you actually need before picking between them.</p>
+        </div>
+
+        <div class="article-section" id="how-they-work">
+          <h2>How It Actually <em>Works</em></h2>
+          <p class="opening">The foam expands and cures in minutes, not days — which is what makes it good for precise, incremental lifting: inject a little, check the level, inject a little more, and the surface is often walkable the same day.</p>
+          <p>That speed is also its ceiling. If weak, wet, eroding, or compressible soil remains below or beside the treated zone, movement can continue regardless of how well the injection itself went — foam restores contact and fills the void that exists right now, it doesn't change what's happening underneath it. Poor drainage and saturated soil are exactly the conditions that can bring the same settlement back.</p>
+          <div class="callout-block">
+            <span class="callout-label">Worth knowing</span>
+            <p>Foam is plenty for a sidewalk or a light slab, but it isn't a substitute for piers under a structure carrying real structural load. The foam-versus-piers question isn't a product competition — it's a question about what's actually failing and what load path the structure needs.</p>
+          </div>
+        </div>
+
+        <div class="article-section" id="good-better-best">
+          <h2>Good, Better, <em>Best</em></h2>
+          <p class="opening">Foam earns its place across a real range of jobs, not just as a cheaper fallback — the tier depends on what's actually being asked of it.</p>
+          <div class="callout-block">
+            <span class="callout-label">Good fit</span>
+            <p>[TIM: to be filled in]</p>
+          </div>
+          <div class="callout-block">
+            <span class="callout-label">Better fit</span>
+            <p>[TIM: to be filled in]</p>
+          </div>
+          <div class="callout-block">
+            <span class="callout-label">Best fit</span>
+            <p>[TIM: to be filled in]</p>
+          </div>
+          <p>What rules it out regardless of tier: a footing that still needs reliable structural load transfer to deeper competent material, water or erosion still actively removing support, or a job where the soil and movement mechanism haven't actually been identified yet.</p>
+        </div>
+
+        <div class="article-section" id="how-we-deliver-it">
+          <h2>How This <em>Actually Gets Done</em></h2>
+          <p class="opening">For smaller foam jobs, we typically bring in a trusted partner rather than run it in-house — someone we know does that specific job well. It's the same approach we take with a couple of other specialty jobs outside our core piering work: get the right people on it, not force it into what we happen to have equipment for.</p>
+          <p>[TIM: anything you want said about scale here — is there a size/scope threshold where you'd handle it directly versus refer it, or is it consistently handled the same way regardless of job size right now?]</p>
+        </div>
+
+        <div class="article-section" id="misconceptions">
+          <h2>What People <em>Get Wrong</em></h2>
+          <ul class="key-points">
+            <li><strong>"Foam is just a cheaper version of piers"</strong> — it's a different tool for a different job, not a discount version of underpinning. Comparing them head to head only makes sense once you know which failure mechanism you actually have.</li>
+            <li><strong>"If it lifted the slab, the problem's solved"</strong> — foam restores contact and elevation right now. If water or erosion caused the void in the first place and that's still active, the same problem can come back.</li>
+            <li><strong>"Foam and mud jacking are the same thing"</strong> — related goal (lifting a slab), different material and mechanism. Mud jacking uses the same cement-based grout as compaction grouting; foam is an expanding polyurethane resin. Cost and cure time differ accordingly.</li>
+          </ul>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ Back to top</a>
+
+        <p class="closing-link"><a href="/foundation-repair-methods" class="body-link">← Back to Foundation Repair Methods</a> · <a href="/glossary#polyurethane-foam-injection" class="body-link">Glossary: Polyurethane Foam Injection →</a></p>
+      </article>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .tls-article {
+    --blue: #1b3a5c;
+    --blue-dark: #0d2238;
+    --blue-mid: #2a5480;
+    --tls-gold: #b8860b;
+    --gold-light: #d4a017;
+    --gold-text: #7d5c08;
+    --tls-sand: #f5efe6;
+    --tls-stone: #e0d5c5;
+    --tls-slate: #4a5568;
+    --muted: #54626f;
+    --dark: #1a1a1a;
+    --tls-cream: #fdfaf6;
+    --gutter: 64px;
+    --content-max: 1100px;
+    --article-max: 720px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px;
+    background: #fff;
+    color: var(--dark);
+    line-height: 1.9;
+  }
+  .page-hero {
+    background: var(--blue);
+    padding: 52px var(--gutter) 44px;
+    border-bottom: 2px solid var(--tls-gold);
+  }
+  .page-hero-inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 46px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .page-hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.8;
+    max-width: 600px;
+  }
+  .article-outer {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 64px var(--gutter) 80px;
+  }
+  .article-body {
+    max-width: var(--article-max);
+    margin: 0 auto;
+  }
+  .article-lede {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--tls-slate);
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .article-section {
+    margin-bottom: 56px;
+    scroll-margin-top: 80px;
+  }
+  .article-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 400;
+    color: var(--blue);
+    line-height: 1.2;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .article-section h2 em {
+    font-style: italic;
+    color: var(--gold-text);
+  }
+  .article-section p {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+  .article-section p:last-child {
+    margin-bottom: 0;
+  }
+  .article-section p.opening {
+    font-size: 18px;
+    color: var(--blue);
+    font-weight: 400;
+  }
+  .pull-quote {
+    margin: 40px 0;
+    padding: 32px 40px;
+    border-left: 3px solid var(--gold-text);
+    background: var(--tls-sand);
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px !important;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--blue) !important;
+    line-height: 1.55 !important;
+    margin-bottom: 0 !important;
+  }
+  .callout-block {
+    margin: 40px 0;
+    padding: 28px 32px;
+    background: var(--tls-cream);
+    border-top: 2px solid var(--tls-gold);
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 14px;
+  }
+  .callout-block p {
+    font-size: 15px !important;
+    font-weight: 300;
+    color: var(--tls-slate) !important;
+    line-height: 1.8 !important;
+    margin-bottom: 10px !important;
+  }
+  .callout-block p:last-child {
+    margin-bottom: 0 !important;
+  }
+  .callout-block strong {
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .key-points {
+    margin: 32px 0;
+    list-style: none;
+  }
+  .key-points li {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.75;
+    padding: 12px 0 12px 24px;
+    border-bottom: 1px solid var(--tls-stone);
+    position: relative;
+  }
+  .key-points li:first-child {
+    border-top: 1px solid var(--tls-stone);
+  }
+  .key-points li::before {
+    content: '—';
+    font-family: 'DM Mono', monospace;
+    color: var(--gold-text);
+    position: absolute;
+    left: 0;
+    font-size: 13px;
+  }
+  .key-points li strong {
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .back-to-top {
+    display: block;
+    text-align: right;
+    margin-top: 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .back-to-top:hover {
+    color: var(--gold-text);
+  }
+  .closing-link {
+    margin-top: 32px;
+    font-size: 17px;
+  }
+  .tls-article :global(.body-link) {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--tls-gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .tls-article :global(.body-link):hover {
+    color: var(--gold-text);
+  }
+
+  @media (max-width: 768px) {
+    .article-outer {
+      padding: 40px 24px 56px;
+    }
+    .pull-quote {
+      padding: 24px 24px;
+    }
+  }
+</style>
