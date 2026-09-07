@@ -1,0 +1,350 @@
+---
+// PILOT DRAFT -- not linked from nav, not live. First of a possible 6-8
+// method deep-dive pages, one per Foundation Repair Methods card. Built
+// on the same article template as expansive-soil.astro/collapsible-soil.astro
+// (page-hero, article-section rhythm, pull-quote/callout-block patterns)
+// rather than importing a foreign layout, so it reads as part of this site.
+//
+// Content is adapted from Tim's own myfoundationrepairconsultant.com --
+// per Tim, MFRC stays completely separate (no mention, no link, either
+// direction) and this is a rewrite for New Mexico specifics, not a port.
+// The engineering mechanics (bearing plates, shaft friction, torque
+// correlation limits) are universal and carried over; anything
+// NM-specific is flagged inline as [TIM: ...] for real numbers/field
+// experience rather than guessed. Do not fill those in without him.
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Helical Piers in New Mexico | TLS Foundations';
+const summary =
+  'Helical piers are steel shafts with welded bearing plates, rotated into the ground until they reach soil capable of carrying structural load. They develop capacity two ways -- bearing at the plates and friction along the shaft -- and installation torque is tracked as a working indicator of that capacity, though torque alone does not replace a real soil investigation. They are the right call when competent bearing soil exists at a reachable depth and access is limited; they are the wrong call when the actual problem is moisture, drainage, or a crack that never was structural to begin with.';
+const description =
+  'What helical piers actually are, how they carry load, and when New Mexico soil conditions call for them -- and when they don’t.';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Helical Piers in New Mexico',
+    description,
+    about: description,
+    author: { '@type': 'Organization', name: 'TLS Foundations' },
+    publisher: { '@type': 'Organization', name: 'TLS Foundations' },
+    url: 'https://www.tlsfoundations.com/helical-piers-deep-dive',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'Foundation Repair Methods', item: 'https://www.tlsfoundations.com/foundation-repair-methods' },
+      { '@type': 'ListItem', position: 3, name: 'Helical Piers', item: 'https://www.tlsfoundations.com/helical-piers-deep-dive' },
+    ],
+  },
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={schema}
+  summary={summary}
+  pageName="Helical Piers"
+  nextPage={{ path: '/foundation-repair-methods', name: 'Foundation Repair Methods' }}
+>
+  <div class="tls-article" id="top">
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <span class="hero-eyebrow">Methods · Helical Piers</span>
+        <h1>Helical Piers —<br /><em>What They Actually Do</em></h1>
+        <p class="page-hero-sub">Hearing the term on an estimate doesn't mean you need them. Here's what they are, how they carry load, and what New Mexico soil actually has to look like for them to be the right call.</p>
+      </div>
+    </section>
+
+    <div class="article-outer">
+      <article class="article-body">
+        <p class="article-lede">Of the eight tools in our toolkit, helical piers get named the most — and misunderstood the most. They aren't a universal fix, they aren't the same as a push pier, and picking them off a menu without an investigation into what your soil is actually doing is exactly the shortcut this page argues against.</p>
+
+        <div class="article-section" id="what-they-are">
+          <h2>What a Helical Pier <em>Actually Is</em></h2>
+          <p class="opening">A helical pier is a steel shaft with one or more helical bearing plates welded to it — installed by rotating it into the ground, like a very large screw, until it reaches soil capable of carrying structural load.</p>
+          <p>The system has a lead section carrying the bearing plates (typically 8 to 14 inches in diameter), extension shafts to reach target depth, a coupling system joining those sections, and a foundation bracket connecting the finished pier to your structure. Unlike a push pier, which is driven using the structure's own weight as reaction force, or a micropile, which is drilled and grouted, a helical pier is turned into the ground under torque — no dead-load requirement, no drill rig.</p>
+        </div>
+
+        <div class="article-section" id="how-they-work">
+          <h2>How They Actually <em>Carry Load</em></h2>
+          <p class="opening">Capacity comes from two places at once, and they don't contribute equally.</p>
+          <p>The helical plates create bearing surfaces at depth — capacity increases with larger plate diameter, more plates, and placement in higher-capacity soil. Plate spacing matters too: plates set too close together can overlap their stress zones and fail to develop independent bearing. Shaft friction adds to total capacity, but it's the less reliable contributor in most residential work, and matters more in cohesive clay than in loose granular soil — which is relevant here, since [TIM: how would you characterize the soils where you're typically installing these — mostly clay, mostly granular fill, mixed by region?].</p>
+          <div class="callout-block">
+            <span class="callout-label">Worth knowing</span>
+            <p>Installation torque is tracked and correlated to capacity, but that correlation has real limits. A hard layer can produce high torque with minimal long-term bearing capacity; a genuinely adequate bearing stratum can produce a lower torque reading than expected. Torque is a working indicator during installation — it doesn't replace a soil investigation done before the pier ever goes in the ground.</p>
+          </div>
+        </div>
+
+        <div class="article-section" id="when-yes-no">
+          <h2>When They're the Right Call — <em>and When They're Not</em></h2>
+          <p class="opening">Helical piers tend to perform well under a specific, checkable set of conditions — and they solve exactly one problem, not every problem that looks like it.</p>
+          <ul class="key-points">
+            <li>Competent bearing soil exists at a reachable depth [TIM: what's the real depth range you're actually reaching in NM work — MFRC's generic number was 10–30 ft, is that close, or does it run different here?]</li>
+            <li>Surface soils are weak, compressible, or moisture-sensitive — not stable enough on their own to carry the load</li>
+            <li>Installation needs to happen with minimal vibration or excavation</li>
+            <li>Access is tight — existing structures, limited equipment clearance</li>
+            <li>An actual investigation has identified bearing capacity as the cause of movement, not moisture or drainage</li>
+          </ul>
+          <p>That last point is the one that gets skipped most often. Helical piers address load support. They do nothing for drainage problems, moisture infiltration, plumbing leaks, or seasonal clay expansion — installing piers when moisture is the actual cause can stabilize elevation while the real problem keeps running underneath it. And if movement has already stopped — historic settlement that monitoring confirms isn't ongoing — underpinning may not be justified at all.</p>
+          <div class="pull-quote">
+            <p>The strongest case for a helical pier isn't a deep hole and a good torque reading. It's a soil investigation that already told you what's down there before the pier ever went in.</p>
+          </div>
+        </div>
+
+        <div class="article-section" id="installation">
+          <h2>What Installation <em>Actually Involves</em></h2>
+          <p class="opening">Installation runs on hydraulic torque motors mounted on skid steers, mini excavators, or hand-held equipment depending on access — depth is reached when the target torque is hit, practical refusal occurs, or a predetermined depth from soil data is met, whichever comes first.</p>
+          <p>[TIM: anything specific to how this plays out on New Mexico ground — caliche layers stopping a pier short of target depth, adobe or historic construction changing the approach, backyard/access realities in older Albuquerque or Santa Fe neighborhoods, anything else worth a homeowner knowing before the crew shows up?]</p>
+          <div class="callout-block">
+            <span class="callout-label">Worth clarifying up front</span>
+            <p>Standard installation typically does <strong>not</strong> include drainage correction, interior finish repair, plumbing fixes, or cosmetic crack repair. If your quote includes piers, ask specifically what's in scope and what isn't before work starts.</p>
+          </div>
+        </div>
+
+        <div class="article-section" id="misconceptions">
+          <h2>What People <em>Get Wrong</em></h2>
+          <ul class="key-points">
+            <li><strong>"Helical piers are the only solution"</strong> — push piers, micropiles, and non-structural drainage work can all be equally or more appropriate, depending entirely on what the investigation finds.</li>
+            <li><strong>"Torque guarantees capacity"</strong> — it's a useful working number during installation, not a substitute for knowing what's actually down there.</li>
+            <li><strong>"Deeper is always better"</strong> — the goal is reaching competent soil, not maximum depth. Going deeper than the bearing stratum requires doesn't buy you anything.</li>
+            <li><strong>"Every crack means I need piers"</strong> — most residential cracking is ordinary material behavior — shrinkage, thermal movement — not foundation distress. Telling the two apart is the entire point of an evaluation.</li>
+          </ul>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ Back to top</a>
+
+        <p class="closing-link"><a href="/foundation-repair-methods" class="body-link">← Back to Foundation Repair Methods</a></p>
+      </article>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .tls-article {
+    --blue: #1b3a5c;
+    --blue-dark: #0d2238;
+    --blue-mid: #2a5480;
+    --tls-gold: #b8860b;
+    --gold-light: #d4a017;
+    --gold-text: #7d5c08;
+    --tls-sand: #f5efe6;
+    --tls-stone: #e0d5c5;
+    --tls-slate: #4a5568;
+    --muted: #54626f;
+    --dark: #1a1a1a;
+    --tls-cream: #fdfaf6;
+    --gutter: 64px;
+    --content-max: 1100px;
+    --article-max: 720px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px;
+    background: #fff;
+    color: var(--dark);
+    line-height: 1.9;
+  }
+  .page-hero {
+    background: var(--blue);
+    padding: 52px var(--gutter) 44px;
+    border-bottom: 2px solid var(--tls-gold);
+  }
+  .page-hero-inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 46px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .page-hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.8;
+    max-width: 600px;
+  }
+  .article-outer {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 64px var(--gutter) 80px;
+  }
+  .article-body {
+    max-width: var(--article-max);
+    margin: 0 auto;
+  }
+  .article-lede {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--tls-slate);
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .article-section {
+    margin-bottom: 56px;
+    scroll-margin-top: 80px;
+  }
+  .article-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 400;
+    color: var(--blue);
+    line-height: 1.2;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .article-section h2 em {
+    font-style: italic;
+    color: var(--gold-text);
+  }
+  .article-section p {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+  .article-section p:last-child {
+    margin-bottom: 0;
+  }
+  .article-section p.opening {
+    font-size: 18px;
+    color: var(--blue);
+    font-weight: 400;
+  }
+  .pull-quote {
+    margin: 40px 0;
+    padding: 32px 40px;
+    border-left: 3px solid var(--gold-text);
+    background: var(--tls-sand);
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px !important;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--blue) !important;
+    line-height: 1.55 !important;
+    margin-bottom: 0 !important;
+  }
+  .callout-block {
+    margin: 40px 0;
+    padding: 28px 32px;
+    background: var(--tls-cream);
+    border-top: 2px solid var(--tls-gold);
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 14px;
+  }
+  .callout-block p {
+    font-size: 15px !important;
+    font-weight: 300;
+    color: var(--tls-slate) !important;
+    line-height: 1.8 !important;
+    margin-bottom: 10px !important;
+  }
+  .callout-block p:last-child {
+    margin-bottom: 0 !important;
+  }
+  .callout-block strong {
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .key-points {
+    margin: 32px 0;
+    list-style: none;
+  }
+  .key-points li {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.75;
+    padding: 12px 0 12px 24px;
+    border-bottom: 1px solid var(--tls-stone);
+    position: relative;
+  }
+  .key-points li:first-child {
+    border-top: 1px solid var(--tls-stone);
+  }
+  .key-points li::before {
+    content: '—';
+    font-family: 'DM Mono', monospace;
+    color: var(--gold-text);
+    position: absolute;
+    left: 0;
+    font-size: 13px;
+  }
+  .key-points li strong {
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .back-to-top {
+    display: block;
+    text-align: right;
+    margin-top: 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .back-to-top:hover {
+    color: var(--gold-text);
+  }
+  .closing-link {
+    margin-top: 32px;
+    font-size: 17px;
+  }
+  .tls-article :global(.body-link) {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--tls-gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .tls-article :global(.body-link):hover {
+    color: var(--gold-text);
+  }
+
+  @media (max-width: 768px) {
+    .article-outer {
+      padding: 40px 24px 56px;
+    }
+    .pull-quote {
+      padding: 24px 24px;
+    }
+  }
+</style>
