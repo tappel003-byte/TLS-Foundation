@@ -57,6 +57,13 @@ const folders = [
       { text: 'Cause Library', href: '/cause-library' },
     ],
   },
+  {
+    // Temp folder, same pattern as the earlier 4-page redesign drafts --
+    // gives Tim a normal nav path to a draft instead of a raw URL to type.
+    // Remove this folder (and the -v2 file) once promoted or dropped.
+    title: 'Draft (temp)',
+    items: [{ text: 'Foundation Repair Methods v2', href: '/foundation-repair-methods-v2' }],
+  },
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
