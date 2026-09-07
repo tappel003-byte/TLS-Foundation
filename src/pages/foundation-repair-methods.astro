@@ -16,6 +16,20 @@
 // including the wood-frame/push-pier limitation already stated
 // elsewhere on the site (index.astro's services list) but missing from
 // this page's own dedicated Push Piers card.
+//
+// Second pass: this page's own copy claimed "eight tools, eight
+// different jobs," while Home's services grid and this page's own
+// footer teaser both correctly say "six methods" -- Monitoring and
+// Custom Solutions aren't repair methods in the same sense (one is
+// explicitly choosing not to repair yet, the other is a catch-all for
+// what doesn't fit the six). Reworded this page's intro and footer text
+// to match the accurate framing instead of inflating the count. Also:
+// gave Monitoring and Custom Solutions the `id` anchors and schema
+// entries the other six methods already had (they were unlinkable and
+// invisible to the page's own structured data); rewrote Helical Piers'
+// filler body, which had been missed in the first pass; fixed a
+// preview/fit redundancy on the Micropiles card (both said "limited
+// access"); and corrected "stabilise" to "stabilize."
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Foundation Repair Methods | TLS Foundations New Mexico';
@@ -24,7 +38,7 @@ const summary =
 const description =
   'We match the repair method to the problem, not the other way around. Helical piers, push piers, grouting, drainage -- all based on a proper diagnosis.';
 
-const serviceAreaText = `TLS Foundations is a New Mexico foundation repair contractor serving residential and commercial clients across the state. We install helical piers, push piers, and micropiles for deep foundation support. We perform compaction grouting and foam injection for void fill and soil densification. We correct drainage and surface grading when moisture is the problem — which in New Mexico, it usually is. We recommend monitoring when repair is premature. We design custom solutions when the soil profile requires something the standard toolkit doesn't cover. Eight methods on this page. The one we recommend is the one the soil warrants — not the one that generates the largest invoice. A company that sells a system evaluates every problem through the lens of that system. We carry a broad enough toolkit that the method genuinely follows the diagnosis. That is the difference.`;
+const serviceAreaText = `TLS Foundations is a New Mexico foundation repair contractor serving residential and commercial clients across the state. We install helical piers, push piers, and micropiles for deep foundation support. We perform compaction grouting and foam injection for void fill and soil densification. We correct drainage and surface grading when moisture is the problem — which in New Mexico, it usually is. We recommend monitoring when repair is premature. We design custom solutions when the soil profile requires something the standard toolkit doesn't cover. Six repair methods on this page, plus monitoring and custom work for when a standard method isn't the answer. The one we recommend is the one the soil warrants — not the one that generates the largest invoice. A company that sells a system evaluates every problem through the lens of that system. We carry a broad enough toolkit that the method genuinely follows the diagnosis. That is the difference.`;
 
 const methods = [
   { id: 'helical-piers', name: 'Helical Piers', description: 'Steel piers with helical plates, rotated into the ground to reach competent bearing soil. Installed where deeper support is needed for homes with shallow foundations, expansive clay, or variable soil conditions.' },
@@ -33,6 +47,8 @@ const methods = [
   { id: 'compaction-grouting', name: 'Compaction Grouting', description: 'Low-slump grout injected under pressure to densify loose soil and fill voids. Used for settled slabs, voids under foundations, collapsible soil, or loose zones that need densification.' },
   { id: 'foam-injection', name: 'Foam Injection', description: 'Expanding polyurethane foam injected beneath slabs to lift and fill light voids. Used for sunken driveways, sidewalks, light interior slabs, or small voids under concrete.' },
   { id: 'drainage-correction', name: 'Drainage and Grading Correction', description: "Correcting grading, gutters, and surface drainage to direct water away from the foundation. Often the correct first intervention, since most New Mexico foundation movement is moisture-driven -- though it has real limits once soil has already lost bearing capacity or the cause is geological." },
+  { id: 'monitoring', name: 'Monitoring', description: 'Structured observation of movement over time to determine whether it is active, stable, or seasonal, before recommending a repair.' },
+  { id: 'custom-solutions', name: 'Custom Solutions', description: 'A repair built around the specific site and structure when soil conditions or building type fall outside the standard methods.' },
 ];
 
 const schema = [
@@ -161,7 +177,7 @@ const schema = [
           <span class="section-label-text">Our methods</span>
         </div>
         <h2 class="reveal">The method follows the problem. <em>These are the tools.</em></h2>
-        <p class="reveal">Eight tools, eight different jobs — no single one of them is the answer to everything. Click or tap any method to learn what it's actually for.</p>
+        <p class="reveal">Six repair methods below, plus two calls that aren't repairs at all — knowing when to wait, and knowing when nothing standard fits. Click or tap any one to see what it's actually for.</p>
 
         <div class="methods-grid reveal">
           <div class="method-card" id="helical-piers" role="button" tabindex="0" aria-label="Expand to learn more about Helical Piers">
@@ -175,7 +191,7 @@ const schema = [
             </div>
             <p class="method-preview">Installed where deeper support is needed and where site conditions call for a deep foundation solution.</p>
             <div class="method-body">
-              <p>In New Mexico, that may mean clay, fill, collapsible soil, or something else entirely. The point is reaching competent support in the right place.</p>
+              <p>Rotated in by torque, not driven by the structure's weight or drilled through rock — which is exactly why it's the default choice for most New Mexico residential work: no dead-load requirement like a push pier, no drill rig needed like a micropile.</p>
               <div class="method-fit"><strong>When it fits:</strong> Homes with shallow foundations, expansive clay, or variable soil conditions.</div>
             </div>
           </div>
@@ -205,7 +221,7 @@ const schema = [
               </div>
               <span class="method-expand-icon">+</span>
             </div>
-            <p class="method-preview">Useful where access is limited or where the site calls for a drilled deep foundation solution.</p>
+            <p class="method-preview">The drilled option for hard material a driven or torqued pier can't get through.</p>
             <div class="method-body">
               <p>Drilled and grouted rather than driven or torqued in, which is what makes them work where hard rock, cobbles, or dense caliche would stop a helical pier cold.</p>
               <div class="method-fit"><strong>When it fits:</strong> Tight spaces, deep unstable soil, or limited access where other equipment can't reach.</div>
@@ -260,7 +276,7 @@ const schema = [
             </div>
           </div>
 
-          <div class="method-card" role="button" tabindex="0" aria-label="Expand to learn more about Monitoring">
+          <div class="method-card" id="monitoring" role="button" tabindex="0" aria-label="Expand to learn more about Monitoring">
             <div class="method-header">
               <span class="method-number">07</span>
               <div>
@@ -272,11 +288,11 @@ const schema = [
             <p class="method-preview">Not every issue needs immediate intervention.</p>
             <div class="method-body">
               <p>In some cases, the smartest move is to watch the movement over time so we can understand whether it is active, stable, or related to a seasonal condition.</p>
-              <div class="method-fit"><strong>When it fits:</strong> Minor movement that may stabilise on its own, or when we need more data before acting.</div>
+              <div class="method-fit"><strong>When it fits:</strong> Minor movement that may stabilize on its own, or when we need more data before acting.</div>
             </div>
           </div>
 
-          <div class="method-card" role="button" tabindex="0" aria-label="Expand to learn more about Custom Solutions">
+          <div class="method-card" id="custom-solutions" role="button" tabindex="0" aria-label="Expand to learn more about Custom Solutions">
             <div class="method-header">
               <span class="method-number">08</span>
               <div>
