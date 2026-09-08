@@ -65,13 +65,6 @@ const schema = [
       <article class="article-body">
         <p class="article-lede">Helical piers are steel shafts with bearing plates, rotated into the ground until they reach soil capable of carrying structural load. They are not the same system as a push pier or a micropile, and they address one specific problem — bearing capacity — not every cause of foundation movement.</p>
 
-        <div class="at-a-glance">
-          <div class="glance-item"><span class="glance-label">Installation</span><span class="glance-value">Rotated into ground under torque</span></div>
-          <div class="glance-item"><span class="glance-label">Capacity source</span><span class="glance-value">Bearing plates + shaft friction</span></div>
-          <div class="glance-item"><span class="glance-label">Best for</span><span class="glance-value">Competent soil at reachable depth, limited access, minimal vibration</span></div>
-          <div class="glance-item"><span class="glance-label">Not for</span><span class="glance-value">Moisture-driven movement, cosmetic cracking, movement that has already stopped</span></div>
-        </div>
-
         <div class="article-section" id="what-they-are">
           <h2>What a Helical Pier <em>Actually Is</em></h2>
           <p class="opening">A helical pier is a steel shaft with one or more helical bearing plates welded to it — installed by rotating it into the ground, like a very large screw, until it reaches soil capable of carrying structural load.</p>
@@ -197,35 +190,9 @@ const schema = [
     font-weight: 300;
     line-height: 1.85;
     color: var(--tls-slate);
-    margin-bottom: 32px;
-  }
-  .at-a-glance {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-    background: var(--tls-stone);
-    border: 1px solid var(--tls-stone);
     margin-bottom: 48px;
-  }
-  .glance-item {
-    background: var(--tls-cream);
-    padding: 16px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .glance-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gold-text);
-  }
-  .glance-value {
-    font-size: 15px;
-    color: var(--blue);
-    font-weight: 500;
-    line-height: 1.4;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--tls-stone);
   }
   .article-section {
     margin-bottom: 56px;
@@ -369,9 +336,6 @@ const schema = [
     }
     .pull-quote {
       padding: 24px 24px;
-    }
-    .at-a-glance {
-      grid-template-columns: 1fr;
     }
   }
 </style>
