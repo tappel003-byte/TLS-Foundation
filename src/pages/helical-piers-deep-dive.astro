@@ -63,7 +63,14 @@ const schema = [
 
     <div class="article-outer">
       <article class="article-body">
-        <p class="article-lede">Of the eight tools in our toolkit, helical piers get named the most — and misunderstood the most. They aren't a universal fix, they aren't the same as a push pier, and picking them off a menu without an investigation into what your soil is actually doing is exactly the shortcut this page argues against.</p>
+        <p class="article-lede">Helical piers are steel shafts with bearing plates, rotated into the ground until they reach soil capable of carrying structural load. They are not the same system as a push pier or a micropile, and they address one specific problem — bearing capacity — not every cause of foundation movement.</p>
+
+        <div class="at-a-glance">
+          <div class="glance-item"><span class="glance-label">Installation</span><span class="glance-value">Rotated into ground under torque</span></div>
+          <div class="glance-item"><span class="glance-label">Capacity source</span><span class="glance-value">Bearing plates + shaft friction</span></div>
+          <div class="glance-item"><span class="glance-label">Best for</span><span class="glance-value">Competent soil at reachable depth, limited access, minimal vibration</span></div>
+          <div class="glance-item"><span class="glance-label">Not for</span><span class="glance-value">Moisture-driven movement, cosmetic cracking, movement that has already stopped</span></div>
+        </div>
 
         <div class="article-section" id="what-they-are">
           <h2>What a Helical Pier <em>Actually Is</em></h2>
@@ -74,10 +81,11 @@ const schema = [
         <div class="article-section" id="how-they-work">
           <h2>How They Actually <em>Carry Load</em></h2>
           <p class="opening">Capacity comes from two places at once, and they don't contribute equally.</p>
-          <p>The helical plates create bearing surfaces at depth — capacity increases with larger plate diameter, more plates, and placement in higher-capacity soil. Plate spacing matters too: plates set too close together can overlap their stress zones and fail to develop independent bearing. Shaft friction adds to total capacity, but it's the less reliable contributor in most residential work, and matters more in cohesive clay than in loose granular soil — which is relevant here, since [TIM: how would you characterize the soils where you're typically installing these — mostly clay, mostly granular fill, mixed by region?].</p>
+          <p>The helical plates create bearing surfaces at depth. Capacity increases with larger plate diameter, more plates, and placement in higher-capacity soil. Plate spacing matters: plates set too close together can overlap their stress zones and fail to develop independent bearing.</p>
+          <p>Shaft friction adds to total capacity but is the less reliable contributor in most residential work — it matters more in cohesive clay than in loose granular soil. [TIM: how would you characterize the soils where you're typically installing these — mostly clay, mostly granular fill, mixed by region?]</p>
           <div class="callout-block">
-            <span class="callout-label">Worth knowing</span>
-            <p>Installation torque is tracked and correlated to capacity, but that correlation has real limits. A hard layer can produce high torque with minimal long-term bearing capacity; a genuinely adequate bearing stratum can produce a lower torque reading than expected. Torque is a working indicator during installation — it doesn't replace a soil investigation done before the pier ever goes in the ground.</p>
+            <span class="callout-label">Torque vs. capacity</span>
+            <p>Installation torque is tracked and correlated to capacity, but the correlation has real limits. A hard layer can produce high torque with minimal long-term bearing capacity; a genuinely adequate bearing stratum can produce a lower torque reading than expected. Torque is a working indicator during installation, not a replacement for a soil investigation done before the pier ever goes in the ground.</p>
           </div>
         </div>
 
@@ -92,13 +100,13 @@ const schema = [
           <p class="opening">Installation runs on hydraulic torque motors mounted on skid steers, mini excavators, or hand-held equipment depending on access — depth is reached when the target torque is hit, practical refusal occurs, or a predetermined depth from soil data is met, whichever comes first.</p>
           <p>[TIM: anything specific to how this plays out on New Mexico ground — caliche layers stopping a pier short of target depth, adobe or historic construction changing the approach, backyard/access realities in older Albuquerque or Santa Fe neighborhoods, anything else worth a homeowner knowing before the crew shows up?]</p>
           <div class="callout-block">
-            <span class="callout-label">Worth clarifying up front</span>
-            <p>Standard installation typically does <strong>not</strong> include drainage correction, interior finish repair, plumbing fixes, or cosmetic crack repair. If your quote includes piers, ask specifically what's in scope and what isn't before work starts.</p>
+            <span class="callout-label">Scope exclusions</span>
+            <p>Standard installation does <strong>not</strong> include drainage correction, interior finish repair, plumbing fixes, or cosmetic crack repair. If a quote includes piers, confirm in writing what's in scope and what isn't before work starts.</p>
           </div>
         </div>
 
         <div class="article-section" id="misconceptions">
-          <h2>What People <em>Get Wrong</em></h2>
+          <h2>Common <em>Misconceptions</em></h2>
           <ul class="key-points">
             <li><strong>"Helical piers are the only solution"</strong> — push piers, micropiles, and non-structural drainage work can all be equally or more appropriate, depending entirely on what the investigation finds.</li>
             <li><strong>"Torque guarantees capacity"</strong> — it's a useful working number during installation, not a substitute for knowing what's actually down there.</li>
@@ -189,9 +197,35 @@ const schema = [
     font-weight: 300;
     line-height: 1.85;
     color: var(--tls-slate);
+    margin-bottom: 32px;
+  }
+  .at-a-glance {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--tls-stone);
+    border: 1px solid var(--tls-stone);
     margin-bottom: 48px;
-    padding-bottom: 48px;
-    border-bottom: 1px solid var(--tls-stone);
+  }
+  .glance-item {
+    background: var(--tls-cream);
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .glance-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+  }
+  .glance-value {
+    font-size: 15px;
+    color: var(--blue);
+    font-weight: 500;
+    line-height: 1.4;
   }
   .article-section {
     margin-bottom: 56px;
@@ -335,6 +369,9 @@ const schema = [
     }
     .pull-quote {
       padding: 24px 24px;
+    }
+    .at-a-glance {
+      grid-template-columns: 1fr;
     }
   }
 </style>
