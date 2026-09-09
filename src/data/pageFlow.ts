@@ -42,3 +42,24 @@ export const pageFlow: { path: string; name: string }[] = [
   // contactUs (Header.astro), rendered last
   { path: '/contact-us', name: 'Contact Us' },
 ];
+
+// A second, fully separate chain for the "Draft (temp)" folder's own pages
+// (Header.astro), in the order they're listed there. Kept isolated from
+// `pageFlow` on purpose -- the whole reason drafts are excluded above is so
+// a live page's "next" never drops a visitor into an unfinished draft.
+// Chaining drafts to each other doesn't reintroduce that risk as long as
+// this list never touches the live one: MobilePageFlowNav only consults
+// this array when the current page isn't found in `pageFlow` at all, and
+// nothing in `pageFlow` ever points into this list. Gives Tim prev/next
+// while reviewing the deep-dive pages without waiting for promotion.
+export const draftPageFlow: { path: string; name: string }[] = [
+  { path: '/foundation-repair-methods-v2', name: 'Foundation Repair Methods v2' },
+  { path: '/helical-piers-deep-dive', name: 'Helical Piers Deep Dive' },
+  { path: '/push-piers-deep-dive', name: 'Push Piers Deep Dive' },
+  { path: '/micropiles-deep-dive', name: 'Micropiles Deep Dive' },
+  { path: '/compaction-grouting-deep-dive', name: 'Compaction Grouting & Mud Jacking Deep Dive' },
+  { path: '/foam-injection-deep-dive', name: 'Foam Injection Deep Dive' },
+  { path: '/drainage-correction-deep-dive', name: 'Drainage & Grading Deep Dive' },
+  { path: '/monitoring-deep-dive', name: 'Monitoring Deep Dive' },
+  { path: '/custom-solutions-deep-dive', name: 'Custom Solutions Deep Dive' },
+];
