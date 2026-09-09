@@ -189,6 +189,10 @@ const schema = [
             <p class="body-p">The knowledge that makes TLS different is not in a document. It is in the people who have spent decades in New Mexico soils, building the kind of field library that cannot be read or downloaded. That does not transfer.</p>
           </div>
         </div>
+        <div class="stepper-panel-nav">
+          <button class="step-nav-btn step-prev-btn" type="button" hidden>← <span class="step-nav-label"></span></button>
+          <button class="step-nav-btn step-next-btn" type="button">Next: <span class="step-nav-label"></span> →</button>
+        </div>
       </div>
     </section>
 
@@ -266,6 +270,9 @@ const schema = [
     if (!rail) return;
     const steps = Array.from(rail.querySelectorAll<HTMLButtonElement>('.step-btn'));
     const panels = Array.from(document.querySelectorAll<HTMLElement>('.step-panel'));
+    const prevBtn = document.querySelector<HTMLButtonElement>('.step-prev-btn');
+    const nextBtn = document.querySelector<HTMLButtonElement>('.step-next-btn');
+    const stepLabel = (btn: HTMLButtonElement) => btn.querySelector('.step-label')?.textContent ?? '';
 
     function select(key: string, opts: { scroll?: boolean } = {}) {
       steps.forEach((s) => {
@@ -276,6 +283,17 @@ const schema = [
       panels.forEach((p) => p.classList.toggle('active', p.dataset.panel === key));
       if (opts.scroll) {
         document.querySelector('.stepper-rail')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      const index = steps.findIndex((s) => s.dataset.step === key);
+      if (prevBtn) {
+        prevBtn.hidden = index <= 0;
+        const label = prevBtn.querySelector('.step-nav-label');
+        if (label && index > 0) label.textContent = stepLabel(steps[index - 1]);
+      }
+      if (nextBtn) {
+        nextBtn.hidden = index === -1 || index === steps.length - 1;
+        const label = nextBtn.querySelector('.step-nav-label');
+        if (label && index >= 0 && index < steps.length - 1) label.textContent = stepLabel(steps[index + 1]);
       }
     }
 
@@ -288,10 +306,32 @@ const schema = [
         }
       });
     });
+    prevBtn?.addEventListener('click', () => {
+      const current = steps.findIndex((s) => s.classList.contains('active'));
+      if (current > 0) {
+        const key = steps[current - 1].dataset.step;
+        if (key) {
+          select(key);
+          history.replaceState(null, '', `#${key}`);
+        }
+      }
+    });
+    nextBtn?.addEventListener('click', () => {
+      const current = steps.findIndex((s) => s.classList.contains('active'));
+      if (current >= 0 && current < steps.length - 1) {
+        const key = steps[current + 1].dataset.step;
+        if (key) {
+          select(key);
+          history.replaceState(null, '', `#${key}`);
+        }
+      }
+    });
 
     const initialId = window.location.hash.replace('#', '');
     if (steps.some((s) => s.dataset.step === initialId)) {
       select(initialId, { scroll: true });
+    } else {
+      select(steps[0]?.dataset.step ?? '');
     }
   }
   document.addEventListener('DOMContentLoaded', initStepper);
@@ -518,10 +558,37 @@ const schema = [
     color: var(--blue);
     margin: 0 0 28px;
   }
+  .stepper-panel-nav {
+    max-width: var(--col);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--stone);
+  }
+  .step-nav-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--gold-text);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
+    transition: color 0.2s;
+  }
+  .step-nav-btn:hover {
+    color: var(--blue);
+  }
+  .step-next-btn {
+    margin-left: auto;
+  }
   @media (max-width: 640px) {
     .stepper-rail { gap: 8px; }
     .step-btn { padding: 8px 14px 8px 10px; }
     .step-label { font-size: 13px; }
+    .step-nav-btn { font-size: 11px; }
   }
 
   .diff-section { padding: 100px var(--gutter); background: var(--cream); border-bottom: 2px solid var(--gold); }

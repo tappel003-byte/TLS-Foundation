@@ -186,6 +186,10 @@ const schema = [
             <a href="/new-mexico-soil-conditions" class="acc-link">Explore all five regions and New Mexico soils →</a>
           </div>
         </div>
+        <div class="tabs-panel-nav">
+          <button class="tab-nav-btn tab-prev-btn" type="button" hidden>← <span class="tab-nav-label"></span></button>
+          <button class="tab-nav-btn tab-next-btn" type="button">Next: <span class="tab-nav-label"></span> →</button>
+        </div>
       </div>
     </section>
 
@@ -277,19 +281,44 @@ const schema = [
 
 <script>
   function initTabs() {
-    const nav = document.querySelector('.tabs-nav');
-    if (!nav) return;
-    const buttons = Array.from(nav.querySelectorAll<HTMLButtonElement>('.tab-btn'));
-    const panels = Array.from(document.querySelectorAll<HTMLElement>('.tab-panel'));
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const key = btn.dataset.tab;
-        buttons.forEach((b) => {
-          b.classList.toggle('active', b === btn);
-          b.setAttribute('aria-selected', String(b === btn));
+    document.querySelectorAll<HTMLElement>('.tabs-block').forEach((block) => {
+      const nav = block.querySelector('.tabs-nav');
+      if (!nav) return;
+      const buttons = Array.from(nav.querySelectorAll<HTMLButtonElement>('.tab-btn'));
+      const panels = Array.from(block.querySelectorAll<HTMLElement>('.tab-panel'));
+      const prevBtn = block.querySelector<HTMLButtonElement>('.tab-prev-btn');
+      const nextBtn = block.querySelector<HTMLButtonElement>('.tab-next-btn');
+
+      function activate(index: number) {
+        buttons.forEach((b, i) => {
+          b.classList.toggle('active', i === index);
+          b.setAttribute('aria-selected', String(i === index));
         });
-        panels.forEach((p) => p.classList.toggle('active', p.dataset.panel === key));
+        panels.forEach((p, i) => p.classList.toggle('active', i === index));
+        if (prevBtn) {
+          prevBtn.hidden = index === 0;
+          const label = prevBtn.querySelector('.tab-nav-label');
+          if (label && index > 0) label.textContent = buttons[index - 1].textContent;
+        }
+        if (nextBtn) {
+          nextBtn.hidden = index === buttons.length - 1;
+          const label = nextBtn.querySelector('.tab-nav-label');
+          if (label && index < buttons.length - 1) label.textContent = buttons[index + 1].textContent;
+        }
+      }
+
+      buttons.forEach((btn, i) => btn.addEventListener('click', () => activate(i)));
+      prevBtn?.addEventListener('click', () => {
+        const current = buttons.findIndex((b) => b.classList.contains('active'));
+        if (current > 0) activate(current - 1);
       });
+      nextBtn?.addEventListener('click', () => {
+        const current = buttons.findIndex((b) => b.classList.contains('active'));
+        if (current < buttons.length - 1) activate(current + 1);
+      });
+
+      const startIndex = buttons.findIndex((b) => b.classList.contains('active'));
+      activate(startIndex === -1 ? 0 : startIndex);
     });
   }
   document.addEventListener('DOMContentLoaded', initTabs);
@@ -724,12 +753,40 @@ const schema = [
     color: var(--blue);
     border-color: rgba(27, 58, 92, 0.4);
   }
+  .tabs-panel-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--stone);
+  }
+  .tab-nav-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--gold-text);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
+    transition: color 0.2s;
+  }
+  .tab-nav-btn:hover {
+    color: var(--blue);
+  }
+  .tab-next-btn {
+    margin-left: auto;
+  }
   @media (max-width: 640px) {
     .tabs-nav {
       gap: 4px;
     }
     .tab-btn {
       margin-right: 16px;
+      font-size: 11px;
+    }
+    .tab-nav-btn {
       font-size: 11px;
     }
   }
