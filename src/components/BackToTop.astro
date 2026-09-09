@@ -40,6 +40,12 @@
     transform: translateY(0);
     pointer-events: auto;
   }
+  /* Sitewide footer-visibility observer, see Layout.astro -- avoids
+     sitting on top of the footer's own bottom row once scrolled that far. */
+  body.tls-footer-visible #tls-btt.show {
+    opacity: 0;
+    pointer-events: none;
+  }
   #tls-btt:hover {
     background: var(--gold);
   }

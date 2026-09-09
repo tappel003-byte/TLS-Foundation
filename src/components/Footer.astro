@@ -84,7 +84,7 @@ const {
   </div>
   <div class="footer-bottom">
     <div class="footer-bottom-copy">© {new Date().getFullYear()} TLS Foundations · Albuquerque, New Mexico · Foundation Repair</div>
-    <div class="footer-bottom-right">tlsfoundations.com</div>
+    <div class="footer-bottom-right"><a href="/privacy-policy" class="footer-privacy-link">Privacy Policy</a> · tlsfoundations.com</div>
   </div>
   <div class="footer-address">5048 Edith Blvd NE, Suite E, Albuquerque, NM 87107</div>
 </footer>
@@ -184,6 +184,14 @@ const {
     letter-spacing: 2px;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.2);
+  }
+  .footer-privacy-link {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-privacy-link:hover {
+    color: var(--gold);
   }
   .footer-address {
     max-width: 1100px;

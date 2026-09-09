@@ -1,0 +1,236 @@
+---
+// Bare-bones privacy policy, added ahead of launch now that all 5 forms
+// (Contact Us, Symptom Guide, Cause Library, Crack Gauge, Send Us Photos)
+// actually collect and store real data -- Web3Forms for form delivery,
+// Cloudflare R2 for photo storage, Cloudflare Web Analytics for traffic.
+// Written to describe what this site actually does, not a generic
+// boilerplate -- no user accounts, no ad tracking, no data sold to
+// anyone, ever. Linked from the footer, not the main nav (matches how
+// most sites treat a privacy policy -- reference, not a primary page).
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Privacy Policy | TLS Foundations';
+const description =
+  'What information TLS Foundations collects through its website forms and photo tool, how it is used, and how to request it be deleted.';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: 'Privacy Policy',
+    description,
+    url: 'https://www.tlsfoundations.com/privacy-policy',
+  },
+];
+---
+
+<Layout title={title} description={description} footer="minimal" schema={schema}>
+  <div class="tls-article" id="top">
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <span class="hero-eyebrow">Privacy Policy</span>
+        <h1>What We Do <em>With Your Information</em></h1>
+        <p class="page-hero-sub">Plain language, not legal boilerplate. Last updated September 2026.</p>
+      </div>
+    </section>
+
+    <div class="article-outer">
+      <article class="article-body">
+        <p class="article-lede">TLS Foundations doesn't have user accounts, doesn't run ads, and doesn't sell information to anyone. This page covers the two places this site actually collects anything: the contact and photo forms, and basic traffic analytics.</p>
+
+        <div class="article-section" id="what-we-collect">
+          <h2>What We <em>Collect</em></h2>
+          <p class="opening">When you fill out a form on this site — Contact Us, Symptom Guide, Cause Library, the Printable Crack Gauge, or Send Us Photos — we collect whatever you enter: typically your name, phone number, and a description of what's going on, and depending on the form, your address, best time to call, and photos of your foundation or the issue you're asking about.</p>
+          <p>That's the whole list. We don't collect payment information through this site, we don't require an account or login for anything here, and we don't track you across other websites.</p>
+        </div>
+
+        <div class="article-section" id="how-we-use-it">
+          <h2>How We <em>Use It</em></h2>
+          <p class="opening">To respond to you — that's the only reason we ask for it.</p>
+          <p>Form submissions go to TLS Foundations directly so we can call, text, or email you back about what you asked. Photos you send help us understand the situation before we ever set foot on the property. We don't add you to a marketing list, sell your information, or share it with anyone outside of what it takes to actually respond to your inquiry.</p>
+        </div>
+
+        <div class="article-section" id="third-parties">
+          <h2>The Outside Services <em>Behind the Scenes</em></h2>
+          <p class="opening">This site runs on a few third-party services rather than custom-built infrastructure — worth naming plainly rather than burying in fine print.</p>
+          <p><strong>Web3Forms</strong> delivers form submissions from this site to our email. It's a form-processing service, not a marketing platform — it doesn't get used for anything beyond passing your message to us.</p>
+          <p><strong>Cloudflare</strong> hosts this site and stores photos submitted through Send Us Photos in its object storage. Cloudflare doesn't have access to what's in those photos beyond storing the file, and neither service is used to build an advertising profile on you.</p>
+        </div>
+
+        <div class="article-section" id="analytics">
+          <h2>Analytics — <em>What We Track and What We Don't</em></h2>
+          <p class="opening">This site uses Cloudflare Web Analytics to see basic traffic patterns — which pages get visited, roughly how much traffic the site gets, that kind of thing.</p>
+          <p>It's a privacy-focused option on purpose: it doesn't use cookies, doesn't fingerprint your device, and doesn't track you once you leave this site. We see aggregate numbers, not a profile tied to you individually.</p>
+        </div>
+
+        <div class="article-section" id="retention-and-rights">
+          <h2>How Long We Keep It, <em>and Your Options</em></h2>
+          <p class="opening">We keep form submissions and photos as long as they're relevant to an active inquiry or job, and for a reasonable period afterward in case you follow up.</p>
+          <p>If you'd like something you submitted deleted — a photo, a form submission, anything — contact us and we'll take care of it. There's no automated self-service tool for this yet; it's a direct request to a person, which for a company this size is faster than a form would be anyway.</p>
+        </div>
+
+        <div class="article-section" id="contact">
+          <h2>Questions? <em>Just Ask</em></h2>
+          <p class="opening">If anything here isn't clear, or you want to see, correct, or delete information you've sent us, reach out directly.</p>
+          <p>Call or text <a href="tel:5059914180" class="body-link">(505) 991-4180</a>, or email <a href="mailto:TLSfoundationsNM@gmail.com" class="body-link">TLSfoundationsNM@gmail.com</a>.</p>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ Back to top</a>
+
+        <p class="closing-link"><a href="/" class="body-link">← Back to Home</a></p>
+      </article>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .tls-article {
+    --blue: #1b3a5c;
+    --blue-dark: #0d2238;
+    --blue-mid: #2a5480;
+    --tls-gold: #b8860b;
+    --gold-light: #d4a017;
+    --gold-text: #7d5c08;
+    --tls-sand: #f5efe6;
+    --tls-stone: #e0d5c5;
+    --tls-slate: #4a5568;
+    --muted: #54626f;
+    --dark: #1a1a1a;
+    --tls-cream: #fdfaf6;
+    --gutter: 64px;
+    --content-max: 1100px;
+    --article-max: 720px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px;
+    background: #fff;
+    color: var(--dark);
+    line-height: 1.9;
+  }
+  .page-hero {
+    background: var(--blue);
+    padding: 52px var(--gutter) 44px;
+    border-bottom: 2px solid var(--tls-gold);
+  }
+  .page-hero-inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 46px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .page-hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.8;
+    max-width: 600px;
+  }
+  .article-outer {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 64px var(--gutter) 80px;
+  }
+  .article-body {
+    max-width: var(--article-max);
+    margin: 0 auto;
+  }
+  .article-lede {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--tls-slate);
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .article-section {
+    margin-bottom: 56px;
+    scroll-margin-top: 80px;
+  }
+  .article-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 400;
+    color: var(--blue);
+    line-height: 1.2;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .article-section h2 em {
+    font-style: italic;
+    color: var(--gold-text);
+  }
+  .article-section p {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+  .article-section p:last-child {
+    margin-bottom: 0;
+  }
+  .article-section p.opening {
+    font-size: 18px;
+    color: var(--blue);
+    font-weight: 400;
+  }
+  .article-section p strong {
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .back-to-top {
+    display: block;
+    text-align: right;
+    margin-top: 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .back-to-top:hover {
+    color: var(--gold-text);
+  }
+  .closing-link {
+    margin-top: 32px;
+    font-size: 17px;
+  }
+  .tls-article :global(.body-link) {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--tls-gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .tls-article :global(.body-link):hover {
+    color: var(--gold-text);
+  }
+
+  @media (max-width: 768px) {
+    .article-outer {
+      padding: 40px 24px 56px;
+    }
+  }
+</style>

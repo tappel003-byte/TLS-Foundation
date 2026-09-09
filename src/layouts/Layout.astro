@@ -134,13 +134,20 @@ const websiteSchema = {
       site, but it's a real tradeoff worth being aware you're making, not
       something to just not think about.
     -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-REPLACE_WITH_GA4_ID"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() { dataLayer.push(arguments); }
-      gtag('js', new Date());
-      gtag('config', 'G-REPLACE_WITH_GA4_ID');
-    </script>
+    <!--
+      Left disabled for now -- per Tim, Cloudflare Web Analytics only at
+      launch. A live script tag pointed at a fake G-XXXXXXX id does
+      nothing but make a failed request, so this stays commented out
+      until there's a real Measurement ID to put in both places below.
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-REPLACE_WITH_GA4_ID"></script>
+      <script is:inline>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-REPLACE_WITH_GA4_ID');
+      </script>
+    -->
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
@@ -152,5 +159,26 @@ const websiteSchema = {
     <BackToTop />
     <MobilePageFlowNav />
     {summary && <PageSummary summary={summary} pageName={pageName} nextPage={nextPage} />}
+
+    <script>
+      // The floating button cluster (back-to-top, prev/next, Summary pill)
+      // sits at a fixed bottom-corner position -- which means it physically
+      // overlaps the footer's own bottom row once someone scrolls all the
+      // way down, since that row lives in the exact same screen region.
+      // Fading the buttons out once the footer is in view avoids the
+      // collision without needing to guess a magic scroll-distance number
+      // per page (footers vary in height across footer="full" vs.
+      // "minimal", and page content length varies a lot more than that).
+      const footerEl = document.querySelector('.footer, .minimal-footer');
+      if (footerEl) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            document.body.classList.toggle('tls-footer-visible', entry.isIntersecting);
+          },
+          { rootMargin: '0px 0px -40px 0px' }
+        );
+        observer.observe(footerEl);
+      }
+    </script>
   </body>
 </html>
