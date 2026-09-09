@@ -2,7 +2,7 @@
 // header's own left-to-right, top-to-bottom order (Header.astro's
 // topLevel, then each folder top-to-bottom in the order the folders
 // appear, then Contact Us last) -- NOT the old narrative "read the story"
-// order, which buried the Reference/Interactive Guides folders' pages
+// order, which buried the Reference/Interactive Tools folders' pages
 // right after Why Foundations Move instead of where they sit in the nav.
 //
 // Deliberately excludes the temp "Draft (temp)" folder -- those 4 pages
@@ -35,8 +35,10 @@ export const pageFlow: { path: string; name: string }[] = [
   { path: '/glossary', name: 'Glossary' }, // Reference
   { path: '/expansive-soil', name: 'Expansive Soil' },
   { path: '/collapsible-soil', name: 'Collapsible Soil' },
-  { path: '/symptom-guide', name: 'Symptom Guide' }, // Interactive Guides
+  { path: '/symptom-guide', name: 'Symptom Guide' }, // Interactive Tools
   { path: '/cause-library', name: 'Cause Library' },
+  { path: '/crack-gauge', name: 'Printable Crack Gauge' },
+  { path: '/send-photos', name: 'Send Us Photos' },
   // contactUs (Header.astro), rendered last
   { path: '/contact-us', name: 'Contact Us' },
 ];

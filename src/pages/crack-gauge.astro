@@ -1,7 +1,6 @@
 ---
-// DRAFT -- not linked from main nav (added to temp Draft folder only),
-// not live yet. Ported from two Lovable prototypes that were never
-// published (workspace "Tim's Lovable"): "Homeowner Helpdesk"
+// Live, in the "Interactive Tools" nav folder. Ported from two Lovable
+// prototypes that were never published (workspace "Tim's Lovable"): "Homeowner Helpdesk"
 // (home-snap-relief) supplied the working fold-in-half print layout
 // (real inch units via CSS `in`, the edge ruler, the tracking log), and
 // the earlier "Homeowner Helper Tool" prototype supplied the richer
@@ -15,6 +14,13 @@
 // cause-library.astro, per Tim's direction to reuse the existing
 // mechanism rather than add a new one. It will start working the moment
 // that one access key is filled in -- same TODO as those three pages.
+//
+// TIM: shipped without a physical print-and-measure check against a
+// ruler -- you flagged you're not sure the bars are accurate and want
+// to adjust after it's live rather than hold the page for it. The CSS
+// uses real `in` units so it should print true at 100% scale/no "fit to
+// page", but that's a should, not a verified fact -- print one out and
+// check it against a tape measure before pointing anyone at this page.
 import Layout from '../layouts/Layout.astro';
 
 // TODO(Tim): same key as contact-us.astro -- see the TODO there for how

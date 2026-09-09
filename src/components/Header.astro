@@ -1,7 +1,7 @@
 ---
 // Site-wide header/nav. Matches the live site's confirmed structure:
 // 5 top-level links + 4 dropdown folders (City Pages, NM Soils, Reference,
-// Interactive Guides), non-sticky, background #1B3A5C, phone CTA in DM Mono
+// Interactive Tools), non-sticky, background #1B3A5C, phone CTA in DM Mono
 // gold. The former "In Depth" folder (Soil & Movement, Homeowner Decision
 // Series) was removed -- both were AI-narrated re-recordings of text
 // content that already lives elsewhere on the site, not a reason to visit
@@ -51,10 +51,17 @@ const folders = [
     ],
   },
   {
-    title: 'Interactive Guides',
+    // Renamed from "Interactive Guides" -- the original two items were
+    // both self-assessment (work through a question set, get a read on
+    // what's happening). Crack Gauge and Send Us Photos are actionable
+    // items instead (measure something, submit something), so "Guides"
+    // stopped covering the whole folder. "Tools" covers both kinds.
+    title: 'Interactive Tools',
     items: [
       { text: 'Symptom Guide', href: '/symptom-guide' },
       { text: 'Cause Library', href: '/cause-library' },
+      { text: 'Printable Crack Gauge', href: '/crack-gauge' },
+      { text: 'Send Us Photos', href: '/send-photos' },
     ],
   },
   {
@@ -72,8 +79,6 @@ const folders = [
       { text: 'Drainage & Grading Deep Dive', href: '/drainage-correction-deep-dive' },
       { text: 'Monitoring Deep Dive', href: '/monitoring-deep-dive' },
       { text: 'Custom Solutions Deep Dive', href: '/custom-solutions-deep-dive' },
-      { text: 'Printable Crack Gauge', href: '/crack-gauge' },
-      { text: 'Send Us Photos', href: '/send-photos' },
     ],
   },
 ];
