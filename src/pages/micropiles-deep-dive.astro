@@ -75,6 +75,17 @@ const schema = [
             <p>The Federal Highway Administration classifies micropile grouting into four types, and the method changes the bond strength you get from the same soil. Type A is gravity-placed grout — no injection pressure — and produces the lowest bond values. Type B is pressure-grouted during casing withdrawal (roughly 70–145 psi), forcing grout into pores and irregularities in the borehole wall for meaningfully higher bond than Type A. Types C and D add one or multiple post-grouting pressure phases (Type D up to 290–1,160 psi) for the highest bond values, used where capacity requirements or difficult soil call for it. Per FHWA reference guidance (FHWA-NHI-05-039, Table 5-3), ultimate bond strength across these methods and soil types ranges roughly from 5 psi in soft clay to 56+ psi in dense sand and gravel — more than a tenfold spread from the same physical hole in different ground.</p>
           </div>
           <p>Shaft friction also works in both directions. A micropile resists uplift (tension) about as well as it resists downward load (compression), which makes it useful for wind or seismic uplift in a way a standard push pier — compression-only unless specifically engineered otherwise — isn't. The tradeoff is lateral capacity: the small diameter gives a micropile little resistance to bending, so where lateral load matters, piles are often installed at an angle (battered) rather than vertically, resisting sideways force through axial tension and compression in the incline instead.</p>
+          <details class="deeper">
+            <summary class="deeper-toggle">
+              <span>Going Deeper — For the Technically Curious</span>
+              <span class="deeper-toggle-icon">+</span>
+            </summary>
+            <div class="deeper-body">
+              <p>Grout-to-soil bond is only half the load path — the other half is the bond between the grout and the steel reinforcement itself, which is what actually transfers load from the bar to the grout in the first place. Typical ultimate values, per the FHWA micropile manual (citing ACI 318): roughly <strong>145–254 psi</strong> for a smooth bar or pipe, and <strong>290–508 psi</strong> for a deformed, threaded bar — the ridges on a deformed bar give it meaningfully better grip. In most designs this interface isn't actually what limits the pile; the structural capacity of the steel-and-grout section usually governs first.</p>
+              <p>On the inspection side: the IBC doesn't have a subsection written specifically for micropiles. They fall under <strong>Section 1705.8</strong>, Cast-in-Place Deep Foundations — the same category used for any drilled-and-grouted element — which requires continuous inspection of the drilling operation and verification of placement, diameter, length, embedment, and grout volume.</p>
+              <p class="deeper-cite">Source: FHWA-NHI-05-039, p. 5-9 (citing ACI 318); IBC Section 1705.8, Cast-in-Place Deep Foundations.</p>
+            </div>
+          </details>
         </div>
 
         <div class="article-section" id="installation">
@@ -274,6 +285,90 @@ const schema = [
   .key-points li strong {
     color: var(--blue);
     font-weight: 600;
+  }
+  .deeper {
+    margin: 32px 0;
+    border: 1px solid var(--tls-stone);
+    background: var(--tls-cream);
+  }
+  .deeper-toggle {
+    cursor: pointer;
+    list-style: none;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+  }
+  .deeper-toggle::-webkit-details-marker {
+    display: none;
+  }
+  .deeper-toggle::marker {
+    content: '';
+  }
+  .deeper-toggle-icon {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px;
+    line-height: 1;
+    color: var(--gold-text);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .deeper[open] .deeper-toggle-icon {
+    transform: rotate(45deg);
+  }
+  .deeper-body {
+    padding: 4px 28px 26px;
+    border-top: 1px solid var(--tls-stone);
+    padding-top: 20px;
+  }
+  .deeper-body p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .deeper-body p:last-child {
+    margin-bottom: 0;
+  }
+  .deeper-body strong {
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .deeper-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 20px;
+    font-size: 14px;
+  }
+  .deeper-body th,
+  .deeper-body td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--tls-stone);
+    text-align: left;
+    color: var(--tls-slate);
+    font-weight: 300;
+  }
+  .deeper-body th {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .deeper-cite {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px !important;
+    letter-spacing: 0.5px;
+    color: var(--muted) !important;
+    margin-top: 4px !important;
   }
   .back-to-top {
     display: block;

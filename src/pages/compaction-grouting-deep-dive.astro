@@ -78,6 +78,18 @@ const schema = [
             <span class="callout-label">Not the same tool as foam</span>
             <p>Compaction grouting is a different tool from foam injection, even though both can be used to address a settled slab. Foam is an expanding polyurethane resin that fills a void; compaction grout is a stiff cement-based material that displaces and compacts the ground around it. They're not interchangeable, and a bid that just says "grouting" or "soil stabilization" hasn't actually named a method — ask what mechanism is planned.</p>
           </div>
+          <details class="deeper">
+            <summary class="deeper-toggle">
+              <span>Going Deeper — For the Technically Curious</span>
+              <span class="deeper-toggle-icon">+</span>
+            </summary>
+            <div class="deeper-body">
+              <p>"Low slump" isn't a loose description here — it's the defining property. The ASCE/Geo-Institute guideline puts the working range at under 2 inches of slump, with a practical field limit around 1.5 inches, using a modified test method since the standard slump-cone procedure doesn't suit a mix this stiff. The industry term for this material is <strong>Low Mobility Grouting</strong> (also called Limited Mobility Displacement Grouting) — stiff enough to stay put and displace the ground around it rather than flow into it.</p>
+              <p>Slump alone doesn't guarantee that behavior, though — the guideline is explicit that aggregate gradation matters just as much: enough silt-sized material for mobility control, enough sand and gravel for internal friction. A mix that benches stiff in a slump test can still behave like a fluid once it's actually under pump pressure if the gradation is wrong.</p>
+              <p>One honest gap worth naming: unlike the piering methods, the IBC has no numbered subsection written for compaction grouting at all. Inspection instead runs through the project's geotechnical report and the general soils provisions in Section 1705.6 — real oversight, just not a citation with its own line item in the code.</p>
+              <p class="deeper-cite">Source: ASCE/Geo-Institute Compaction Grouting Guideline (2007); IBC Section 1705.6, Soils.</p>
+            </div>
+          </details>
         </div>
 
         <div class="article-section" id="scope">
@@ -283,6 +295,90 @@ const schema = [
   .key-points li strong {
     color: var(--blue);
     font-weight: 600;
+  }
+  .deeper {
+    margin: 32px 0;
+    border: 1px solid var(--tls-stone);
+    background: var(--tls-cream);
+  }
+  .deeper-toggle {
+    cursor: pointer;
+    list-style: none;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+  }
+  .deeper-toggle::-webkit-details-marker {
+    display: none;
+  }
+  .deeper-toggle::marker {
+    content: '';
+  }
+  .deeper-toggle-icon {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px;
+    line-height: 1;
+    color: var(--gold-text);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .deeper[open] .deeper-toggle-icon {
+    transform: rotate(45deg);
+  }
+  .deeper-body {
+    padding: 4px 28px 26px;
+    border-top: 1px solid var(--tls-stone);
+    padding-top: 20px;
+  }
+  .deeper-body p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .deeper-body p:last-child {
+    margin-bottom: 0;
+  }
+  .deeper-body strong {
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .deeper-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 20px;
+    font-size: 14px;
+  }
+  .deeper-body th,
+  .deeper-body td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--tls-stone);
+    text-align: left;
+    color: var(--tls-slate);
+    font-weight: 300;
+  }
+  .deeper-body th {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .deeper-cite {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px !important;
+    letter-spacing: 0.5px;
+    color: var(--muted) !important;
+    margin-top: 4px !important;
   }
   .back-to-top {
     display: block;

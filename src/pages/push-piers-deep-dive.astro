@@ -75,6 +75,17 @@ const schema = [
             <span class="callout-label">Compression vs. tension</span>
             <p>Push piers develop most of their capacity in compression, through end bearing and shaft friction. Resisting tension or uplift isn't typical of standard hardware — it requires a specifically engineered bracket or coupler detail that most installations don't include. If a job needs uplift resistance (wind, expansive-soil heave), that's a different conversation before piers are even proposed.</p>
           </div>
+          <details class="deeper">
+            <summary class="deeper-toggle">
+              <span>Going Deeper — For the Technically Curious</span>
+              <span class="deeper-toggle-icon">+</span>
+            </summary>
+            <div class="deeper-body">
+              <p>Push pier systems are typically evaluated under ICC-ES AC517 (Acceptance Criteria for Push Pier Foundation Systems) — that's the mechanism that pulls a hydraulically-jacked pile into the same code category as a driven pile, since the IBC itself doesn't use the term "push pier." Once that classification applies, <strong>IBC Section 1705.7</strong>, Driven Deep Foundations, governs installation and requires continuous special inspection: verifying material, size, and length; monitoring installation pressure and depth of penetration; recording tip elevation; and confirming the element reaches its design capacity.</p>
+              <p>As with helical piers, that inspection is a real cost the homeowner bears, and it isn't always requested at the full code standard on residential retrofit work — code text doesn't carve out an exception for repair versus new construction, but enforcement in the field is less consistent than the code language alone would suggest.</p>
+              <p class="deeper-cite">Source: IBC Section 1705.7, Driven Deep Foundations; ICC-ES AC517.</p>
+            </div>
+          </details>
         </div>
 
         <div class="article-section" id="scope">
@@ -280,6 +291,90 @@ const schema = [
   .key-points li strong {
     color: var(--blue);
     font-weight: 600;
+  }
+  .deeper {
+    margin: 32px 0;
+    border: 1px solid var(--tls-stone);
+    background: var(--tls-cream);
+  }
+  .deeper-toggle {
+    cursor: pointer;
+    list-style: none;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+  }
+  .deeper-toggle::-webkit-details-marker {
+    display: none;
+  }
+  .deeper-toggle::marker {
+    content: '';
+  }
+  .deeper-toggle-icon {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px;
+    line-height: 1;
+    color: var(--gold-text);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .deeper[open] .deeper-toggle-icon {
+    transform: rotate(45deg);
+  }
+  .deeper-body {
+    padding: 4px 28px 26px;
+    border-top: 1px solid var(--tls-stone);
+    padding-top: 20px;
+  }
+  .deeper-body p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .deeper-body p:last-child {
+    margin-bottom: 0;
+  }
+  .deeper-body strong {
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .deeper-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 20px;
+    font-size: 14px;
+  }
+  .deeper-body th,
+  .deeper-body td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--tls-stone);
+    text-align: left;
+    color: var(--tls-slate);
+    font-weight: 300;
+  }
+  .deeper-body th {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .deeper-cite {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px !important;
+    letter-spacing: 0.5px;
+    color: var(--muted) !important;
+    margin-top: 4px !important;
   }
   .back-to-top {
     display: block;
