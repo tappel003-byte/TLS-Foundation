@@ -23,9 +23,15 @@
 // individual pier points). Added a real-consequences callout: grouting
 // soil that can't support the structure doesn't just fail to help, it
 // can make movement continue or accelerate, since the underlying
-// condition was never addressed. The installation-section placeholder
-// on frequency/typical job/equipment is still open -- this answered a
-// different, more consequential question instead.
+// condition was never addressed.
+//
+// Removed the installation-section frequency/timeline placeholder
+// rather than force an answer -- per Tim, frequency isn't something to
+// publish right now (TLS may be bringing this method back in a more
+// prevalent way, so a current number could go stale fast) and timeline
+// genuinely depends 100% on the job, so a generic answer wasn't
+// appropriate either. Better to leave the section as-is than pad it
+// with something not useful.
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Compaction Grouting & Mud Jacking in New Mexico | TLS Foundations';
@@ -122,7 +128,6 @@ const schema = [
         <div class="article-section" id="installation">
           <h2>Grid, Depths, and <em>Controlled Volume</em></h2>
           <p class="opening">Both are injected through a grid of small-diameter holes at planned locations, depths, and stages, with volume and pressure controlled and monitored throughout — not a single injection point, and not an open-ended pour.</p>
-          <p>[TIM: how often does this actually come up in your NM work, and what does a typical job look like when it does — equipment, timeline, anything homeowners should expect that's different from the piering jobs?]</p>
         </div>
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
