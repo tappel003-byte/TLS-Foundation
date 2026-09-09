@@ -77,32 +77,41 @@ const schema = [
           <a href="/symptom-guide" class="notice-card">
             <span class="notice-card-title">Cracks, sticking doors, uneven floors</span>
             <span class="notice-card-desc">See what it usually means, and how New Mexico soil factors in.</span>
-            <span class="notice-card-arrow">→</span>
+            <span class="notice-card-arrow">Symptom Guide →</span>
           </a>
-          <a href="/foundation-repair-methods#drainage-correction" class="notice-card">
+          <div class="notice-card">
             <span class="notice-card-title">Water pooling, drainage, moisture</span>
             <span class="notice-card-desc">Often the most important — and least expensive — first step.</span>
-            <span class="notice-card-arrow">→</span>
-          </a>
-          <a href="/foundation-repair-methods" class="notice-card">
+            <div class="notice-card-links">
+              <a href="/foundation-repair-methods#drainage-correction" class="notice-card-link">Foundation Repair Methods&nbsp;→</a>
+              <a href="/symptom-guide" class="notice-card-link notice-card-link-secondary">Also see: Symptom Guide →</a>
+            </div>
+          </div>
+          <div class="notice-card">
             <span class="notice-card-title">Already have a repair recommendation</span>
             <span class="notice-card-desc">Understand the method before you commit to it.</span>
-            <span class="notice-card-arrow">→</span>
-          </a>
-          <a href="/our-approach#investigation" class="notice-card">
+            <div class="notice-card-links">
+              <a href="/foundation-repair-methods" class="notice-card-link">Foundation Repair Methods&nbsp;→</a>
+              <a href="/glossary" class="notice-card-link notice-card-link-secondary">Also see: Glossary →</a>
+            </div>
+          </div>
+          <div class="notice-card">
             <span class="notice-card-title">Want a real investigation, not a sales visit</span>
             <span class="notice-card-desc">The difference between a contractor inspection and a geotechnical one.</span>
-            <span class="notice-card-arrow">→</span>
-          </a>
+            <div class="notice-card-links">
+              <a href="/our-approach#investigation" class="notice-card-link">Our Approach →</a>
+              <a href="/contact-us" class="notice-card-link notice-card-link-secondary">Also see: Contact Us →</a>
+            </div>
+          </div>
           <a href="/why-foundations-move" class="notice-card">
             <span class="notice-card-title">Wondering why this is happening now</span>
             <span class="notice-card-desc">The soil science behind foundation movement in New Mexico.</span>
-            <span class="notice-card-arrow">→</span>
+            <span class="notice-card-arrow">Why Foundations Move →</span>
           </a>
           <a href="/contact-us" class="notice-card notice-card-urgent">
             <span class="notice-card-title">Something's changing fast</span>
             <span class="notice-card-desc">Text or call. Skip the form — this shouldn't wait.</span>
-            <span class="notice-card-arrow">→</span>
+            <span class="notice-card-arrow">Contact Us →</span>
           </a>
         </div>
       </div>
@@ -460,6 +469,28 @@ const schema = [
     font-size: 13px;
     color: var(--gold-text);
     margin-top: 16px;
+  }
+  .notice-card-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .notice-card-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    color: var(--gold-text);
+    text-decoration: none;
+  }
+  .notice-card-link:hover {
+    text-decoration: underline;
+  }
+  .notice-card-link-secondary {
+    font-size: 12px;
+    color: var(--slate);
+  }
+  .notice-card-link-secondary:hover {
+    color: var(--gold-text);
   }
   @media (max-width: 900px) {
     .notice-grid {
