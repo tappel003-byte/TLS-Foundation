@@ -1,0 +1,709 @@
+---
+// DRAFT -- not linked from main nav (added to temp Draft folder only),
+// not live yet. Ported from the "Homeowner Helpdesk" Lovable prototype
+// (home-snap-relief, never published) -- same flow and screens, rebuilt
+// as plain Astro/vanilla JS instead of React, with two real fixes the
+// original never had:
+//   1. The "Send to TLS Foundations" button in the original prototype
+//      didn't submit anything anywhere -- it just showed a fake success
+//      screen. This version actually uploads photos and submits the lead.
+//   2. Photos upload to this site's own R2 bucket via /api/upload-photo
+//      (see worker/index.ts) instead of Lovable Cloud/Supabase. Lead
+//      details go through the same Web3Forms mechanism already wired
+//      (but not yet keyed) into contact-us.astro and crack-gauge.astro.
+// Photo upload won't actually work until R2 is enabled on the Cloudflare
+// account and the PHOTOS binding is added to wrangler.jsonc -- see the
+// TODO there. The rest of the flow (rooms, notes, contact info, the
+// Web3Forms lead) works independently of that.
+import Layout from '../layouts/Layout.astro';
+
+// TODO(Tim): same key as contact-us.astro.
+const WEB3FORMS_ACCESS_KEY = '';
+
+const title = 'Send Us Photos | TLS Foundations';
+const summary =
+  'A mobile photo-submission tool for a worried homeowner -- no account, no app, just a few photos of a crack or area of concern, tagged by room, with contact info, sent straight to TLS. Built for someone who wants to feel like the problem is handled before anyone even calls back.';
+const description =
+  'Take a few photos of what is worrying you, tag the room, and send it to TLS Foundations directly -- no account, no app, about two minutes.';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Send Us Photos',
+    description,
+    about: description,
+    author: { '@type': 'Organization', name: 'TLS Foundations' },
+    publisher: { '@type': 'Organization', name: 'TLS Foundations' },
+    url: 'https://www.tlsfoundations.com/send-photos',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'Contact Us', item: 'https://www.tlsfoundations.com/contact-us' },
+      { '@type': 'ListItem', position: 3, name: 'Send Us Photos', item: 'https://www.tlsfoundations.com/send-photos' },
+    ],
+  },
+];
+
+const ROOMS = [
+  'Kitchen', 'Living Room', 'Dining Room', 'Bedroom', 'Bathroom', 'Hallway',
+  'Laundry / Utility', 'Garage', 'Basement', 'Crawl Space', 'Exterior', 'Driveway / Walkway', 'Other',
+];
+const AGES = ['Just noticed', 'Weeks', 'Months', 'Years', 'Not sure'];
+const WORSENING = ['Yes', 'No', 'Not sure'];
+---
+
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={schema}
+  summary={summary}
+  pageName="Send Us Photos"
+  nextPage={{ path: '/contact-us', name: 'Contact Us' }}
+>
+  <div class="sp-page" id="top">
+    <div class="sp-shell">
+      <header class="sp-header">
+        <button type="button" id="spBack" class="sp-back" aria-label="Back" hidden>
+          <svg viewBox="0 0 24 24" width="20" height="20"><polyline points="15 18 9 12 15 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </button>
+      </header>
+
+      <main class="sp-main">
+        <!-- LANDING -->
+        <section class="sp-step" data-step="landing">
+          <div class="sp-landing">
+            <div class="sp-brand">TLS <em>Foundations</em></div>
+            <div class="sp-icon">
+              <svg viewBox="0 0 24 24" width="36" height="36"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+            </div>
+            <h1>Worried about a crack?</h1>
+            <p class="sp-sub">Send us a few photos in about 2 minutes. We'll take a look and reach out — usually the same day.</p>
+            <button type="button" class="sp-btn sp-btn-primary sp-btn-lg" data-goto="photos">Start</button>
+            <p class="sp-fine">No account. No app. Just photos.</p>
+          </div>
+        </section>
+
+        <!-- PHOTOS -->
+        <section class="sp-step" data-step="photos" hidden>
+          <div id="spPhotoGallery">
+            <h2>Add photos</h2>
+            <p class="sp-hint-text">Take a clear shot of each crack or area you're worried about. Add as many as you need.</p>
+            <div class="sp-tip">
+              <span>Tip: hold a coin or finger next to the crack for scale — or <a href="/crack-gauge" target="_blank" rel="noopener">print our crack gauge</a> for an exact measurement.</span>
+            </div>
+            <div id="spPhotoGrid" class="sp-photo-grid" hidden></div>
+            <input type="file" id="spCameraInput" accept="image/*" capture="environment" hidden />
+            <input type="file" id="spGalleryInput" accept="image/*" hidden />
+            <button type="button" class="sp-btn sp-btn-primary sp-btn-lg sp-btn-icon" id="spTakePhoto">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="13" r="3.5" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+              <span id="spTakePhotoLabel">Take a photo</span>
+            </button>
+            <button type="button" class="sp-btn sp-btn-ghost" id="spChooseGallery">Choose from gallery</button>
+            <button type="button" class="sp-btn sp-btn-outline sp-btn-lg" id="spPhotosDone" hidden data-goto="contact">Done — continue</button>
+          </div>
+
+          <div id="spPhotoEdit" hidden>
+            <div class="sp-edit-photo-wrap">
+              <img id="spEditImg" alt="Your photo" />
+              <button type="button" class="sp-remove-photo" id="spRemovePhoto" aria-label="Remove photo">✕</button>
+            </div>
+            <div class="sp-field-block">
+              <label>Where is this?</label>
+              <div class="sp-chip-row" id="spRoomChips"></div>
+              <input type="text" id="spRoomOther" class="sp-input" placeholder="e.g. Sunroom" hidden />
+            </div>
+            <div class="sp-field-block">
+              <label>What worries you about this? <span>(optional)</span></label>
+              <input type="text" id="spNote" class="sp-input" placeholder="crack getting bigger, door won't close…" />
+            </div>
+            <div class="sp-field-block">
+              <label>How long has it been there? <span>(optional)</span></label>
+              <div class="sp-chip-row" id="spAgeChips"></div>
+            </div>
+            <div class="sp-field-block">
+              <label>Is it getting worse? <span>(optional)</span></label>
+              <div class="sp-chip-row" id="spWorseningChips"></div>
+            </div>
+            <button type="button" class="sp-btn sp-btn-primary sp-btn-lg" id="spSavePhoto" disabled>Save photo</button>
+          </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="sp-step" data-step="contact" hidden>
+          <h2>Your info</h2>
+          <p class="sp-hint-text">First name and phone are all we need to call you back. The rest helps, but it's optional.</p>
+          <div class="sp-form-grid">
+            <label class="sp-field">
+              <span>First name <em>required</em></span>
+              <input type="text" id="spFirstName" class="sp-input" autocomplete="given-name" />
+            </label>
+            <label class="sp-field">
+              <span>Last name <em>(optional)</em></span>
+              <input type="text" id="spLastName" class="sp-input" autocomplete="family-name" />
+            </label>
+          </div>
+          <label class="sp-field">
+            <span>Phone <em>required</em></span>
+            <input type="tel" id="spPhone" class="sp-input" placeholder="(555) 123-4567" autocomplete="tel" />
+          </label>
+          <label class="sp-field">
+            <span>Property address <em>(optional)</em></span>
+            <textarea id="spAddress" class="sp-input sp-textarea" rows="2" placeholder="Street, city, state, ZIP" autocomplete="street-address"></textarea>
+          </label>
+          <label class="sp-field">
+            <span>Year the house was built <em>(optional)</em></span>
+            <input type="text" inputmode="numeric" id="spYearBuilt" class="sp-input" placeholder="e.g. 1998" maxlength="4" />
+          </label>
+          <div class="sp-field-block">
+            <label>Best time to call <span>(optional)</span></label>
+            <div class="sp-chip-row" id="spCallTimeChips"></div>
+          </div>
+          <button type="button" class="sp-btn sp-btn-primary sp-btn-lg" id="spContactContinue" disabled data-goto="review">Review &amp; send</button>
+        </section>
+
+        <!-- REVIEW -->
+        <section class="sp-step" data-step="review" hidden>
+          <h2>One last look</h2>
+          <p class="sp-hint-text">Make sure this looks right, then send it over.</p>
+
+          <div class="sp-review-card">
+            <div class="sp-review-head">
+              <h3>Photos (<span id="spReviewPhotoCount">0</span>)</h3>
+              <button type="button" class="sp-link-btn" data-goto="photos">Edit</button>
+            </div>
+            <ul id="spReviewPhotoList" class="sp-review-photo-list"></ul>
+          </div>
+
+          <div class="sp-review-card">
+            <div class="sp-review-head">
+              <h3>Your info</h3>
+              <button type="button" class="sp-link-btn" data-goto="contact">Edit</button>
+            </div>
+            <dl id="spReviewContact" class="sp-review-dl"></dl>
+          </div>
+
+          <div class="sp-send-status" id="spSendStatus" role="status"></div>
+          <button type="button" class="sp-btn sp-btn-primary sp-btn-lg" id="spSendBtn">Send to TLS Foundations</button>
+          <p class="sp-fine sp-center">Prefer to talk now? Call <a href="tel:+15059914180">505.991.4180</a>.</p>
+        </section>
+
+        <!-- DONE -->
+        <section class="sp-step" data-step="done" hidden>
+          <div class="sp-done">
+            <div class="sp-done-icon">✓</div>
+            <h1>Got it.</h1>
+            <p class="sp-sub">We'll take a look and call you back within <strong>24 hours</strong>.</p>
+            <a href="tel:+15059914180" class="sp-btn sp-btn-primary sp-btn-lg">Or call now · 505.991.4180</a>
+            <div class="sp-done-note">In the meantime — try not to worry. Most cracks are not emergencies, and we'll let you know exactly what we see.</div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="sp-footer">TLS Foundations · Trusted residential foundation repair</footer>
+    </div>
+  </div>
+</Layout>
+
+<script define:vars={{ ROOMS, AGES, WORSENING, WEB3FORMS_ACCESS_KEY }}>
+  const CALL_TIMES = ['Morning', 'Afternoon', 'Evening', 'Anytime'];
+
+  const steps = ['landing', 'photos', 'contact', 'review', 'done'];
+  let currentStep = 'landing';
+  let photos = []; // { id, file, dataUrl, uploadedUrl, uploading, room, roomOther, note, age, worsening }
+  let editingId = null;
+  let contact = { firstName: '', lastName: '', phone: '', address: '', yearBuilt: '', callTime: '' };
+
+  const $ = (sel) => document.querySelector(sel);
+  const stepEls = Object.fromEntries(steps.map((s) => [s, document.querySelector(`.sp-step[data-step="${s}"]`)]));
+  const backBtn = $('#spBack');
+
+  function showStep(step) {
+    currentStep = step;
+    steps.forEach((s) => { stepEls[s].hidden = s !== step; });
+    backBtn.hidden = step === 'landing' || step === 'done';
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+    if (step === 'photos') renderPhotoGallery();
+    if (step === 'review') renderReview();
+  }
+
+  document.querySelectorAll('[data-goto]').forEach((el) => {
+    el.addEventListener('click', () => {
+      const target = el.getAttribute('data-goto');
+      if (target) showStep(target);
+    });
+  });
+
+  backBtn.addEventListener('click', () => {
+    if (currentStep === 'photos' && editingId) {
+      editingId = null;
+      renderPhotoGallery();
+      return;
+    }
+    const order = { photos: 'landing', contact: 'photos', review: 'contact' };
+    showStep(order[currentStep] || 'landing');
+  });
+
+  /* ---------- Photos step ---------- */
+  const galleryWrap = $('#spPhotoGallery');
+  const editWrap = $('#spPhotoEdit');
+  const photoGrid = $('#spPhotoGrid');
+  const takePhotoBtn = $('#spTakePhoto');
+  const takePhotoLabel = $('#spTakePhotoLabel');
+  const chooseGalleryBtn = $('#spChooseGallery');
+  const photosDoneBtn = $('#spPhotosDone');
+  const cameraInput = $('#spCameraInput');
+  const galleryInput = $('#spGalleryInput');
+
+  takePhotoBtn.addEventListener('click', () => cameraInput.click());
+  chooseGalleryBtn.addEventListener('click', () => galleryInput.click());
+  cameraInput.addEventListener('change', (e) => handleFile(e.target.files?.[0]));
+  galleryInput.addEventListener('change', (e) => handleFile(e.target.files?.[0]));
+
+  function handleFile(file) {
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const id = crypto.randomUUID();
+      const item = { id, file, dataUrl: reader.result, uploadedUrl: null, uploading: false };
+      photos.push(item);
+      editingId = id;
+      uploadPhoto(item);
+      renderPhotoGallery();
+    };
+    reader.readAsDataURL(file);
+    cameraInput.value = '';
+    galleryInput.value = '';
+  }
+
+  async function uploadPhoto(item) {
+    item.uploading = true;
+    try {
+      const res = await fetch('/api/upload-photo', {
+        method: 'POST',
+        headers: { 'content-type': item.file.type },
+        body: item.file,
+      });
+      const data = await res.json();
+      if (res.ok && data.url) {
+        item.uploadedUrl = data.url;
+      }
+    } catch {
+      // Upload failure doesn't block the flow -- the lead still goes
+      // through with whatever photos did make it, rather than losing
+      // the whole submission over one failed image.
+    } finally {
+      item.uploading = false;
+    }
+  }
+
+  function renderPhotoGallery() {
+    const editing = photos.find((p) => p.id === editingId);
+    if (editing) {
+      galleryWrap.hidden = true;
+      editWrap.hidden = false;
+      renderPhotoEdit(editing);
+      return;
+    }
+    galleryWrap.hidden = false;
+    editWrap.hidden = true;
+
+    photoGrid.innerHTML = '';
+    photoGrid.hidden = photos.length === 0;
+    photos.forEach((p) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'sp-photo-thumb';
+      btn.innerHTML = `<img src="${p.dataUrl}" alt="" />${p.room ? `<span class="sp-photo-thumb-tag">${escapeHtml(p.room === 'Other' ? p.roomOther || 'Other' : p.room)}</span>` : ''}`;
+      btn.addEventListener('click', () => { editingId = p.id; renderPhotoGallery(); });
+      photoGrid.appendChild(btn);
+    });
+
+    takePhotoLabel.textContent = photos.length === 0 ? 'Take a photo' : 'Take another photo';
+    photosDoneBtn.hidden = photos.length === 0;
+  }
+
+  function renderPhotoEdit(item) {
+    $('#spEditImg').src = item.dataUrl;
+
+    const roomChips = $('#spRoomChips');
+    roomChips.innerHTML = '';
+    ROOMS.forEach((r) => {
+      const chip = chipButton(r, item.room === r, () => {
+        item.room = r;
+        renderPhotoEdit(item);
+      });
+      roomChips.appendChild(chip);
+    });
+    const roomOtherInput = $('#spRoomOther');
+    roomOtherInput.hidden = item.room !== 'Other';
+    roomOtherInput.value = item.roomOther || '';
+    roomOtherInput.oninput = () => { item.roomOther = roomOtherInput.value; updateSaveEnabled(item); };
+
+    $('#spNote').value = item.note || '';
+    $('#spNote').oninput = (e) => { item.note = e.target.value; };
+
+    const ageChips = $('#spAgeChips');
+    ageChips.innerHTML = '';
+    AGES.forEach((a) => ageChips.appendChild(chipButton(a, item.age === a, () => { item.age = a; renderPhotoEdit(item); })));
+
+    const worseningChips = $('#spWorseningChips');
+    worseningChips.innerHTML = '';
+    WORSENING.forEach((w) => worseningChips.appendChild(chipButton(w, item.worsening === w, () => { item.worsening = w; renderPhotoEdit(item); })));
+
+    updateSaveEnabled(item);
+  }
+
+  function updateSaveEnabled(item) {
+    const canSave = !!item.room && (item.room !== 'Other' || !!(item.roomOther || '').trim());
+    $('#spSavePhoto').disabled = !canSave;
+  }
+
+  $('#spSavePhoto').addEventListener('click', () => { editingId = null; renderPhotoGallery(); });
+  $('#spRemovePhoto').addEventListener('click', () => {
+    photos = photos.filter((p) => p.id !== editingId);
+    editingId = null;
+    renderPhotoGallery();
+  });
+
+  function chipButton(label, active, onClick) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'sp-chip' + (active ? ' is-active' : '');
+    btn.textContent = label;
+    btn.addEventListener('click', onClick);
+    return btn;
+  }
+
+  /* ---------- Contact step ---------- */
+  const firstNameInput = $('#spFirstName');
+  const phoneInput = $('#spPhone');
+  const contactContinueBtn = $('#spContactContinue');
+  const callTimeChips = $('#spCallTimeChips');
+
+  CALL_TIMES.forEach((t) => {
+    callTimeChips.appendChild(chipButton(t, contact.callTime === t, () => {
+      contact.callTime = contact.callTime === t ? '' : t;
+      Array.from(callTimeChips.children).forEach((c) => c.classList.toggle('is-active', c.textContent === contact.callTime));
+    }));
+  });
+
+  function checkContactValid() {
+    contactContinueBtn.disabled = !(firstNameInput.value.trim() && phoneInput.value.trim());
+  }
+  [firstNameInput, phoneInput].forEach((el) => el.addEventListener('input', checkContactValid));
+
+  /* ---------- Review + send ---------- */
+  function renderReview() {
+    contact.firstName = firstNameInput.value.trim();
+    contact.lastName = $('#spLastName').value.trim();
+    contact.phone = phoneInput.value.trim();
+    contact.address = $('#spAddress').value.trim();
+    contact.yearBuilt = $('#spYearBuilt').value.trim();
+
+    $('#spReviewPhotoCount').textContent = String(photos.length);
+    const list = $('#spReviewPhotoList');
+    list.innerHTML = '';
+    photos.forEach((p) => {
+      const li = document.createElement('li');
+      const bits = [p.age, p.worsening ? `getting worse: ${p.worsening}` : ''].filter(Boolean).join(' · ');
+      li.innerHTML = `
+        <img src="${p.dataUrl}" alt="" />
+        <div class="sp-review-photo-meta">
+          <div class="sp-review-photo-room">${escapeHtml(p.room === 'Other' ? p.roomOther || 'Other' : p.room || '—')}</div>
+          ${bits ? `<div class="sp-review-photo-sub">${escapeHtml(bits)}</div>` : ''}
+          ${p.note ? `<div class="sp-review-photo-sub">${escapeHtml(p.note)}</div>` : ''}
+        </div>`;
+      list.appendChild(li);
+    });
+
+    const dl = $('#spReviewContact');
+    const rows = [
+      ['Name', `${contact.firstName} ${contact.lastName}`.trim()],
+      ['Phone', contact.phone],
+      ...(contact.callTime ? [['Best time', contact.callTime]] : []),
+      ...(contact.address ? [['Address', contact.address]] : []),
+      ...(contact.yearBuilt ? [['Year built', contact.yearBuilt]] : []),
+    ];
+    dl.innerHTML = rows.map(([label, value]) => `<div class="sp-review-row"><dt>${escapeHtml(label)}</dt><dd>${escapeHtml(value)}</dd></div>`).join('');
+  }
+
+  function buildMessage() {
+    const lines = [];
+    lines.push(`Name: ${contact.firstName} ${contact.lastName}`.trim());
+    lines.push(`Phone: ${contact.phone}`);
+    if (contact.address) lines.push(`Address: ${contact.address}`);
+    if (contact.yearBuilt) lines.push(`Year built: ${contact.yearBuilt}`);
+    if (contact.callTime) lines.push(`Best time to call: ${contact.callTime}`);
+    lines.push('');
+    lines.push(`Photos (${photos.length}):`);
+    photos.forEach((p, i) => {
+      const label = p.room === 'Other' ? p.roomOther || 'Other' : p.room || '—';
+      const bits = [p.age, p.worsening ? `getting worse: ${p.worsening}` : '', p.note].filter(Boolean).join(' — ');
+      const link = p.uploadedUrl ? new URL(p.uploadedUrl, window.location.origin).toString() : '(photo upload failed, not attached)';
+      lines.push(`${i + 1}. ${label}${bits ? ' — ' + bits : ''}\n   ${link}`);
+    });
+    lines.push('');
+    lines.push('Sent from Send Us Photos at tlsfoundations.com/send-photos');
+    return lines.join('\n');
+  }
+
+  const sendBtn = $('#spSendBtn');
+  const sendStatus = $('#spSendStatus');
+
+  sendBtn.addEventListener('click', async () => {
+    if (!WEB3FORMS_ACCESS_KEY) {
+      sendStatus.textContent = "This isn't hooked up yet — text or call (505) 991-4180 in the meantime.";
+      sendStatus.classList.add('is-error');
+      return;
+    }
+
+    sendBtn.disabled = true;
+    sendStatus.classList.remove('is-error');
+    sendStatus.textContent = photos.some((p) => p.uploading) ? 'Finishing photo upload…' : 'Sending…';
+
+    // Give any still-in-flight photo uploads a moment to finish so their
+    // links make it into the message rather than being dropped silently.
+    const start = Date.now();
+    while (photos.some((p) => p.uploading) && Date.now() - start < 15000) {
+      await new Promise((r) => setTimeout(r, 300));
+    }
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: 'Photo submission from tlsfoundations.com',
+          from_name: 'TLS Foundations website — Send Us Photos',
+          name: `${contact.firstName} ${contact.lastName}`.trim(),
+          phone: contact.phone,
+          message: buildMessage(),
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        showStep('done');
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
+    } catch {
+      sendStatus.textContent = 'Something went wrong — text or call (505) 991-4180 instead.';
+      sendStatus.classList.add('is-error');
+    } finally {
+      sendBtn.disabled = false;
+    }
+  });
+
+  function escapeHtml(s) {
+    return String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+
+  showStep('landing');
+</script>
+
+<style is:global>
+  /* Global, not scoped: most of this page's markup (chips, photo thumbs,
+     review rows) is built by client-side JS via document.createElement,
+     which Astro's scoped-CSS attribute never reaches -- scoped styles
+     silently wouldn't apply to any of it. Every class here is uniquely
+     "sp-"-prefixed to this page, so going global is safe. */
+  .sp-page {
+    --sp-blue: #1b3a5c;
+    --sp-navy: #0d2238;
+    --sp-gold: #b8860b;
+    --sp-gold-light: #d4a017;
+    --sp-gold-text: #7d5c08;
+    --sp-sand: #f5efe6;
+    --sp-stone: #e0d5c5;
+    --sp-slate: #4a5568;
+    --sp-cream: #fdfaf6;
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--sp-cream);
+    min-height: 60vh;
+  }
+  .sp-shell { max-width: 480px; margin: 0 auto; padding: 24px 20px 56px; display: flex; flex-direction: column; min-height: 60vh; }
+  .sp-header { height: 36px; display: flex; align-items: center; }
+  .sp-back {
+    display: flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 999px; border: none;
+    background: none; color: var(--sp-slate); cursor: pointer;
+  }
+  .sp-back:hover { background: var(--sp-sand); }
+  .sp-main { flex: 1; margin-top: 8px; }
+  .sp-step h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 6vw, 32px);
+    font-weight: 400;
+    color: var(--sp-navy);
+    line-height: 1.15;
+  }
+  .sp-step h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--sp-navy);
+  }
+  .sp-sub { margin-top: 12px; font-size: 16px; color: var(--sp-slate); line-height: 1.7; max-width: 320px; }
+  .sp-hint-text { margin-top: 6px; font-size: 14px; color: var(--sp-slate); line-height: 1.6; }
+  .sp-fine { margin-top: 20px; font-size: 12px; color: var(--sp-slate); }
+  .sp-fine a { color: var(--sp-blue); font-weight: 600; }
+  .sp-center { text-align: center; }
+
+  .sp-landing { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 24px; }
+  .sp-brand { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--sp-navy); }
+  .sp-brand em { font-style: normal; color: var(--sp-gold); }
+  .sp-icon {
+    margin-top: 40px; margin-bottom: 28px;
+    width: 80px; height: 80px; border-radius: 24px;
+    background: rgba(184, 134, 11, 0.12);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--sp-blue);
+  }
+
+  .sp-btn {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: opacity 0.2s, background 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .sp-btn-primary { background: var(--sp-blue); color: #fff; border: none; }
+  .sp-btn-primary:hover:not(:disabled) { background: var(--sp-navy); }
+  .sp-btn-primary:disabled { opacity: 0.45; cursor: default; }
+  .sp-btn-outline { background: none; border: 2px solid var(--sp-stone); color: var(--sp-navy); }
+  .sp-btn-outline:hover { background: var(--sp-sand); }
+  .sp-btn-ghost { background: none; border: none; color: var(--sp-slate); text-decoration: none; }
+  .sp-btn-ghost:hover { background: var(--sp-sand); }
+  .sp-btn-lg { height: 56px; width: 100%; margin-top: 24px; padding: 0 24px; border-radius: 20px; font-size: 14px; }
+  .sp-btn-icon svg { flex-shrink: 0; }
+
+  .sp-tip {
+    margin-top: 16px;
+    display: flex; gap: 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(184, 134, 11, 0.3);
+    background: rgba(184, 134, 11, 0.07);
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: var(--sp-slate);
+  }
+  .sp-tip a { color: var(--sp-blue); font-weight: 600; text-decoration: underline; text-decoration-color: var(--sp-gold); }
+
+  .sp-photo-grid { margin-top: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .sp-photo-thumb {
+    position: relative; aspect-ratio: 1; border-radius: 12px; overflow: hidden;
+    border: 1px solid var(--sp-stone); background: var(--sp-sand); padding: 0; cursor: pointer;
+  }
+  .sp-photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .sp-photo-thumb-tag {
+    position: absolute; left: 4px; right: 4px; bottom: 4px;
+    background: rgba(13, 34, 56, 0.85); color: #fff;
+    font-size: 9px; padding: 2px 6px; border-radius: 6px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+
+  .sp-edit-photo-wrap { position: relative; border-radius: 16px; overflow: hidden; background: var(--sp-sand); }
+  .sp-edit-photo-wrap img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+  .sp-remove-photo {
+    position: absolute; top: 12px; right: 12px;
+    width: 36px; height: 36px; border-radius: 999px; border: none;
+    background: rgba(255, 255, 255, 0.9); color: var(--sp-slate);
+    display: flex; align-items: center; justify-content: center; cursor: pointer;
+  }
+
+  .sp-field-block { margin-top: 24px; }
+  .sp-field-block > label { font-size: 14px; font-weight: 600; color: var(--sp-navy); }
+  .sp-field-block > label span { font-weight: 400; color: var(--sp-slate); }
+  .sp-chip-row { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .sp-chip {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 14px;
+    border-radius: 999px;
+    padding: 8px 16px;
+    border: 1px solid var(--sp-stone);
+    background: #fff;
+    color: var(--sp-navy);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .sp-chip:hover { background: var(--sp-sand); }
+  .sp-chip.is-active { background: var(--sp-blue); border-color: var(--sp-blue); color: #fff; }
+
+  .sp-input {
+    margin-top: 12px;
+    width: 100%;
+    height: 48px;
+    padding: 0 14px;
+    border-radius: 12px;
+    border: 1px solid var(--sp-stone);
+    background: #fff;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 15px;
+    color: var(--sp-navy);
+  }
+  .sp-textarea { height: auto; min-height: 72px; padding: 12px 14px; resize: vertical; }
+
+  .sp-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+  .sp-field { display: block; margin-top: 24px; }
+  .sp-form-grid .sp-field { margin-top: 0; }
+  .sp-field span { font-size: 13px; font-weight: 600; color: var(--sp-navy); }
+  .sp-field span em { font-style: normal; font-weight: 400; color: var(--sp-slate); margin-left: 4px; }
+
+  .sp-review-card {
+    margin-top: 20px;
+    border-radius: 16px;
+    border: 1px solid var(--sp-stone);
+    background: #fff;
+    padding: 16px;
+  }
+  .sp-review-head { display: flex; align-items: center; justify-content: space-between; }
+  .sp-review-head h3 {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--sp-slate);
+  }
+  .sp-link-btn { background: none; border: none; color: var(--sp-blue); font-size: 13px; font-weight: 600; cursor: pointer; }
+  .sp-review-photo-list { list-style: none; margin-top: 14px; display: flex; flex-direction: column; gap: 12px; }
+  .sp-review-photo-list li { display: flex; gap: 12px; }
+  .sp-review-photo-list img { width: 56px; height: 56px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
+  .sp-review-photo-meta { min-width: 0; }
+  .sp-review-photo-room { font-size: 14px; font-weight: 600; color: var(--sp-navy); }
+  .sp-review-photo-sub { font-size: 12px; color: var(--sp-slate); margin-top: 2px; }
+  .sp-review-dl { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+  .sp-review-row { display: flex; gap: 12px; font-size: 14px; }
+  .sp-review-row dt { width: 80px; flex-shrink: 0; color: var(--sp-slate); }
+  .sp-review-row dd { color: var(--sp-navy); word-break: break-word; }
+
+  .sp-send-status { margin-top: 20px; font-size: 14px; min-height: 1.4em; color: var(--sp-blue); }
+  .sp-send-status.is-error { color: #a33; }
+
+  .sp-done { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 40px; }
+  .sp-done-icon {
+    width: 80px; height: 80px; border-radius: 24px;
+    background: rgba(184, 134, 11, 0.18);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px; color: var(--sp-blue); margin-bottom: 28px;
+  }
+  .sp-done-note {
+    margin-top: 32px; text-align: left;
+    border-radius: 16px; border: 1px solid var(--sp-stone); background: #fff;
+    padding: 20px; font-size: 14px; color: var(--sp-slate); line-height: 1.7;
+  }
+
+  .sp-footer { text-align: center; margin-top: 32px; font-size: 12px; color: var(--sp-slate); }
+</style>

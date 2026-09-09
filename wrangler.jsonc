@@ -2,8 +2,18 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "tls-foundation",
   "compatibility_date": "2025-01-01",
+  "main": "./worker/index.ts",
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "404-page"
+    "not_found_handling": "404-page",
+    "binding": "ASSETS",
+    // Only /api/* is handled by the worker script (worker/index.ts) --
+    // every other path is served straight from the static build, exactly
+    // as before. Keeps this change contained to the one new endpoint
+    // instead of putting the whole site behind a worker.
+    "run_worker_first": ["/api/*"]
   }
+  // TODO(Tim): once R2 is enabled in the Cloudflare dashboard and the
+  // `tls-homeowner-photos` bucket is created, add:
+  // "r2_buckets": [{ "binding": "PHOTOS", "bucket_name": "tls-homeowner-photos" }]
 }

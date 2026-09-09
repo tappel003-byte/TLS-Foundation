@@ -1,0 +1,790 @@
+---
+// DRAFT -- not linked from main nav (added to temp Draft folder only),
+// not live yet. Ported from two Lovable prototypes that were never
+// published (workspace "Tim's Lovable"): "Homeowner Helpdesk"
+// (home-snap-relief) supplied the working fold-in-half print layout
+// (real inch units via CSS `in`, the edge ruler, the tracking log), and
+// the earlier "Homeowner Helper Tool" prototype supplied the richer
+// crack-severity reference content (per-width guidance, surface-specific
+// notes) that the newer one had dropped. Rebuilt here as a plain Astro
+// page -- no React, no Lovable Cloud, no Supabase -- matching the rest
+// of the site's template.
+//
+// The "Send to TLS" form uses the same Web3Forms pattern already wired
+// (but not yet keyed) into contact-us.astro, symptom-guide.astro, and
+// cause-library.astro, per Tim's direction to reuse the existing
+// mechanism rather than add a new one. It will start working the moment
+// that one access key is filled in -- same TODO as those three pages.
+import Layout from '../layouts/Layout.astro';
+
+// TODO(Tim): same key as contact-us.astro -- see the TODO there for how
+// to get one. Filling it in here activates this form too.
+const WEB3FORMS_ACCESS_KEY = '';
+
+const title = 'Printable Crack Gauge | TLS Foundations';
+const summary =
+  'A free, fold-in-half printable crack gauge from TLS Foundations -- measure a crack against the bars along the fold, log it on the back, and re-check in 30 days. Growth over time matters more than any single width reading. Includes guidance on what different widths usually mean and how the surface a crack is in (concrete, drywall, brick) changes the read.';
+const description =
+  'Print a real fold-in-half crack-width gauge, log what you find, and see what different widths and surfaces usually mean before you call anyone.';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'Printable Crack Gauge',
+    description,
+    about: description,
+    author: { '@type': 'Organization', name: 'TLS Foundations' },
+    publisher: { '@type': 'Organization', name: 'TLS Foundations' },
+    url: 'https://www.tlsfoundations.com/crack-gauge',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'Foundation Repair Methods', item: 'https://www.tlsfoundations.com/foundation-repair-methods' },
+      { '@type': 'ListItem', position: 3, name: 'Printable Crack Gauge', item: 'https://www.tlsfoundations.com/crack-gauge' },
+    ],
+  },
+];
+
+// Crack widths as solid bars along the center fold -- each folded half of
+// the printed card shows the full ladder of widths plus a ruler edge.
+const WIDTHS: { label: string; inches: number }[] = [
+  { label: '5⁄8"', inches: 5 / 8 },
+  { label: '1⁄2"', inches: 1 / 2 },
+  { label: '3⁄8"', inches: 3 / 8 },
+  { label: '1⁄4"', inches: 1 / 4 },
+  { label: '3⁄16"', inches: 3 / 16 },
+  { label: '1⁄8"', inches: 1 / 8 },
+  { label: '3⁄32"', inches: 3 / 32 },
+  { label: '1⁄16"', inches: 1 / 16 },
+  { label: '1⁄32"', inches: 1 / 32 },
+  { label: '1⁄64"', inches: 1 / 64 },
+];
+const BAR_SPACING_IN = 0.9;
+const BARS_START_IN = 1.0;
+const BAR_LEN_IN = 0.32;
+
+// Full-bleed edge ruler down the right side of the sheet.
+const RULER_TOP = 0.25;
+const RULER_LEN = 10.5;
+const TICKS_PER_INCH = 16;
+const totalTicks = RULER_LEN * TICKS_PER_INCH;
+const ticks = Array.from({ length: totalTicks + 1 }, (_, i) => {
+  const isInch = i % 16 === 0;
+  const isHalf = i % 8 === 0;
+  const isQuarter = i % 4 === 0;
+  const isEighth = i % 2 === 0;
+  const len = isInch ? 0.32 : isHalf ? 0.24 : isQuarter ? 0.18 : isEighth ? 0.12 : 0.07;
+  return { i, isInch, len };
+});
+
+const TRACKING_ROWS = 22;
+---
+
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={schema}
+  summary={summary}
+  pageName="Printable Crack Gauge"
+  nextPage={{ path: '/foundation-repair-methods', name: 'Foundation Repair Methods' }}
+>
+  <div class="tls-article" id="top">
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <span class="hero-eyebrow">Free Tool · Printable Crack Gauge</span>
+        <h1>Measure It<br /><em>Before You Worry About It</em></h1>
+        <p class="page-hero-sub">Print this, fold it in half, and hold the folded edge against a crack. One reading tells you where you stand today. A log over 30 days tells you whether it matters.</p>
+      </div>
+    </section>
+
+    <div class="article-outer">
+      <article class="article-body">
+        <p class="article-lede">Most cracks are not emergencies. The ones worth calling about are usually the ones that keep growing — which is a question this tool is built to answer, not guess at.</p>
+
+        <div class="screen-controls">
+          <button type="button" id="printGaugeBtn" class="print-btn">Print this page</button>
+          <p class="print-note">Print on <strong>Letter (8.5" × 11") portrait</strong> at <strong>100% scale</strong> — turn off "Fit to page." Then fold each sheet in half down the middle; the folded edge becomes a stand-up ruler.</p>
+        </div>
+
+        <div class="print-preview-scroll">
+        <div id="print-sheet" class="print-sheet">
+          <div class="fold-line" aria-hidden="true">
+            <span class="fold-tag fold-tag-top">FOLD ▼</span>
+            <span class="fold-tag fold-tag-bottom">FOLD ▲</span>
+          </div>
+
+          <div class="panel panel-left">
+            <div class="brand-row">
+              <div class="brand-name">TLS <em>Foundations</em></div>
+              <div class="brand-tag">Foundation repair</div>
+            </div>
+            <div class="panel-title">
+              <p class="panel-kicker">Crack gauge<span class="gold">.</span></p>
+              <p class="panel-copy">Fold this page in half down the middle. Hold the folded edge flat against the wall next to a crack and match it to the closest black bar to read its width.</p>
+            </div>
+            <div class="panel-section">
+              <div class="panel-label">Heave vs. settlement</div>
+              <h3 class="panel-h3">Which way is your house moving?</h3>
+              <ul class="panel-list">
+                <li><strong>Settlement</strong> — foundation drops. Cracks wider at the top, doors stick at the top corner, floors slope away from the center.</li>
+                <li><strong>Heave</strong> — soil swells and pushes up. Cracks wider at the bottom, slabs lift, doming in tile or hardwood floors.</li>
+                <li><strong>Stair-step brick</strong> — cracks tracing the mortar joints almost always mean differential movement. Worth a call.</li>
+              </ul>
+            </div>
+            <div class="panel-section">
+              <div class="panel-label">Protect your foundation</div>
+              <ul class="panel-list">
+                <li><strong>Never pond water at the wall.</strong> New Mexico soils are unforgiving — clays swell and heave when wetted, collapsible soils lose structure and drop. Keep sprinklers, drip lines, and downspouts away from the perimeter.</li>
+                <li><strong>Slope soil away.</strong> 6" drop over the first 10' from the wall.</li>
+                <li><strong>Mind the trees.</strong> Large trees within 20' pull moisture from clay soils.</li>
+                <li><strong>Track changes.</strong> Date a photo of every crack with this gauge held next to it.</li>
+              </ul>
+            </div>
+            <div class="panel-footer">
+              <div class="panel-label">Call or text TLS Foundations</div>
+              <div class="panel-phone">505.991.4180</div>
+              <div class="panel-site">tlsfoundations.com</div>
+            </div>
+          </div>
+
+          <div class="panel panel-right">
+            <div class="panel-label">What the width tells you</div>
+            <h2 class="panel-h2">Reading your crack</h2>
+            <ul class="tier-list">
+              <li>
+                <div class="tier-title">Hairline — under 1⁄32"</div>
+                <div class="tier-copy">Concrete shrinks as it cures; hairline cracks are nearly universal and almost never mean structural movement. Photograph it, note the date. Stable for 60 days? You're likely fine.</div>
+              </li>
+              <li>
+                <div class="tier-title">Small — 1⁄32" to 1⁄8"</div>
+                <div class="tier-copy">Still typically cosmetic. Width alone isn't the alarm — whether it's growing is. Start the log below now; a pattern over time tells you far more than one reading.</div>
+              </li>
+              <li>
+                <div class="tier-title">Medium — 1⁄8" to 1⁄4"</div>
+                <div class="tier-copy">Pay attention. Look for vertical offset — one side sitting higher than the other — or step patterns through brick and block; that detail matters more than width alone. Document it and consider a call.</div>
+              </li>
+              <li>
+                <div class="tier-title">Large — over 1⁄4"</div>
+                <div class="tier-copy">Warrants a professional look. Doesn't automatically mean repair — it means the cause needs to be understood. Soil movement, heave, and settlement all look different up close.</div>
+              </li>
+            </ul>
+            <div class="callout-box">
+              <div class="callout-title">Two things that matter more than width</div>
+              <p><strong>Offset.</strong> When one side of a crack sits higher than the other, even a narrow crack is more telling than a wide one that's flush.</p>
+              <p><strong>Growth.</strong> A crack that was 1⁄16" in March and 3⁄16" in September says something a single reading never could. That's what the log on the back is for.</p>
+            </div>
+            <div class="surface-box">
+              <div class="callout-title">Surface changes the read</div>
+              <p><strong>Concrete slab</strong> — hairline shrinkage cracks are normal; control joints are intentional cuts, not damage.</p>
+              <p><strong>Drywall &amp; plaster</strong> — location matters most; cracks from door corners or along wall-ceiling lines read differently than random finish cracks.</p>
+              <p><strong>Brick &amp; block</strong> — step cracks on mortar joints usually mean differential settlement; horizontal cracks with any inward bowing warrant prompt attention.</p>
+            </div>
+            <div class="panel-footer">
+              <div class="panel-label">Call TLS Foundations</div>
+              <div class="panel-phone">505.991.4180</div>
+              <div class="panel-site">Text a photo with this gauge held next to the crack.</div>
+            </div>
+          </div>
+
+          {WIDTHS.map((w, i) => {
+            const centerY = BARS_START_IN + i * BAR_SPACING_IN;
+            return (
+              <Fragment>
+                <div
+                  class="bar bar-left"
+                  style={`top: calc(${centerY}in - ${w.inches / 2}in); height: ${w.inches}in; width: ${BAR_LEN_IN}in;`}
+                />
+                <div
+                  class="bar bar-right"
+                  style={`top: calc(${centerY}in - ${w.inches / 2}in); height: ${w.inches}in; width: ${BAR_LEN_IN}in;`}
+                />
+                <div class="bar-label bar-label-left" style={`top: calc(${centerY}in - 0.06in); right: calc(4.25in + ${BAR_LEN_IN}in + 0.08in);`}>{w.label}</div>
+                <div class="bar-label bar-label-right" style={`top: calc(${centerY}in - 0.06in); left: calc(4.25in + ${BAR_LEN_IN}in + 0.08in);`}>{w.label}</div>
+              </Fragment>
+            );
+          })}
+
+          <div class="edge-ruler" aria-hidden="true">
+            <span class="edge-ruler-line"></span>
+            {ticks.map(({ i, isInch, len }) => (
+              <Fragment>
+                <span class="tick" style={`top: ${i / TICKS_PER_INCH}in; width: ${len}in;`} />
+                {isInch && i > 0 && i < totalTicks && (
+                  <span class="tick-num" style={`top: calc(${i / TICKS_PER_INCH}in - 0.05in); right: ${len + 0.04}in;`}>{i / TICKS_PER_INCH}</span>
+                )}
+              </Fragment>
+            ))}
+          </div>
+        </div>
+        </div>
+
+        <div class="print-preview-scroll">
+        <div id="print-sheet-2" class="print-sheet print-sheet-2">
+          <div class="log-header">
+            <div>
+              <div class="log-title">Crack tracking log</div>
+              <div class="log-sub">Re-measure every 30 days. Growth is the warning sign — a stable crack matters less than one that keeps widening.</div>
+            </div>
+            <div class="log-brand">
+              <div class="brand-name small">TLS <em>Foundations</em></div>
+              <div class="log-address-label">Property / address:</div>
+              <div class="log-address-line"></div>
+            </div>
+          </div>
+          <div class="log-cols">
+            <div>Date</div>
+            <div>Crack #</div>
+            <div>Location (room / wall)</div>
+            <div>Width</div>
+            <div>Notes (length, direction, doors/floors)</div>
+          </div>
+          <div class="log-rows">
+            {Array.from({ length: TRACKING_ROWS }).map(() => (
+              <div class="log-row">
+                <div></div><div></div><div></div><div></div><div></div>
+              </div>
+            ))}
+          </div>
+          <div class="log-footer">
+            <p>Tip: take a dated phone photo of every crack with the folded gauge held next to it. Photos + this log help us help you, faster.</p>
+            <div class="log-footer-contact">
+              <div class="panel-label">Send to TLS Foundations</div>
+              <div class="panel-phone">505.991.4180</div>
+              <div class="panel-site">tlsfoundations.com</div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="send-form-wrap">
+          <div class="send-form-card">
+            <span class="callout-label">Send to TLS Foundations</span>
+            <h2 class="send-form-title">Want us to take a look?</h2>
+            <p class="send-form-sub">Print the gauge, hold it next to your crack for a photo, then send us a few details. We'll review and get back to you — usually within one business day. No obligation.</p>
+
+            <form id="crackGaugeForm" class="send-form" novalidate>
+              <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
+              <input type="hidden" name="subject" value="Crack gauge lead from tlsfoundations.com" />
+              <input type="hidden" name="from_name" value="TLS Foundations website — Crack Gauge" />
+              <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" />
+
+              <div class="send-form-grid">
+                <label class="send-field">
+                  <span>Your name <em>required</em></span>
+                  <input type="text" name="name" required autocomplete="name" />
+                </label>
+                <label class="send-field">
+                  <span>Phone</span>
+                  <input type="tel" name="phone" autocomplete="tel" />
+                </label>
+                <label class="send-field">
+                  <span>Email</span>
+                  <input type="email" name="email" autocomplete="email" />
+                </label>
+                <label class="send-field">
+                  <span>Property address</span>
+                  <input type="text" name="address" autocomplete="street-address" />
+                </label>
+              </div>
+              <label class="send-field send-field-full">
+                <span>What are you seeing?</span>
+                <textarea name="message" rows="4" placeholder="Where the cracks are, widths from the gauge, anything odd with doors or floors…"></textarea>
+              </label>
+              <div class="form-status" role="status"></div>
+              <div class="send-form-actions">
+                <p class="send-form-note">We only use this to follow up about your foundation. We don't share it.</p>
+                <button type="submit" class="form-submit">Send to TLS</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ Back to top</a>
+
+        <p class="closing-link"><a href="/foundation-repair-methods" class="body-link">← Back to Foundation Repair Methods</a> · <a href="/symptom-guide" class="body-link">Symptom Guide →</a></p>
+      </article>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .tls-article {
+    --blue: #1b3a5c;
+    --navy: #0d2238;
+    --tls-gold: #b8860b;
+    --gold-light: #d4a017;
+    --gold-text: #7d5c08;
+    --tls-sand: #f5efe6;
+    --tls-stone: #e0d5c5;
+    --tls-slate: #4a5568;
+    --muted: #54626f;
+    --dark: #1a1a1a;
+    --tls-cream: #fdfaf6;
+    --gutter: 64px;
+    --content-max: 1100px;
+    --article-max: 720px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px;
+    background: #fff;
+    color: var(--dark);
+    line-height: 1.9;
+  }
+  .page-hero {
+    background: var(--blue);
+    padding: 52px var(--gutter) 44px;
+    border-bottom: 2px solid var(--tls-gold);
+  }
+  .page-hero-inner { max-width: var(--content-max); margin: 0 auto; }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 46px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--gold-light); }
+  .page-hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    line-height: 1.8;
+    max-width: 600px;
+  }
+  .article-outer { max-width: var(--content-max); margin: 0 auto; padding: 64px var(--gutter) 80px; }
+  .article-body { max-width: var(--article-max); margin: 0 auto; }
+  .article-lede {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--tls-slate);
+    margin-bottom: 40px;
+  }
+  .screen-controls {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .print-btn {
+    display: inline-flex;
+    align-items: center;
+    height: 52px;
+    padding: 0 32px;
+    background: var(--blue);
+    color: #fff;
+    border: 2px solid var(--tls-gold);
+    border-radius: 999px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .print-btn:hover { background: var(--gold-text); }
+  .print-note { margin-top: 16px; font-size: 14px; color: var(--tls-slate); line-height: 1.7; }
+  .print-note strong { color: var(--blue); }
+
+  /* ─── Printable sheet (screen preview + print) ─── */
+  .print-sheet, .print-sheet *, .print-sheet-2, .print-sheet-2 * {
+    box-sizing: border-box;
+  }
+  /* The sheet renders at its true 8.5in size always -- its children are
+     positioned with absolute `in` units that don't rescale with a
+     shrunken container, so constraining the sheet itself with
+     `max-width` (inside the narrower article column) used to desync
+     the fold line from the panels and the ruler from the bars. Letting
+     it scroll horizontally in a narrow column is the safe fix; print
+     output is unaffected either way since @page controls that. */
+  .print-preview-scroll {
+    overflow-x: auto;
+    margin-bottom: 32px;
+  }
+  .print-sheet {
+    position: relative;
+    width: 8.5in;
+    height: 11in;
+    margin: 0 auto;
+    background: var(--tls-cream);
+    color: #000;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.14);
+    overflow: hidden;
+  }
+  .fold-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 4.25in;
+    width: 0;
+    border-left: 1px dashed #9ca3af;
+  }
+  .fold-tag {
+    position: absolute;
+    left: 0.02in;
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: #6b7280;
+  }
+  .fold-tag-top { top: 0.15in; }
+  .fold-tag-bottom { bottom: 0.15in; }
+
+  .panel {
+    position: absolute;
+    top: 0;
+    width: 4.25in;
+    height: 11in;
+    padding: 0.42in 0.4in;
+    display: flex;
+    flex-direction: column;
+  }
+  .panel-left { left: 0; padding-right: 1.25in; }
+  .panel-right { right: 0; padding-left: 1.25in; }
+
+  .brand-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    border-bottom: 1.5px solid var(--tls-gold);
+    margin-bottom: 14px;
+  }
+  .brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--navy);
+  }
+  .brand-name.small { font-size: 15px; }
+  .brand-name em { font-style: normal; color: var(--tls-gold); }
+  .brand-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #6b7280;
+  }
+  .panel-kicker {
+    font-family: 'Playfair Display', serif;
+    font-size: 21px;
+    color: var(--navy);
+    margin: 6px 0 6px;
+  }
+  .gold { color: var(--tls-gold); }
+  .panel-copy { font-size: 9.5px; line-height: 1.55; color: #374151; }
+  .panel-section { margin-top: 14px; }
+  .panel-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+  .panel-h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    color: var(--navy);
+    margin: 2px 0 10px;
+  }
+  .panel-h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    color: var(--navy);
+    margin: 2px 0 6px;
+    line-height: 1.25;
+  }
+  .panel-list { list-style: none; }
+  .panel-list li {
+    font-size: 9px;
+    line-height: 1.5;
+    color: #1f2937;
+    margin-bottom: 6px;
+  }
+  .panel-list strong { color: var(--navy); }
+  .tier-list { list-style: none; margin-bottom: 10px; }
+  .tier-list li { margin-bottom: 8px; }
+  .tier-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .tier-copy { font-size: 9px; line-height: 1.48; color: #374151; }
+  .callout-box, .surface-box {
+    margin-top: 10px;
+    padding: 8px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+  }
+  .callout-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--tls-gold);
+    margin-bottom: 4px;
+  }
+  .callout-box p, .surface-box p {
+    font-size: 8.5px;
+    line-height: 1.45;
+    color: #1f2937;
+    margin-bottom: 4px;
+  }
+  .callout-box p:last-child, .surface-box p:last-child { margin-bottom: 0; }
+  .callout-box strong, .surface-box strong { color: var(--navy); }
+  .panel-footer {
+    margin-top: auto;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+  }
+  .panel-phone { font-size: 14px; font-weight: 600; color: var(--navy); }
+  .panel-site { margin-top: 2px; font-size: 8.5px; color: #6b7280; }
+
+  .bar { position: absolute; background: #000; min-height: 0.6px; }
+  .bar-left { right: 4.25in; }
+  .bar-right { left: 4.25in; }
+  .bar-label {
+    position: absolute;
+    font-size: 9px;
+    font-weight: 500;
+    line-height: 1;
+    color: #000;
+  }
+
+  .edge-ruler { position: absolute; top: 0.25in; right: 0; height: 10.5in; width: 0.5in; }
+  .edge-ruler-line { position: absolute; top: 0; bottom: 0; right: 0; width: 0; border-right: 0.75px solid #000; }
+  .tick { position: absolute; right: 0; height: 0; border-top: 0.75px solid #000; }
+  .tick-num { position: absolute; font-size: 8px; line-height: 1; color: #000; }
+
+  /* ─── Page 2: tracking log ─── */
+  .print-sheet-2 {
+    padding: 0.5in 0.45in;
+    display: flex;
+    flex-direction: column;
+  }
+  .log-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    padding-bottom: 10px;
+  }
+  .log-title { font-family: 'Playfair Display', serif; font-size: 22px; color: #000; }
+  .log-sub { margin-top: 4px; font-size: 10px; color: #4b5563; max-width: 4.2in; }
+  .log-brand { text-align: right; }
+  .log-address-label { margin-top: 4px; font-size: 9px; color: #6b7280; }
+  .log-address-line { margin-top: 2px; width: 2.6in; border-bottom: 0.75px solid #000; margin-left: auto; }
+  .log-cols {
+    display: grid;
+    grid-template-columns: 0.9in 0.6in 2.1in 0.9in 2.6in;
+    column-gap: 0.1in;
+    margin-top: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #6b7280;
+  }
+  .log-rows { margin-top: 4px; flex: 1; }
+  .log-row {
+    display: grid;
+    grid-template-columns: 0.9in 0.6in 2.1in 0.9in 2.6in;
+    column-gap: 0.1in;
+    height: calc((10in - 0.6in) / 22);
+    align-items: end;
+  }
+  .log-row div { border-bottom: 0.5px solid #999; height: 100%; }
+  .log-footer {
+    margin-top: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.3);
+    padding-top: 8px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .log-footer p { font-size: 8.5px; color: #4b5563; max-width: 4.5in; }
+  .log-footer-contact { text-align: right; }
+
+  /* ─── Send to TLS form ─── */
+  .send-form-wrap { margin: 48px 0; }
+  .send-form-card {
+    padding: 32px;
+    background: var(--tls-cream);
+    border-top: 2px solid var(--tls-gold);
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 12px;
+  }
+  .send-form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .send-form-sub { font-size: 15px; color: var(--tls-slate); line-height: 1.7; margin-bottom: 24px; }
+  .send-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .send-field { display: flex; flex-direction: column; gap: 6px; }
+  .send-field-full { margin-bottom: 16px; }
+  .send-field span {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .send-field span em { font-style: normal; color: var(--gold-text); margin-left: 4px; }
+  .send-field input, .send-field textarea {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 15px;
+    padding: 10px 12px;
+    border: 1px solid var(--tls-stone);
+    border-radius: 6px;
+    background: #fff;
+    color: var(--dark);
+  }
+  .send-field textarea { resize: vertical; min-height: 90px; }
+  .hp-field { position: absolute; left: -9999px; }
+  .form-status { font-size: 14px; margin-bottom: 12px; min-height: 1.4em; color: var(--blue); }
+  .form-status.is-error { color: #a33; }
+  .send-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .send-form-note { font-size: 13px; color: var(--muted); max-width: 340px; }
+  .form-submit {
+    height: 48px;
+    padding: 0 28px;
+    background: var(--blue);
+    color: #fff;
+    border: 2px solid var(--tls-gold);
+    border-radius: 999px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .form-submit:hover { background: var(--gold-text); }
+  .form-submit:disabled { opacity: 0.6; cursor: default; }
+
+  .back-to-top {
+    display: block;
+    text-align: right;
+    margin-top: 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .back-to-top:hover { color: var(--gold-text); }
+  .closing-link { margin-top: 32px; font-size: 17px; }
+  .tls-article :global(.body-link) {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--tls-gold);
+    text-underline-offset: 3px;
+  }
+  .tls-article :global(.body-link):hover { color: var(--gold-text); }
+
+  @media (max-width: 768px) {
+    .article-outer { padding: 40px 24px 56px; }
+    .send-form-grid { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    .page-hero, .article-lede, .screen-controls, .send-form-wrap, .back-to-top, .closing-link,
+    :global(header), :global(footer), :global(#tls-summarize-btn), :global(#tls-btt), :global(.tls-pagenav-btn) {
+      display: none !important;
+    }
+    @page { size: Letter portrait; margin: 0; }
+    :global(html), :global(body) { background: #fff !important; margin: 0 !important; padding: 0 !important; }
+    .article-outer { padding: 0 !important; max-width: none !important; }
+    .article-body { max-width: none !important; }
+    .print-sheet {
+      box-shadow: none !important;
+      margin: 0 !important;
+      page-break-after: always;
+    }
+    .print-sheet-2 { page-break-before: always; }
+  }
+</style>
+
+<script>
+  const printBtn = document.getElementById('printGaugeBtn');
+  printBtn?.addEventListener('click', () => window.print());
+
+  const form = document.getElementById('crackGaugeForm') as HTMLFormElement | null;
+  const status = form?.querySelector('.form-status') as HTMLElement | null;
+  const submitBtn = form?.querySelector('.form-submit') as HTMLButtonElement | null;
+  const accessKey = (form?.querySelector('input[name="access_key"]') as HTMLInputElement | null)?.value;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!status || !submitBtn || !form) return;
+
+    if (!accessKey) {
+      status.textContent = "This isn't hooked up yet — text or call (505) 991-4180 in the meantime.";
+      status.classList.add('is-error');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    status.classList.remove('is-error');
+    status.textContent = 'Sending…';
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      const data = await res.json();
+      if (data.success) {
+        status.textContent = "Sent — we'll be in touch.";
+        form.reset();
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
+    } catch {
+      status.textContent = 'Something went wrong — text or call (505) 991-4180 instead.';
+      status.classList.add('is-error');
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+</script>
