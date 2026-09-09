@@ -21,6 +21,11 @@
     align-items: center;
     justify-content: center;
     z-index: 9999;
+    /* Without this, the button reads fine over light sections but visually
+       merges into any navy/dark card it happens to float over (e.g. the
+       Methods page's process-step cards) -- the shadow keeps it legible
+       as floating UI regardless of what's scrolled behind it. */
+    box-shadow: 0 6px 18px rgba(13, 34, 56, 0.45);
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.3s, transform 0.3s, background 0.2s;
