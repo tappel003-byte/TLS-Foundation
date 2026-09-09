@@ -74,6 +74,17 @@ const schema = [
             <span class="callout-label">Worth knowing</span>
             <p>[TIM: what's the real breakdown you see in the field — roughly how often is drainage/grading the actual root cause versus a contributing factor versus not relevant at all? Any specific NM patterns worth naming — monsoon season, irrigation habits, particular neighborhoods or lot grading you see repeatedly?]</p>
           </div>
+          <details class="deeper">
+            <summary class="deeper-toggle">
+              <span>Going Deeper — For the Technically Curious</span>
+              <span class="deeper-toggle-icon">+</span>
+            </summary>
+            <div class="deeper-body">
+              <p>The applicable code minimum comes from the International Residential Code, Section R401.3: grade must fall at least 6 inches within the first 10 feet surrounding the foundation — a minimum 5% slope. Where a lot line, wall, or existing grade makes that fall impossible, the code allows a drain or swale to do the same job instead of dirt alone.</p>
+              <p>Paved surfaces closer to the foundation — a patio, a walkway — carry their own separate minimum: at least a 2% slope away from the building within that same first 10 feet.</p>
+              <p class="deeper-cite">Source: International Residential Code (IRC), Section R401.3, Drainage.</p>
+            </div>
+          </details>
         </div>
 
         <div class="article-section" id="which-one">
@@ -280,6 +291,90 @@ const schema = [
   .key-points li strong {
     color: var(--blue);
     font-weight: 600;
+  }
+  .deeper {
+    margin: 32px 0;
+    border: 1px solid var(--tls-stone);
+    background: var(--tls-cream);
+  }
+  .deeper-toggle {
+    cursor: pointer;
+    list-style: none;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+  }
+  .deeper-toggle::-webkit-details-marker {
+    display: none;
+  }
+  .deeper-toggle::marker {
+    content: '';
+  }
+  .deeper-toggle-icon {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px;
+    line-height: 1;
+    color: var(--gold-text);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .deeper[open] .deeper-toggle-icon {
+    transform: rotate(45deg);
+  }
+  .deeper-body {
+    padding: 4px 28px 26px;
+    border-top: 1px solid var(--tls-stone);
+    padding-top: 20px;
+  }
+  .deeper-body p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .deeper-body p:last-child {
+    margin-bottom: 0;
+  }
+  .deeper-body strong {
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .deeper-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 20px;
+    font-size: 14px;
+  }
+  .deeper-body th,
+  .deeper-body td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--tls-stone);
+    text-align: left;
+    color: var(--tls-slate);
+    font-weight: 300;
+  }
+  .deeper-body th {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .deeper-cite {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px !important;
+    letter-spacing: 0.5px;
+    color: var(--muted) !important;
+    margin-top: 4px !important;
   }
   .back-to-top {
     display: block;

@@ -80,6 +80,29 @@ const schema = [
             <span class="callout-label">Torque correlation</span>
             <p>Installation torque is tracked and correlated to capacity using published torque factors based on shaft diameter — a smaller square shaft and a larger pipe shaft use different, published ratios. It's standard, routine practice across the industry, not a proprietary calculation or a judgment call unique to any one installer.</p>
           </div>
+          <details class="deeper">
+            <summary class="deeper-toggle">
+              <span>Going Deeper — For the Technically Curious</span>
+              <span class="deeper-toggle-icon">+</span>
+            </summary>
+            <div class="deeper-body">
+              <p>The correlation itself is a simple equation: ultimate capacity equals the torque factor (<strong>K<sub>t</sub></strong>) multiplied by final installation torque — <strong>Q = K<sub>t</sub> × T</strong>. Allowable capacity is typically set at half that ultimate value, the standard safety margin.</p>
+              <p>K<sub>t</sub> isn't one number — it's published per shaft type and size, and it runs lower as the shaft gets larger:</p>
+              <table>
+                <thead>
+                  <tr><th>Shaft</th><th>K<sub>t</sub> (ft⁻¹)</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>1.5" / 1.75" square shaft</td><td>10</td></tr>
+                  <tr><td>2.875" round shaft</td><td>9</td></tr>
+                  <tr><td>3.0" round shaft</td><td>8</td></tr>
+                  <tr><td>3.5" round shaft</td><td>7</td></tr>
+                </tbody>
+              </table>
+              <p>These are the standard's default values — manufacturers verify their own product's actual K<sub>t</sub> through full-scale field load testing rather than just relying on the default, which is why an engineering evaluation report for a specific pier product can cite a different number than the table above.</p>
+              <p class="deeper-cite">Source: ICC-ES AC358, Acceptance Criteria for Helical Pile Systems and Devices, Table 3.</p>
+            </div>
+          </details>
         </div>
 
         <div class="article-section" id="scope">
@@ -289,6 +312,90 @@ const schema = [
   .key-points li strong {
     color: var(--blue);
     font-weight: 600;
+  }
+  .deeper {
+    margin: 32px 0;
+    border: 1px solid var(--tls-stone);
+    background: var(--tls-cream);
+  }
+  .deeper-toggle {
+    cursor: pointer;
+    list-style: none;
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+  }
+  .deeper-toggle::-webkit-details-marker {
+    display: none;
+  }
+  .deeper-toggle::marker {
+    content: '';
+  }
+  .deeper-toggle-icon {
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px;
+    line-height: 1;
+    color: var(--gold-text);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .deeper[open] .deeper-toggle-icon {
+    transform: rotate(45deg);
+  }
+  .deeper-body {
+    padding: 4px 28px 26px;
+    border-top: 1px solid var(--tls-stone);
+    padding-top: 20px;
+  }
+  .deeper-body p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+  .deeper-body p:last-child {
+    margin-bottom: 0;
+  }
+  .deeper-body strong {
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .deeper-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 20px;
+    font-size: 14px;
+  }
+  .deeper-body th,
+  .deeper-body td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--tls-stone);
+    text-align: left;
+    color: var(--tls-slate);
+    font-weight: 300;
+  }
+  .deeper-body th {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 600;
+  }
+  .deeper-cite {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px !important;
+    letter-spacing: 0.5px;
+    color: var(--muted) !important;
+    margin-top: 4px !important;
   }
   .back-to-top {
     display: block;
