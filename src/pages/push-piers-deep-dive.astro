@@ -18,9 +18,15 @@
 // TLS's working threshold is roughly 3,000-4,000 lbs/linear ft before
 // selecting push piers, with an exception when loose soil sits over a
 // shallow, very hard layer at a known depth -- then wall load matters
-// less. The installation-section placeholder (slab-on-grade vs.
-// pier-and-beam, adobe footings, access) is still open -- this
-// answered a different, more consequential question instead.
+// less.
+//
+// Installation-section placeholder now filled too: pier-and-beam fails
+// the same dead-load test above; older adobe fails for a different
+// reason entirely -- the structure flexes slightly during installation
+// since the ram reacts off the building, and adobe is brittle but
+// strong (carries load fine, doesn't tolerate movement) -- so a method
+// that installs independent of the structure (helical pier, micropile)
+// is the better fit there.
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Push Piers in New Mexico | TLS Foundations';
@@ -116,7 +122,7 @@ const schema = [
         <div class="article-section" id="installation">
           <h2>Where the Work <em>Happens</em></h2>
           <p class="opening">Installation happens at the footing — excavation to expose it, the bracket mounted, then pipe sections hydraulically pressed and joined one at a time using the building's weight as reaction.</p>
-          <p>[TIM: anything specific to New Mexico construction worth a homeowner knowing — how this plays out on slab-on-grade vs. pier-and-beam, older adobe or masonry footings that need extra care taking a bracket load, access realities in tight backyards?]</p>
+          <p>Two New Mexico construction types are usually the wrong fit for push piers, for two different reasons. Pier-and-beam foundations don't carry enough wall load to supply reliable reaction — the same dead-load ceiling covered above, just a construction type where it's almost always a problem rather than an occasional one. Older adobe construction is a different issue entirely: installing a push pier means the structure flexes slightly as the ram reacts against it, and adobe walls are brittle but strong — able to carry real load, but not built to tolerate movement without cracking. If the wall above a footing can't absorb any installation-induced movement without risking a crack, that's a sign to use a method that installs independent of the structure instead — a helical pier or a micropile, neither of which reacts off the building the way a push pier does.</p>
         </div>
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
