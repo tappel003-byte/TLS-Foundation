@@ -433,8 +433,17 @@ const TRACKING_ROWS = 22;
     display: flex;
     flex-direction: column;
   }
-  .panel-left { left: 0; padding-right: 1.25in; }
-  .panel-right { right: 0; padding-left: 1.25in; }
+  /* Outer-edge padding bumped from the base 0.4in to 0.55in -- a ~0.15in
+     safety buffer against printers that can't actually print edge-to-edge
+     even when the browser's print dialog says "no margins." Most
+     printers have a small hardware non-printable border, and some
+     browsers override @page's margin: 0 with their own default margin
+     unless the user explicitly picks "None." The fold-side padding
+     (1.25in, unchanged) already has plenty of room and isn't the edge
+     that was clipping. The ruler bars near the fold aren't affected
+     either way -- they stay exactly calibrated. */
+  .panel-left { left: 0; padding-left: 0.55in; padding-right: 1.25in; }
+  .panel-right { right: 0; padding-left: 1.25in; padding-right: 0.55in; }
 
   .brand-row {
     display: flex;
