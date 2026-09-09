@@ -537,7 +537,17 @@ const TRACKING_ROWS = 22;
   .panel-phone { font-size: 14px; font-weight: 600; color: var(--navy); }
   .panel-site { margin-top: 2px; font-size: 8.5px; color: #6b7280; }
 
-  .bar { position: absolute; background: #000; min-height: 0.6px; }
+  .bar {
+    position: absolute;
+    background: #000;
+    min-height: 0.6px;
+    /* Without this, browsers -- mobile Safari especially -- mute or
+       drop background-color fills when printing to save ink, which is
+       exactly why these were coming out faint instead of solid black. */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color-adjust: exact;
+  }
   .bar-left { right: 4.25in; }
   .bar-right { left: 4.25in; }
   .bar-label {
@@ -707,6 +717,14 @@ const TRACKING_ROWS = 22;
     .page-hero, .article-lede, .screen-controls, .send-form-wrap, .back-to-top, .closing-link,
     :global(header), :global(footer), :global(#tls-summarize-btn), :global(#tls-btt), :global(.tls-pagenav-btn) {
       display: none !important;
+    }
+    /* Belt-and-suspenders alongside .bar's own rule -- covers anything
+       else on this page relying on a background-color fill to print
+       faithfully instead of getting muted to save ink. */
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      color-adjust: exact !important;
     }
     @page { size: Letter portrait; margin: 0; }
     :global(html), :global(body) { background: #fff !important; margin: 0 !important; padding: 0 !important; }
