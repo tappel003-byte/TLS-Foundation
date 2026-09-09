@@ -10,7 +10,10 @@
   #tls-btt {
     position: fixed;
     bottom: 28px;
-    right: 28px;
+    /* Sits in the middle of a three-button row (prev / this / next) at
+       every viewport width now -- see MobilePageFlowNav.astro, which
+       claims the 28px and 136px slots on either side. */
+    right: 80px;
     width: 48px;
     height: 48px;
     background: var(--blue);
@@ -48,14 +51,6 @@
     stroke-width: 2.5;
     stroke-linecap: round;
     stroke-linejoin: round;
-  }
-  /* On mobile this sits in the middle of a three-button row (prev / this /
-     next) so the row reads "back, up, next" left to right -- see
-     MobilePageFlowNav.astro, which claims the 28px slot instead. */
-  @media (max-width: 640px) {
-    #tls-btt {
-      right: 84px;
-    }
   }
 </style>
 

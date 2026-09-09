@@ -52,13 +52,13 @@ const { summary, pageName, nextPage } = Astro.props;
   #tls-summarize-btn {
     position: fixed;
     bottom: 28px;
-    /* Sits beside the back-to-top arrow (#tls-btt: 48px wide, right: 28px)
-       on desktop -- left: 28px collided with the sticky left-nav sidebar's
-       own bottom contact block on the 5 regional pages. Reverts to
-       bottom-left on mobile (that sidebar is hidden there anyway, and two
-       fixed buttons crowd a narrow screen less if they're in opposite
-       corners rather than stacked next to each other). */
-    right: 88px;
+    /* Sits past the prev/back/next three-button row (see
+       MobilePageFlowNav.astro + BackToTop.astro) on desktop -- left: 28px
+       collided with the sticky left-nav sidebar's own bottom contact block
+       on the 5 regional pages. Reverts to bottom-left on mobile (that
+       sidebar is hidden there anyway, and stacking a 4th fixed element in
+       one row crowds a narrow screen more than opposite corners do). */
+    right: 192px;
     height: 48px;
     display: flex;
     align-items: center;
