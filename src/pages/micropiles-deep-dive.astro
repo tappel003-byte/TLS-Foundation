@@ -7,6 +7,18 @@
 // that earns its place -- not MFRC's exact page structure, just accurate
 // facts stated plainly. No misconceptions/Q&A section (dropped sitewide).
 // [TIM: ...] marks spots needing real NM numbers/field experience.
+//
+// Per Tim: added the versatility-vs-economics point (micropiles can
+// technically work in nearly any soil since they're drilled/grouted
+// rather than driven, but that doesn't make them the right or cheapest
+// choice -- harder soil means a shorter pile, looser soil means going
+// deeper). Added the self-drilling/"Geo-Drill" hollow-bar method as a
+// common NM technique -- drill string stays in the ground and becomes
+// the reinforcing steel, hole drilled and reinforcement placed in one
+// pass. Also swapped "specialty design engineer" for the correct
+// industry term, delegated design, in the Going Deeper panel. The
+// installation-section placeholder on caliche/cobbles/access is still
+// open -- this answered different questions instead.
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Micropiles in New Mexico | TLS Foundations';
@@ -64,6 +76,7 @@ const schema = [
           <h2>The Mechanism: <em>Grout-to-Soil Bond, Not Bearing</em></h2>
           <p class="opening">A micropile is a small-diameter drilled and grouted foundation element, typically 3 to 12 inches across, that transfers structural load to competent ground through a specific mechanism: the bond between grout and the surrounding soil.</p>
           <p>Three parts work together — steel reinforcement (usually a threaded bar or steel tube) carrying the structural load, cement grout filling the drilled hole and bonding to the surrounding soil, and the drilled borehole itself creating the space where that load transfer happens. The steel provides strength, the grout transfers load from steel to soil, and the hole is what makes the whole thing possible in ground nothing else can get through.</p>
+          <p>Because that load transfer happens through a drilled-and-grouted bond rather than driving or torque, there are very few soil conditions a micropile technically can't work in — harder soil generally means a shorter, more efficient pile, while looser soil means going deeper to develop the same bond capacity. That versatility is exactly why it's tempting to reach for a micropile on almost anything. It shouldn't be: micropiles are specialized equipment and specialized labor, and depending on the soil, they can be one of the more expensive options in the toolkit. Being able to use a micropile on a job isn't the same as it being the right or most economical choice for it.</p>
         </div>
 
         <div class="article-section" id="how-they-work">
@@ -82,7 +95,7 @@ const schema = [
             </summary>
             <div class="deeper-body">
               <p>Grout-to-soil bond is only half the load path — the other half is the bond between the grout and the steel reinforcement itself, which is what actually transfers load from the bar to the grout in the first place. That bond isn't a single fixed number the way it can look in a table. FHWA's micropile manual cites typical ultimate ranges (roughly <strong>145–254 psi</strong> for a smooth bar or pipe, <strong>290–508 psi</strong> for a deformed, threaded bar, per ACI 318), but ICC-ES evaluation reports for specific bar products and Post-Tensioning Institute guidance set their own values too — none of which overrides the judgment of the engineer actually stamping the design.</p>
-              <p>In practice, most micropile contractors — TLS included — bring in a specialty design engineer rather than pulling a number off a table. Bond strength depends heavily on the drilling means and methods actually used on that hole, not just the soil type on paper, and matching the design value to how the pile is really going to be drilled and grouted is a large part of what that engineer is doing. It's part art, part science — which is exactly why it's an engineered decision rather than a fixed constant.</p>
+              <p>In practice, most micropile contractors — TLS included — rely on delegated design: a specialty engineer, not a table lookup, sets the actual bond value for the job. Bond strength depends heavily on the drilling means and methods actually used on that hole, not just the soil type on paper, and matching the design value to how the pile is really going to be drilled and grouted is a large part of what that engineer is doing. It's part art, part science — which is exactly why good engineering on the design side makes a real difference to how the finished pile performs.</p>
               <p>On the inspection side: the IBC doesn't have a subsection written specifically for micropiles. They fall under <strong>Section 1705.8</strong>, Cast-in-Place Deep Foundations — the same category used for any drilled-and-grouted element — which requires continuous inspection of the drilling operation and verification of placement, diameter, length, embedment, and grout volume.</p>
               <p class="deeper-cite">Source: FHWA-NHI-05-039, p. 5-9 (citing ACI 318) — one published reference point among several a design engineer may draw on, not a universal value; IBC Section 1705.8, Cast-in-Place Deep Foundations.</p>
             </div>
@@ -92,6 +105,7 @@ const schema = [
         <div class="article-section" id="installation">
           <h2>Slower, Messier, and <em>Worth It When Ground Demands It</em></h2>
           <p class="opening">Installation drills a borehole to design depth (the method — rotary, percussion, or auger — depends on what's actually being drilled through), places the steel reinforcement, then grouts it in place, either by gravity or under pressure depending on the bond strength the job requires.</p>
+          <p>One common variation in New Mexico is the self-drilling approach, sometimes called Geo-Drill: instead of drilling the hole, pulling the drill string, and inserting separate reinforcement afterward, the drill string itself — a hollow bar with a sacrificial bit at the tip — stays in the ground and becomes the reinforcing steel. Grout is pumped through the hollow bar as it drills, so the hole is drilled and the reinforcement placed in a single pass rather than two.</p>
           <p>It's messier and slower than most of the other tools in the toolkit — drilling produces spoils and wet conditions, and a job needing several micropiles can run multiple days rather than one. Because capacity depends on bonding to whatever the shaft passes through, the relevant question when a pier can't reach bearing ground isn't just depth — it's whether the ground along that depth can actually be drilled through and bonded to. [TIM: anything NM-specific worth flagging here — how caliche or cobbles change drilling time, access considerations in older neighborhoods, anything homeowners are surprised by?]</p>
         </div>
 
