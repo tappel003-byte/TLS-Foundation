@@ -248,16 +248,14 @@ const schema = [
     </section>
 
     <section class="contact-close">
-      <div class="contact-split">
-        <div class="contact-split-text">
-          <span class="contact-eyebrow">Ready when you are</span>
-          <h2 class="contact-headline">
-            Foundation problems don't get better while you wait. Text or call — you'll reach the people
-            who'll actually be at your house, not a scheduler.
-          </h2>
-          <p class="contact-sub">Real answers, no sales script.</p>
-        </div>
-        <div class="contact-card">
+      <div class="contact-inner">
+        <span class="contact-eyebrow">Ready when you are</span>
+        <h2 class="contact-headline">
+          Foundation problems don't get better while you wait. Text or call — you'll reach the people
+          who'll actually be at your house, not a scheduler.
+        </h2>
+        <p class="contact-sub">Real answers, no sales script.</p>
+        <div class="contact-options">
           <div class="contact-option">
             <span class="contact-option-label">Text</span>
             <a href="sms:5059914180" class="contact-option-value">Send a text →</a>
@@ -919,14 +917,11 @@ const schema = [
     padding: 96px var(--gutter);
     border-top: 2px solid var(--gold);
     border-bottom: 2px solid var(--gold);
+    text-align: center;
   }
-  .contact-split {
-    max-width: var(--acc-max);
+  .contact-inner {
+    max-width: 720px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 56px;
-    align-items: center;
   }
   .contact-eyebrow {
     font-family: 'DM Mono', monospace;
@@ -950,23 +945,23 @@ const schema = [
     font-weight: 300;
     color: var(--slate);
     line-height: 1.7;
+    margin-bottom: 56px;
   }
-  .contact-card {
-    background: white;
-    border: 1px solid var(--stone);
-    border-top: 3px solid var(--gold);
-    padding: 32px;
+  .contact-options {
     display: flex;
-    flex-direction: column;
-    gap: 24px;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: nowrap;
   }
   .contact-option {
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--stone);
+    flex: 1;
+    padding: 0 32px;
+    border-right: 1px solid var(--stone);
+    text-align: center;
   }
   .contact-option:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+    border-right: none;
   }
   .contact-option-label {
     font-family: 'DM Mono', monospace;
@@ -985,6 +980,7 @@ const schema = [
     text-decoration: none;
     display: block;
     margin-bottom: 6px;
+    white-space: nowrap;
     transition: color 0.2s;
   }
   .contact-option-value:hover {
@@ -1027,14 +1023,24 @@ const schema = [
     .svc-item:last-child {
       border-bottom: none;
     }
-    .contact-split {
-      grid-template-columns: 1fr;
-      gap: 40px;
-    }
   }
   @media (max-width: 640px) {
     .contact-close {
       padding: 64px 24px;
+    }
+    .contact-options {
+      flex-direction: column;
+      gap: 40px;
+    }
+    .contact-option {
+      border-right: none;
+      border-bottom: 1px solid var(--stone);
+      padding: 0 0 40px;
+      width: 100%;
+    }
+    .contact-option:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
     }
   }
 </style>
