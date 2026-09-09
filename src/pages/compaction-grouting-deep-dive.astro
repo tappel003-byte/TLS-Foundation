@@ -1,9 +1,12 @@
 ---
 // Fact-forward pass (matches the corrected helical-piers-deep-dive.astro
-// treatment). Covers both compaction grouting and mud jacking, per Tim:
-// same grout material, aimed differently (into the soil to densify it, or
-// under a slab to lift it). Re-verified against MFRC's compaction-grouting
-// page and rewritten in TLS's own structure. Added the physical-connection
+// treatment). Covers both compaction grouting and mud jacking. Corrected
+// per Tim's review: these are NOT the same mix aimed at different targets --
+// slump, mobility, and placement all differ. Compaction grouting stays low
+// slump (roughly 0-2in) to displace and densify soil in place; mud jacking
+// is mixed more flowable so it can travel to fill a void under a slab and
+// build enough hydrostatic pressure to lift it. Re-verified against MFRC's
+// compaction-grouting page and rewritten in TLS's own structure. Added the physical-connection
 // vs. ground-improvement framing Tim asked for: piering makes a physical
 // connection to bearing material, grouting improves the ground itself --
 // physical connection is usually the stronger repair when it's achievable,
@@ -14,9 +17,9 @@ import Layout from '../layouts/Layout.astro';
 
 const title = 'Compaction Grouting & Mud Jacking in New Mexico | TLS Foundations';
 const summary =
-  'Compaction grouting and mud jacking use the same stiff, low-mobility grout, aimed at two different jobs -- injected into the soil itself to displace and densify it, or injected beneath a slab to fill a void and lift it. Neither creates a pile; neither is foam. Compaction grouting is ground improvement, not a shortcut around understanding the ground -- it depends entirely on soil that can actually take displacement without fracturing or migrating somewhere it shouldn\'t.';
+  'Compaction grouting and mud jacking come from the same grout family but are mixed differently for two different jobs -- compaction grouting stays low-mobility (roughly 0 to 2 inches of slump) to displace and densify soil in place, while mud jacking is mixed more flowable so it can travel to fill a void under a slab and build enough hydrostatic pressure to lift it. Neither creates a pile; neither is foam. Compaction grouting is ground improvement, not a shortcut around understanding the ground -- it depends entirely on soil that can actually take displacement without fracturing or migrating somewhere it shouldn\'t.';
 const description =
-  'What compaction grouting and mud jacking are, how the same grout does two different jobs, and when New Mexico soil conditions call for one over the other.';
+  'What compaction grouting and mud jacking are, how the mix and mobility differ even though they share the same grout family, and when New Mexico soil conditions call for one over the other.';
 
 const schema = [
   {
@@ -54,8 +57,8 @@ const schema = [
     <section class="page-hero">
       <div class="page-hero-inner">
         <span class="hero-eyebrow">Methods · Compaction Grouting &amp; Mud Jacking</span>
-        <h1>Compaction Grouting &amp; Mud Jacking —<br /><em>Same Grout, Two Jobs</em></h1>
-        <p class="page-hero-sub">Ground improvement by displacement, not a pile and not foam. One material, aimed at the soil itself or aimed under a slab, depending on which problem you have.</p>
+        <h1>Compaction Grouting &amp; Mud Jacking —<br /><em>Same Family, Different Mix</em></h1>
+        <p class="page-hero-sub">Ground improvement by displacement, not a pile and not foam. Same grout family, mixed differently — stiffer to displace soil in place, more flowable to fill a void and lift a slab.</p>
       </div>
     </section>
 
@@ -64,9 +67,9 @@ const schema = [
         <p class="article-lede">"Grouting" gets used loosely enough on estimates that it stops meaning anything specific. This page is about the one mechanism that matters: a stiff, low-mobility grout that displaces the material around it instead of soaking into it.</p>
 
         <div class="article-section" id="what-they-are">
-          <h2>One Material, <em>Two Applications</em></h2>
-          <p class="opening">Both compaction grouting and mud jacking use a stiff, low-slump, low-mobility grout — meant to stay near the injection point and form a bulb, or a string of bulbs, rather than soak into ordinary soil pores the way a thinner grout would.</p>
-          <p>The difference is entirely about where it's aimed. Compaction grouting injects into the soil itself — as each bulb grows under controlled pressure, it displaces the ground around it, and in suitable material that displacement increases density and stiffness. Mud jacking uses the same material but aimed beneath a slab instead, filling a void to restore contact and lift the concrete. Same grout, two different targets, two different jobs.</p>
+          <h2>Stiffer to Displace, <em>Looser to Lift</em></h2>
+          <p class="opening">Compaction grouting and mud jacking come from the same family of grout — a cement-based mix, not concrete, not foam — but they're not the same mix, because they're not doing the same job.</p>
+          <p>Compaction grouting stays low-mobility, roughly 0 to 2 inches of slump, meant to stay near the injection point and form a bulb, or a string of bulbs, rather than soak into ordinary soil pores the way a thinner grout would. As each bulb grows under controlled pressure, it displaces the ground around it, and in suitable material that displacement increases density and stiffness. Mud jacking needs the opposite behavior: mixed more flowable so it can actually travel to fill a void beneath a slab, then build enough hydrostatic pressure to lift the concrete back into place. Slump, mobility, and placement all differ between the two — related family, different mix, different job.</p>
         </div>
 
         <div class="article-section" id="how-they-work">
