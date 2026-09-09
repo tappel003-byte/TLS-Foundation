@@ -12,8 +12,6 @@
     // as before. Keeps this change contained to the one new endpoint
     // instead of putting the whole site behind a worker.
     "run_worker_first": ["/api/*"]
-  }
-  // TODO(Tim): once R2 is enabled in the Cloudflare dashboard and the
-  // `tls-homeowner-photos` bucket is created, add:
-  // "r2_buckets": [{ "binding": "PHOTOS", "bucket_name": "tls-homeowner-photos" }]
+  },
+  "r2_buckets": [{ "binding": "PHOTOS", "bucket_name": "tls-homeowner-photos" }]
 }
