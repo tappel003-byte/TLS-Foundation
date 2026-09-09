@@ -1,11 +1,12 @@
 ---
-// PILOT-FOLLOWUP DRAFT -- not linked from nav (added to temp Draft folder
-// only), not live. Same template as helical-piers-deep-dive.astro. No
-// MFRC source page exists for this one (MFRC's method pages are
-// underpinning-focused) -- built from what's already established on
-// TLS's own site (the Methods v2 card, Common Concerns). [TIM: ...]
-// marks spots needing real NM numbers/field experience instead of
-// guesses.
+// Fact-forward pass (matches the corrected helical-piers-deep-dive.astro
+// treatment). No MFRC method page exists for this one, but a related
+// MFRC reference article (distinguishing moisture problems from bearing-
+// capacity deficiency) supplied the real, verified content for the new
+// "how to tell which one you have" section below -- genuinely useful,
+// not MFRC's page structure. No misconceptions/Q&A section (dropped
+// sitewide). [TIM: ...] marks spots needing real NM numbers/field
+// experience instead of guesses.
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Drainage and Grading Correction in New Mexico | TLS Foundations';
@@ -75,19 +76,17 @@ const schema = [
           </div>
         </div>
 
+        <div class="article-section" id="which-one">
+          <h2>Moisture Problem, or <em>Bearing Capacity Problem?</em></h2>
+          <p class="opening">Moisture problems and bearing-capacity problems can leave the same marks on a house, which is exactly why treating every crack as "soil that can't hold the house" skips the cheaper, far more common story: water showed up where the design didn't expect it.</p>
+          <p>A few real clues point toward moisture as the first suspect: symptoms that showed up after a leak, a grading change, or a wet season; movement concentrated on the side of the house that tracks a downspout or a low spot; movement that's seasonal and partly recovers; the same soil under a dry portion of the house staying quiet. Clues that point toward the soil's actual capacity being the issue instead: soft or undocumented fill under part of the footprint, settlement that continues after moisture sources are already controlled, new load added without a corresponding change in support, or a soil report that already documented weak or collapsible layers at footing depth.</p>
+          <p>The distinction isn't academic. If moisture is genuinely driving the movement, piers installed into that same wet, active zone can still see force from the soil around them — the structural fix doesn't neutralize what the water is doing. If the soil at depth is actually competent and the surface is the real problem, the first work is water, not steel.</p>
+        </div>
+
         <div class="article-section" id="limits">
           <h2>Where It <em>Has Real Limits</em></h2>
           <p class="opening">Drainage correction isn't a universal fix, and treating it like one is its own kind of mistake.</p>
           <p>Once soil has already lost its bearing capacity — not just wet, but structurally compromised — correcting the moisture going forward doesn't undo the damage already done. And when the cause is geological rather than surface-water-driven — Mancos Shale heave, karst voids in the Pecos Valley, mine subsidence in the Raton Basin — drainage correction alone won't touch it, because the water isn't coming from where a downspout extension or a regrade can reach.</p>
-        </div>
-
-        <div class="article-section" id="misconceptions">
-          <h2>What People <em>Get Wrong</em></h2>
-          <ul class="key-points">
-            <li><strong>"It's the cheap fix they give you before selling piers"</strong> — when moisture is genuinely the cause, it can be the complete repair, not a consolation prize on the way to something structural.</li>
-            <li><strong>"If piers are needed, drainage doesn't matter"</strong> — the two aren't either/or. A structural repair without addressing an active moisture source just means the structural fix is working against a problem that's still running.</li>
-            <li><strong>"All foundation movement in NM is drainage-related"</strong> — most is moisture-driven, not all. Geological causes exist and drainage correction won't reach them.</li>
-          </ul>
         </div>
 
         <a href="#top" class="back-to-top">↑ Back to top</a>

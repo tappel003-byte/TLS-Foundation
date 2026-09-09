@@ -1,10 +1,12 @@
 ---
-// PILOT-FOLLOWUP DRAFT -- not linked from nav (added to temp Draft folder
-// only), not live. Same template as helical-piers-deep-dive.astro.
-// Content adapted from Tim's own myfoundationrepairconsultant.com for New
-// Mexico specifics -- MFRC stays completely separate (no mention, no
-// link, either direction). [TIM: ...] marks spots needing real NM
-// numbers/field experience instead of guesses.
+// Fact-forward pass (matches the corrected helical-piers-deep-dive.astro
+// treatment) -- re-verified against MFRC's micropiles page/extracted
+// article and rewritten in TLS's own structure. Added the FHWA Type
+// A/B/C/D grouting classification and its bond-strength ranges (FHWA-NHI-05-039
+// Table 5-3) since it's real, citable, and the kind of concrete detail
+// that earns its place -- not MFRC's exact page structure, just accurate
+// facts stated plainly. No misconceptions/Q&A section (dropped sitewide).
+// [TIM: ...] marks spots needing real NM numbers/field experience.
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Micropiles in New Mexico | TLS Foundations';
@@ -69,26 +71,16 @@ const schema = [
           <p class="opening">The mechanism is fundamentally different from a helical or push pier, and it's the reason micropiles exist as a separate tool rather than just a smaller pier.</p>
           <p>Capacity comes almost entirely from the bond between grout and soil along the shaft's full length — technically called skin friction or shaft resistance — not from bearing at the tip. The pile tip does rest on soil at the bottom of the hole, but design typically doesn't count on that end bearing at all; it's a conservative approach that relies on what can actually be predicted and verified.</p>
           <div class="callout-block">
-            <span class="callout-label">Worth knowing</span>
-            <p>That bond strength varies enormously with soil type and grouting method — the same physical installation in soft clay versus dense sand can produce a capacity difference of several times over. [TIM: what soil conditions are you actually drilling through most often in NM micropile work — caliche, cobbles, something else — and how does that affect what bond strength you're seeing in practice?]</p>
+            <span class="callout-label">Grouting method sets the bond</span>
+            <p>The Federal Highway Administration classifies micropile grouting into four types, and the method changes the bond strength you get from the same soil. Type A is gravity-placed grout — no injection pressure — and produces the lowest bond values. Type B is pressure-grouted during casing withdrawal (roughly 70–145 psi), forcing grout into pores and irregularities in the borehole wall for meaningfully higher bond than Type A. Types C and D add one or multiple post-grouting pressure phases (Type D up to 290–1,160 psi) for the highest bond values, used where capacity requirements or difficult soil call for it. Per FHWA reference guidance (FHWA-NHI-05-039, Table 5-3), ultimate bond strength across these methods and soil types ranges roughly from 5 psi in soft clay to 56+ psi in dense sand and gravel — more than a tenfold spread from the same physical hole in different ground.</p>
           </div>
-          <p>One more distinction worth knowing: shaft friction works in both directions. A micropile resists uplift (tension) about as well as it resists downward load (compression), which makes it useful for wind or seismic uplift in a way a standard push pier — compression-only unless specifically engineered otherwise — isn't.</p>
+          <p>Shaft friction also works in both directions. A micropile resists uplift (tension) about as well as it resists downward load (compression), which makes it useful for wind or seismic uplift in a way a standard push pier — compression-only unless specifically engineered otherwise — isn't. The tradeoff is lateral capacity: the small diameter gives a micropile little resistance to bending, so where lateral load matters, piles are often installed at an angle (battered) rather than vertically, resisting sideways force through axial tension and compression in the incline instead.</p>
         </div>
 
         <div class="article-section" id="installation">
           <h2>What Installation <em>Actually Involves</em></h2>
           <p class="opening">Installation drills a borehole to design depth (the method — rotary, percussion, or auger — depends on what's actually being drilled through), places the steel reinforcement, then grouts it in place, either by gravity or under pressure depending on the bond strength the job requires.</p>
-          <p>It's messier and slower than most of the other tools in the toolkit — drilling produces spoils and wet conditions, and a job needing several micropiles can run multiple days rather than one. [TIM: anything NM-specific worth flagging here — how caliche or cobbles change drilling time, access considerations in older neighborhoods, anything homeowners are surprised by?]</p>
-        </div>
-
-        <div class="article-section" id="misconceptions">
-          <h2>What People <em>Get Wrong</em></h2>
-          <ul class="key-points">
-            <li><strong>"Micro means weak"</strong> — the name refers to the shaft diameter, not the capacity. A properly designed micropile can carry substantial structural load.</li>
-            <li><strong>"It's just a smaller helical pier"</strong> — the load-carrying mechanism is different in kind, not just in size. Shaft friction along the full length, not bearing plates at depth.</li>
-            <li><strong>"Any grouting method gives the same result"</strong> — bond strength varies significantly by how the grout is placed (gravity versus pressure injection), not just by soil type.</li>
-            <li><strong>"Deeper is always the answer when a pier won't reach"</strong> — the question is whether the ground can be drilled through and bonded to, not just whether you can dig deep enough.</li>
-          </ul>
+          <p>It's messier and slower than most of the other tools in the toolkit — drilling produces spoils and wet conditions, and a job needing several micropiles can run multiple days rather than one. Because capacity depends on bonding to whatever the shaft passes through, the relevant question when a pier can't reach bearing ground isn't just depth — it's whether the ground along that depth can actually be drilled through and bonded to. [TIM: anything NM-specific worth flagging here — how caliche or cobbles change drilling time, access considerations in older neighborhoods, anything homeowners are surprised by?]</p>
         </div>
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
