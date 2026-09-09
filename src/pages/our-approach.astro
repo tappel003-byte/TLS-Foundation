@@ -311,7 +311,7 @@ const schema = [
       if (current > 0) {
         const key = steps[current - 1].dataset.step;
         if (key) {
-          select(key);
+          select(key, { scroll: true });
           history.replaceState(null, '', `#${key}`);
         }
       }
@@ -321,7 +321,7 @@ const schema = [
       if (current >= 0 && current < steps.length - 1) {
         const key = steps[current + 1].dataset.step;
         if (key) {
-          select(key);
+          select(key, { scroll: true });
           history.replaceState(null, '', `#${key}`);
         }
       }

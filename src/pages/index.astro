@@ -289,7 +289,7 @@ const schema = [
       const prevBtn = block.querySelector<HTMLButtonElement>('.tab-prev-btn');
       const nextBtn = block.querySelector<HTMLButtonElement>('.tab-next-btn');
 
-      function activate(index: number) {
+      function activate(index: number, opts: { scroll?: boolean } = {}) {
         buttons.forEach((b, i) => {
           b.classList.toggle('active', i === index);
           b.setAttribute('aria-selected', String(i === index));
@@ -305,16 +305,25 @@ const schema = [
           const label = nextBtn.querySelector('.tab-nav-label');
           if (label && index < buttons.length - 1) label.textContent = buttons[index + 1].textContent;
         }
+        // The prev/next buttons live at the bottom of the panel -- after
+        // swapping content, staying scrolled where you were leaves you
+        // looking at wherever the new (likely differently-sized) panel
+        // happens to end up, not its start. Scroll the tab nav back into
+        // view so the new panel reads from the top, same as clicking a
+        // tab directly would.
+        if (opts.scroll) {
+          block.querySelector('.tabs-header')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
 
       buttons.forEach((btn, i) => btn.addEventListener('click', () => activate(i)));
       prevBtn?.addEventListener('click', () => {
         const current = buttons.findIndex((b) => b.classList.contains('active'));
-        if (current > 0) activate(current - 1);
+        if (current > 0) activate(current - 1, { scroll: true });
       });
       nextBtn?.addEventListener('click', () => {
         const current = buttons.findIndex((b) => b.classList.contains('active'));
-        if (current < buttons.length - 1) activate(current + 1);
+        if (current < buttons.length - 1) activate(current + 1, { scroll: true });
       });
 
       const startIndex = buttons.findIndex((b) => b.classList.contains('active'));
@@ -673,30 +682,27 @@ const schema = [
   .tabs-nav {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    border-bottom: 1px solid var(--stone);
+    gap: 10px;
     margin-bottom: 32px;
   }
   .tab-btn {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    color: var(--muted);
-    background: none;
-    border: none;
-    padding: 14px 4px 16px;
-    margin-right: 28px;
+    font-family: 'Source Serif 4', serif;
+    font-size: 14px;
+    color: var(--blue);
+    background: var(--sand);
+    border: 1.5px solid var(--stone);
+    border-radius: 999px;
+    padding: 10px 20px;
     cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transform: translateY(1px);
-    transition: color 0.2s, border-color 0.2s;
+    transition: all 0.2s;
   }
   .tab-btn:hover {
-    color: var(--blue);
+    border-color: var(--gold);
   }
   .tab-btn.active {
-    color: var(--blue);
-    border-bottom-color: var(--gold);
+    background: var(--blue);
+    border-color: var(--blue);
+    color: #fff;
   }
   .tabs-panels {
     min-height: 220px;
@@ -783,8 +789,8 @@ const schema = [
       gap: 4px;
     }
     .tab-btn {
-      margin-right: 16px;
-      font-size: 11px;
+      font-size: 13px;
+      padding: 8px 16px;
     }
     .tab-nav-btn {
       font-size: 11px;
