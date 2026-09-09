@@ -12,6 +12,15 @@
 // correlation limits) are universal and carried over; anything
 // NM-specific is flagged inline as [TIM: ...] for real numbers/field
 // experience rather than guessed. Do not fill those in without him.
+//
+// Both placeholders now filled in from Tim's field input: the shaft-
+// friction paragraph reframes soil type as less important than depth
+// and strata (piers installed 7-100ft deep depending on the job), plus
+// the Rio Grande valley water-table note. The installation section adds
+// a real QC fact -- a helical pier turns into the ground at its own
+// pitch (~3-4in/rotation); if it has to be augered or forced rather
+// than turned, especially right at the embedment depth, the torque
+// reading that capacity is correlated from stops being meaningful.
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Helical Piers in New Mexico | TLS Foundations';
@@ -117,7 +126,11 @@ const schema = [
         <div class="article-section" id="installation">
           <h2>How a Pier <em>Goes In</em></h2>
           <p class="opening">Installation runs on hydraulic torque motors mounted on skid steers, mini excavators, or hand-held equipment depending on access — depth is reached when the target torque is hit, practical refusal occurs, or a predetermined depth from soil data is met, whichever comes first. The target is competent soil, not maximum depth — going deeper than the bearing stratum actually requires doesn't add capacity.</p>
-          <p>[TIM: anything specific to how this plays out on New Mexico ground — caliche layers stopping a pier short of target depth, adobe or historic construction changing the approach, backyard/access realities in older Albuquerque or Santa Fe neighborhoods, anything else worth a homeowner knowing before the crew shows up?]</p>
+          <p>Helical piers are usually TLS's first choice when they're viable — soil and depth allowing, they're the most versatile option in the toolkit. But "usually" isn't "always": the depth of the actual problem and a real understanding of the soil the pier has to pass through still decide whether they're the right call on a given job, not just default preference.</p>
+          <div class="callout-block">
+            <span class="callout-label">Driven, not drilled</span>
+            <p>A helical pier is turned into the ground — the helix advances at its own pitch, roughly 3 to 4 inches per rotation, the same way a screw advances into wood. If a crew has to auger or force the pile down rather than let it turn in naturally, that's a sign the installation isn't going the way it should. Occasional forcing can happen over a long pier, but it's a real problem if it happens right at the embedment depth where the final torque reading is taken — that reading is what the whole capacity correlation depends on, and it's only meaningful if the pier actually turned its way there.</p>
+          </div>
           <div class="callout-block">
             <span class="callout-label">Scope exclusions</span>
             <p>Standard installation does <strong>not</strong> include drainage correction, interior finish repair, plumbing fixes, or cosmetic crack repair. If a quote includes piers, confirm in writing what's in scope and what isn't before work starts.</p>
