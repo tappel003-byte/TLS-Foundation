@@ -73,20 +73,6 @@ const BAR_SPACING_IN = 0.9;
 const BARS_START_IN = 1.0;
 const BAR_LEN_IN = 0.32;
 
-// Full-bleed edge ruler down the right side of the sheet.
-const RULER_TOP = 0.25;
-const RULER_LEN = 10.5;
-const TICKS_PER_INCH = 16;
-const totalTicks = RULER_LEN * TICKS_PER_INCH;
-const ticks = Array.from({ length: totalTicks + 1 }, (_, i) => {
-  const isInch = i % 16 === 0;
-  const isHalf = i % 8 === 0;
-  const isQuarter = i % 4 === 0;
-  const isEighth = i % 2 === 0;
-  const len = isInch ? 0.32 : isHalf ? 0.24 : isQuarter ? 0.18 : isEighth ? 0.12 : 0.07;
-  return { i, isInch, len };
-});
-
 const TRACKING_ROWS = 22;
 ---
 
@@ -215,17 +201,6 @@ const TRACKING_ROWS = 22;
             );
           })}
 
-          <div class="edge-ruler" aria-hidden="true">
-            <span class="edge-ruler-line"></span>
-            {ticks.map(({ i, isInch, len }) => (
-              <Fragment>
-                <span class="tick" style={`top: ${i / TICKS_PER_INCH}in; width: ${len}in;`} />
-                {isInch && i > 0 && i < totalTicks && (
-                  <span class="tick-num" style={`top: calc(${i / TICKS_PER_INCH}in - 0.05in); right: ${len + 0.04}in;`}>{i / TICKS_PER_INCH}</span>
-                )}
-              </Fragment>
-            ))}
-          </div>
         </div>
         </div>
 
@@ -573,10 +548,6 @@ const TRACKING_ROWS = 22;
     color: #000;
   }
 
-  .edge-ruler { position: absolute; top: 0.25in; right: 0; height: 10.5in; width: 0.5in; }
-  .edge-ruler-line { position: absolute; top: 0; bottom: 0; right: 0; width: 0; border-right: 0.75px solid #000; }
-  .tick { position: absolute; right: 0; height: 0; border-top: 0.75px solid #000; }
-  .tick-num { position: absolute; font-size: 8px; line-height: 1; color: #000; }
 
   /* ─── Page 2: tracking log ─── */
   .print-sheet-2 {
@@ -741,12 +712,24 @@ const TRACKING_ROWS = 22;
     :global(html), :global(body) { background: #fff !important; margin: 0 !important; padding: 0 !important; }
     .article-outer { padding: 0 !important; max-width: none !important; }
     .article-body { max-width: none !important; }
-    .print-sheet {
+    /* Neutralize the on-screen horizontal-scroll wrapper for print --
+       it exists only so a sheet wider than the article column doesn't
+       get squished on screen (see the box-sizing note above); carrying
+       any of that overflow/width behavior into print risked exactly
+       the kind of multi-page tiling this fixes. */
+    .print-preview-scroll { overflow: visible !important; width: auto !important; }
+    .print-sheet, .print-sheet-2 {
       box-shadow: none !important;
       margin: 0 !important;
-      page-break-after: always;
+      page-break-inside: avoid;
+      break-inside: avoid;
     }
-    .print-sheet-2 { page-break-before: always; }
+    /* Scoped to the first sheet specifically, not the shared .print-sheet
+       class -- that class used to also match #print-sheet-2, which (on
+       top of its own page-break-before) meant the LAST page got a
+       trailing page-break-after too, producing a stray blank page. */
+    #print-sheet { page-break-after: always; break-after: page; }
+    #print-sheet-2 { page-break-before: always; break-before: page; }
   }
 </style>
 
