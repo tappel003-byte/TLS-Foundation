@@ -4,17 +4,12 @@
 // a mobile-only convenience; a mouse click is just as easy as a tap. (File
 // name is a holdover from when this was mobile-only; not worth a rename
 // churn on its own.)
-import { pageFlow, draftPageFlow } from '../data/pageFlow';
+import { pageFlow } from '../data/pageFlow';
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
-let idx = pageFlow.findIndex((p) => p.path === currentPath);
-let chain = pageFlow;
-if (idx === -1) {
-  idx = draftPageFlow.findIndex((p) => p.path === currentPath);
-  chain = draftPageFlow;
-}
-const prev = idx > 0 ? chain[idx - 1] : null;
-const next = idx >= 0 && idx < chain.length - 1 ? chain[idx + 1] : null;
+const idx = pageFlow.findIndex((p) => p.path === currentPath);
+const prev = idx > 0 ? pageFlow[idx - 1] : null;
+const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
 ---
 
 {

@@ -1,8 +1,11 @@
 ---
+// Promoted from the -v2 draft to live -- superseded the previous
+// foundation-repair-methods.astro (git history has it if it's ever needed).
+//
 // Foundation Repair Methods ("The Tool Box"). Built from the user-pasted
 // code blocks: Ken Burns hero, a fully self-contained page (stats bar,
-// 4-step process flow, 8 expandable method cards, 6 flip-card symptoms),
-// and a page-specific footer service-area paragraph.
+// 4-step process flow, 8 expandable method cards), and a page-specific
+// footer service-area paragraph.
 //
 // Content check (see CONTENT_TRIM_LOG.md): this page already avoided the
 // "same argument restated" problem -- it correctly never imports the
@@ -16,6 +19,32 @@
 // including the wood-frame/push-pier limitation already stated
 // elsewhere on the site (index.astro's services list) but missing from
 // this page's own dedicated Push Piers card.
+//
+// Second pass: this page's own copy claimed "eight tools, eight
+// different jobs," while Home's services grid and this page's own
+// footer teaser both correctly say "six methods" -- Monitoring and
+// Custom Solutions aren't repair methods in the same sense (one is
+// explicitly choosing not to repair yet, the other is a catch-all for
+// what doesn't fit the six). Reworded this page's intro and footer text
+// to match the accurate framing instead of inflating the count. Also:
+// gave Monitoring and Custom Solutions the `id` anchors and schema
+// entries the other six methods already had (they were unlinkable and
+// invisible to the page's own structured data); rewrote Helical Piers'
+// filler body, which had been missed in the first pass; fixed a
+// preview/fit redundancy on the Micropiles card (both said "limited
+// access"); and corrected "stabilise" to "stabilize."
+//
+// Third pass, per Tim: cut the "Common Symptoms" flip-card section
+// entirely -- it was a flatter rerun of exactly what the Symptom Guide
+// already does properly (same categories: sticking doors, diagonal
+// cracks, uneven floors, wall/ceiling gaps, stair-step masonry cracks,
+// water pooling), except static instead of interactive and with no path
+// to a cause. This page's job is methods, not symptoms. That freed room
+// to do what Tim actually asked for: every method card except Drainage
+// (already the deepest one) got a second paragraph of real mechanical
+// detail -- how depth or capacity is actually determined, not just what
+// the method is for. Drainage was left alone; it was already the bar
+// the others were being measured against.
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Foundation Repair Methods | TLS Foundations New Mexico';
@@ -24,15 +53,17 @@ const summary =
 const description =
   'We match the repair method to the problem, not the other way around. Helical piers, push piers, grouting, drainage -- all based on a proper diagnosis.';
 
-const serviceAreaText = `TLS Foundations is a New Mexico foundation repair contractor serving residential and commercial clients across the state. We install helical piers, push piers, and micropiles for deep foundation support. We perform compaction grouting and foam injection for void fill and soil densification. We correct drainage and surface grading when moisture is the problem — which in New Mexico, it usually is. We recommend monitoring when repair is premature. We design custom solutions when the soil profile requires something the standard toolkit doesn't cover. Eight methods on this page. The one we recommend is the one the soil warrants — not the one that generates the largest invoice. A company that sells a system evaluates every problem through the lens of that system. We carry a broad enough toolkit that the method genuinely follows the diagnosis. That is the difference.`;
+const serviceAreaText = `TLS Foundations is a New Mexico foundation repair contractor serving residential and commercial clients across the state. We install helical piers, push piers, and micropiles for deep foundation support. We perform compaction grouting and foam injection for void fill and soil densification. We correct drainage and surface grading when moisture is the problem — which in New Mexico, it usually is. We recommend monitoring when repair is premature. We design custom solutions when the soil profile requires something the standard toolkit doesn't cover. Six repair methods on this page, plus monitoring and custom work for when a standard method isn't the answer. The one we recommend is the one the soil warrants — not the one that generates the largest invoice. A company that sells a system evaluates every problem through the lens of that system. We carry a broad enough toolkit that the method genuinely follows the diagnosis. That is the difference.`;
 
 const methods = [
   { id: 'helical-piers', name: 'Helical Piers', description: 'Steel piers with helical plates, rotated into the ground to reach competent bearing soil. Installed where deeper support is needed for homes with shallow foundations, expansive clay, or variable soil conditions.' },
   { id: 'push-piers', name: 'Push Piers', description: 'Steel piers driven into the ground using the weight of the structure as reaction force. Used for commercial buildings, multi-storey homes, and heavy structures where a driven deep-support system is the right approach.' },
   { id: 'micropiles', name: 'Micropiles', description: 'Small-diameter drilled and grouted deep foundation elements. Used where access is limited or the soil profile requires reaching bearing at significant depth through hard material.' },
-  { id: 'compaction-grouting', name: 'Compaction Grouting', description: 'Low-slump grout injected under pressure to densify loose soil and fill voids. Used for settled slabs, voids under foundations, collapsible soil, or loose zones that need densification.' },
+  { id: 'compaction-grouting', name: 'Compaction Grouting & Mud Jacking', description: 'Low-slump grout injected under pressure -- into the soil to densify it (compaction grouting), or beneath a slab to lift it (mud jacking). Used for loose or collapsible soil that has lost density, or a slab that needs lifting without a full structural repair.' },
   { id: 'foam-injection', name: 'Foam Injection', description: 'Expanding polyurethane foam injected beneath slabs to lift and fill light voids. Used for sunken driveways, sidewalks, light interior slabs, or small voids under concrete.' },
   { id: 'drainage-correction', name: 'Drainage and Grading Correction', description: "Correcting grading, gutters, and surface drainage to direct water away from the foundation. Often the correct first intervention, since most New Mexico foundation movement is moisture-driven -- though it has real limits once soil has already lost bearing capacity or the cause is geological." },
+  { id: 'monitoring', name: 'Monitoring', description: 'Structured observation of movement over time to determine whether it is active, stable, or seasonal, before recommending a repair.' },
+  { id: 'custom-solutions', name: 'Custom Solutions', description: 'A repair built around the specific site and structure when soil conditions or building type fall outside the standard methods.' },
 ];
 
 const schema = [
@@ -129,14 +160,14 @@ const schema = [
         <div class="process-flow reveal">
           <div class="process-step">
             <span class="step-number">Step 1</span>
-            <div class="step-title">Evaluate the soil</div>
-            <p class="step-desc">Identify the soil type, moisture content, and how it's moving. Expansive clay, collapsible sand — each behaves differently.</p>
+            <div class="step-title">Understand the problem</div>
+            <p class="step-desc">A floor-level survey, historic data, and what 55 combined years in New Mexico soils already tells us about an area — Santa Fe leans expansive clay, Los Lunas leans collapsible. Not secret, just experience.</p>
           </div>
           <span class="process-arrow">→</span>
           <div class="process-step">
             <span class="step-number">Step 2</span>
             <div class="step-title">Find the cause</div>
-            <p class="step-desc">Is water pooling near the foundation? A plumbing leak? Seasonal drying? We trace the movement back to its source.</p>
+            <p class="step-desc">Is water pooling near the foundation? A plumbing leak? Seasonal drying? We trace the movement back to its source as far as the evidence allows — sometimes it's clear-cut, sometimes it isn't fully knowable, and we say so rather than guess.</p>
           </div>
           <span class="process-arrow">→</span>
           <div class="process-step">
@@ -161,7 +192,7 @@ const schema = [
           <span class="section-label-text">Our methods</span>
         </div>
         <h2 class="reveal">The method follows the problem. <em>These are the tools.</em></h2>
-        <p class="reveal">Eight tools, eight different jobs — no single one of them is the answer to everything. Click or tap any method to learn what it's actually for.</p>
+        <p class="reveal">Six repair methods below, plus two calls that aren't repairs at all — knowing when to wait, and knowing when nothing standard fits. Click or tap any one to see what it's actually for.</p>
 
         <div class="methods-grid reveal">
           <div class="method-card" id="helical-piers" role="button" tabindex="0" aria-label="Expand to learn more about Helical Piers">
@@ -175,8 +206,10 @@ const schema = [
             </div>
             <p class="method-preview">Installed where deeper support is needed and where site conditions call for a deep foundation solution.</p>
             <div class="method-body">
-              <p>In New Mexico, that may mean clay, fill, collapsible soil, or something else entirely. The point is reaching competent support in the right place.</p>
+              <p>Rotated in by torque, not driven by the structure's weight or drilled through rock — which is exactly why it's the default choice for most New Mexico residential work: no dead-load requirement like a push pier, no drill rig needed like a micropile.</p>
+              <p>Depth isn't decided in advance. During installation we track the torque required to keep turning the pier, which correlates directly to the soil's bearing capacity — when the numbers say it's reached competent ground, that's the depth, not a number picked off a chart beforehand.</p>
               <div class="method-fit"><strong>When it fits:</strong> Homes with shallow foundations, expansive clay, or variable soil conditions.</div>
+              <a href="/helical-piers-deep-dive" class="method-deep-link">Read the full technical breakdown →</a>
             </div>
           </div>
 
@@ -192,7 +225,9 @@ const schema = [
             <p class="method-preview">Used when the structure and site conditions call for a driven deep support system.</p>
             <div class="method-body">
               <p>Push piers rely on the structure's own weight to seat them, which is exactly why they're the right call for heavy commercial buildings and the wrong call for most New Mexico wood-frame homes — there isn't enough dead load to drive them properly.</p>
+              <p>Depth varies pier to pier on the same building, too. Each one only goes as deep as the dead load directly above that specific bracket allows — which is also exactly why an under-loaded structure can't drive a full set of them to consistent depth.</p>
               <div class="method-fit"><strong>When it fits:</strong> Commercial buildings, multi-storey homes, or heavy structures where driven support is the right approach.</div>
+              <a href="/push-piers-deep-dive" class="method-deep-link">Read the full technical breakdown →</a>
             </div>
           </div>
 
@@ -205,26 +240,30 @@ const schema = [
               </div>
               <span class="method-expand-icon">+</span>
             </div>
-            <p class="method-preview">Useful where access is limited or where the site calls for a drilled deep foundation solution.</p>
+            <p class="method-preview">The drilled option for hard material a driven or torqued pier can't get through.</p>
             <div class="method-body">
               <p>Drilled and grouted rather than driven or torqued in, which is what makes them work where hard rock, cobbles, or dense caliche would stop a helical pier cold.</p>
+              <p>Most of their capacity comes from friction along the grouted shaft, not from bearing at the tip the way a helical or push pier works — which is part of why they can still carry real structural load through material too broken up or too hard for either of those to find a clean stopping point in.</p>
               <div class="method-fit"><strong>When it fits:</strong> Tight spaces, deep unstable soil, or limited access where other equipment can't reach.</div>
+              <a href="/micropiles-deep-dive" class="method-deep-link">Read the full technical breakdown →</a>
             </div>
           </div>
 
-          <div class="method-card" id="compaction-grouting" role="button" tabindex="0" aria-label="Expand to learn more about Compaction Grouting">
+          <div class="method-card" id="compaction-grouting" role="button" tabindex="0" aria-label="Expand to learn more about Compaction Grouting and Mud Jacking">
             <div class="method-header">
               <span class="method-number">04</span>
               <div>
-                <div class="method-name">Compaction Grouting</div>
-                <span class="method-tag">Loose soils · Void fill</span>
+                <div class="method-name">Compaction Grouting &amp; Mud Jacking</div>
+                <span class="method-tag">Loose soils · Slab lifting</span>
               </div>
               <span class="method-expand-icon">+</span>
             </div>
-            <p class="method-preview">Used where voids, loose zones, or settlement conditions call for densification and support.</p>
+            <p class="method-preview">Same grout, two different jobs — one densifies the soil, one lifts a slab from beneath it.</p>
             <div class="method-body">
-              <p>A different tool than foam injection: this densifies the soil itself under pressure rather than filling a void from beneath a slab — the right call when the ground has lost density, not just when a slab has dropped.</p>
-              <div class="method-fit"><strong>When it fits:</strong> Settled slabs, voids under foundations, collapsible soil, or loose zones that need densification.</div>
+              <p>Compaction grouting densifies loose or collapsible soil under pressure — a different job than lifting a slab, and the reason it's a different tool than foam injection. Mud jacking uses that same material, aimed at filling a void beneath a slab instead, to lift it — the same goal as foam injection, just a different material with a different cost and cure time.</p>
+              <p>Injected through a grid of small-diameter holes, low-slump enough that it displaces and compacts the soil around it instead of just flowing into it. We watch for slight surface heave during injection — that's the signal the ground underneath is actually densifying, not just absorbing grout.</p>
+              <div class="method-fit"><strong>When it fits:</strong> Loose or collapsible soil that's lost density, or a slab that needs lifting without a full structural repair.</div>
+              <a href="/compaction-grouting-deep-dive" class="method-deep-link">Read the full technical breakdown →</a>
             </div>
           </div>
 
@@ -240,7 +279,9 @@ const schema = [
             <p class="method-preview">Often used for slab lifting and void filling where the movement is more about the slab than the larger foundation system.</p>
             <div class="method-body">
               <p>Lifts by expansion force, which is plenty for a sidewalk or a light slab but not a substitute for piers under a structure carrying real structural load.</p>
+              <p>It cures in minutes, not days, which is what makes it good for precise, incremental lifting — inject a little, check the level, inject a little more, walk on it the same day. That speed is also its ceiling: there's no practical way to use it for a slow, controlled lift under real structural weight.</p>
               <div class="method-fit"><strong>When it fits:</strong> Sunken driveways, sidewalks, light interior slabs, or small voids under concrete.</div>
+              <a href="/foam-injection-deep-dive" class="method-deep-link">Read the full technical breakdown →</a>
             </div>
           </div>
 
@@ -257,10 +298,11 @@ const schema = [
             <div class="method-body">
               <p>The majority of foundation movement in New Mexico is moisture-driven, so correcting drainage and grading is often the most important step on a property — and the correct first intervention, since a structural repair doesn't change what the water is doing. It has real limits, though: once soil has already lost its bearing capacity, or the cause is geological — Mancos Shale heave, karst voids in the Pecos Valley, mine subsidence in the Raton Basin — drainage correction alone won't fix it.</p>
               <div class="method-fit"><strong>When it fits:</strong> Water is the obvious culprit — downspouts, grading, irrigation, or surface runoff — and the soil hasn't yet lost its ability to bear load.</div>
+              <a href="/drainage-correction-deep-dive" class="method-deep-link">Read the full technical breakdown →</a>
             </div>
           </div>
 
-          <div class="method-card" role="button" tabindex="0" aria-label="Expand to learn more about Monitoring">
+          <div class="method-card" id="monitoring" role="button" tabindex="0" aria-label="Expand to learn more about Monitoring">
             <div class="method-header">
               <span class="method-number">07</span>
               <div>
@@ -272,11 +314,13 @@ const schema = [
             <p class="method-preview">Not every issue needs immediate intervention.</p>
             <div class="method-body">
               <p>In some cases, the smartest move is to watch the movement over time so we can understand whether it is active, stable, or related to a seasonal condition.</p>
-              <div class="method-fit"><strong>When it fits:</strong> Minor movement that may stabilise on its own, or when we need more data before acting.</div>
+              <p>In practice that means crack monitors or measurements at fixed points, tracked over weeks or months rather than a single visit — enough to tell active, worsening movement from something that already found its resting point.</p>
+              <div class="method-fit"><strong>When it fits:</strong> Minor movement that may stabilize on its own, or when we need more data before acting.</div>
+              <a href="/monitoring-deep-dive" class="method-deep-link">Read the full technical breakdown →</a>
             </div>
           </div>
 
-          <div class="method-card" role="button" tabindex="0" aria-label="Expand to learn more about Custom Solutions">
+          <div class="method-card" id="custom-solutions" role="button" tabindex="0" aria-label="Expand to learn more about Custom Solutions">
             <div class="method-header">
               <span class="method-number">08</span>
               <div>
@@ -288,98 +332,9 @@ const schema = [
             <p class="method-preview">Some sites do not fit neatly into a standard category.</p>
             <div class="method-body">
               <p>When that happens, we build the repair around the actual conditions instead of forcing the problem into a template.</p>
+              <p>Historic adobe with no standard bearing reference to design against, an addition built on a different foundation type than the original structure, a site with utility conflicts or contaminated soil that rules out standard equipment — the common thread is that none of the other seven methods were built with that specific problem in mind.</p>
               <div class="method-fit"><strong>When it fits:</strong> Unique structures, historic buildings, complex site conditions, or anything that doesn't fit a standard method.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="symptoms">
-      <div class="tlsfrm-container">
-        <div class="section-label reveal">
-          <span class="section-label-bar" aria-hidden="true"></span>
-          <span class="section-label-text">Common symptoms</span>
-        </div>
-        <h2 class="reveal">What homeowners notice <em>before they call us</em></h2>
-        <p class="reveal">These are some of the signs that usually bring people to us. Tap or click a card to flip it for more context.</p>
-
-        <div class="symptom-grid reveal">
-          <div class="symptom-card" role="button" tabindex="0" aria-label="Tap to flip for more information">
-            <div class="symptom-card-inner">
-              <div class="symptom-front">
-                <div class="symptom-title">Doors or windows that start sticking</div>
-                <p class="symptom-desc">Often the first sign of foundation movement.</p>
-                <span class="symptom-hint">Tap to learn more</span>
-              </div>
-              <div class="symptom-back">
-                <p>If they worked before and now don't, the frame may have shifted. This is often subtle at first but worth investigating.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="symptom-card" role="button" tabindex="0" aria-label="Tap to flip for more information">
-            <div class="symptom-card-inner">
-              <div class="symptom-front">
-                <div class="symptom-title">Cracks above openings</div>
-                <p class="symptom-desc">Diagonal cracks from corners of doors and windows.</p>
-                <span class="symptom-hint">Tap to learn more</span>
-              </div>
-              <div class="symptom-back">
-                <p>Diagonal cracks often indicate differential settlement. Hairline vertical cracks may be minor settling. The direction and width matter.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="symptom-card" role="button" tabindex="0" aria-label="Tap to flip for more information">
-            <div class="symptom-card-inner">
-              <div class="symptom-front">
-                <div class="symptom-title">Uneven floors</div>
-                <p class="symptom-desc">Feeling like you're walking uphill inside.</p>
-                <span class="symptom-hint">Tap to learn more</span>
-              </div>
-              <div class="symptom-back">
-                <p>If a floor that used to feel level now slopes noticeably, the foundation could be sinking on one side. A level check can confirm.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="symptom-card" role="button" tabindex="0" aria-label="Tap to flip for more information">
-            <div class="symptom-card-inner">
-              <div class="symptom-front">
-                <div class="symptom-title">Gaps where walls and ceilings separate</div>
-                <p class="symptom-desc">Separation at the top of interior walls.</p>
-                <span class="symptom-hint">Tap to learn more</span>
-              </div>
-              <div class="symptom-back">
-                <p>This can indicate the foundation is settling unevenly, causing the structure to pull apart. It's often accompanied by other signs.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="symptom-card" role="button" tabindex="0" aria-label="Tap to flip for more information">
-            <div class="symptom-card-inner">
-              <div class="symptom-front">
-                <div class="symptom-title">Stair-step cracks in masonry</div>
-                <p class="symptom-desc">Cracks that follow mortar joints in brick or block.</p>
-                <span class="symptom-hint">Tap to learn more</span>
-              </div>
-              <div class="symptom-back">
-                <p>These often point to ongoing movement. The pattern and width can tell us whether it's active or historical.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="symptom-card" role="button" tabindex="0" aria-label="Tap to flip for more information">
-            <div class="symptom-card-inner">
-              <div class="symptom-front">
-                <div class="symptom-title">Water collecting near the foundation</div>
-                <p class="symptom-desc">Soggy soil around the perimeter.</p>
-                <span class="symptom-hint">Tap to learn more</span>
-              </div>
-              <div class="symptom-back">
-                <p>Moisture is often the root cause of movement. Downspouts, grading, and irrigation are the first things we check.</p>
-              </div>
+              <a href="/custom-solutions-deep-dive" class="method-deep-link">Read the full technical breakdown →</a>
             </div>
           </div>
         </div>
@@ -473,16 +428,6 @@ const schema = [
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           card.classList.toggle('expanded');
-        }
-      });
-    });
-
-    document.querySelectorAll<HTMLElement>('.symptom-card').forEach((card) => {
-      card.addEventListener('click', () => card.classList.toggle('flipped'));
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          card.classList.toggle('flipped');
         }
       });
     });
@@ -950,93 +895,23 @@ const schema = [
     border-radius: 3px;
     margin-top: 16px;
   }
+  .method-deep-link {
+    display: inline-block;
+    margin-top: 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold);
+    transition: color 0.2s;
+  }
+  .method-deep-link:hover {
+    color: var(--gold-text);
+  }
   .method-body .method-fit strong {
     color: var(--gold-text);
     font-weight: 600;
-  }
-
-  .symptom-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    margin-top: 8px;
-  }
-  .symptom-card {
-    perspective: 1000px;
-    cursor: pointer;
-  }
-  .symptom-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    transform-style: preserve-3d;
-  }
-  .symptom-card.flipped .symptom-card-inner {
-    transform: rotateY(180deg);
-  }
-  .symptom-front,
-  .symptom-back {
-    grid-area: 1 / 1 / 2 / 2;
-    padding: 24px 24px;
-    border-radius: 4px;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .symptom-front {
-    background: var(--white);
-    border: 1px solid var(--stone);
-    transition: border-color 0.25s, box-shadow 0.25s;
-  }
-  .symptom-card:hover .symptom-front {
-    border-color: rgba(184, 134, 11, 0.3);
-    box-shadow: 0 2px 16px rgba(13, 34, 56, 0.04);
-  }
-  .symptom-back {
-    background: var(--navy);
-    border: 1px solid rgba(184, 134, 11, 0.3);
-    transform: rotateY(180deg);
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 15px;
-    line-height: 1.6;
-  }
-  .symptom-back p {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 15px;
-    line-height: 1.6;
-    margin: 0;
-    max-width: none;
-  }
-  .symptom-title {
-    font-family: 'Source Serif 4', serif;
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--navy);
-    margin-bottom: 6px;
-  }
-  .symptom-desc {
-    font-size: 15px;
-    color: var(--slate);
-    line-height: 1.6;
-    margin: 0;
-    max-width: none;
-  }
-  .symptom-hint {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--gold-text);
-    margin-top: 8px;
-    opacity: 0.5;
-  }
-  .symptom-back .symptom-hint {
-    opacity: 0.7;
-    margin-top: 12px;
   }
 
   @media (max-width: 960px) {
@@ -1075,9 +950,6 @@ const schema = [
     .methods-grid {
       grid-template-columns: 1fr;
     }
-    .symptom-grid {
-      grid-template-columns: 1fr;
-    }
   }
   @media (max-width: 480px) {
     .tlsfrm-container {
@@ -1093,10 +965,6 @@ const schema = [
       margin-left: 0;
       width: 100%;
       text-align: right;
-    }
-    .symptom-front,
-    .symptom-back {
-      padding: 18px 18px;
     }
   }
 </style>

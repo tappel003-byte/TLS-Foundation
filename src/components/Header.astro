@@ -1,12 +1,15 @@
 ---
-// Site-wide header/nav. Matches the live site's confirmed structure:
-// 5 top-level links + 4 dropdown folders (City Pages, NM Soils, Reference,
-// Interactive Tools), non-sticky, background #1B3A5C, phone CTA in DM Mono
-// gold. The former "In Depth" folder (Soil & Movement, Homeowner Decision
-// Series) was removed -- both were AI-narrated re-recordings of text
-// content that already lives elsewhere on the site, not a reason to visit
-// a whole extra page. Still live on YouTube, just not embedded here.
-// Nav data pulled directly from the live header markup at tlsfoundations.com.
+// Site-wide header/nav. 5 top-level links + 5 dropdown folders (Methods,
+// City Pages, NM Soils, Reference, Interactive Tools), non-sticky,
+// background #1B3A5C, phone CTA in DM Mono gold. The former "In Depth"
+// folder (Soil & Movement, Homeowner Decision Series) was removed -- both
+// were AI-narrated re-recordings of text content that already lives
+// elsewhere on the site, not a reason to visit a whole extra page. Still
+// live on YouTube, just not embedded here.
+//
+// "Methods" folder promoted from the temp "Draft (temp)" folder once the
+// 8 deep-dive pages and the -v2 Methods rewrite were done -- see git
+// history for that folder's original review-only version.
 import Logo from './Logo.astro';
 
 const topLevel = [
@@ -23,6 +26,19 @@ const topLevel = [
 const contactUs = { text: 'Contact Us', href: '/contact-us' };
 
 const folders = [
+  {
+    title: 'Methods',
+    items: [
+      { text: 'Helical Piers Deep Dive', href: '/helical-piers-deep-dive' },
+      { text: 'Push Piers Deep Dive', href: '/push-piers-deep-dive' },
+      { text: 'Micropiles Deep Dive', href: '/micropiles-deep-dive' },
+      { text: 'Compaction Grouting & Mud Jacking Deep Dive', href: '/compaction-grouting-deep-dive' },
+      { text: 'Foam Injection Deep Dive', href: '/foam-injection-deep-dive' },
+      { text: 'Drainage & Grading Deep Dive', href: '/drainage-correction-deep-dive' },
+      { text: 'Monitoring Deep Dive', href: '/monitoring-deep-dive' },
+      { text: 'Custom Solutions Deep Dive', href: '/custom-solutions-deep-dive' },
+    ],
+  },
   {
     title: 'City Pages',
     items: [
@@ -62,23 +78,6 @@ const folders = [
       { text: 'Cause Library', href: '/cause-library' },
       { text: 'Printable Crack Gauge', href: '/crack-gauge' },
       { text: 'Send Us Photos', href: '/send-photos' },
-    ],
-  },
-  {
-    // Temp folder, same pattern as the earlier 4-page redesign drafts --
-    // gives Tim a normal nav path to a draft instead of a raw URL to type.
-    // Remove this folder (and the -v2 file) once promoted or dropped.
-    title: 'Draft (temp)',
-    items: [
-      { text: 'Foundation Repair Methods v2', href: '/foundation-repair-methods-v2' },
-      { text: 'Helical Piers Deep Dive', href: '/helical-piers-deep-dive' },
-      { text: 'Push Piers Deep Dive', href: '/push-piers-deep-dive' },
-      { text: 'Micropiles Deep Dive', href: '/micropiles-deep-dive' },
-      { text: 'Compaction Grouting & Mud Jacking Deep Dive', href: '/compaction-grouting-deep-dive' },
-      { text: 'Foam Injection Deep Dive', href: '/foam-injection-deep-dive' },
-      { text: 'Drainage & Grading Deep Dive', href: '/drainage-correction-deep-dive' },
-      { text: 'Monitoring Deep Dive', href: '/monitoring-deep-dive' },
-      { text: 'Custom Solutions Deep Dive', href: '/custom-solutions-deep-dive' },
     ],
   },
 ];
