@@ -143,21 +143,25 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
               <button type="button" class="sp-remove-photo" id="spRemovePhoto" aria-label="Remove photo">✕</button>
             </div>
             <div class="sp-field-block">
-              <label>Where is this?</label>
-              <div class="sp-chip-row" id="spRoomChips"></div>
-              <input type="text" id="spRoomOther" class="sp-input" placeholder="e.g. Sunroom" hidden />
+              <label id="spRoomChipsLabel">Where is this?</label>
+              <div class="sp-chip-row" id="spRoomChips" role="group" aria-labelledby="spRoomChipsLabel"></div>
+              <!-- aria-label, not a <label for>: the visible "Where is
+                   this?" label above belongs to the room chip group, not
+                   this fallback field, which only appears after picking
+                   "Other" there -- it needs its own accessible name. -->
+              <input type="text" id="spRoomOther" class="sp-input" placeholder="e.g. Sunroom" aria-label="Which room" hidden />
             </div>
             <div class="sp-field-block">
-              <label>What worries you about this? <span>(optional)</span></label>
+              <label for="spNote">What worries you about this? <span>(optional)</span></label>
               <input type="text" id="spNote" class="sp-input" placeholder="crack getting bigger, door won't close…" />
             </div>
             <div class="sp-field-block">
-              <label>How long has it been there? <span>(optional)</span></label>
-              <div class="sp-chip-row" id="spAgeChips"></div>
+              <label id="spAgeChipsLabel">How long has it been there? <span>(optional)</span></label>
+              <div class="sp-chip-row" id="spAgeChips" role="group" aria-labelledby="spAgeChipsLabel"></div>
             </div>
             <div class="sp-field-block">
-              <label>Is it getting worse? <span>(optional)</span></label>
-              <div class="sp-chip-row" id="spWorseningChips"></div>
+              <label id="spWorseningChipsLabel">Is it getting worse? <span>(optional)</span></label>
+              <div class="sp-chip-row" id="spWorseningChips" role="group" aria-labelledby="spWorseningChipsLabel"></div>
             </div>
             <button type="button" class="sp-btn sp-btn-primary sp-btn-lg" id="spSavePhoto" disabled>Save photo</button>
           </div>
@@ -190,8 +194,8 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
             <input type="text" inputmode="numeric" id="spYearBuilt" class="sp-input" placeholder="e.g. 1998" maxlength="4" />
           </label>
           <div class="sp-field-block">
-            <label>Best time to call <span>(optional)</span></label>
-            <div class="sp-chip-row" id="spCallTimeChips"></div>
+            <label id="spCallTimeChipsLabel">Best time to call <span>(optional)</span></label>
+            <div class="sp-chip-row" id="spCallTimeChips" role="group" aria-labelledby="spCallTimeChipsLabel"></div>
           </div>
           <button type="button" class="sp-btn sp-btn-primary sp-btn-lg" id="spContactContinue" disabled data-goto="review">Review &amp; send</button>
         </section>
@@ -351,11 +355,19 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
 
     photoGrid.innerHTML = '';
     photoGrid.hidden = photos.length === 0;
-    photos.forEach((p) => {
+    photos.forEach((p, i) => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'sp-photo-thumb';
-      btn.innerHTML = `<img src="${p.dataUrl}" alt="" />${p.room ? `<span class="sp-photo-thumb-tag">${escapeHtml(p.room === 'Other' ? p.roomOther || 'Other' : p.room)}</span>` : ''}`;
+      // The room tag is conditional (only shown once someone's tagged
+      // it), so it can't be this button's only accessible name -- an
+      // untagged photo would otherwise be a screen reader dead end,
+      // just "button" with nothing to say which one. alt on the <img>
+      // covers that unconditionally; edit each photo, so it's phrased
+      // as the action, not just a label.
+      const roomLabel = p.room ? (p.room === 'Other' ? p.roomOther || 'Other' : p.room) : null;
+      const altText = `Edit photo ${i + 1}${roomLabel ? ` (${roomLabel})` : ''}`;
+      btn.innerHTML = `<img src="${p.dataUrl}" alt="${escapeHtml(altText)}" />${roomLabel ? `<span class="sp-photo-thumb-tag">${escapeHtml(roomLabel)}</span>` : ''}`;
       btn.addEventListener('click', () => { editingId = p.id; renderPhotoGallery(); });
       photoGrid.appendChild(btn);
     });
@@ -411,6 +423,10 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'sp-chip' + (active ? ' is-active' : '');
+    // is-active is a visual-only cue (the highlighted background) --
+    // aria-pressed gives screen reader users the same "this one's
+    // selected" information the sighted styling already conveys.
+    btn.setAttribute('aria-pressed', String(active));
     btn.textContent = label;
     btn.addEventListener('click', onClick);
     return btn;

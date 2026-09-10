@@ -55,7 +55,12 @@ const description = 'That page moved or never existed. Here is where the real an
     font-family: 'DM Mono', monospace;
     font-size: 12px;
     letter-spacing: 5px;
-    color: var(--gold);
+    /* var(--gold) here measures 3.13:1 on this section's cream
+       background -- fails WCAG AA (needs 4.5:1 for text this small).
+       --gold-text is the same family, darkened specifically for use on
+       light backgrounds (see global.css) -- var(--gold) itself is used
+       correctly elsewhere on the site, but only on dark navy sections. */
+    color: var(--gold-text);
     display: block;
     margin-bottom: 20px;
   }
