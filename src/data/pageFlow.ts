@@ -6,12 +6,17 @@
 // Reference/Interactive Tools folders' pages right after Why Foundations
 // Move instead of where they sit in the nav.
 //
-// The 8 deep-dive pages and the promoted Methods rewrite used to live in a
+// The 8 method pages and the promoted Services rewrite used to live in a
 // temp "Draft (temp)" nav folder, deliberately excluded from this chain so
 // a live page's "next" could never drop a visitor into an unfinished
 // draft (they had their own separate draftPageFlow chain in the meantime).
-// Now that they're promoted into the permanent "Methods" folder, they're
-// folded into this single chain in that folder's position.
+// They later got a permanent "Methods" nav folder of their own, then lost
+// it again -- per Tim, those 8 pages were only ever meant to be reached
+// contextually (the "Read the full technical breakdown" links on
+// /foundation-repair-methods and the matching glossary terms), not as a
+// standalone nav destination. They stay in this prev/next chain right
+// after Services either way, since someone who does land on one from
+// either of those links should still be able to step through the rest.
 //
 // Single source of truth for MobilePageFlowNav's prev/next lookup --
 // keep this in sync if Header.astro's nav structure ever changes.
@@ -22,15 +27,17 @@ export const pageFlow: { path: string; name: string }[] = [
   { path: '/why-foundations-move', name: 'Why Foundations Move' },
   { path: '/common-concerns', name: 'Common Concerns' },
   { path: '/foundation-repair-methods', name: 'Services' },
+  // method pages, not in a nav folder -- reached contextually from
+  // Services and Glossary, see the comment above
+  { path: '/helical-piers-deep-dive', name: 'Helical Piers' },
+  { path: '/push-piers-deep-dive', name: 'Push Piers' },
+  { path: '/micropiles-deep-dive', name: 'Micropiles' },
+  { path: '/compaction-grouting-deep-dive', name: 'Compaction Grouting & Mud Jacking' },
+  { path: '/foam-injection-deep-dive', name: 'Foam Injection' },
+  { path: '/drainage-correction-deep-dive', name: 'Drainage and Grading Correction' },
+  { path: '/monitoring-deep-dive', name: 'Monitoring' },
+  { path: '/custom-solutions-deep-dive', name: 'Custom Solutions' },
   // folders (Header.astro), left to right, each top to bottom
-  { path: '/helical-piers-deep-dive', name: 'Helical Piers Deep Dive' }, // Methods
-  { path: '/push-piers-deep-dive', name: 'Push Piers Deep Dive' },
-  { path: '/micropiles-deep-dive', name: 'Micropiles Deep Dive' },
-  { path: '/compaction-grouting-deep-dive', name: 'Compaction Grouting & Mud Jacking Deep Dive' },
-  { path: '/foam-injection-deep-dive', name: 'Foam Injection Deep Dive' },
-  { path: '/drainage-correction-deep-dive', name: 'Drainage & Grading Deep Dive' },
-  { path: '/monitoring-deep-dive', name: 'Monitoring Deep Dive' },
-  { path: '/custom-solutions-deep-dive', name: 'Custom Solutions Deep Dive' },
   { path: '/albuquerque-nm', name: 'Albuquerque' }, // City Pages
   { path: '/rio-rancho-nm', name: 'Rio Rancho' },
   { path: '/santa-fe-nm', name: 'Santa Fe' },
