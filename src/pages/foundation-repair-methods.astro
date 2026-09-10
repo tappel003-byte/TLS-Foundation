@@ -802,6 +802,7 @@ const schema = [
     margin-top: 8px;
   }
   .method-card {
+    position: relative;
     background: var(--white);
     border: 1px solid var(--stone);
     border-radius: 4px;
@@ -818,7 +819,17 @@ const schema = [
     box-shadow: 0 8px 32px rgba(13, 34, 56, 0.06);
   }
   .method-header {
-    padding: 24px 24px 16px;
+    /* Extra right padding reserves room for the expand icon, which is
+       positioned absolutely (see .method-expand-icon) rather than laid
+       out as a flex child -- a flex child here needed width:100% on
+       mobile to force itself onto its own right-aligned line when the
+       title wrapped, but rotating that same 100%-wide element on expand
+       (the +  -> x animation) swung the glyph's rendered position way
+       off to the side, since the rotation pivots the whole 300px+ box,
+       not just the small glyph inside it. Absolute positioning sidesteps
+       the whole problem: the icon is never part of the row's width math
+       and always rotates in place, at any viewport width. */
+    padding: 24px 56px 16px 24px;
     display: flex;
     align-items: flex-start;
     gap: 16px;
@@ -856,11 +867,12 @@ const schema = [
     margin: 0;
   }
   .method-expand-icon {
+    position: absolute;
+    top: 24px;
+    right: 24px;
     font-family: 'DM Mono', monospace;
     font-size: 18px;
     color: var(--gold-text);
-    margin-left: auto;
-    flex-shrink: 0;
     opacity: 0.5;
     transition: transform 0.3s;
   }
@@ -961,14 +973,6 @@ const schema = [
     }
     .hero h1 {
       letter-spacing: -1px;
-    }
-    .method-header {
-      flex-wrap: wrap;
-    }
-    .method-expand-icon {
-      margin-left: 0;
-      width: 100%;
-      text-align: right;
     }
   }
 </style>
