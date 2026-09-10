@@ -56,7 +56,10 @@ export const pageFlow: { path: string; name: string }[] = [
   { path: '/collapsible-soil', name: 'Collapsible Soil' },
   { path: '/symptom-guide', name: 'Symptom Guide' }, // Interactive Tools
   { path: '/cause-library', name: 'Cause Library' },
-  { path: '/crack-gauge', name: 'Printable Crack Gauge' },
+  // "Crack Gauge" here, not "Printable Crack Gauge" -- per Tim, same
+  // pill-only shortening as the NM regions above. The page itself (nav
+  // dropdown, title, H1, breadcrumb) still says "Printable Crack Gauge".
+  { path: '/crack-gauge', name: 'Crack Gauge' },
   { path: '/send-photos', name: 'Send Us Photos' },
   // contactUs (Header.astro), rendered last
   { path: '/contact-us', name: 'Contact Us' },
