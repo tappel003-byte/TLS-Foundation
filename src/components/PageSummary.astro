@@ -55,12 +55,12 @@ const { summary, pageName, nextPage } = Astro.props;
     /* Sits past back-to-top (see BackToTop.astro, right: 20px/48px wide)
        on desktop -- left: 28px collided with the sticky left-nav
        sidebar's own bottom contact block on the 5 regional pages.
-       Prev/next (MobilePageFlowNav.astro) stacks in its own row above
-       this one now rather than sharing this row, so this only needs to
-       clear back-to-top, not a whole three-button span. Reverts to
+       Prev/next (MobilePageFlowNav.astro) shares this exact slot rather
+       than sitting beside it -- see the tls-scroll-early/late handoff
+       below, only one of the two is ever visible at once. Reverts to
        bottom-left on mobile (that sidebar is hidden there anyway, and
-       stacking a 4th fixed element in one row crowds a narrow screen
-       more than opposite corners do). */
+       two fixed elements sharing a corner crowds a narrow screen more
+       than opposite corners do). */
     right: 100px;
     height: 48px;
     display: flex;
@@ -92,6 +92,16 @@ const { summary, pageName, nextPage } = Astro.props;
   /* Sitewide footer-visibility observer, see Layout.astro -- avoids
      sitting on top of the footer's own bottom row once scrolled that far. */
   body.tls-footer-visible #tls-summarize-btn.show {
+    opacity: 0;
+    pointer-events: none;
+  }
+  /* Per Tim: Summary only lives in the top quarter of the page -- that's
+     when "give me the short version before I read this" is useful. Past
+     that, prev/next (MobilePageFlowNav.astro) takes over this same slot
+     once tls-scroll-late lands, so this needs to be gone well before
+     that handoff, not just fade alongside it. See the scroll handler in
+     Layout.astro for how the early/late classes get set. */
+  body:not(.tls-scroll-early) #tls-summarize-btn.show {
     opacity: 0;
     pointer-events: none;
   }

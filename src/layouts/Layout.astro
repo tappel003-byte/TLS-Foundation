@@ -185,44 +185,6 @@ const websiteSchema = {
     {backToServices && <BackToServicesPill anchor={backToServices} />}
 
     <script>
-      // The floating button cluster (back-to-top, prev/next, Summary pill,
-      // Back to Services) sits at a fixed bottom-corner position -- which
-      // means it physically overlaps the footer's own bottom row once
-      // someone scrolls all the way down, since that row lives in the
-      // exact same screen region. Fading the buttons out avoids that
-      // collision.
-      //
-      // Previously this watched the footer element itself via
-      // IntersectionObserver, but that fires as soon as the footer's top
-      // edge comes into view -- fine for the tall "full" footer, but on
-      // the "minimal" footer (~80px, just an address line) it meant the
-      // buttons vanished while there was still a stretch of plain page
-      // content above the footer bar still on screen, well before
-      // anything was actually about to be covered. Per Tim, these should
-      // stay up until the actual bottom of the page, not just until the
-      // footer starts existing. A scroll-distance-to-true-bottom check
-      // gives that regardless of how tall a given page's footer is.
-      let footerTicking = false;
-      function updateFooterVisible() {
-        const distanceToBottom = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
-        document.body.classList.toggle('tls-footer-visible', distanceToBottom < 32);
-        footerTicking = false;
-      }
-      window.addEventListener(
-        'scroll',
-        () => {
-          if (!footerTicking) {
-            window.requestAnimationFrame(updateFooterVisible);
-            footerTicking = true;
-          }
-        },
-        { passive: true }
-      );
-      window.addEventListener('resize', updateFooterVisible);
-      updateFooterVisible();
-    </script>
-
-    <script>
       // Lightweight conversion tracking, sitewide -- writes to the EVENTS
       // D1 database via the /api/track Worker route. Exists because
       // Cloudflare Web Analytics (the beacon in <head>) only ever reports
@@ -232,7 +194,11 @@ const websiteSchema = {
       // detail string. window.tlsTrack is exposed so page-specific
       // scripts (form success handlers, the Crack Gauge print button)
       // can call it too, alongside the sitewide phone/text click
-      // delegation below.
+      // delegation below. Defined in this same script tag (rather than
+      // its own) so the unified scroll handler below can call it
+      // directly -- each <script> tag Astro emits is its own module
+      // scope, so a plain function declared in one isn't visible from
+      // another without going through window.
       function tlsTrack(eventType: string, detail?: string) {
         try {
           const payload = JSON.stringify({ event_type: eventType, page: location.pathname, detail: detail || null });
@@ -257,43 +223,82 @@ const websiteSchema = {
         { capture: true }
       );
 
-      // Scroll-depth milestones -- per Tim, before betting on "people will
+      // One scroll handler drives everything that cares "how far down
+      // this page am I" -- footer-proximity fade, the Summary/prev-next
+      // handoff, and the scroll-depth tracking milestones. They all need
+      // the same pct/distanceToBottom numbers, so computing those once
+      // per frame (instead of three separate rAF loops each redoing the
+      // same math) keeps it cheap.
+      //
+      // Footer fade: the floating button cluster sits at a fixed
+      // bottom-corner position, which physically overlaps the footer's
+      // own bottom row once someone scrolls all the way down. Previously
+      // this watched the footer element itself via IntersectionObserver,
+      // but that fires as soon as the footer's top edge comes into view
+      // -- fine for the tall "full" footer, but on the "minimal" footer
+      // (~80px, just an address line) it meant the buttons vanished
+      // while there was still a stretch of plain page content above the
+      // footer bar still on screen. Per Tim, these should stay up until
+      // the actual bottom of the page. A scroll-distance-to-true-bottom
+      // check gives that regardless of how tall a given page's footer is.
+      //
+      // Summary/prev-next handoff: per Tim, rather than stacking Summary
+      // and prev/next as separate permanent buttons, they now share one
+      // slot and hand off based on where you are on the page -- Summary
+      // pill in the top quarter (that's when "here's the short version"
+      // is useful, before you've read anything), prev/next once you're
+      // past the halfway point (that's when "where do I go next" starts
+      // being the relevant question). Back-to-top doesn't hand off --
+      // it's useful the whole time you're scrolled down, so it just uses
+      // the plain y > 400 check each component already had. Body classes
+      // (tls-scroll-early / tls-scroll-late) let PageSummary.astro and
+      // MobilePageFlowNav.astro each gate their own .show class in CSS
+      // rather than this script reaching into their internals.
+      //
+      // Scroll-depth milestones: per Tim, before betting on "people will
       // scroll to the bottom to find prev/next," worth actually knowing
       // whether they do. Fires each of 25/50/75/100% once per page view
       // (a Set guards against re-firing on scroll-up/down past the same
       // point). 100% uses the same distance-to-bottom math as the footer
-      // fade above rather than a raw scrollHeight ratio, since short
-      // pages can round to "100% scrolled" while still 30px shy of the
-      // literal bottom.
+      // fade rather than a raw scrollHeight ratio, since short pages can
+      // round to "100% scrolled" while still 30px shy of the literal
+      // bottom.
       const scrollMilestonesFired = new Set<number>();
-      let scrollDepthTicking = false;
-      function updateScrollDepth() {
+      let scrollTicking = false;
+      function updateScrollState() {
         const doc = document.documentElement;
         const scrollable = doc.scrollHeight - window.innerHeight;
         const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 100;
+        const distanceToBottom = doc.scrollHeight - (window.scrollY + window.innerHeight);
+
+        document.body.classList.toggle('tls-footer-visible', distanceToBottom < 32);
+        document.body.classList.toggle('tls-scroll-early', pct < 25);
+        document.body.classList.toggle('tls-scroll-late', pct >= 50);
+
         for (const milestone of [25, 50, 75]) {
           if (pct >= milestone && !scrollMilestonesFired.has(milestone)) {
             scrollMilestonesFired.add(milestone);
             tlsTrack(`scroll_depth_${milestone}`);
           }
         }
-        const distanceToBottom = doc.scrollHeight - (window.scrollY + window.innerHeight);
         if (distanceToBottom < 32 && !scrollMilestonesFired.has(100)) {
           scrollMilestonesFired.add(100);
           tlsTrack('scroll_depth_100');
         }
-        scrollDepthTicking = false;
+        scrollTicking = false;
       }
       window.addEventListener(
         'scroll',
         () => {
-          if (!scrollDepthTicking) {
-            window.requestAnimationFrame(updateScrollDepth);
-            scrollDepthTicking = true;
+          if (!scrollTicking) {
+            window.requestAnimationFrame(updateScrollState);
+            scrollTicking = true;
           }
         },
         { passive: true }
       );
+      window.addEventListener('resize', updateScrollState);
+      updateScrollState();
     </script>
   </body>
 </html>

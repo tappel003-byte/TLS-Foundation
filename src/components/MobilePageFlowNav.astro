@@ -1,9 +1,8 @@
 ---
-// "Previous page / next page" pair, next to the back-to-top circle, at
-// every viewport width -- per Tim, easy wayfinding shouldn't be a
-// mobile-only convenience; a mouse click is just as easy as a tap.
-// (File name is a holdover from when this was mobile-only; not worth a
-// rename churn on its own.)
+// "Previous page / next page" pair, at every viewport width -- per Tim,
+// easy wayfinding shouldn't be a mobile-only convenience; a mouse click
+// is just as easy as a tap. (File name is a holdover from when this was
+// mobile-only; not worth a rename churn on its own.)
 //
 // Words, not bare arrow icons: a plain "<-" reads as browser-back to a
 // lot of people, easy to mistake for "return to wherever I came from"
@@ -14,7 +13,15 @@
 // worse in practice (felt bolted-on, and long names didn't fit these
 // buttons cleanly) -- "Previous Page" / "Next Page" is the fix that
 // actually shipped: still an unambiguous, standard pagination phrase,
-// without needing a wider pill or a new place on the page to live.
+// without needing a wider pill.
+//
+// Per Tim, this shares its screen slot with the Summary pill
+// (PageSummary.astro) rather than sitting beside it permanently: Summary
+// owns that spot in the top quarter of the page (useful before you've
+// read anything), this one takes over once you're past the halfway
+// point (useful once "where do I go next" is the live question). The
+// tls-scroll-early/tls-scroll-late body classes that gate the handoff
+// are set in Layout.astro's scroll handler.
 import { pageFlow } from '../data/pageFlow';
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -43,15 +50,19 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
 }
 
 <style>
-  /* One flex container instead of two independently-positioned buttons
-     -- these are now variable-width text pills rather than fixed 44px
-     circles, so letting flex handle the spacing between them (and
-     between this group and the page edge) is far more robust than
-     hardcoding a "right" offset per button that assumed a fixed width. */
+  /* Same slot as the Summary pill (#tls-summarize-btn in
+     PageSummary.astro, right: 100px) -- only one of the two is ever
+     visible at a time, see the .show gating below, so they can safely
+     occupy the identical position rather than needing to be offset from
+     each other. One flex container for the pair instead of two
+     independently-positioned buttons: these are variable-width text
+     pills rather than fixed circles, so letting flex handle the gap
+     between them is more robust than hardcoding a second "right" offset
+     that assumed a fixed width. */
   .tls-pagenav-group {
     position: fixed;
-    bottom: 84px;
-    right: 20px;
+    bottom: 28px;
+    right: 100px;
     display: flex;
     gap: 10px;
     z-index: 9999;
@@ -88,16 +99,21 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
     opacity: 0;
     pointer-events: none;
   }
+  /* Per Tim: this only takes over the shared slot once you're past the
+     halfway point of the page -- before that it's Summary's turn (see
+     PageSummary.astro's matching tls-scroll-early rule). Between the
+     25%-of-page mark and the halfway mark, neither pill shows; just
+     back-to-top, which isn't part of this handoff. */
+  body:not(.tls-scroll-late) .tls-pagenav-btn.show {
+    opacity: 0;
+    pointer-events: none;
+  }
   .tls-pagenav-btn:hover {
     background: var(--gold);
   }
   .tls-pagenav-short {
     display: none;
   }
-  /* Sits above back-to-top (bottom: 28px, see BackToTop.astro) rather
-     than beside it -- two variable-width text pills next to a circle
-     would need to coordinate widths across two separate components to
-     avoid overlapping; stacking only needs to agree on height. */
   @media (max-width: 480px) {
     .tls-pagenav-btn {
       padding: 0 14px;
