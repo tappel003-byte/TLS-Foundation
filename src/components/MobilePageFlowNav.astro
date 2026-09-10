@@ -4,21 +4,25 @@
 // is just as easy as a tap. (File name is a holdover from when this was
 // mobile-only; not worth a rename churn on its own.)
 //
-// Words, not bare arrow icons: a plain "<-" reads as browser-back to a
-// lot of people, easy to mistake for "return to wherever I came from"
-// rather than "go to the next item in this site's own reading order" --
-// especially since most inner pages get reached from search or a
-// shared link, not by clicking through the nav in order.
-//
 // Shows the actual destination name, not a generic "Previous Page" --
 // an earlier attempt at naming was rejected, but per Tim that was about
 // where it lived on the page (an inline row at the bottom of the
 // content, which read as bolted-on/an afterthought), not about naming
 // itself; brought back here inside the same floating-pill treatment as
-// everything else in this cluster, it doesn't have that problem. Long
-// names (e.g. "Compaction Grouting & Mud Jacking") are the tradeoff --
-// .tls-pagenav-label caps width and ellipsizes rather than letting the
-// pill balloon or wrap, which Tim signed off on as the acceptable cost.
+// everything else in this cluster, it doesn't have that problem.
+//
+// No arrow icon: originally these paired a bare "<-"/"->" with generic
+// "Previous Page"/"Next Page" text specifically because the icon alone
+// reads as browser-back to a lot of people. Once the label became the
+// real destination name, that job was already done by the content --
+// left/right position plus a specific page name is unambiguous without
+// an icon doing extra work. Dropping it also earns back real space:
+// per Tim, this is a mobile-first feature (desktop was never cramped),
+// and the arrow was eating a full line inside the stacked mobile
+// layout below -- removing it let most names fit on one line instead
+// of wrapping to two, and let the pill height come back down to match
+// back-to-top's 48px directly instead of needing a separate offset to
+// center a taller box against it.
 //
 // Per Tim, this shares its screen slot with the Summary pill
 // (PageSummary.astro) rather than sitting beside it permanently: Summary
@@ -40,14 +44,12 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
     <div class="tls-pagenav-group">
       {prev && (
         <a id="tls-pagenav-prev" class="tls-pagenav-btn" href={prev.path} aria-label={`Previous page: ${prev.name}`}>
-          <span class="tls-pagenav-arrow">←</span>
           <span class="tls-pagenav-label">{prev.name}</span>
         </a>
       )}
       {next && (
-        <a id="tls-pagenav-next" class="tls-pagenav-btn tls-pagenav-next" href={next.path} aria-label={`Next page: ${next.name}`}>
+        <a id="tls-pagenav-next" class="tls-pagenav-btn" href={next.path} aria-label={`Next page: ${next.name}`}>
           <span class="tls-pagenav-label">{next.name}</span>
-          <span class="tls-pagenav-arrow">→</span>
         </a>
       )}
     </div>
@@ -75,13 +77,15 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
   .tls-pagenav-btn {
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
     /* Matches back-to-top's 48px circle (BackToTop.astro) and the
        Summary pill this replaces (PageSummary.astro, also 48px) -- at
        40px these sat with the same bottom edge but a shorter top, so
        the taller circle stuck up above the row and broke the skyline.
        Same height across the whole cluster keeps the row reading as one
-       clean line instead of an uneven stack. */
+       clean line instead of an uneven stack. Fixed (not auto) so a
+       longer name wrapping to two lines on mobile doesn't grow the box
+       and break that alignment again. */
     height: 48px;
     padding: 0 16px;
     background: var(--blue);
@@ -99,15 +103,6 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
     transform: translateY(10px);
     transition: opacity 0.3s, transform 0.3s, background 0.2s;
     pointer-events: none;
-  }
-  .tls-pagenav-next {
-    /* Prev reads arrow-then-name (leading toward where you came from);
-       next reads name-then-arrow (leading toward where you're going) --
-       the arrow stays on the outside edge of the pair either way. */
-    flex-direction: row;
-  }
-  .tls-pagenav-arrow {
-    flex: none;
   }
   .tls-pagenav-label {
     /* Real page names vary a lot in length ("Home" vs "Compaction
@@ -145,48 +140,24 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
   @media (max-width: 480px) {
     /* Per Tim: a single truncated line ("SYMPTOM GUI...") read as broken
        rather than custom -- a phone has more room to spare vertically
-       than horizontally, so stacking the arrow above the name and
-       letting it wrap to two lines uses that instead of cutting the
-       name short. Fixed height (not auto) so both pills -- and the
-       back-to-top circle they sit next to -- stay a predictable size
-       regardless of how long any one name runs. */
+       than horizontally, so this wraps to two lines instead of cutting
+       the name short. Without an arrow taking its own line (see the
+       header comment), most names fit on one line and stay inside the
+       same 48px height as back-to-top and desktop; only the longest
+       names wrap to a second line, still inside that fixed height. */
     .tls-pagenav-btn {
-      flex-direction: column;
-      justify-content: center;
-      gap: 1px;
-      height: 58px;
-      padding: 6px 10px;
+      padding: 4px 12px;
       font-size: 10px;
     }
-    .tls-pagenav-arrow {
-      font-size: 12px;
-      /* Source order puts the arrow after the name on the "next" button
-         (so it trails the name on desktop's single-line layout) -- in
-         the stacked layout that would put the arrow on top for "prev"
-         but the name on top for "next". Forcing the arrow first for
-         both keeps the stack reading the same way on each button. */
-      order: 1;
-    }
     .tls-pagenav-label {
-      order: 2;
-    }
-    .tls-pagenav-label {
-      /* Base rule ellipsizes to one line for desktop's side-by-side
-         layout -- wrapping to two lines needs that undone, not just a
-         wider cap. */
-      max-width: 92px;
+      /* Base rule ellipsizes to one line for desktop's fixed-width
+         layout -- wrapping needs that undone, not just a wider cap. */
+      max-width: 110px;
       overflow: visible;
       text-overflow: clip;
       white-space: normal;
       text-align: center;
-      line-height: 1.2;
-    }
-    /* Circle stays 48px/bottom:28 (BackToTop.astro); these stacked
-       pills are taller (58px) -- centering this group on the circle's
-       midpoint instead of sharing its bottom edge keeps the row reading
-       as one aligned unit rather than the pills sticking down below it. */
-    .tls-pagenav-group {
-      bottom: 23px;
+      line-height: 1.15;
     }
   }
 </style>
