@@ -1,7 +1,12 @@
 ---
-// TLS Foundations wordmark — pure CSS/text, per the "Logo Standard 032326" brand doc.
-// No image asset: Playfair Display 700 white "TLS" + Playfair Display 500 gold "Foundations",
-// inside a navy box with a 4px gold border. Exact 1.33:1 size ratio between the two words.
+// TLS Foundations wordmark — pure CSS/text, per Tim's "Logo Design Standard"
+// reference doc (March 2026). Reference size is TLS 72px / Foundations 54px
+// (1.33:1, maintained at every scale) with word-gap 20px, padding 28px equal
+// on all sides, and a 4px border -- all "scale proportionally" per the doc.
+// header (TLS 21px) and footer (TLS 28px) below are scaled off that 72px
+// reference (scale factors 0.2917 and 0.3889), not independently eyeballed
+// numbers, so gap/padding/border stay in the doc's proportions instead of
+// drifting at different sizes.
 interface Props {
   size?: 'header' | 'footer';
 }
@@ -16,18 +21,25 @@ const { size = 'header' } = Astro.props;
 <style>
   .wordmark {
     display: inline-flex;
-    align-items: center;
-    gap: 12px;
+    /* Baseline, not center -- "TLS" and "Foundations" sit at different font
+       sizes and weights, so centering their boxes let "Foundations" drift
+       off "TLS"'s actual text baseline. The doc calls for "both words on a
+       single baseline," which is what flex's own baseline alignment gives
+       for free. */
+    align-items: baseline;
     background: var(--blue-dark);
-    border: 4px solid var(--gold);
     text-decoration: none;
     line-height: 1;
   }
   .wordmark.header {
-    padding: 10px 16px;
+    gap: 5.83px;
+    padding: 8.17px;
+    border: 1.17px solid var(--gold);
   }
   .wordmark.footer {
-    padding: 14px 20px;
+    gap: 7.78px;
+    padding: 10.89px;
+    border: 1.56px solid var(--gold);
     margin-bottom: 20px;
   }
   .wm-tls {
