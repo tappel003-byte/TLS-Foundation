@@ -289,8 +289,31 @@ const websiteSchema = {
         const distanceToBottom = doc.scrollHeight - (window.scrollY + window.innerHeight);
 
         document.body.classList.toggle('tls-footer-visible', distanceToBottom < 32);
+        // A page with ~0 scrollable distance (Send Us Photos) is, by
+        // definition, always within 32px of "the bottom" -- tls-footer-
+        // visible would otherwise be permanently true there, which
+        // would in turn permanently suppress MobilePageFlowNav.astro's
+        // own "show immediately on a short page" exception (see its
+        // matching comment) via the same footer-fade CSS rule that
+        // correctly protects it from overlapping the footer on a long
+        // page. Exposed as its own class rather than folded into the
+        // footer-visible check itself, since that check still needs to
+        // work unchanged for BackToTop/PageSummary.
+        document.body.classList.toggle('tls-page-short', scrollable <= 400);
         const handoffPx = Math.min(scrollable * 0.25, HANDOFF_PX_CAP);
-        document.body.classList.toggle('tls-scroll-early', window.scrollY < handoffPx);
+        // The scrollable > 400 guard matters on a page too short to
+        // have a meaningful "early quarter" at all (Send Us Photos:
+        // ~0-114px scrollable depending on device) -- without it,
+        // handoffPx computes to some tiny number and y=0 < that tiny
+        // number is still true at rest, so tls-scroll-early would end
+        // up permanently true there. That's harmless for Summary (which
+        // independently requires scrollable > 400 before showing at
+        // all, see PageSummary.astro), but it would fight
+        // MobilePageFlowNav.astro's own "show immediately on a short
+        // page" logic, since its CSS hides .show whenever this class is
+        // present. A short page just isn't "early" -- there's no
+        // "later" on it to be early relative to.
+        document.body.classList.toggle('tls-scroll-early', scrollable > 400 && window.scrollY < handoffPx);
 
         for (const milestone of [25, 50, 75]) {
           if (pct >= milestone && !scrollMilestonesFired.has(milestone)) {

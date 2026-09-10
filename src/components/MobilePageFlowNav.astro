@@ -78,6 +78,28 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
     gap: 10px;
     z-index: 9999;
   }
+  /* Floating over the bottom of the viewport is fine when this only
+     appears after scrolling well past whatever's actually down there --
+     but on a page short enough to show it immediately (tls-page-short,
+     see Layout.astro), the fixed position sits relative to the
+     viewport, not the content, so a short screen can have real content
+     (Send Us Photos: the footer's own tagline text) sitting right where
+     the pills float, with no amount of trailing space fixing it --
+     trailing space only pushes out what's already off-screen below the
+     fold, it can't move already-visible content out from under a
+     fixed-position element. Dropping out of fixed positioning entirely
+     and rendering in normal document flow (right after the footer, the
+     last thing on the page) sidesteps the problem completely: it can't
+     overlap anything if it isn't floating over anything. */
+  :global(body.tls-page-short) .tls-pagenav-group {
+    position: static;
+    right: auto;
+    bottom: auto;
+    justify-content: center;
+    margin: 28px auto 0;
+    max-width: 480px;
+    padding: 0 20px;
+  }
   .tls-pagenav-btn {
     display: flex;
     align-items: center;
@@ -124,8 +146,12 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
     pointer-events: auto;
   }
   /* Sitewide footer-visibility observer, see Layout.astro -- avoids
-     sitting on top of the footer's own bottom row once scrolled that far. */
-  body.tls-footer-visible .tls-pagenav-btn.show {
+     sitting on top of the footer's own bottom row once scrolled that far.
+     Exempts tls-page-short: a page with ~0 scroll room (Send Us Photos)
+     is always "near the bottom" by that definition, which would otherwise
+     permanently fight the show-immediately behavior in this component's
+     own script -- see Layout.astro's matching comment. */
+  body.tls-footer-visible:not(.tls-page-short) .tls-pagenav-btn.show {
     opacity: 0;
     pointer-events: none;
   }
@@ -180,12 +206,18 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
   let ticking = false;
   function update() {
     const y = window.pageYOffset || document.documentElement.scrollTop || 0;
-    // See BackToTop.astro's matching comment -- a page short enough to
-    // never really scroll shouldn't be able to trigger this just
-    // because y ticked past 400 by some device/zoom quirk; require
-    // real scroll room too.
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    const show = y > 400 && scrollable > 400;
+    // Unlike BackToTop/PageSummary (which stay suppressed on a page too
+    // short to scroll -- see their matching comments -- since "back to
+    // the top of this page" and "here's a summary of what you can
+    // already see in full" don't mean anything there), this one's job
+    // is getting someone OFF the page, which is exactly as useful on a
+    // short page as a long one. Per Tim: Send Us Photos is short enough
+    // that y can never reach 400, so waiting for that would suppress
+    // this permanently -- show it immediately instead on any page this
+    // short, rather than gating it behind a scroll threshold it can't
+    // reach.
+    const show = scrollable <= 400 ? true : y > 400;
     document.querySelectorAll('.tls-pagenav-btn').forEach((btn) => btn.classList.toggle('show', show));
     ticking = false;
   }
@@ -199,4 +231,9 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
     },
     { passive: true }
   );
+  // A page short enough to have no scroll room at all (see the
+  // scrollable <= 400 branch above) never fires a 'scroll' event in
+  // the first place, so without this, update() would never run and
+  // the "show immediately" logic above would never actually execute.
+  update();
 </script>
