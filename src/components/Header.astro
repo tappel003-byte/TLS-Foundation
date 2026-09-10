@@ -180,8 +180,14 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
   .site-header-inner {
     display: flex;
     align-items: center;
-    gap: 32px;
+    gap: 44px;
     padding: 18px 20px;
+    /* Caps the row on very wide monitors so it doesn't chase the browser's
+       own edge -- same 1400px the regional/soil pages use for their wide
+       content. On its own this wouldn't have fixed the reported gap
+       though; see .site-nav below for that. */
+    max-width: 1400px;
+    margin: 0 auto;
   }
   .header-brand {
     display: flex;
@@ -190,15 +196,21 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     gap: 6px;
   }
   .site-nav {
-    flex: 1;
+    /* Was flex: 1 with the list below set to justify-content: flex-end --
+       that stretched this box to fill all remaining header width and then
+       packed the (much narrower) link list against its far edge, which is
+       what actually produced the huge dead gap after the logo Tim flagged
+       (the max-width above alone wouldn't have fixed that -- the box was
+       still stretching to whatever space it had). Sized to its own
+       content instead, so the list starts right after the brand block. */
     display: none;
   }
   .site-nav-list {
     list-style: none;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    gap: 8px 16px;
+    justify-content: flex-start;
+    gap: 10px 22px;
     flex-wrap: wrap;
     width: 100%;
   }
