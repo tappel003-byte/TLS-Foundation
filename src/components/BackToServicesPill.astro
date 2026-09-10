@@ -53,12 +53,11 @@ const { anchor } = Astro.props;
     opacity: 0;
     pointer-events: none;
   }
-  /* PageSummary's pill takes the mobile left:20/bottom:28 slot -- stack
-     this one above it there instead of overlapping. Desktop keeps this
-     slot to itself (Summary sits at right:192 on desktop). */
-  @media (max-width: 640px) {
-    #tls-back-to-services {
-      bottom: 84px;
-    }
-  }
+  /* No mobile bottom-offset override -- this pill only renders on the 8
+     method pages, and those pages don't get the Summary pill (removed
+     per Tim, see foundation-repair-methods.astro history), so there's
+     nothing at mobile's left:20/bottom:28 slot to stack above anymore.
+     A leftover bottom:84px here left this floating over page content
+     with nothing below it, well short of the actual bottom row where
+     back-to-top/prev/next sit. */
 </style>
