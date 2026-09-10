@@ -245,20 +245,32 @@ const websiteSchema = {
       // Summary/prev-next handoff: per Tim, rather than stacking Summary
       // and prev/next as separate permanent buttons, they now share one
       // slot and hand off based on where you are on the page -- Summary
-      // pill in the top quarter (that's when "here's the short version"
-      // is useful, before you've read anything), prev/next the moment
-      // Summary lets go of that slot (that's when "where do I go next"
-      // becomes the relevant question). This was originally two separate
-      // thresholds -- Summary out at 25%, prev/next in at the halfway
-      // mark -- leaving a stretch in between where the slot just sat
-      // empty; per Tim, once the slot opens up there's no reason to make
-      // someone keep scrolling before the next thing becomes available,
-      // so it's a single handoff now. Back-to-top doesn't hand off -- it's
-      // useful the whole time you're scrolled down, so it just uses the
-      // plain y > 400 check each component already had. The tls-scroll-
-      // early body class lets PageSummary.astro and MobilePageFlowNav.astro
-      // each gate their own .show class in CSS rather than this script
-      // reaching into their internals.
+      // pill early on (that's when "here's the short version" is useful,
+      // before you've read anything), prev/next the moment Summary lets
+      // go of that slot (that's when "where do I go next" becomes the
+      // relevant question). Back-to-top doesn't hand off -- it's useful
+      // the whole time you're scrolled down, so it just uses the plain
+      // y > 400 check each component already had.
+      //
+      // The handoff point is 25% of the page, capped at 1600px -- pure
+      // 25% meant a genuinely long page (Glossary: ~31,000px scrollable)
+      // kept Summary up for ~7,700px of scrolling before prev/next ever
+      // appeared, which per Tim gave someone who's found what they came
+      // for and wants to leave no quick way out. A flat low percentage
+      // instead (10%, floated as the fix) overcorrects the other way: at
+      // 10%, 16 of the site's 21 pages are short enough that the pill's
+      // own y > 400 arming threshold is already past 10% of the page by
+      // the time it can show at all, meaning Summary would functionally
+      // never appear on most of the site just to fix one outlier page.
+      // 1600px sits close to where 25% already lands on the site's
+      // longer "normal" pages (Why Foundations Move: 1909px, Our
+      // Approach: 1620px), so it doesn't change anything typical -- it
+      // only reins in the small handful of pages whose 25% badly
+      // outgrows that, Glossary most of all.
+      const HANDOFF_PX_CAP = 1600;
+      // The tls-scroll-early body class lets PageSummary.astro and
+      // MobilePageFlowNav.astro each gate their own .show class in CSS
+      // rather than this script reaching into their internals.
       //
       // Scroll-depth milestones: per Tim, before betting on "people will
       // scroll to the bottom to find prev/next," worth actually knowing
@@ -277,7 +289,8 @@ const websiteSchema = {
         const distanceToBottom = doc.scrollHeight - (window.scrollY + window.innerHeight);
 
         document.body.classList.toggle('tls-footer-visible', distanceToBottom < 32);
-        document.body.classList.toggle('tls-scroll-early', pct < 25);
+        const handoffPx = Math.min(scrollable * 0.25, HANDOFF_PX_CAP);
+        document.body.classList.toggle('tls-scroll-early', window.scrollY < handoffPx);
 
         for (const milestone of [25, 50, 75]) {
           if (pct >= milestone && !scrollMilestonesFired.has(milestone)) {

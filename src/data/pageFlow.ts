@@ -42,11 +42,15 @@ export const pageFlow: { path: string; name: string }[] = [
   { path: '/rio-rancho-nm', name: 'Rio Rancho' },
   { path: '/santa-fe-nm', name: 'Santa Fe' },
   { path: '/new-mexico-soil-conditions', name: 'Soil Roadmap' }, // NM Soils
-  { path: '/northern-new-mexico', name: 'Northern New Mexico' },
-  { path: '/central-new-mexico', name: 'Central New Mexico' },
+  // "NM" here, not "New Mexico" -- per Tim, shortens the pill on
+  // MobilePageFlowNav.astro; every other page reference to these
+  // regions (H1, breadcrumbs, nav folder) keeps the full name, this is
+  // scoped to the pill label only.
+  { path: '/northern-new-mexico', name: 'Northern NM' },
+  { path: '/central-new-mexico', name: 'Central NM' },
   { path: '/four-corners', name: 'Four Corners' },
-  { path: '/eastern-new-mexico', name: 'Eastern New Mexico' },
-  { path: '/southern-new-mexico', name: 'Southern New Mexico' },
+  { path: '/eastern-new-mexico', name: 'Eastern NM' },
+  { path: '/southern-new-mexico', name: 'Southern NM' },
   { path: '/glossary', name: 'Glossary' }, // Reference
   { path: '/expansive-soil', name: 'Expansive Soil' },
   { path: '/collapsible-soil', name: 'Collapsible Soil' },
