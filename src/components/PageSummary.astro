@@ -98,9 +98,9 @@ const { summary, pageName, nextPage } = Astro.props;
   /* Per Tim: Summary only lives in the top quarter of the page -- that's
      when "give me the short version before I read this" is useful. Past
      that, prev/next (MobilePageFlowNav.astro) takes over this same slot
-     once tls-scroll-late lands, so this needs to be gone well before
-     that handoff, not just fade alongside it. See the scroll handler in
-     Layout.astro for how the early/late classes get set. */
+     immediately -- the moment tls-scroll-early clears, not some later
+     point -- so there's no stretch where the slot just sits empty. See
+     the scroll handler in Layout.astro for where that class gets set. */
   body:not(.tls-scroll-early) #tls-summarize-btn.show {
     opacity: 0;
     pointer-events: none;

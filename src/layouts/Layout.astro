@@ -246,14 +246,19 @@ const websiteSchema = {
       // and prev/next as separate permanent buttons, they now share one
       // slot and hand off based on where you are on the page -- Summary
       // pill in the top quarter (that's when "here's the short version"
-      // is useful, before you've read anything), prev/next once you're
-      // past the halfway point (that's when "where do I go next" starts
-      // being the relevant question). Back-to-top doesn't hand off --
-      // it's useful the whole time you're scrolled down, so it just uses
-      // the plain y > 400 check each component already had. Body classes
-      // (tls-scroll-early / tls-scroll-late) let PageSummary.astro and
-      // MobilePageFlowNav.astro each gate their own .show class in CSS
-      // rather than this script reaching into their internals.
+      // is useful, before you've read anything), prev/next the moment
+      // Summary lets go of that slot (that's when "where do I go next"
+      // becomes the relevant question). This was originally two separate
+      // thresholds -- Summary out at 25%, prev/next in at the halfway
+      // mark -- leaving a stretch in between where the slot just sat
+      // empty; per Tim, once the slot opens up there's no reason to make
+      // someone keep scrolling before the next thing becomes available,
+      // so it's a single handoff now. Back-to-top doesn't hand off -- it's
+      // useful the whole time you're scrolled down, so it just uses the
+      // plain y > 400 check each component already had. The tls-scroll-
+      // early body class lets PageSummary.astro and MobilePageFlowNav.astro
+      // each gate their own .show class in CSS rather than this script
+      // reaching into their internals.
       //
       // Scroll-depth milestones: per Tim, before betting on "people will
       // scroll to the bottom to find prev/next," worth actually knowing
@@ -273,7 +278,6 @@ const websiteSchema = {
 
         document.body.classList.toggle('tls-footer-visible', distanceToBottom < 32);
         document.body.classList.toggle('tls-scroll-early', pct < 25);
-        document.body.classList.toggle('tls-scroll-late', pct >= 50);
 
         for (const milestone of [25, 50, 75]) {
           if (pct >= milestone && !scrollMilestonesFired.has(milestone)) {

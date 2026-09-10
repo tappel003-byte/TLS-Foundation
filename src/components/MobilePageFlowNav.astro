@@ -27,10 +27,14 @@
 // Per Tim, this shares its screen slot with the Summary pill
 // (PageSummary.astro) rather than sitting beside it permanently: Summary
 // owns that spot in the top quarter of the page (useful before you've
-// read anything), this one takes over once you're past the halfway
-// point (useful once "where do I go next" is the live question). The
-// tls-scroll-early/tls-scroll-late body classes that gate the handoff
-// are set in Layout.astro's scroll handler.
+// read anything), this one takes over the moment Summary lets go of it.
+// That was originally two separate thresholds -- Summary out at the
+// 25%-of-page mark, this one in at the halfway mark -- leaving a dead
+// stretch in between where the slot just sat empty. Per Tim, once the
+// slot opens up there's no reason to make someone keep scrolling before
+// "where do I go next" becomes available, so it's now one handoff at
+// the same point Summary disappears. The tls-scroll-early body class
+// that gates it is set in Layout.astro's scroll handler.
 import { pageFlow } from '../data/pageFlow';
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -125,12 +129,11 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
     opacity: 0;
     pointer-events: none;
   }
-  /* Per Tim: this only takes over the shared slot once you're past the
-     halfway point of the page -- before that it's Summary's turn (see
-     PageSummary.astro's matching tls-scroll-early rule). Between the
-     25%-of-page mark and the halfway mark, neither pill shows; just
-     back-to-top, which isn't part of this handoff. */
-  body:not(.tls-scroll-late) .tls-pagenav-btn.show {
+  /* Per Tim: this takes over the shared slot the moment Summary lets go
+     of it -- see PageSummary.astro's matching tls-scroll-early rule and
+     the header comment above for why that's now one threshold instead
+     of two. Back-to-top isn't part of this handoff; it's unaffected. */
+  body.tls-scroll-early .tls-pagenav-btn.show {
     opacity: 0;
     pointer-events: none;
   }

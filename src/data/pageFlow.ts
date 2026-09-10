@@ -14,9 +14,15 @@
 // it again -- per Tim, those 8 pages were only ever meant to be reached
 // contextually (the "Read the full technical breakdown" links on
 // /foundation-repair-methods and the matching glossary terms), not as a
-// standalone nav destination. They stay in this prev/next chain right
-// after Services either way, since someone who does land on one from
-// either of those links should still be able to step through the rest.
+// standalone nav destination, so they're left out of this array entirely.
+// They used to be included right after Services on the theory that
+// someone landing on one from a contextual link should still be able to
+// step through the rest -- but the 8 pages only ever show the "Back to
+// Services" pill (see backToServices in Layout.astro), never this
+// component, so that theory never actually worked in practice: clicking
+// "Next" from Services dropped a visitor into Helical Piers with no way
+// to keep going forward, only back. Leaving them out fixes that --
+// Services' "next" now goes straight to the first real nav destination.
 //
 // Single source of truth for MobilePageFlowNav's prev/next lookup --
 // keep this in sync if Header.astro's nav structure ever changes.
@@ -27,16 +33,10 @@ export const pageFlow: { path: string; name: string }[] = [
   { path: '/why-foundations-move', name: 'Why Foundations Move' },
   { path: '/common-concerns', name: 'Common Concerns' },
   { path: '/foundation-repair-methods', name: 'Services' },
-  // method pages, not in a nav folder -- reached contextually from
-  // Services and Glossary, see the comment above
-  { path: '/helical-piers-deep-dive', name: 'Helical Piers' },
-  { path: '/push-piers-deep-dive', name: 'Push Piers' },
-  { path: '/micropiles-deep-dive', name: 'Micropiles' },
-  { path: '/compaction-grouting-deep-dive', name: 'Compaction Grouting & Mud Jacking' },
-  { path: '/foam-injection-deep-dive', name: 'Foam Injection' },
-  { path: '/drainage-correction-deep-dive', name: 'Drainage and Grading Correction' },
-  { path: '/monitoring-deep-dive', name: 'Monitoring' },
-  { path: '/custom-solutions-deep-dive', name: 'Custom Solutions' },
+  // The 8 method pages (Helical Piers, Push Piers, Micropiles, Compaction
+  // Grouting & Mud Jacking, Foam Injection, Drainage and Grading
+  // Correction, Monitoring, Custom Solutions) are deliberately absent --
+  // see the comment above.
   // folders (Header.astro), left to right, each top to bottom
   { path: '/albuquerque-nm', name: 'Albuquerque' }, // City Pages
   { path: '/rio-rancho-nm', name: 'Rio Rancho' },
