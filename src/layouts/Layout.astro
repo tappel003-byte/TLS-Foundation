@@ -173,24 +173,41 @@ const websiteSchema = {
     {backToServices && <BackToServicesPill anchor={backToServices} />}
 
     <script>
-      // The floating button cluster (back-to-top, prev/next, Summary pill)
-      // sits at a fixed bottom-corner position -- which means it physically
-      // overlaps the footer's own bottom row once someone scrolls all the
-      // way down, since that row lives in the exact same screen region.
-      // Fading the buttons out once the footer is in view avoids the
-      // collision without needing to guess a magic scroll-distance number
-      // per page (footers vary in height across footer="full" vs.
-      // "minimal", and page content length varies a lot more than that).
-      const footerEl = document.querySelector('.footer, .minimal-footer');
-      if (footerEl) {
-        const observer = new IntersectionObserver(
-          ([entry]) => {
-            document.body.classList.toggle('tls-footer-visible', entry.isIntersecting);
-          },
-          { rootMargin: '0px 0px -40px 0px' }
-        );
-        observer.observe(footerEl);
+      // The floating button cluster (back-to-top, prev/next, Summary pill,
+      // Back to Services) sits at a fixed bottom-corner position -- which
+      // means it physically overlaps the footer's own bottom row once
+      // someone scrolls all the way down, since that row lives in the
+      // exact same screen region. Fading the buttons out avoids that
+      // collision.
+      //
+      // Previously this watched the footer element itself via
+      // IntersectionObserver, but that fires as soon as the footer's top
+      // edge comes into view -- fine for the tall "full" footer, but on
+      // the "minimal" footer (~80px, just an address line) it meant the
+      // buttons vanished while there was still a stretch of plain page
+      // content above the footer bar still on screen, well before
+      // anything was actually about to be covered. Per Tim, these should
+      // stay up until the actual bottom of the page, not just until the
+      // footer starts existing. A scroll-distance-to-true-bottom check
+      // gives that regardless of how tall a given page's footer is.
+      let footerTicking = false;
+      function updateFooterVisible() {
+        const distanceToBottom = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
+        document.body.classList.toggle('tls-footer-visible', distanceToBottom < 32);
+        footerTicking = false;
       }
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (!footerTicking) {
+            window.requestAnimationFrame(updateFooterVisible);
+            footerTicking = true;
+          }
+        },
+        { passive: true }
+      );
+      window.addEventListener('resize', updateFooterVisible);
+      updateFooterVisible();
     </script>
   </body>
 </html>

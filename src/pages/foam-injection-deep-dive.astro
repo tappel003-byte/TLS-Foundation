@@ -94,7 +94,7 @@ const schema = [
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
 
-        <p class="closing-link"><a href="/foundation-repair-methods" class="body-link">← Back to Foundation Repair Methods</a> · <a href="/glossary#polyurethane-foam-injection" class="body-link">Glossary: Polyurethane Foam Injection →</a></p>
+        <p class="closing-link"><a href="/foundation-repair-methods" class="body-link">← Back to Foundation Repair Methods</a><a href="/glossary#polyurethane-foam-injection" class="body-link">Glossary: Polyurethane Foam Injection →</a></p>
       </article>
     </div>
   </div>
@@ -302,6 +302,11 @@ const schema = [
   .closing-link {
     margin-top: 32px;
     font-size: 17px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px 24px;
   }
   .tls-article :global(.body-link) {
     color: var(--blue);
