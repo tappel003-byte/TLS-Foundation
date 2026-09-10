@@ -1,9 +1,20 @@
 ---
-// Small "prev / next" chevron pair, next to the existing back-to-top
-// circle, at every viewport width -- per Tim, easy wayfinding shouldn't be
-// a mobile-only convenience; a mouse click is just as easy as a tap. (File
-// name is a holdover from when this was mobile-only; not worth a rename
-// churn on its own.)
+// "Previous page / next page" pair, next to the back-to-top circle, at
+// every viewport width -- per Tim, easy wayfinding shouldn't be a
+// mobile-only convenience; a mouse click is just as easy as a tap.
+// (File name is a holdover from when this was mobile-only; not worth a
+// rename churn on its own.)
+//
+// Words, not bare arrow icons: a plain "<-" reads as browser-back to a
+// lot of people, easy to mistake for "return to wherever I came from"
+// rather than "go to the next item in this site's own reading order" --
+// especially since most inner pages get reached from search or a
+// shared link, not by clicking through the nav in order. Naming the
+// destination page would resolve that even more completely, but tested
+// worse in practice (felt bolted-on, and long names didn't fit these
+// buttons cleanly) -- "Previous Page" / "Next Page" is the fix that
+// actually shipped: still an unambiguous, standard pagination phrase,
+// without needing a wider pill or a new place on the page to live.
 import { pageFlow } from '../data/pageFlow';
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -14,44 +25,57 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
 
 {
   (prev || next) && (
-    <>
+    <div class="tls-pagenav-group">
       {prev && (
-        <a id="tls-pagenav-prev" class="tls-pagenav-btn" href={prev.path} aria-label={`Previous: ${prev.name}`}>
-          <svg viewBox="0 0 24 24">
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
+        <a id="tls-pagenav-prev" class="tls-pagenav-btn" href={prev.path} aria-label={`Previous page: ${prev.name}`}>
+          <span class="tls-pagenav-full">← Previous Page</span>
+          <span class="tls-pagenav-short">← Prev</span>
         </a>
       )}
       {next && (
-        <a id="tls-pagenav-next" class="tls-pagenav-btn" href={next.path} aria-label={`Next: ${next.name}`}>
-          <svg viewBox="0 0 24 24">
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
+        <a id="tls-pagenav-next" class="tls-pagenav-btn" href={next.path} aria-label={`Next page: ${next.name}`}>
+          <span class="tls-pagenav-full">Next Page →</span>
+          <span class="tls-pagenav-short">Next →</span>
         </a>
       )}
-    </>
+    </div>
   )
 }
 
 <style>
+  /* One flex container instead of two independently-positioned buttons
+     -- these are now variable-width text pills rather than fixed 44px
+     circles, so letting flex handle the spacing between them (and
+     between this group and the page edge) is far more robust than
+     hardcoding a "right" offset per button that assumed a fixed width. */
+  .tls-pagenav-group {
+    position: fixed;
+    bottom: 84px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 9999;
+  }
   .tls-pagenav-btn {
     display: flex;
-    position: fixed;
-    bottom: 28px;
-    width: 44px;
-    height: 44px;
-    background: var(--blue);
-    border: 2px solid var(--gold);
-    border-radius: 50%;
     align-items: center;
-    justify-content: center;
-    z-index: 9999;
+    height: 40px;
+    padding: 0 16px;
+    background: var(--blue);
+    color: #fff;
+    border: 2px solid var(--gold);
+    border-radius: 999px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
     box-shadow: 0 6px 18px rgba(13, 34, 56, 0.45);
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.3s, transform 0.3s, background 0.2s;
     pointer-events: none;
-    text-decoration: none;
   }
   .tls-pagenav-btn.show {
     opacity: 1;
@@ -67,27 +91,23 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
   .tls-pagenav-btn:hover {
     background: var(--gold);
   }
-  .tls-pagenav-btn svg {
-    width: 16px;
-    height: 16px;
-    fill: none;
-    stroke: #fff;
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+  .tls-pagenav-short {
+    display: none;
   }
-  /* Reads "back, up, next" left to right: prev leftmost, #tls-btt
-     (back-to-top, 48px wide) takes the middle 80px slot itself, next
-     claims the rightmost slot -- same three positions at every viewport
-     width now. #tls-btt is 4px wider than these 44px buttons, so matching
-     "right" offsets by the same 8px step (28/80/136) keeps an even 8px gap
-     on both sides. PageSummary's pill sits further out past prev (see its
-     own right: 192px on desktop / left: 20px on mobile). */
-  #tls-pagenav-next {
-    right: 28px;
-  }
-  #tls-pagenav-prev {
-    right: 136px;
+  /* Sits above back-to-top (bottom: 28px, see BackToTop.astro) rather
+     than beside it -- two variable-width text pills next to a circle
+     would need to coordinate widths across two separate components to
+     avoid overlapping; stacking only needs to agree on height. */
+  @media (max-width: 480px) {
+    .tls-pagenav-btn {
+      padding: 0 14px;
+    }
+    .tls-pagenav-full {
+      display: none;
+    }
+    .tls-pagenav-short {
+      display: inline;
+    }
   }
 </style>
 

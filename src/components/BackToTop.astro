@@ -10,10 +10,12 @@
   #tls-btt {
     position: fixed;
     bottom: 28px;
-    /* Sits in the middle of a three-button row (prev / this / next) at
-       every viewport width now -- see MobilePageFlowNav.astro, which
-       claims the 28px and 136px slots on either side. */
-    right: 80px;
+    /* The prev/next pair (MobilePageFlowNav.astro) stacks directly
+       above this now, at bottom: 84px, rather than flanking it left and
+       right -- those became variable-width text pills, and coordinating
+       a fixed "right" offset across two separate components only works
+       cleanly when both widths are fixed, which stopped being true. */
+    right: 20px;
     width: 48px;
     height: 48px;
     background: var(--blue);

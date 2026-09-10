@@ -32,8 +32,6 @@ interface Props {
   nextPage?: { path: string; name: string };
   /** Shows the floating "Back to Services" pill, linking to that method's own card on /foundation-repair-methods#<backToServices> -- set on the 8 method pages only, value is the matching card's id (e.g. "helical-piers"). */
   backToServices?: string;
-  /** PROTOTYPE (see InlinePageFlowNav.astro): true hides the floating prev/next chevrons, for the one page trialing the inline named-link replacement. Remove this prop once/if the inline version replaces MobilePageFlowNav sitewide. */
-  hidePageFlowNav?: boolean;
 }
 
 const {
@@ -47,7 +45,6 @@ const {
   pageName,
   nextPage,
   backToServices,
-  hidePageFlowNav = false,
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(ogImage, Astro.site);
@@ -170,8 +167,20 @@ const websiteSchema = {
       <slot />
     </main>
     {footer === 'full' ? <Footer {...footerProps} /> : <MinimalFooter {...footerProps} />}
-    <BackToTop />
-    {!hidePageFlowNav && <MobilePageFlowNav />}
+    {
+      // Per Tim: the 8 method pages get just the one clear "Back to
+      // Services" pill -- back-to-top and the sitewide prev/next chevrons
+      // don't add anything there (their own prev/next chain through the
+      // other 7 methods was never the point) and were just crowding the
+      // one button that matters. backToServices is only ever set on
+      // those 8 pages, so it doubles as the scoping check here.
+      !backToServices && (
+        <>
+          <BackToTop />
+          <MobilePageFlowNav />
+        </>
+      )
+    }
     {summary && <PageSummary summary={summary} pageName={pageName} nextPage={nextPage} />}
     {backToServices && <BackToServicesPill anchor={backToServices} />}
 

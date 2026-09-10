@@ -52,13 +52,16 @@ const { summary, pageName, nextPage } = Astro.props;
   #tls-summarize-btn {
     position: fixed;
     bottom: 28px;
-    /* Sits past the prev/back/next three-button row (see
-       MobilePageFlowNav.astro + BackToTop.astro) on desktop -- left: 28px
-       collided with the sticky left-nav sidebar's own bottom contact block
-       on the 5 regional pages. Reverts to bottom-left on mobile (that
-       sidebar is hidden there anyway, and stacking a 4th fixed element in
-       one row crowds a narrow screen more than opposite corners do). */
-    right: 192px;
+    /* Sits past back-to-top (see BackToTop.astro, right: 20px/48px wide)
+       on desktop -- left: 28px collided with the sticky left-nav
+       sidebar's own bottom contact block on the 5 regional pages.
+       Prev/next (MobilePageFlowNav.astro) stacks in its own row above
+       this one now rather than sharing this row, so this only needs to
+       clear back-to-top, not a whole three-button span. Reverts to
+       bottom-left on mobile (that sidebar is hidden there anyway, and
+       stacking a 4th fixed element in one row crowds a narrow screen
+       more than opposite corners do). */
+    right: 100px;
     height: 48px;
     display: flex;
     align-items: center;
