@@ -6,11 +6,9 @@
 import Layout from '../layouts/Layout.astro';
 
 // Form delivery via Web3Forms (no backend needed for a static Cloudflare
-// Workers site). Free tier, sends straight to the inbox below.
-// TODO(Tim): sign up free at https://web3forms.com with tim@tlsfoundations.com
-// (or tim@sandiageo.com), grab the Access Key it gives you, and paste it
-// here in place of the empty string. Until then the form will show an
-// error on submit instead of silently failing.
+// Workers site). Free tier, sends straight to Tim's inbox -- confirmed
+// working, he's received real submissions (including photos via
+// send-photos.astro's upload flow) through this key.
 const WEB3FORMS_ACCESS_KEY = '286f013b-26e6-4098-affa-dc39b3923b5c';
 
 const title = 'Contact TLS Foundations — New Mexico Foundation Repair';

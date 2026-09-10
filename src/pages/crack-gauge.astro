@@ -9,11 +9,10 @@
 // page -- no React, no Lovable Cloud, no Supabase -- matching the rest
 // of the site's template.
 //
-// The "Send to TLS" form uses the same Web3Forms pattern already wired
-// (but not yet keyed) into contact-us.astro, symptom-guide.astro, and
-// cause-library.astro, per Tim's direction to reuse the existing
-// mechanism rather than add a new one. It will start working the moment
-// that one access key is filled in -- same TODO as those three pages.
+// The "Send to TLS" form uses the same Web3Forms pattern as
+// contact-us.astro, symptom-guide.astro, and cause-library.astro, per
+// Tim's direction to reuse the existing mechanism rather than add a new
+// one -- same key, confirmed working across all of them.
 //
 // TIM: shipped without a physical print-and-measure check against a
 // ruler -- you flagged you're not sure the bars are accurate and want
@@ -23,8 +22,7 @@
 // check it against a tape measure before pointing anyone at this page.
 import Layout from '../layouts/Layout.astro';
 
-// TODO(Tim): same key as contact-us.astro -- see the TODO there for how
-// to get one. Filling it in here activates this form too.
+// Same key as contact-us.astro.
 const WEB3FORMS_ACCESS_KEY = '286f013b-26e6-4098-affa-dc39b3923b5c';
 
 const title = 'Printable Crack Gauge | TLS Foundations';
