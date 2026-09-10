@@ -137,7 +137,7 @@ const schema = [
                 <p><span class="field-label">What we see when we drive up</span> It depends entirely on where in the basin you are. On the West Mesa, the soil is brown-tan alluvium -- looks stable, often is not. In the North Valley and South Valley, the soil gets darker and heavier as you approach the river -- old floodplain material with clay that moves when it gets wet. In the East Mountains foothills, alluvial fans off the Sandias have loose upper material over harder cemented zones.</p>
                 <p><span class="field-label">What this geology does to foundations</span> The West Mesa is classic collapsible soil country -- dry, it bears load fine; wet, from irrigation or a broken line, it consolidates and the foundation follows it down. The Valley floor is the opposite problem: expansive clays that push up when wet and shrink when dry. The foothills introduce differential bearing -- dense cemented zones next to loose material, so one corner of a house can settle while another stays put.</p>
               </div>
-              <div>
+              <div class="zone-sidebar">
                 <div class="zone-warnings">
                   <span class="zone-warning-label">What TLS sees and repairs most here</span>
                   <ul class="warning-list">
@@ -190,7 +190,7 @@ const schema = [
                 <p><span class="field-label">What we see when we drive up</span> The Tesuque Formation has a visual signature you learn quickly: exposures in the cut banks and arroyos vary from sandy and loose to heavy clay-bearing within short distances. In the pueblos and along the old acequia corridors, centuries of irrigation have altered soil moisture content in ways no geological map captures. The land looks flat and stable. The subsurface often is not.</p>
                 <p><span class="field-label">What this geology does to foundations</span> The Tesuque Formation is laterally inconsistent -- fine-grained expansive members and coarser non-expansive members, often stacked and interbedded, creating differential settlement within a single foundation footprint. Los Alamos sits on Bandelier Tuff at the canyon rim, introducing a different hazard: shallow rock with variable depth to competent bearing.</p>
               </div>
-              <div>
+              <div class="zone-sidebar">
                 <div class="zone-warnings">
                   <span class="zone-warning-label">What TLS sees and repairs most here</span>
                   <ul class="warning-list">
@@ -242,7 +242,7 @@ const schema = [
                 <p><span class="field-label">What we see when we drive up</span> The Estancia Basin sits around 6,000 feet elevation, east of the Manzano and Sandia ranges. The soil is pale -- light tan to whitish where evaporite minerals concentrate. Caliche shows up everywhere, sometimes as a thick hardpan just below grade that looks like competent bearing but fractures unpredictably. The playas -- dry lake bed remnants -- are visually flat and featureless. They're also where the worst soil behavior concentrates.</p>
                 <p><span class="field-label">What this geology does to foundations</span> The lacustrine clays deposited by Lake Estancia are highly expansive in places. Gypsum and halite from thousands of years of evaporation can dissolve under sustained moisture, creating voids in the subsurface. The basin is closed, meaning seasonal moisture has nowhere to go except down or into the soil -- shrink-swell cycles are pronounced in wet years.</p>
               </div>
-              <div>
+              <div class="zone-sidebar">
                 <div class="zone-warnings">
                   <span class="zone-warning-label">What TLS sees and repairs most here</span>
                   <ul class="warning-list">
@@ -701,8 +701,12 @@ const schema = [
     margin-top: 4px;
   }
 
-  /* warning-style accordion, reused for hazard callouts */
-  .zone-warnings { position: sticky; top: 100px; }
+  /* Sticky on the wrapper, not .zone-warnings alone -- .zone-city-links
+     is a sibling directly below it, and a lone sticky child leaves its
+     sibling in normal flow, so the two drift apart on scroll and the
+     city-links block ends up sliding up through the pinned accordion.
+     Stickying the shared wrapper keeps both moving as one unit. */
+  .zone-sidebar { position: sticky; top: 100px; }
   .zone-warning-label {
     display: block;
     font-family: 'DM Mono', monospace;
@@ -849,6 +853,6 @@ const schema = [
   @media (max-width: 767px) {
     .content-area { padding: 0 24px; }
     .section-num { display: none; }
-    .zone-warnings { position: static; }
+    .zone-sidebar { position: static; }
   }
 </style>
