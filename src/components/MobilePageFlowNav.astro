@@ -8,12 +8,17 @@
 // lot of people, easy to mistake for "return to wherever I came from"
 // rather than "go to the next item in this site's own reading order" --
 // especially since most inner pages get reached from search or a
-// shared link, not by clicking through the nav in order. Naming the
-// destination page would resolve that even more completely, but tested
-// worse in practice (felt bolted-on, and long names didn't fit these
-// buttons cleanly) -- "Previous Page" / "Next Page" is the fix that
-// actually shipped: still an unambiguous, standard pagination phrase,
-// without needing a wider pill.
+// shared link, not by clicking through the nav in order.
+//
+// Shows the actual destination name, not a generic "Previous Page" --
+// an earlier attempt at naming was rejected, but per Tim that was about
+// where it lived on the page (an inline row at the bottom of the
+// content, which read as bolted-on/an afterthought), not about naming
+// itself; brought back here inside the same floating-pill treatment as
+// everything else in this cluster, it doesn't have that problem. Long
+// names (e.g. "Compaction Grouting & Mud Jacking") are the tradeoff --
+// .tls-pagenav-label caps width and ellipsizes rather than letting the
+// pill balloon or wrap, which Tim signed off on as the acceptable cost.
 //
 // Per Tim, this shares its screen slot with the Summary pill
 // (PageSummary.astro) rather than sitting beside it permanently: Summary
@@ -35,14 +40,14 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
     <div class="tls-pagenav-group">
       {prev && (
         <a id="tls-pagenav-prev" class="tls-pagenav-btn" href={prev.path} aria-label={`Previous page: ${prev.name}`}>
-          <span class="tls-pagenav-full">← Previous Page</span>
-          <span class="tls-pagenav-short">← Prev</span>
+          <span class="tls-pagenav-arrow">←</span>
+          <span class="tls-pagenav-label">{prev.name}</span>
         </a>
       )}
       {next && (
-        <a id="tls-pagenav-next" class="tls-pagenav-btn" href={next.path} aria-label={`Next page: ${next.name}`}>
-          <span class="tls-pagenav-full">Next Page →</span>
-          <span class="tls-pagenav-short">Next →</span>
+        <a id="tls-pagenav-next" class="tls-pagenav-btn tls-pagenav-next" href={next.path} aria-label={`Next page: ${next.name}`}>
+          <span class="tls-pagenav-label">{next.name}</span>
+          <span class="tls-pagenav-arrow">→</span>
         </a>
       )}
     </div>
@@ -70,6 +75,7 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
   .tls-pagenav-btn {
     display: flex;
     align-items: center;
+    gap: 6px;
     /* Matches back-to-top's 48px circle (BackToTop.astro) and the
        Summary pill this replaces (PageSummary.astro, also 48px) -- at
        40px these sat with the same bottom edge but a shorter top, so
@@ -77,7 +83,7 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
        Same height across the whole cluster keeps the row reading as one
        clean line instead of an uneven stack. */
     height: 48px;
-    padding: 0 18px;
+    padding: 0 16px;
     background: var(--blue);
     color: #fff;
     border: 2px solid var(--gold);
@@ -93,6 +99,25 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
     transform: translateY(10px);
     transition: opacity 0.3s, transform 0.3s, background 0.2s;
     pointer-events: none;
+  }
+  .tls-pagenav-next {
+    /* Prev reads arrow-then-name (leading toward where you came from);
+       next reads name-then-arrow (leading toward where you're going) --
+       the arrow stays on the outside edge of the pair either way. */
+    flex-direction: row;
+  }
+  .tls-pagenav-arrow {
+    flex: none;
+  }
+  .tls-pagenav-label {
+    /* Real page names vary a lot in length ("Home" vs "Compaction
+       Grouting & Mud Jacking") -- capping width and ellipsizing keeps
+       every pill a predictable size instead of some runs blowing out
+       the row or wrapping to a second line. */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
   }
   .tls-pagenav-btn.show {
     opacity: 1;
@@ -117,18 +142,19 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
   .tls-pagenav-btn:hover {
     background: var(--gold);
   }
-  .tls-pagenav-short {
-    display: none;
-  }
   @media (max-width: 480px) {
     .tls-pagenav-btn {
-      padding: 0 14px;
+      padding: 0 12px;
+      font-size: 10px;
     }
-    .tls-pagenav-full {
-      display: none;
-    }
-    .tls-pagenav-short {
-      display: inline;
+    .tls-pagenav-label {
+      /* Tighter cap than desktop -- two pills plus the back-to-top
+         circle all have to fit between the page edge and each other on
+         a narrow screen, so long names need to give up more room here.
+         100px still left real names (e.g. "Printable Crack Gauge")
+         crowding the left edge of a 393px phone with ~17px to spare;
+         80px keeps a proper margin down to smaller phones too. */
+      max-width: 80px;
     }
   }
 </style>
