@@ -207,9 +207,33 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 10px 16px;
+    /* Column gap dropped from 16px to 6px -- the divider below adds its
+       own padding, and keeping both at full size would have widened the
+       row enough to reintroduce the "Contact Us wraps onto its own
+       line" bug this same gap value was tuned to avoid. Total space
+       between items lands close to where it was before (6px gap + 10px
+       padding ~= the old 16px), just with a rule in the middle of it. */
+    gap: 10px 6px;
     flex-wrap: wrap;
     width: 100%;
+  }
+  /* Thin vertical rule between items -- at this many items (10, several
+     multi-word) plain gap alone reads as one run-on line rather than a
+     set of distinct links. Skipped on the last item in each flex line
+     (nothing to separate it from). */
+  .site-nav-list > li:not(:last-child) {
+    position: relative;
+    padding-right: 10px;
+  }
+  .site-nav-list > li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 14px;
+    background: rgba(255, 255, 255, 0.2);
   }
   .site-nav-list > li > a,
   .dropdown-trigger {
