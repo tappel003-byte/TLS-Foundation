@@ -798,7 +798,10 @@ const TRACKING_ROWS = 22;
   window.addEventListener('resize', updatePrintScale);
 
   const printBtn = document.getElementById('printGaugeBtn');
-  printBtn?.addEventListener('click', () => window.print());
+  printBtn?.addEventListener('click', () => {
+    window.print();
+    (window as any).tlsTrack?.('print_crack_gauge');
+  });
 
   const form = document.getElementById('crackGaugeForm') as HTMLFormElement | null;
   const status = form?.querySelector('.form-status') as HTMLElement | null;
@@ -829,6 +832,7 @@ const TRACKING_ROWS = 22;
       if (data.success) {
         status.textContent = "Sent — we'll be in touch.";
         form.reset();
+        (window as any).tlsTrack?.('form_submit', 'crack-gauge');
       } else {
         throw new Error(data.message || 'Submission failed');
       }

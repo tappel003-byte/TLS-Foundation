@@ -722,11 +722,14 @@ const schema = [
 </Layout>
 
 <script>
-  // Fires a GA4 custom event if the tag is present, no-ops otherwise --
-  // Cloudflare Web Analytics (also on this page) doesn't support custom
-  // events, only page views, so this is GA4-specific by design.
+  // Fires a GA4 custom event if the tag is present (currently off, so
+  // this branch no-ops) and always logs to the sitewide D1 event log via
+  // window.tlsTrack (see Layout.astro) -- Cloudflare Web Analytics
+  // doesn't support custom events, only page views, so without this,
+  // none of these interactions would go anywhere at all right now.
   function track(name: string, params?: Record<string, string>) {
     if (typeof (window as any).gtag === 'function') (window as any).gtag('event', name, params || {});
+    (window as any).tlsTrack?.(name, params ? Object.entries(params).map(([k, v]) => `${k}=${v}`).join('&') : undefined);
   }
 
   // Same idea as STORAGE_KEY below, but for the facet checkboxes: shared

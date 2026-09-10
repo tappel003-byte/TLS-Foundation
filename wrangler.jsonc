@@ -13,5 +13,6 @@
     // instead of putting the whole site behind a worker.
     "run_worker_first": ["/api/*"]
   },
-  "r2_buckets": [{ "binding": "PHOTOS", "bucket_name": "tls-homeowner-photos" }]
+  "r2_buckets": [{ "binding": "PHOTOS", "bucket_name": "tls-homeowner-photos" }],
+  "d1_databases": [{ "binding": "EVENTS", "database_name": "tls-foundation-events", "database_id": "f110eae2-e5f0-4d74-a5e5-0e5c1a7a0801" }]
 }

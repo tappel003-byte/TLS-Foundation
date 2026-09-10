@@ -911,8 +911,12 @@ const verdictDefs: Record<string, string> = {
 </Layout>
 
 <script>
+  // See symptom-guide.astro's track() for why this also writes to the
+  // sitewide D1 event log (window.tlsTrack, Layout.astro) rather than
+  // relying on gtag alone -- GA4 is currently off, so that branch no-ops.
   function track(name: string, params: Record<string, string> = {}) {
     if (typeof (window as any).gtag === 'function') (window as any).gtag('event', name, params);
+    (window as any).tlsTrack?.(name, Object.entries(params).map(([k, v]) => `${k}=${v}`).join('&') || undefined);
   }
 
   // Same idea as STORAGE_KEY below, but for the facet checkboxes: shared

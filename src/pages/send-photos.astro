@@ -489,6 +489,7 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
       const data = await res.json();
       if (data.success) {
         showStep('done');
+        (window as any).tlsTrack?.('form_submit', 'send-photos');
       } else {
         throw new Error(data.message || 'Submission failed');
       }

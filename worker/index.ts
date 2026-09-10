@@ -13,14 +13,36 @@
 // for "photos of a crack in someone's living room," not medical- or
 // financial-grade data. No accounts, no auth, matching the rest of the
 // tool's "no sign-in, tap a link" design.
+//
+// Also handles /api/track -- a small write-only conversion log in the
+// EVENTS D1 database. Cloudflare Web Analytics (the beacon already on
+// every page) only ever reports page views; it has no public custom-
+// event API, so "which pages actually turn into a call or a submitted
+// form" isn't something it can answer on its own. This fills that one
+// gap without pulling in Google Analytics, which Tim explicitly wants
+// to hold off on. No PII here -- event type, page path, an optional
+// short detail string, and the referrer header. The actual name/phone/
+// message on a submitted form still only ever goes to Web3Forms -> the
+// inbox, same as before; this table never sees it.
 
 export interface Env {
   PHOTOS?: R2Bucket;
+  EVENTS?: D1Database;
   ASSETS: Fetcher;
 }
 
 const MAX_BYTES = 10 * 1024 * 1024; // 10MB per photo
 const ALLOWED_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif']);
+
+// Event names come from two sources: the sitewide phone/text click
+// delegation in Layout.astro (a short fixed set), and the existing
+// per-page `track(name, params)` helpers already sprinkled through
+// Symptom Guide and Cause Library (region_selected, print_results_clicked,
+// send_to_tls_submitted, etc.) -- those were built for GA4, which is off,
+// so a strict enum here would silently drop all of that richer, already-
+// designed instrumentation instead of finally giving it somewhere to go.
+// A shape/length check is enough of a guard against junk.
+const EVENT_TYPE_PATTERN = /^[a-z0-9_]{1,64}$/;
 
 function json(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
@@ -39,6 +61,10 @@ export default {
 
     if (request.method === 'GET' && url.pathname.startsWith('/api/photos/')) {
       return handleServe(url, env);
+    }
+
+    if (request.method === 'POST' && url.pathname === '/api/track') {
+      return handleTrack(request, env);
     }
 
     return json({ error: 'Not found' }, 404);
@@ -93,4 +119,34 @@ async function handleServe(url: URL, env: Env): Promise<Response> {
   headers.set('cache-control', 'private, max-age=31536000, immutable');
 
   return new Response(object.body, { headers });
+}
+
+async function handleTrack(request: Request, env: Env): Promise<Response> {
+  if (!env.EVENTS) return json({ ok: false }, 503);
+
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return json({ ok: false }, 400);
+  }
+  if (typeof body !== 'object' || body === null) return json({ ok: false }, 400);
+
+  const { event_type, page, detail } = body as Record<string, unknown>;
+  if (typeof event_type !== 'string' || !EVENT_TYPE_PATTERN.test(event_type)) {
+    return json({ ok: false }, 400);
+  }
+  if (typeof page !== 'string' || page.length === 0 || page.length > 200) {
+    return json({ ok: false }, 400);
+  }
+  const detailStr = typeof detail === 'string' ? detail.slice(0, 100) : null;
+  const referrer = request.headers.get('referer')?.slice(0, 300) || null;
+
+  await env.EVENTS.prepare('INSERT INTO events (event_type, page, detail, referrer) VALUES (?, ?, ?, ?)')
+    .bind(event_type, page.slice(0, 200), detailStr, referrer)
+    .run();
+
+  // 204 keeps this cheap to fire from sendBeacon/fetch(keepalive) without
+  // the caller needing to do anything with a response body.
+  return new Response(null, { status: 204 });
 }

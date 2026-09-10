@@ -209,5 +209,41 @@ const websiteSchema = {
       window.addEventListener('resize', updateFooterVisible);
       updateFooterVisible();
     </script>
+
+    <script>
+      // Lightweight conversion tracking, sitewide -- writes to the EVENTS
+      // D1 database via the /api/track Worker route. Exists because
+      // Cloudflare Web Analytics (the beacon in <head>) only ever reports
+      // page views; it has no public custom-event API, so it can't answer
+      // "which pages actually turn into a call or a submitted form." No
+      // PII travels here -- event type, page path, an optional short
+      // detail string. window.tlsTrack is exposed so page-specific
+      // scripts (form success handlers, the Crack Gauge print button)
+      // can call it too, alongside the sitewide phone/text click
+      // delegation below.
+      function tlsTrack(eventType: string, detail?: string) {
+        try {
+          const payload = JSON.stringify({ event_type: eventType, page: location.pathname, detail: detail || null });
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon('/api/track', new Blob([payload], { type: 'application/json' }));
+          } else {
+            fetch('/api/track', { method: 'POST', headers: { 'content-type': 'application/json' }, body: payload, keepalive: true }).catch(() => {});
+          }
+        } catch {
+          // Never let tracking break the actual interaction it's watching.
+        }
+      }
+      (window as typeof window & { tlsTrack: typeof tlsTrack }).tlsTrack = tlsTrack;
+
+      document.addEventListener(
+        'click',
+        (e) => {
+          const link = (e.target as HTMLElement)?.closest('a[href^="tel:"], a[href^="sms:"]') as HTMLAnchorElement | null;
+          if (!link) return;
+          tlsTrack(link.href.startsWith('tel:') ? 'phone_click' : 'text_click');
+        },
+        { capture: true }
+      );
+    </script>
   </body>
 </html>

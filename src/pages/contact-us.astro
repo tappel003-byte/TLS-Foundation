@@ -213,6 +213,7 @@ const schema = [
       if (data.success) {
         status.textContent = "Sent — we'll be in touch.";
         form.reset();
+        window.tlsTrack?.('form_submit', 'contact-us');
       } else {
         throw new Error(data.message || 'Submission failed');
       }
