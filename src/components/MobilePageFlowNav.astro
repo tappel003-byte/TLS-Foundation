@@ -143,18 +143,50 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
     background: var(--gold);
   }
   @media (max-width: 480px) {
+    /* Per Tim: a single truncated line ("SYMPTOM GUI...") read as broken
+       rather than custom -- a phone has more room to spare vertically
+       than horizontally, so stacking the arrow above the name and
+       letting it wrap to two lines uses that instead of cutting the
+       name short. Fixed height (not auto) so both pills -- and the
+       back-to-top circle they sit next to -- stay a predictable size
+       regardless of how long any one name runs. */
     .tls-pagenav-btn {
-      padding: 0 12px;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1px;
+      height: 58px;
+      padding: 6px 10px;
       font-size: 10px;
     }
+    .tls-pagenav-arrow {
+      font-size: 12px;
+      /* Source order puts the arrow after the name on the "next" button
+         (so it trails the name on desktop's single-line layout) -- in
+         the stacked layout that would put the arrow on top for "prev"
+         but the name on top for "next". Forcing the arrow first for
+         both keeps the stack reading the same way on each button. */
+      order: 1;
+    }
     .tls-pagenav-label {
-      /* Tighter cap than desktop -- two pills plus the back-to-top
-         circle all have to fit between the page edge and each other on
-         a narrow screen, so long names need to give up more room here.
-         100px still left real names (e.g. "Printable Crack Gauge")
-         crowding the left edge of a 393px phone with ~17px to spare;
-         80px keeps a proper margin down to smaller phones too. */
-      max-width: 80px;
+      order: 2;
+    }
+    .tls-pagenav-label {
+      /* Base rule ellipsizes to one line for desktop's side-by-side
+         layout -- wrapping to two lines needs that undone, not just a
+         wider cap. */
+      max-width: 92px;
+      overflow: visible;
+      text-overflow: clip;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.2;
+    }
+    /* Circle stays 48px/bottom:28 (BackToTop.astro); these stacked
+       pills are taller (58px) -- centering this group on the circle's
+       midpoint instead of sharing its bottom edge keeps the row reading
+       as one aligned unit rather than the pills sticking down below it. */
+    .tls-pagenav-group {
+      bottom: 23px;
     }
   }
 </style>
