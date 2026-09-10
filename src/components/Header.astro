@@ -182,12 +182,13 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     align-items: center;
     gap: 44px;
     padding: 18px 20px;
-    /* Caps the row on very wide monitors so it doesn't chase the browser's
-       own edge -- same 1400px the regional/soil pages use for their wide
-       content. On its own this wouldn't have fixed the reported gap
-       though; see .site-nav below for that. */
+    /* Caps the row on very wide monitors so nav doesn't chase the
+       browser's own right edge -- same 1400px the regional/soil pages
+       use for their wide content. `margin: 0 auto` here previously
+       centered the whole row once the viewport passed 1400px, which
+       pulled the logo away from the left edge too -- per Tim, the logo
+       stays flush left; only the right side should pick up the slack. */
     max-width: 1400px;
-    margin: 0 auto;
   }
   .header-brand {
     display: flex;
