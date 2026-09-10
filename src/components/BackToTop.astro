@@ -68,7 +68,14 @@
   let ticking = false;
   function update() {
     const y = window.pageYOffset || document.documentElement.scrollTop || 0;
-    btn?.classList.toggle('show', y > 400);
+    // A short page (e.g. Send Us Photos' landing screen, ~780px of
+    // content on most phones) can never legitimately scroll 400px, so
+    // this shouldn't either -- without the scrollable check, a stray
+    // few px of overscroll bounce or a larger text-size/zoom setting on
+    // some device could still nudge y past 400 on a page with nothing
+    // to actually scroll back up from.
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    btn?.classList.toggle('show', y > 400 && scrollable > 400);
     ticking = false;
   }
   window.addEventListener(

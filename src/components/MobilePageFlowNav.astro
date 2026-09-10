@@ -169,7 +169,13 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
   let ticking = false;
   function update() {
     const y = window.pageYOffset || document.documentElement.scrollTop || 0;
-    document.querySelectorAll('.tls-pagenav-btn').forEach((btn) => btn.classList.toggle('show', y > 400));
+    // See BackToTop.astro's matching comment -- a page short enough to
+    // never really scroll shouldn't be able to trigger this just
+    // because y ticked past 400 by some device/zoom quirk; require
+    // real scroll room too.
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const show = y > 400 && scrollable > 400;
+    document.querySelectorAll('.tls-pagenav-btn').forEach((btn) => btn.classList.toggle('show', show));
     ticking = false;
   }
   window.addEventListener(

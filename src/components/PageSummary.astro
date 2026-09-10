@@ -293,7 +293,12 @@ const { summary, pageName, nextPage } = Astro.props;
   let ticking = false;
   function updateVisibility() {
     const y = window.pageYOffset || document.documentElement.scrollTop || 0;
-    btn?.classList.toggle('show', y > 400);
+    // See BackToTop.astro's matching comment -- a page short enough to
+    // never really scroll (e.g. Send Us Photos' landing screen)
+    // shouldn't be able to trigger this just because y ticked past 400
+    // by some device/zoom quirk; require real scroll room too.
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    btn?.classList.toggle('show', y > 400 && scrollable > 400);
     ticking = false;
   }
   window.addEventListener(
