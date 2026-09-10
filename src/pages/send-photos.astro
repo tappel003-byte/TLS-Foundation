@@ -16,9 +16,23 @@
 // TODO there. The rest of the flow (rooms, notes, contact info, the
 // Web3Forms lead) works independently of that.
 import Layout from '../layouts/Layout.astro';
+import { pageFlow } from '../data/pageFlow';
 
 // TODO(Tim): same key as contact-us.astro.
 const WEB3FORMS_ACCESS_KEY = '286f013b-26e6-4098-affa-dc39b3923b5c';
+
+// This page's own landing screen is short enough that the sitewide
+// floating prev/next (MobilePageFlowNav.astro) has nowhere safe to sit
+// -- see its tls-page-short handling for the general case. But per Tim,
+// this page's compact custom header already has an empty slot (the
+// back-chevron, hidden on the landing step since there's no previous
+// step to return to) -- putting prev/next there instead, only on
+// landing, reuses space that already exists rather than needing a new
+// place on the page. hidePageFlowNav on Layout skips the sitewide
+// component here so there's only ever one copy of this navigation.
+const flowIdx = pageFlow.findIndex((p) => p.path === '/send-photos');
+const prevPage = flowIdx > 0 ? pageFlow[flowIdx - 1] : null;
+const nextPage = flowIdx >= 0 && flowIdx < pageFlow.length - 1 ? pageFlow[flowIdx + 1] : null;
 
 const title = 'Send Us Photos | TLS Foundations';
 const summary =
@@ -64,6 +78,7 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
   summary={summary}
   pageName="Send Us Photos"
   nextPage={{ path: '/contact-us', name: 'Contact Us' }}
+  hidePageFlowNav
 >
   <div class="sp-page" id="top">
     <div class="sp-shell">
@@ -71,6 +86,22 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
         <button type="button" id="spBack" class="sp-back" aria-label="Back" hidden>
           <svg viewBox="0 0 24 24" width="20" height="20"><polyline points="15 18 9 12 15 6" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
         </button>
+        {
+          (prevPage || nextPage) && (
+            <nav class="sp-pagenav" id="spPageNav" aria-label="Site navigation">
+              {prevPage && (
+                <a href={prevPage.path} class="sp-pagenav-link" aria-label={`Previous page: ${prevPage.name}`}>
+                  ← {prevPage.name}
+                </a>
+              )}
+              {nextPage && (
+                <a href={nextPage.path} class="sp-pagenav-link" aria-label={`Next page: ${nextPage.name}`}>
+                  {nextPage.name} →
+                </a>
+              )}
+            </nav>
+          )
+        }
       </header>
 
       <main class="sp-main">
@@ -221,11 +252,18 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
   const $ = (sel) => document.querySelector(sel);
   const stepEls = Object.fromEntries(steps.map((s) => [s, document.querySelector(`.sp-step[data-step="${s}"]`)]));
   const backBtn = $('#spBack');
+  const pageNav = $('#spPageNav');
 
   function showStep(step) {
     currentStep = step;
     steps.forEach((s) => { stepEls[s].hidden = s !== step; });
     backBtn.hidden = step === 'landing' || step === 'done';
+    // Mutually exclusive with backBtn above: on landing there's no
+    // previous wizard step to go back to, so that's exactly when
+    // leaving the page entirely is the only "back" that makes sense.
+    // Once the flow starts, spBack's own step-back behavior takes over
+    // and this steps aside.
+    if (pageNav) pageNav.hidden = step !== 'landing';
     window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
     if (step === 'photos') renderPhotoGallery();
     if (step === 'review') renderReview();
@@ -489,7 +527,7 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
       const data = await res.json();
       if (data.success) {
         showStep('done');
-        (window as any).tlsTrack?.('form_submit', 'send-photos');
+        window.tlsTrack?.('form_submit', 'send-photos');
       } else {
         throw new Error(data.message || 'Submission failed');
       }
@@ -529,13 +567,49 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
     min-height: 60vh;
   }
   .sp-shell { max-width: 480px; margin: 0 auto; padding: 24px 20px 56px; display: flex; flex-direction: column; min-height: 60vh; }
-  .sp-header { height: 36px; display: flex; align-items: center; }
-  .sp-back {
+  .sp-header { min-height: 36px; display: flex; align-items: center; }
+  /* :not([hidden]) matters here -- a plain class selector's explicit
+     "display" beats the browser's default [hidden]{display:none} at
+     equal specificity, so without this guard, setting backBtn.hidden in
+     JS (see showStep()) has no visible effect: this rule keeps it
+     flex-displayed regardless. That was a real, live bug -- it's why
+     the back-chevron showed up on the landing step in the first place,
+     despite the JS already correctly marking it hidden there. */
+  .sp-back:not([hidden]) {
     display: flex; align-items: center; justify-content: center;
     width: 36px; height: 36px; border-radius: 999px; border: none;
     background: none; color: var(--sp-slate); cursor: pointer;
   }
   .sp-back:hover { background: var(--sp-sand); }
+  /* Per Tim: on the landing step there's no wizard step to go "back" to
+     (see showStep()'s pageNav.hidden toggle), so this fills that same
+     header slot with a way off the page entirely instead. Styled as
+     quiet text links (matching .sp-btn-ghost below) rather than the
+     main site's bold navy/gold pills -- this page has its own lighter
+     visual language, and "Start" should stay the only strong call to
+     action on this screen. Same :not([hidden]) guard as .sp-back above
+     -- without it this would stay visible even once showStep() hides it
+     past the landing step. */
+  .sp-pagenav:not([hidden]) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 16px;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .sp-pagenav-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--sp-slate);
+    text-decoration: none;
+    padding: 6px 8px;
+    margin: 0 -8px;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+  .sp-pagenav-link:hover { background: var(--sp-sand); color: var(--sp-navy); }
   .sp-main { flex: 1; margin-top: 8px; }
   .sp-step h1 {
     font-family: 'Playfair Display', serif;
