@@ -90,12 +90,12 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
             <nav class="sp-pagenav" id="spPageNav" aria-label="Site navigation">
               {prevPage && (
                 <a href={prevPage.path} class="sp-pagenav-link" aria-label={`Previous page: ${prevPage.name}`}>
-                  ← {prevPage.name}
+                  {prevPage.name}
                 </a>
               )}
               {nextPage && (
                 <a href={nextPage.path} class="sp-pagenav-link" aria-label={`Next page: ${nextPage.name}`}>
-                  {nextPage.name} →
+                  {nextPage.name}
                 </a>
               )}
             </nav>
