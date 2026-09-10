@@ -155,12 +155,23 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
     .tls-pagenav-label {
       /* Base rule ellipsizes to one line for desktop's fixed-width
          layout -- wrapping needs that undone, not just a wider cap. */
-      max-width: 110px;
       overflow: visible;
       text-overflow: clip;
       white-space: normal;
       text-align: center;
       line-height: 1.15;
+      /* Fluid, not a flat 110px -- a flat cap sized for ~393px screens
+         left no margin at all on a 360px-wide phone (two pills whose
+         wrapped width happened to land exactly at the group's right
+         anchor, flush against the left screen edge with zero margin;
+         a longer name or a narrower device would've clipped off-screen
+         entirely). 182px below is the group's own right offset (100px)
+         + a 16px left safety margin + the 10px gap between the two
+         pills + each pill's own 28px of horizontal box width beyond
+         the label (12px padding + 2px border per side) -- splitting
+         whatever's left between the two labels means the pair can
+         never outgrow the available width, on any screen. */
+      max-width: calc((100vw - 182px) / 2);
     }
   }
 </style>
