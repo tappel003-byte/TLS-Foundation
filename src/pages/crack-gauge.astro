@@ -104,6 +104,7 @@ const TRACKING_ROWS = 22;
         </div>
 
         <div class="print-preview-scroll">
+        <div class="print-scale-wrap">
         <div id="print-sheet" class="print-sheet">
           <div class="fold-line" aria-hidden="true">
             <span class="fold-tag fold-tag-top">FOLD ▼</span>
@@ -203,8 +204,10 @@ const TRACKING_ROWS = 22;
 
         </div>
         </div>
+        </div>
 
         <div class="print-preview-scroll">
+        <div class="print-scale-wrap">
         <div id="print-sheet-2" class="print-sheet print-sheet-2">
           <div class="log-header">
             <div>
@@ -239,6 +242,7 @@ const TRACKING_ROWS = 22;
               <div class="panel-site">tlsfoundations.com</div>
             </div>
           </div>
+        </div>
         </div>
         </div>
 
@@ -395,6 +399,18 @@ const TRACKING_ROWS = 22;
     overflow-x: auto;
     margin-bottom: 32px;
   }
+  /* Shrinks the true-size sheet to fit whatever column width is actually
+     available (see the script below, which sets --pg-scale), so the whole
+     page is visible on screen without needing to discover a horizontal
+     scrollbar -- that requirement read as "broken," not "scroll for
+     more." The wrap's own box shrinks to match via width/height, so it
+     doesn't leave dead space where the unscaled sheet used to sit.
+     Printing is unaffected: @media print resets both back to true size. */
+  .print-scale-wrap {
+    width: calc(8.5in * var(--pg-scale, 1));
+    height: calc(11in * var(--pg-scale, 1));
+    overflow: hidden;
+  }
   .print-sheet {
     position: relative;
     width: 8.5in;
@@ -404,6 +420,8 @@ const TRACKING_ROWS = 22;
     color: #000;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.14);
     overflow: hidden;
+    transform: scale(var(--pg-scale, 1));
+    transform-origin: top left;
   }
   .fold-line {
     position: absolute;
@@ -474,11 +492,11 @@ const TRACKING_ROWS = 22;
     margin: 6px 0 6px;
   }
   .gold { color: var(--tls-gold); }
-  .panel-copy { font-size: 9.5px; line-height: 1.55; color: #374151; }
+  .panel-copy { font-size: 11px; line-height: 1.55; color: #374151; }
   .panel-section { margin-top: 14px; }
   .panel-label {
     font-family: 'DM Mono', monospace;
-    font-size: 8px;
+    font-size: 9px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: #6b7280;
@@ -499,7 +517,7 @@ const TRACKING_ROWS = 22;
   }
   .panel-list { list-style: none; }
   .panel-list li {
-    font-size: 9px;
+    font-size: 10.5px;
     line-height: 1.5;
     color: #1f2937;
     margin-bottom: 6px;
@@ -509,13 +527,13 @@ const TRACKING_ROWS = 22;
   .tier-list li { margin-bottom: 8px; }
   .tier-title {
     font-family: 'DM Mono', monospace;
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 700;
     letter-spacing: 0.3px;
     color: var(--navy);
     margin-bottom: 2px;
   }
-  .tier-copy { font-size: 9px; line-height: 1.48; color: #374151; }
+  .tier-copy { font-size: 10.5px; line-height: 1.48; color: #374151; }
   .callout-box, .surface-box {
     margin-top: 10px;
     padding: 8px 10px;
@@ -524,14 +542,14 @@ const TRACKING_ROWS = 22;
   }
   .callout-title {
     font-family: 'DM Mono', monospace;
-    font-size: 7.5px;
+    font-size: 8.5px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     color: var(--tls-gold);
     margin-bottom: 4px;
   }
   .callout-box p, .surface-box p {
-    font-size: 8.5px;
+    font-size: 10px;
     line-height: 1.45;
     color: #1f2937;
     margin-bottom: 4px;
@@ -544,7 +562,7 @@ const TRACKING_ROWS = 22;
     border-top: 1px solid rgba(0, 0, 0, 0.3);
   }
   .panel-phone { font-size: 14px; font-weight: 600; color: var(--navy); }
-  .panel-site { margin-top: 2px; font-size: 8.5px; color: #6b7280; }
+  .panel-site { margin-top: 2px; font-size: 9.5px; color: #6b7280; }
 
   .bar {
     position: absolute;
@@ -561,8 +579,8 @@ const TRACKING_ROWS = 22;
   .bar-right { left: 4.25in; }
   .bar-label {
     position: absolute;
-    font-size: 9px;
-    font-weight: 500;
+    font-size: 15px;
+    font-weight: 600;
     line-height: 1;
     color: #000;
   }
@@ -745,6 +763,8 @@ const TRACKING_ROWS = 22;
        any of that overflow/width behavior into print risked exactly
        the kind of multi-page tiling this fixes. */
     .print-preview-scroll { overflow: visible !important; width: auto !important; }
+    .print-scale-wrap { width: 8.5in !important; height: 11in !important; overflow: visible !important; }
+    .print-sheet { transform: none !important; }
     .print-sheet, .print-sheet-2 {
       box-shadow: none !important;
       margin: 0 !important;
@@ -761,6 +781,22 @@ const TRACKING_ROWS = 22;
 </style>
 
 <script>
+  // Scales the on-screen preview to fit whatever column width is actually
+  // available, so the whole sheet is visible without scrolling -- see the
+  // .print-scale-wrap/--pg-scale CSS above. Never scales UP past true
+  // size (scale is capped at 1) even in a wide column; only shrinks to
+  // fit a narrow one. Print is untouched -- @media print resets this.
+  function updatePrintScale() {
+    const scroller = document.querySelector('.print-preview-scroll');
+    if (!scroller) return;
+    const available = scroller.clientWidth;
+    const trueWidthPx = 8.5 * 96; // .print-sheet's width: 8.5in
+    const scale = Math.min(1, available / trueWidthPx);
+    document.documentElement.style.setProperty('--pg-scale', String(scale));
+  }
+  updatePrintScale();
+  window.addEventListener('resize', updatePrintScale);
+
   const printBtn = document.getElementById('printGaugeBtn');
   printBtn?.addEventListener('click', () => window.print());
 
