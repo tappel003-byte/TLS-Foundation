@@ -789,9 +789,16 @@ const schema = [
   }
 
   .methods-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    /* Single column, not a multi-column grid -- a grid's row height is
+       shared across every card in that row (default align-items:
+       stretch), so the moment one card expands, its unexpanded
+       row-mates stretch to match and show a block of dead space inside
+       their own border. That's structural to any layout that puts
+       variable-height cards side by side, not fixable by tweaking
+       alignment -- the only real fix is never sharing a row. */
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     margin-top: 8px;
   }
   .method-card {
@@ -946,9 +953,6 @@ const schema = [
       border-top: 1px solid var(--stone);
       border-bottom: 1px solid var(--stone);
       padding: 20px 0;
-    }
-    .methods-grid {
-      grid-template-columns: 1fr;
     }
   }
   @media (max-width: 480px) {
