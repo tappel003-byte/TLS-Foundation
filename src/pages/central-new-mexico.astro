@@ -386,7 +386,11 @@ const schema = [
     inset: -4%;
     background-image: url('/images/central-new-mexico-hero.webp');
     background-size: cover;
-    background-position: center 50%;
+    /* Shifted up from center 50% -- Cabezon Peak (the volcanic plug on
+       the horizon, very visible from Central NM) sits in the upper third
+       of this photo, and a centered crop was cutting off its tip and
+       showing mostly the dark foreground scrub instead. */
+    background-position: center 32%;
     animation: kenburns 20s ease-in-out infinite alternate;
   }
   @keyframes kenburns {
