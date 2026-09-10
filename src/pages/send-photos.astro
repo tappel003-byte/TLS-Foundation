@@ -583,33 +583,37 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
   .sp-back:hover { background: var(--sp-sand); }
   /* Per Tim: on the landing step there's no wizard step to go "back" to
      (see showStep()'s pageNav.hidden toggle), so this fills that same
-     header slot with a way off the page entirely instead. Styled as
-     quiet text links (matching .sp-btn-ghost below) rather than the
-     main site's bold navy/gold pills -- this page has its own lighter
-     visual language, and "Start" should stay the only strong call to
-     action on this screen. Same :not([hidden]) guard as .sp-back above
-     -- without it this would stay visible even once showStep() hides it
-     past the landing step. */
+     header slot with a way off the page entirely instead. Styled to
+     match the sitewide prev/next pills (MobilePageFlowNav.astro) --
+     navy/gold, not this page's own quieter ghost-link look -- per Tim,
+     so this reads as the same navigation pattern someone's already seen
+     on every other page rather than a one-off for this one. Same
+     :not([hidden]) guard as .sp-back above -- without it this would
+     stay visible even once showStep() hides it past the landing step. */
   .sp-pagenav:not([hidden]) {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px 16px;
+    gap: 8px 16px;
     width: 100%;
     justify-content: space-between;
   }
   .sp-pagenav-link {
+    display: inline-flex;
+    align-items: center;
+    height: 36px;
+    padding: 0 14px;
+    background: var(--sp-navy);
+    color: #fff;
+    border: 2px solid var(--sp-gold);
+    border-radius: 999px;
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
+    font-size: 10px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
-    color: var(--sp-slate);
     text-decoration: none;
-    padding: 6px 8px;
-    margin: 0 -8px;
-    border-radius: 8px;
     white-space: nowrap;
   }
-  .sp-pagenav-link:hover { background: var(--sp-sand); color: var(--sp-navy); }
+  .sp-pagenav-link:hover { background: var(--sp-gold); }
   .sp-main { flex: 1; margin-top: 8px; }
   .sp-step h1 {
     font-family: 'Playfair Display', serif;
