@@ -32,6 +32,8 @@ interface Props {
   nextPage?: { path: string; name: string };
   /** Shows the floating "Back to Services" pill, linking to that method's own card on /foundation-repair-methods#<backToServices> -- set on the 8 method pages only, value is the matching card's id (e.g. "helical-piers"). */
   backToServices?: string;
+  /** PROTOTYPE (see InlinePageFlowNav.astro): true hides the floating prev/next chevrons, for the one page trialing the inline named-link replacement. Remove this prop once/if the inline version replaces MobilePageFlowNav sitewide. */
+  hidePageFlowNav?: boolean;
 }
 
 const {
@@ -45,6 +47,7 @@ const {
   pageName,
   nextPage,
   backToServices,
+  hidePageFlowNav = false,
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImageURL = new URL(ogImage, Astro.site);
@@ -168,7 +171,7 @@ const websiteSchema = {
     </main>
     {footer === 'full' ? <Footer {...footerProps} /> : <MinimalFooter {...footerProps} />}
     <BackToTop />
-    <MobilePageFlowNav />
+    {!hidePageFlowNav && <MobilePageFlowNav />}
     {summary && <PageSummary summary={summary} pageName={pageName} nextPage={nextPage} />}
     {backToServices && <BackToServicesPill anchor={backToServices} />}
 
@@ -243,6 +246,44 @@ const websiteSchema = {
           tlsTrack(link.href.startsWith('tel:') ? 'phone_click' : 'text_click');
         },
         { capture: true }
+      );
+
+      // Scroll-depth milestones -- per Tim, before betting on "people will
+      // scroll to the bottom to find prev/next," worth actually knowing
+      // whether they do. Fires each of 25/50/75/100% once per page view
+      // (a Set guards against re-firing on scroll-up/down past the same
+      // point). 100% uses the same distance-to-bottom math as the footer
+      // fade above rather than a raw scrollHeight ratio, since short
+      // pages can round to "100% scrolled" while still 30px shy of the
+      // literal bottom.
+      const scrollMilestonesFired = new Set<number>();
+      let scrollDepthTicking = false;
+      function updateScrollDepth() {
+        const doc = document.documentElement;
+        const scrollable = doc.scrollHeight - window.innerHeight;
+        const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 100;
+        for (const milestone of [25, 50, 75]) {
+          if (pct >= milestone && !scrollMilestonesFired.has(milestone)) {
+            scrollMilestonesFired.add(milestone);
+            tlsTrack(`scroll_depth_${milestone}`);
+          }
+        }
+        const distanceToBottom = doc.scrollHeight - (window.scrollY + window.innerHeight);
+        if (distanceToBottom < 32 && !scrollMilestonesFired.has(100)) {
+          scrollMilestonesFired.add(100);
+          tlsTrack('scroll_depth_100');
+        }
+        scrollDepthTicking = false;
+      }
+      window.addEventListener(
+        'scroll',
+        () => {
+          if (!scrollDepthTicking) {
+            window.requestAnimationFrame(updateScrollDepth);
+            scrollDepthTicking = true;
+          }
+        },
+        { passive: true }
       );
     </script>
   </body>

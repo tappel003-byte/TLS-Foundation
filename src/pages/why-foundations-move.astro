@@ -9,6 +9,7 @@
 // quote + contact CTA are merged into one section instead of two stacked
 // bands.
 import Layout from '../layouts/Layout.astro';
+import InlinePageFlowNav from '../components/InlinePageFlowNav.astro';
 
 const title = 'Why Foundations Move in New Mexico — TLS Foundations';
 const summary =
@@ -68,6 +69,7 @@ const spectrum = [
   nextPage={{ path: '/cause-library', name: 'The Cause Library' }}
   footerProps={{ serviceAreaLabel: "That's a lot of ways a home can move", serviceAreaText }}
   schema={[faqSchema]}
+  hidePageFlowNav={true}
 >
   <section class="hero">
     <img class="hero-photo" src="/images/why-foundations-move-hero.webp" alt="New Mexico high desert soil formation" fetchpriority="high" />
@@ -318,6 +320,8 @@ const spectrum = [
       </div>
     </div>
   </section>
+
+  <InlinePageFlowNav currentPath="/why-foundations-move" />
 </Layout>
 
 <script>
