@@ -1,15 +1,19 @@
 ---
-// Site-wide header/nav. 5 top-level links + 5 dropdown folders (Methods,
-// City Pages, NM Soils, Reference, Interactive Tools), non-sticky,
-// background #1B3A5C, phone CTA in DM Mono gold. The former "In Depth"
-// folder (Soil & Movement, Homeowner Decision Series) was removed -- both
-// were AI-narrated re-recordings of text content that already lives
-// elsewhere on the site, not a reason to visit a whole extra page. Still
-// live on YouTube, just not embedded here.
+// Site-wide header/nav. 5 top-level links + 4 dropdown folders (City
+// Pages, NM Soils, Reference, Interactive Tools), non-sticky, background
+// #1B3A5C, phone CTA in DM Mono gold. The former "In Depth" folder (Soil
+// & Movement, Homeowner Decision Series) was removed -- both were
+// AI-narrated re-recordings of text content that already lives elsewhere
+// on the site, not a reason to visit a whole extra page. Still live on
+// YouTube, just not embedded here.
 //
-// "Methods" folder promoted from the temp "Draft (temp)" folder once the
-// 8 deep-dive pages and the -v2 Methods rewrite were done -- see git
-// history for that folder's original review-only version.
+// A "Methods" folder briefly lived here too (one link per method's page,
+// promoted from the temp "Draft (temp)" folder once the 8 method pages
+// and the -v2 Services rewrite were done) -- removed per Tim: those pages
+// were only ever meant to be reached contextually, as the "Read the full
+// technical breakdown" link under each method on /foundation-repair-methods
+// and the "Full technical breakdown" links on the matching glossary terms,
+// not as a standalone nav destination. See git history for that folder.
 import Logo from './Logo.astro';
 
 const topLevel = [
@@ -26,19 +30,6 @@ const topLevel = [
 const contactUs = { text: 'Contact Us', href: '/contact-us' };
 
 const folders = [
-  {
-    title: 'Methods',
-    items: [
-      { text: 'Helical Piers Deep Dive', href: '/helical-piers-deep-dive' },
-      { text: 'Push Piers Deep Dive', href: '/push-piers-deep-dive' },
-      { text: 'Micropiles Deep Dive', href: '/micropiles-deep-dive' },
-      { text: 'Compaction Grouting & Mud Jacking Deep Dive', href: '/compaction-grouting-deep-dive' },
-      { text: 'Foam Injection Deep Dive', href: '/foam-injection-deep-dive' },
-      { text: 'Drainage & Grading Deep Dive', href: '/drainage-correction-deep-dive' },
-      { text: 'Monitoring Deep Dive', href: '/monitoring-deep-dive' },
-      { text: 'Custom Solutions Deep Dive', href: '/custom-solutions-deep-dive' },
-    ],
-  },
   {
     title: 'City Pages',
     items: [
@@ -197,20 +188,22 @@ const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
     gap: 6px;
   }
   .site-nav {
-    /* Was flex: 1 with the list below set to justify-content: flex-end --
-       that stretched this box to fill all remaining header width and then
-       packed the (much narrower) link list against its far edge, which is
-       what actually produced the huge dead gap after the logo Tim flagged
-       (the max-width above alone wouldn't have fixed that -- the box was
-       still stretching to whatever space it had). Sized to its own
-       content instead, so the list starts right after the brand block. */
+    /* flex: 1 fills the row and justify-content: flex-end on the list
+       below packs the links against its own right edge -- restored after
+       sizing this to its own content overcorrected the other way (nav
+       clustered hard against the logo, empty header for the rest of the
+       row's width). The max-width above is what actually fixes the
+       original bug: it keeps that flex:1 box from growing past a sane
+       width on an ultra-wide monitor, which is what was producing the
+       huge dead gap after the logo in the first place. */
+    flex: 1;
     display: none;
   }
   .site-nav-list {
     list-style: none;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: flex-end;
     gap: 10px 22px;
     flex-wrap: wrap;
     width: 100%;

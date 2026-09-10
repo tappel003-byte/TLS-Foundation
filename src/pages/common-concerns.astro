@@ -378,29 +378,33 @@ const faqSchema = {
 <style>
   .hero {
     position: relative;
-    min-height: 560px;
+    /* Bumped from 560px -- this photo (portrait-ish, 1080x720) isn't
+       pre-cropped to the site's usual wide/short banner shape, so a
+       short box forces a heavy vertical crop no matter where the crop
+       window is centered. A taller box needs less of the photo's height
+       cropped away, which is what actually gets sky, rock, and trees
+       all in frame together instead of just picking one. */
+    min-height: 680px;
     display: flex;
     align-items: flex-end;
     overflow: hidden;
   }
   .hero-photo {
     position: absolute;
-    inset: -2%;
-    width: 104%;
-    height: 104%;
+    inset: -1%;
+    width: 102%;
+    height: 102%;
     object-fit: cover;
-    /* This photo (portrait-ish, 1080x720) isn't pre-cropped to the
-       hero's wide/short banner shape the way the site's other hero
-       photos are -- a plain center crop on a box this shape shows
-       almost nothing but the cliff face and sky. Shifting down trades
-       some of that sky for the grass/juniper foreground so the
-       landscape actually reads as a landscape. */
-    object-position: center 78%;
+    /* Slight downward bias so the crop takes a little more off the sky
+       (the least essential of the three) than off the trees, while still
+       leaving real sky visible above the rock -- not shifted hard toward
+       the bottom the way the first pass was. */
+    object-position: center 58%;
     animation: kenburns 20s ease-in-out infinite alternate;
   }
   @keyframes kenburns {
     0% { transform: scale(1) translate(1%, 0); }
-    100% { transform: scale(1.03) translate(-1%, 0.5%); }
+    100% { transform: scale(1.015) translate(-1%, 0.3%); }
   }
   .hero-overlay { position: absolute; inset: 0; background: rgba(13, 34, 56, 0.15); }
   .tls-hero-wrap {
