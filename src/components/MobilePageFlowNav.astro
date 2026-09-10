@@ -70,8 +70,14 @@ const next = idx >= 0 && idx < pageFlow.length - 1 ? pageFlow[idx + 1] : null;
   .tls-pagenav-btn {
     display: flex;
     align-items: center;
-    height: 40px;
-    padding: 0 16px;
+    /* Matches back-to-top's 48px circle (BackToTop.astro) and the
+       Summary pill this replaces (PageSummary.astro, also 48px) -- at
+       40px these sat with the same bottom edge but a shorter top, so
+       the taller circle stuck up above the row and broke the skyline.
+       Same height across the whole cluster keeps the row reading as one
+       clean line instead of an uneven stack. */
+    height: 48px;
+    padding: 0 18px;
     background: var(--blue);
     color: #fff;
     border: 2px solid var(--gold);
