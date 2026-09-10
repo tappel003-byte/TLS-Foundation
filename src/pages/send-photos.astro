@@ -7,14 +7,13 @@
 //   1. The "Send to TLS Foundations" button in the original prototype
 //      didn't submit anything anywhere -- it just showed a fake success
 //      screen. This version actually uploads photos and submits the lead.
-//   2. Photos upload to this site's own R2 bucket via /api/upload-photo
-//      (see worker/index.ts) instead of Lovable Cloud/Supabase. Lead
-//      details go through the same Web3Forms mechanism already wired
-//      (but not yet keyed) into contact-us.astro and crack-gauge.astro.
-// Photo upload won't actually work until R2 is enabled on the Cloudflare
-// account and the PHOTOS binding is added to wrangler.jsonc -- see the
-// TODO there. The rest of the flow (rooms, notes, contact info, the
-// Web3Forms lead) works independently of that.
+//   2. Photos upload to this site's own R2 bucket (tls-homeowner-photos,
+//      live on the Cloudflare account since 2026-09-09) via
+//      /api/upload-photo (see worker/index.ts) instead of Lovable
+//      Cloud/Supabase. Lead details go through the same Web3Forms
+//      mechanism already wired into contact-us.astro and
+//      crack-gauge.astro.
+// Confirmed working end-to-end by Tim (sent himself a real submission).
 import Layout from '../layouts/Layout.astro';
 import { pageFlow } from '../data/pageFlow';
 
