@@ -1,16 +1,24 @@
 ---
-// Floating "Back to Services" pill -- only rendered on
-// /foundation-repair-methods and the 8 method pages linked from it (via
-// Layout's `backToServices` prop). Exists because the sitewide prev/next
+// Floating "Back to Services" pill -- only rendered on the 8 method
+// pages linked from /foundation-repair-methods (via Layout's
+// `backToServices` prop). Exists because the sitewide prev/next
 // chevrons (MobilePageFlowNav) chain straight through all 8 method pages
 // in nav order, so from the middle of that chain "prev" steps to the
 // previous method page, not back to Services -- not what someone who
 // followed a "Read the full technical breakdown" link actually wants.
 // Unlike the other floating buttons this isn't scroll-gated: the need to
 // back out can hit the moment someone lands, not just after scrolling.
+//
+// `anchor` is the id of the matching card on /foundation-repair-methods
+// (e.g. "helical-piers") -- per Tim, this should land back on the actual
+// card that sent someone here, not just the top of Services.
+interface Props {
+  anchor: string;
+}
+const { anchor } = Astro.props;
 ---
 
-<a href="/foundation-repair-methods" id="tls-back-to-services" aria-label="Back to Foundation Repair Methods">
+<a href={`/foundation-repair-methods#${anchor}`} id="tls-back-to-services" aria-label="Back to Foundation Repair Methods">
   <span aria-hidden="true">←</span> Services
 </a>
 
