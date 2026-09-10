@@ -385,16 +385,22 @@ const faqSchema = {
   }
   .hero-photo {
     position: absolute;
-    inset: -4%;
-    width: 108%;
-    height: 108%;
+    inset: -2%;
+    width: 104%;
+    height: 104%;
     object-fit: cover;
-    object-position: center;
+    /* This photo (portrait-ish, 1080x720) isn't pre-cropped to the
+       hero's wide/short banner shape the way the site's other hero
+       photos are -- a plain center crop on a box this shape shows
+       almost nothing but the cliff face and sky. Shifting down trades
+       some of that sky for the grass/juniper foreground so the
+       landscape actually reads as a landscape. */
+    object-position: center 78%;
     animation: kenburns 20s ease-in-out infinite alternate;
   }
   @keyframes kenburns {
     0% { transform: scale(1) translate(1%, 0); }
-    100% { transform: scale(1.06) translate(-1%, 0.5%); }
+    100% { transform: scale(1.03) translate(-1%, 0.5%); }
   }
   .hero-overlay { position: absolute; inset: 0; background: rgba(13, 34, 56, 0.15); }
   .tls-hero-wrap {
