@@ -88,6 +88,7 @@ const spectrum = [
         <h1>Why Foundations Move in New Mexico</h1>
         <div class="subhead">And why many don't need underpinning. The ones that do, we repair.</div>
         <p>Foundations don't "fail" because they crack — they move because the soil under them changes, almost always driven by moisture. Whether that means your house needs repair depends on which of a few specific things is actually happening, and that's not something you can read off a crack. Pick a place to start below, or just keep reading.</p>
+        <p class="intro-pull">Rarely is it actually "failure." Most of what homeowners call failure is soil movement — the ground moving, not the structure losing its ability to stand.</p>
       </section>
 
       <!-- Table of Contents -- doubles as the "choose your adventure" front
@@ -114,11 +115,11 @@ const spectrum = [
           <div class="myth-card" role="button" tabindex="0" aria-label="Tap to flip for the answer">
             <div class="myth-card-inner">
               <div class="myth-front">
-                <div class="myth-title">Is it "foundation failure"?</div>
+                <div class="myth-title">Does it matter that my neighbor has cracks too?</div>
                 <span class="myth-hint">Tap to see</span>
               </div>
               <div class="myth-back">
-                <p>Rarely. Most of what homeowners call failure is soil movement — the ground moving, not the structure losing its ability to stand. "Failure" is urgency language more than an accurate description.</p>
+                <p>Not the way people assume. Soil can change character within a few feet, especially near basin edges or old fill lines — a neighbor's cause isn't proof of yours. It's a reason to look closer, not a diagnosis.</p>
               </div>
             </div>
           </div>
@@ -640,6 +641,21 @@ const spectrum = [
     font-weight: 400;
   }
   .tls-body a:hover { color: var(--gold-text); text-decoration-color: var(--blue-mid); }
+  /* The sitewide * { margin: 0 } reset zeroes out the default <p> gap --
+     without this, consecutive paragraphs in a section run flush against
+     each other with nothing but line-height between them. */
+  .tls-body p { margin-bottom: 1.25rem; }
+  .tls-body p:last-child { margin-bottom: 0; }
+  .tls-body .intro-pull {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.6vw, 26px);
+    font-style: italic;
+    color: var(--navy);
+    line-height: 1.5;
+    border-left: 4px solid var(--tls-gold);
+    padding-left: 1.5rem;
+    margin: 2rem 0 0;
+  }
   .tls-body section {
     padding: 80px 0;
     border-bottom: 1px solid var(--tls-stone);
