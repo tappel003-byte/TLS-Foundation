@@ -675,10 +675,7 @@ const foundationOptions = [
       <p class="cause-lede">
         Below are the 26 most common causes of foundation problems in New Mexico. Check what applies to your
         building and this list ranks itself — most likely for your situation first, least likely last. Each
-        is also rated on whether underpinning — permanent piers that transfer a structure's weight down to
-        deeper, stable soil — specifically is the first move, since that's a narrower question than whether
-        it's worth a call. Drainage work, grouting, leak repair, and root management are still real jobs.
-        Not a diagnosis, just information.
+        is also rated on whether <span class="term-hover">underpinning<span class="term-tip"><span class="term-tip-def">Methods used to extend or reinforce an existing foundation so loads are transferred to deeper or more stable soil.</span><a href="/glossary#underpinning" class="term-tip-link">Full glossary entry →</a></span></span> specifically is the first move, since that's a narrower question than whether it's worth a call. Drainage work, grouting, leak repair, and root management are still real jobs. Not a diagnosis, just information.
       </p>
 
       <!-- CHECK ALL THAT APPLY -->
@@ -1452,6 +1449,68 @@ const foundationOptions = [
     line-height: 1.55;
     max-width: 760px;
     margin: 40px 0 24px;
+  }
+
+  /* ── Term hover (first use of "underpinning" in the lede) --
+       same dark-box hover pattern already used on the homepage's
+       six-method grid, sized to this session's readability floor
+       (14px minimum for real reading content, not the 13px the
+       homepage tip uses) since this is explanatory text, not a
+       glanceable label. */
+  .term-hover {
+    position: relative;
+    border-bottom: 1px dotted var(--gold-text);
+    cursor: help;
+  }
+  .term-tip {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 10px;
+    background: var(--blue-dark);
+    color: white;
+    padding: 16px 18px;
+    border-radius: 8px;
+    width: 260px;
+    z-index: 1000;
+    border-top: 3px solid var(--gold);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+    white-space: normal;
+  }
+  .term-tip-def {
+    display: block;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 10px;
+  }
+  .term-tip-link {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+  }
+  .term-tip-link:hover { color: white; border-bottom-color: white; }
+  .term-hover:hover .term-tip, .term-hover:focus-within .term-tip { opacity: 1; visibility: visible; pointer-events: auto; }
+  .term-tip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 12px;
+    border: 8px solid transparent;
+    border-top-color: var(--blue-dark);
+  }
+  @media (max-width: 640px) {
+    .term-tip { width: 220px; }
   }
 
   /* ── Check-all-that-apply panel (shared with symptom-guide.astro) ── */
