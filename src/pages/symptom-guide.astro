@@ -622,8 +622,10 @@ const schema = [
 
       <!-- OUTCOME -->
       <div class="outcome-box" id="outcomeBox" hidden>
-        <span class="outcome-label">Based on what you checked</span>
-        <span class="outcome-count" id="outcomeCount" hidden></span>
+        <div class="outcome-head">
+          <span class="outcome-label">Based on what you checked</span>
+          <span class="outcome-count" id="outcomeCount" hidden></span>
+        </div>
         <p class="outcome-text" id="outcomeText"></p>
         <div class="outcome-cta">
           <a href="tel:5059914180" class="outcome-phone">(505) 991-4180</a>
@@ -1473,6 +1475,7 @@ const schema = [
 
   /* ── Outcome ── */
   .outcome-box { background: var(--blue-dark); border-radius: 12px; padding: 28px; margin-bottom: 20px; }
+  .outcome-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
   .outcome-label {
     display: block;
     font-family: 'DM Mono', monospace;
@@ -1480,15 +1483,18 @@ const schema = [
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--gold-light);
-    margin-bottom: 12px;
   }
   .outcome-count {
-    display: block;
+    display: inline-block;
+    flex-shrink: 0;
     font-family: 'Source Serif 4', serif;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--white);
-    margin-bottom: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    padding: 6px 14px;
+    white-space: nowrap;
   }
   .outcome-text { color: rgba(255, 255, 255, 0.92); font-size: 0.98rem; line-height: 1.8; margin: 0 0 16px; }
   .outcome-cta { margin-bottom: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
