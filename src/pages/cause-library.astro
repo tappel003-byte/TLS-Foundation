@@ -1123,7 +1123,7 @@ const verdictDefs: Record<string, string> = {
 
     const geotech = checked.site.includes('site-cutfill') || checked.site.includes('site-arroyo');
     const geotechClause = geotech
-      ? " Given the site conditions you noted, this is also the kind of case where we'd likely loop in our affiliate Sandia GEO for a deeper geotechnical read."
+      ? ' Given the site conditions you noted, this is also the kind of case where we\'d likely loop in our affiliate <a href="https://www.sandiageo.com" target="_blank" rel="noopener">Sandia GEO</a> for a deeper geotechnical read.'
       : '';
 
     // innerHTML, not textContent -- embeds a glossary link. Safe here:

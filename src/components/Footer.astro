@@ -25,7 +25,7 @@ const {
       New Mexico are soil problems. Expansive clay, collapsible desert soils, Mancos Shale, caliche, karst
       dissolution, and aquifer subsidence each require a different response. Getting that diagnosis wrong
       produces a worse outcome than the original condition. TLS Foundations is owner-operated, affiliated with
-      Sandia GEO for geotechnical investigation, and built around an evaluation model that has no financial
+      <a href="https://www.sandiageo.com" target="_blank" rel="noopener">Sandia GEO</a> for geotechnical investigation, and built around an evaluation model that has no financial
       interest in finding something to sell. We work across all five New Mexico geological regions — the Rio
       Grande Rift corridor, the Four Corners basin, the eastern plains, the southern desert, and the northern
       mountains. If your foundation is moving, we will tell you why. If it doesn't need repair, we will tell
@@ -79,7 +79,7 @@ const {
   <div class="footer-service-area">
     <div class="footer-cities">
       <span class="footer-col-label" style="margin-bottom:12px;">{serviceAreaLabel}</span>
-      {serviceAreaText}
+      <Fragment set:html={serviceAreaText} />
     </div>
   </div>
   <div class="footer-bottom">

@@ -87,7 +87,7 @@ const concerns: Concern[] = [
     teaser: 'A free inspection is a sales visit. An investigation isn’t.',
     tags: ['trust'],
     p: "A free inspection is a sales call. An engineer's investigation is independent of repair sales. If you're making a larger financial decision, an independent assessment matters.",
-    nmNote: 'Our affiliate Sandia GEO does geotechnical investigation separate from repair sales — investigation revenue is intentionally separate.',
+    nmNote: 'Our affiliate <a href="https://www.sandiageo.com" target="_blank" rel="noopener">Sandia GEO</a> does geotechnical investigation separate from repair sales — investigation revenue is intentionally separate.',
     industryNote: "The person inspecting your home for a free inspection is compensated to sell repairs. That's the business model — not a criticism, just a fact worth understanding before you make a large financial decision.",
     primaryLinks: [{ href: '/our-approach', text: "Why NM's Different →" }, { href: '/contact-us', text: 'Contact Sandia GEO →' }],
     relatedTerms: [{ href: '/glossary#geotechnical-investigation', text: 'Geotechnical investigation' }, { href: '/glossary#structural-engineer', text: 'Structural engineer' }, { href: '/glossary#free-inspection', text: 'Free inspection' }, { href: '/glossary#conflict-of-interest', text: 'Conflict of interest' }],
@@ -349,7 +349,7 @@ const faqSchema = {
                 <div class="concern-body">
                   <div class="concern-body-inner">
                     <p>{c.p}</p>
-                    <div class="nm-note">NM context: {c.nmNote}</div>
+                    <div class="nm-note" set:html={`NM context: ${c.nmNote}`} />
                     <div class="industry-note">{c.industryNote}</div>
                     <div class="card-links">
                       {c.primaryLinks.length > 0 && (
