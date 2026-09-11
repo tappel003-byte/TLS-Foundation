@@ -87,23 +87,24 @@ const spectrum = [
         <span class="eyebrow">TLS Foundations Reference</span>
         <h1>Why Foundations Move in New Mexico</h1>
         <div class="subhead">And why many don't need underpinning. The ones that do, we repair.</div>
-        <p>Foundations don't "fail" because they crack. They move and crack because the soil supporting them changes. In New Mexico, that change is almost always driven by moisture — too much in one place, not enough in another, or introduced where the ground never expected it.</p>
-        <p>Underpinning is one possible response to foundation movement. It is not always the right one. Many homes in New Mexico show signs of movement that can be managed without structural intervention — through drainage correction, leak repair, or simply monitoring over time.</p>
-        <p>This page explains the full range of reasons foundations move, when underpinning is the appropriate response, and when it isn't. It is written for homeowners who want honest answers and for the engineers who serve them.</p>
-        <p>It is not a diagnostic tool. It does not replace professional evaluation. It gives you the vocabulary to ask better questions — and to recognize when the answers you're getting don't add up.</p>
+        <p>Foundations don't "fail" because they crack — they move because the soil under them changes, almost always driven by moisture. Whether that means your house needs repair depends on which of a few specific things is actually happening, and that's not something you can read off a crack. Pick a place to start below, or just keep reading.</p>
       </section>
 
-      <!-- Table of Contents (static) -->
+      <!-- Table of Contents -- doubles as the "choose your adventure" front
+           door: a one-line description per section, not a bare link list,
+           so picking where to start is an informed choice instead of a
+           guess at what the label means. -->
       <div class="toc" id="table-of-contents">
         <h2>On this page</h2>
         <ul>
-          <li><a href="#quick-answers">Quick Answers</a></li>
-          <li><a href="#first-principle">First Principle</a></li>
-          <li><a href="#symptom-matrix">Symptom Matrix</a></li>
-          <li><a href="#when-not">When Underpinning Isn't the Answer</a></li>
-          <li><a href="#industry-gaps">What the Industry Gets Wrong</a></li>
-          <li><a href="#spectrum">Intervention Spectrum</a></li>
-          <li><a href="#prevention">Prevention & Maintenance</a></li>
+          <li><a href="#quick-answers"><span class="toc-link-title">Quick Answers</span><span class="toc-link-desc">Four things people ask before reading anything else</span></a></li>
+          <li><a href="#first-principle"><span class="toc-link-title">First Principle</span><span class="toc-link-desc">The one idea behind every cause on this page</span></a></li>
+          <li><a href="#symptom-matrix"><span class="toc-link-title">Symptom Matrix</span><span class="toc-link-desc">What you're seeing, mapped to what's likely happening</span></a></li>
+          <li><a href="#when-not"><span class="toc-link-title">When Underpinning Isn't the Answer</span><span class="toc-link-desc">The section most contractors don't publish</span></a></li>
+          <li><a href="#industry-gaps"><span class="toc-link-title">What the Industry Gets Wrong</span><span class="toc-link-desc">Ten things the industry doesn't say out loud</span></a></li>
+          <li><a href="#spectrum"><span class="toc-link-title">Intervention Spectrum</span><span class="toc-link-desc">Underpinning is the last step, not the first</span></a></li>
+          <li><a href="#evaluation"><span class="toc-link-title">Why Evaluation Comes First</span><span class="toc-link-desc">What a real investigation actually involves</span></a></li>
+          <li><a href="#prevention"><span class="toc-link-title">Prevention & Maintenance</span><span class="toc-link-desc">What keeps you off this page entirely</span></a></li>
         </ul>
       </div>
 
@@ -271,7 +272,7 @@ const spectrum = [
       </section>
 
       <!-- SECTION 8 -->
-      <section>
+      <section id="evaluation">
         <h2>Why Evaluation Comes First</h2>
         <p>No reliable repair recommendation can be made from symptoms alone. Cracks, tilting, sticking doors can be caused by a dozen different mechanisms.</p>
         <p>A proper evaluation includes site history, elevation surveys, soil borings, moisture source identification (including sewer camera), and structural analysis. It's the only honest path to a solution that actually solves the problem.</p>
@@ -306,6 +307,7 @@ const spectrum = [
       <p class="close-pull">Every foundation is different. Yours needs its own answer.</p>
       <div class="close-divider"></div>
       <p class="close-sub">Text or call — you reach the owner(s).</p>
+      <p class="close-note">This page is reference, not a diagnosis — for that, start with the <a href="/symptom-guide">Symptom Guide</a> or just call.</p>
       <div class="close-options">
         <a href="sms:5059914180" class="close-option">
           <span class="close-option-label">Text</span>
@@ -463,8 +465,15 @@ const spectrum = [
     font-weight: 300;
     font-style: italic;
     color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 16px;
+  }
+  .close-note {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
     margin-bottom: 40px;
   }
+  .close-note a { color: rgba(255, 255, 255, 0.7); text-decoration-color: var(--gold); }
+  .close-note a:hover { color: #fff; }
   .close-options {
     display: flex;
     justify-content: center;
@@ -664,17 +673,40 @@ const spectrum = [
     text-transform: uppercase;
     letter-spacing: 2px;
   }
-  .tls-body .toc ul { display: flex; flex-wrap: wrap; gap: 0.75rem 1.5rem; list-style: none; margin: 0; }
+  .tls-body .toc ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem 1.5rem;
+    list-style: none;
+    margin: 0;
+  }
   .tls-body .toc li { margin: 0; }
   .tls-body .toc a {
+    display: block;
+    text-decoration: none;
+    padding: 0.6rem 0.75rem;
+    border-radius: 4px;
+    border-left: 2px solid transparent;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .tls-body .toc a:hover, .tls-body .toc a.active { background: rgba(255, 255, 255, 0.6); border-left-color: var(--gold-text); }
+  .tls-body .toc-link-title {
+    display: block;
     font-family: 'DM Mono', monospace;
     font-size: 13px;
-    text-decoration: none;
     color: var(--navy);
-    display: inline-block;
-    padding: 0.2rem 0;
   }
-  .tls-body .toc a.active { color: var(--gold-text); border-bottom: 1px solid var(--gold-text); }
+  .tls-body .toc a.active .toc-link-title { color: var(--gold-text); }
+  .tls-body .toc-link-desc {
+    display: block;
+    font-family: 'Source Serif 4', serif;
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+  @media (max-width: 640px) {
+    .tls-body .toc ul { grid-template-columns: 1fr; }
+  }
   .tls-body .symptom-matrix-wrap { margin: 2rem 0; }
   .tls-body .symptom-row {
     display: grid;
