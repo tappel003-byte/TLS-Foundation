@@ -530,7 +530,7 @@ const schema = [
             <p class="facet-panel-sub">This describes common patterns, not an evaluation of your home — the safest step, if you're ever unsure, is to have someone look.</p>
             <p class="facet-panel-note">Same checklist on the <a href="/cause-library" id="crossToolLink">Cause Library</a> — check it once and we'll carry your answers over, either direction.</p>
           </div>
-          <button type="button" id="facetClearTop" class="facet-clear facet-clear-top" hidden>Clear all</button>
+          <button type="button" id="facetClearTop" class="facet-clear facet-clear-top">Clear all</button>
         </div>
 
         <fieldset class="facet-group">
@@ -616,7 +616,7 @@ const schema = [
         </fieldset>
 
         <div class="facet-actions">
-          <button type="button" id="facetClear" class="facet-clear" hidden>Clear all</button>
+          <button type="button" id="facetClear" class="facet-clear">Clear all</button>
         </div>
       </div>
 
@@ -1103,7 +1103,6 @@ const schema = [
       localStorage.setItem(FACET_STORAGE_KEY, JSON.stringify(checked));
     } catch {}
     const anyChecked = checked.onset.length + checked.see.length + checked.site.length + checked.foundation.length > 0;
-    clearBtns.forEach((btn) => (btn.hidden = !anyChecked));
 
     const scored = items.map((it) => ({ it, s: anyChecked ? score(it, checked) : 0 }));
     scored.sort((a, b) => (anyChecked ? b.s - a.s || a.it.originalIndex - b.it.originalIndex : a.it.originalIndex - b.it.originalIndex));
