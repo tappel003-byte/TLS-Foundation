@@ -258,7 +258,7 @@ const spectrum = [
            example instead of five inert static boxes) -->
       <section id="spectrum">
         <h2>The Intervention Spectrum</h2>
-        <p>Not every response to movement is underpinning. Click a step to see what actually lands there.</p>
+        <p>Not every response to movement is <span class="term-hover">underpinning<span class="term-tip"><span class="term-tip-def">Methods used to extend or reinforce an existing foundation so loads are transferred to deeper or more stable soil.</span><a href="/glossary#underpinning" class="term-tip-link">Full glossary entry →</a></span></span>. Click a step to see what actually lands there.</p>
         <div class="spectrum" id="spectrumTrack">
           {spectrum.map((s, i) => (
             <button class="spectrum-step" data-step={i} aria-expanded="false">
@@ -886,4 +886,62 @@ const spectrum = [
   .tls-body .soft-cta p { margin-bottom: 0; font-size: 20px; font-family: 'Playfair Display', serif; color: var(--navy); }
   .tls-body ul, .tls-body ol { margin: 1rem 0 1rem 2rem; }
   .tls-body li { margin-bottom: 0.5rem; }
+
+  /* Same hover-tooltip pattern as Cause Library's "underpinning" definition
+     -- this page uses the term dozens of times without ever defining it. */
+  .term-hover {
+    position: relative;
+    border-bottom: 1px dotted var(--gold-text);
+    cursor: help;
+  }
+  .term-tip {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    margin-bottom: 10px;
+    background: var(--blue-dark);
+    color: white;
+    padding: 16px 18px;
+    border-radius: 8px;
+    width: 260px;
+    z-index: 1000;
+    border-top: 3px solid var(--gold);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+    white-space: normal;
+  }
+  .term-tip-def {
+    display: block;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 10px;
+  }
+  .term-tip-link {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    text-decoration: none;
+    border-bottom: 1px solid var(--gold);
+    padding-bottom: 2px;
+  }
+  .term-tip-link:hover { color: white; border-bottom-color: white; }
+  .term-hover:hover .term-tip, .term-hover:focus-within .term-tip { opacity: 1; visibility: visible; pointer-events: auto; }
+  .term-tip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 12px;
+    border: 8px solid transparent;
+    border-top-color: var(--blue-dark);
+  }
+  @media (max-width: 640px) {
+    .term-tip { width: 220px; }
+  }
 </style>
