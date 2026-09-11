@@ -672,6 +672,11 @@ const spectrum = [
     color: var(--gold-text);
     text-transform: uppercase;
     letter-spacing: 2px;
+    /* Undoes the generic .tls-body h2 rule's own gold left border --
+       the .toc box already has one on its outer edge; without this,
+       the h2 quietly inherits a second one right next to it. */
+    border-left: none;
+    padding-left: 0;
   }
   .tls-body .toc ul {
     display: grid;
