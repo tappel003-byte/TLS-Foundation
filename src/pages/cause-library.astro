@@ -1110,7 +1110,7 @@ const foundationOptions = [
 
     const geotech = checked.site.includes('site-cutfill') || checked.site.includes('site-arroyo');
     const geotechClause = geotech
-      ? ' Given the site conditions you noted, this is also the kind of case where we\'d likely loop in our affiliate <a href="https://www.sandiageo.com" target="_blank" rel="noopener">Sandia GEO</a> for a deeper geotechnical read.'
+      ? ' Given the site conditions you noted, this is also the kind of case where we\'d likely loop in our affiliate <a href="https://www.sandiageo.com" target="_blank" rel="noopener">SandiaGEO</a> for a deeper geotechnical read.'
       : '';
 
     // Same calibration as Symptom Guide's urgencyTier (sudden onset +
@@ -1626,6 +1626,12 @@ const foundationOptions = [
    */
   :global(.outcome-text .glossary-link) { color: var(--white); text-decoration: underline; text-decoration-style: dotted; text-decoration-color: var(--gold); }
   :global(.outcome-text .glossary-link:hover) { color: var(--gold-light); }
+  /* The SandiaGEO mention in geotechClause is a plain, unclassed <a> --
+     same injected-HTML issue as above, so without this it renders as
+     unstyled (and on this dark background, nearly unreadable) browser-
+     default link blue. Plain underlined text, same color as the
+     surrounding copy, not a distinct link color. */
+  :global(.outcome-text a:not(.glossary-link)) { color: inherit; text-decoration: underline; }
   .outcome-cta { margin-bottom: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .outcome-phone { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); text-decoration: none; border-bottom: 1px solid var(--gold); }
   .outcome-print {

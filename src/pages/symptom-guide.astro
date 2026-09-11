@@ -623,6 +623,7 @@ const schema = [
       <!-- OUTCOME -->
       <div class="outcome-box" id="outcomeBox" hidden>
         <span class="outcome-label">Based on what you checked</span>
+        <span class="outcome-count" id="outcomeCount" hidden></span>
         <p class="outcome-text" id="outcomeText"></p>
         <div class="outcome-cta">
           <a href="tel:5059914180" class="outcome-phone">(505) 991-4180</a>
@@ -877,7 +878,9 @@ const schema = [
   const checkboxes = Array.from(document.querySelectorAll<HTMLInputElement>('.facet-panel input[type="checkbox"], .facet-panel input[type="radio"]'));
   const clearBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.facet-clear'));
   const outcomeBox = document.getElementById('outcomeBox') as HTMLElement;
+  const outcomeCount = document.getElementById('outcomeCount') as HTMLElement;
   const outcomeText = document.getElementById('outcomeText') as HTMLElement;
+  const seeTotal = document.querySelectorAll('input[name="see"]').length;
   const outcomePill = document.getElementById('outcomePill') as HTMLAnchorElement;
   const crossToolLink = document.getElementById('crossToolLink') as HTMLAnchorElement;
   const relatedReading = document.getElementById('relatedReading') as HTMLElement;
@@ -999,11 +1002,21 @@ const schema = [
       outcomeBox.hidden = true;
       return;
     }
+    // A plain, honest tally -- how many of the listed symptoms they
+    // checked, out of how many are listed -- not a fabricated confidence
+    // percentage. More boxes checked is a real signal worth naming, but
+    // this tool has no basis for claiming a specific statistical odds.
+    if (checked.see.length > 0) {
+      outcomeCount.hidden = false;
+      outcomeCount.textContent = `${checked.see.length} of ${seeTotal} things you're seeing checked`;
+    } else {
+      outcomeCount.hidden = true;
+    }
     outcomeBox.hidden = false;
     const pattern = buildPattern(checked);
     const geotech = checked.site.includes('site-cutfill') || checked.site.includes('site-arroyo');
     const geotechClause = geotech
-      ? ' If the site conditions point toward a deeper geotechnical question, we can loop in our affiliate <a href="https://www.sandiageo.com" target="_blank" rel="noopener">Sandia GEO</a> as well.'
+      ? ' If the site conditions point toward a deeper geotechnical question, we can loop in our affiliate <a href="https://www.sandiageo.com" target="_blank" rel="noopener">SandiaGEO</a> as well.'
       : '';
     // Symptom Guide's whole reason to exist is calibrating worry -- someone
     // just noticed something and wants to know if it's a big deal. So the
@@ -1469,6 +1482,14 @@ const schema = [
     color: var(--gold-light);
     margin-bottom: 12px;
   }
+  .outcome-count {
+    display: block;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
   .outcome-text { color: rgba(255, 255, 255, 0.92); font-size: 0.98rem; line-height: 1.8; margin: 0 0 16px; }
   .outcome-cta { margin-bottom: 20px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .outcome-phone { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); text-decoration: none; border-bottom: 1px solid var(--gold); }
@@ -1748,6 +1769,12 @@ const schema = [
     text-underline-offset: 2px;
   }
   :global(.outcome-text .glossary-link:hover) { color: var(--gold-text); }
+  /* The SandiaGEO mention in geotechClause is a plain, unclassed <a> --
+     same injected-HTML issue as above, so without this it renders as
+     unstyled (and on this dark background, nearly unreadable) browser-
+     default link blue. Plain underlined text, same color as the
+     surrounding copy, not a distinct link color. */
+  :global(.outcome-text a:not(.glossary-link)) { color: inherit; text-decoration: underline; }
 
   .contact-footer { margin-top: 20px; text-align: center; padding: 32px; background: var(--sand); border-left: 4px solid var(--gold); }
   .contact-footer p { margin-bottom: 8px; font-size: 0.9rem; color: var(--slate); }
