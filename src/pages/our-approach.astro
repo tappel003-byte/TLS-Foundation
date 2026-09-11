@@ -93,8 +93,7 @@ const schema = [
         <span class="eyebrow">The place</span>
         <h2 class="section-headline">New Mexico is not just a place. It's an attitude.</h2>
         <p class="body-p">The ground reflects that — unpredictable, independent, not interested in behaving the way people expect. <strong>Neither are most New Mexicans. Neither is the way we approach foundation work.</strong></p>
-        <p class="body-p">TLS Foundations was built here, by people who chose to be here, who have spent their working lives learning this specific place — its geology, its climate, its construction history, its communities, its particular combination of landscape and culture that produces a ground condition unlike anywhere else in the country.</p>
-        <p class="body-p">That is not a marketing statement. It is the operational reality that determines every evaluation we do, every recommendation we make, and every method we apply. You cannot fake 25 years of New Mexico field work. You cannot acquire it. You cannot download it. It accumulates the same way the miles accumulate — one site visit at a time, across every formation in the state, until the ground stops surprising you.</p>
+        <p class="body-p">TLS Foundations was built here, by people who chose to be here and spent their working lives learning this specific place — its geology, its climate, its construction history, its communities. That's not a marketing statement; you cannot fake 25 years of New Mexico field work, and it determines every evaluation we do, every recommendation we make, and every method we apply.</p>
         <div class="pull">
           <p>Thirty-three counties. Different soils, different structures, different green chile cheeseburger arguments. We know them all. This is the Land of Entrapment — and we are not leaving.</p>
         </div>
@@ -133,23 +132,23 @@ const schema = [
         <div class="stepper-rail" role="tablist">
           <button class="step-btn active" data-step="ground" role="tab" aria-selected="true">
             <span class="step-num">01</span>
-            <span class="step-label">The ground</span>
+            <span class="step-label-group"><span class="step-label">The ground</span><span class="step-desc">Why NM's soil variation breaks a national playbook</span></span>
           </button>
           <button class="step-btn" data-step="knowledge" role="tab" aria-selected="false">
             <span class="step-num">02</span>
-            <span class="step-label">The knowledge</span>
+            <span class="step-label-group"><span class="step-label">The knowledge</span><span class="step-desc">Why regional experience can't be shortcut or onboarded</span></span>
           </button>
           <button class="step-btn" data-step="toolkit" role="tab" aria-selected="false">
             <span class="step-num">03</span>
-            <span class="step-label">The toolkit</span>
+            <span class="step-label-group"><span class="step-label">The toolkit</span><span class="step-desc">Same tools as everyone else — different order of operations</span></span>
           </button>
           <button class="step-btn" data-step="investigation" role="tab" aria-selected="false">
             <span class="step-num">04</span>
-            <span class="step-label">The investigation</span>
+            <span class="step-label-group"><span class="step-label">The investigation</span><span class="step-desc">What a real geotechnical investigation actually is</span></span>
           </button>
           <button class="step-btn" data-step="rising-tide" role="tab" aria-selected="false">
             <span class="step-num">05</span>
-            <span class="step-label">The competition</span>
+            <span class="step-label-group"><span class="step-label">The competition</span><span class="step-desc">Does teaching competitors this worry us? No.</span></span>
           </button>
         </div>
 
@@ -503,20 +502,21 @@ const schema = [
   .stepper-inner { max-width: var(--col-wide); margin: 0 auto; }
   .stepper-header { max-width: var(--col); margin-bottom: 48px; }
   .stepper-rail {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 10px;
     margin-bottom: 48px;
   }
   .step-btn {
     display: flex;
-    align-items: center;
-    gap: 10px;
+    align-items: flex-start;
+    gap: 12px;
     background: var(--sand);
     border: 1.5px solid var(--stone);
-    border-radius: 999px;
-    padding: 10px 20px 10px 14px;
+    border-radius: 8px;
+    padding: 14px 16px;
     cursor: pointer;
+    text-align: left;
     transition: all 0.2s;
   }
   .step-btn:hover { border-color: var(--gold); }
@@ -534,14 +534,23 @@ const schema = [
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    margin-top: 1px;
   }
   .step-btn.active .step-num { background: rgba(255, 255, 255, 0.18); color: #fff; }
+  .step-label-group { display: flex; flex-direction: column; gap: 3px; }
   .step-label {
     font-family: 'Source Serif 4', serif;
     font-size: 14px;
     color: var(--blue);
   }
   .step-btn.active .step-label { color: #fff; }
+  .step-desc {
+    font-family: 'Source Serif 4', serif;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.4;
+  }
+  .step-btn.active .step-desc { color: rgba(255, 255, 255, 0.65); }
 
   .stepper-panels { max-width: var(--col); }
   .step-panel { display: none; animation: stepFadeIn 0.35s ease; }
@@ -585,9 +594,10 @@ const schema = [
     margin-left: auto;
   }
   @media (max-width: 640px) {
-    .stepper-rail { gap: 8px; }
-    .step-btn { padding: 8px 14px 8px 10px; }
+    .stepper-rail { grid-template-columns: 1fr; gap: 8px; }
+    .step-btn { padding: 10px 14px; }
     .step-label { font-size: 13px; }
+    .step-desc { font-size: 12px; }
     .step-nav-btn { font-size: 11px; }
   }
 
