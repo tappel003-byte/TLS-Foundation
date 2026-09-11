@@ -49,7 +49,6 @@ const description =
 interface Cause {
   code: string;
   name: string;
-  verdict: string;
   verdictClass: 'verdict-strong' | 'verdict-conditional' | 'verdict-weak';
   what: string;
   where?: string;
@@ -91,12 +90,11 @@ const groups: Group[] = [
       {
         code: 'A1',
         name: 'Collapsible Soils',
-        verdict: 'Yes',
         verdictClass: 'verdict-strong',
         anchorId: 'collapsible-soils',
         what: 'Some New Mexico soils have a loose, open structure — almost like a honeycomb — held together by weak bonds that dissolve when water reaches them. These soils can support a house for decades while they stay dry. When water is introduced from any source — a leak, irrigation, a storm — the bonds break and the soil drops. Settlement can be sudden and dramatic.',
         where: 'Extremely common statewide, particularly on valley margins, alluvial fan deposits, and mesa edges where development has moved from irrigated valley floors onto previously dry higher ground.',
-        underpinning: 'Yes — once collapse has occurred, the soil structure is permanently altered. Piers driven through the collapsed zone to stable material below are the standard response. But the water source must be found and controlled first, or collapse will continue in untreated areas.',
+        underpinning: 'Once collapse has occurred, the soil structure is permanently altered — piers driven through the collapsed zone to stable material below are the standard response. But the water source must be found and controlled first, or collapse will continue in untreated areas.',
         missed: "This is routinely misdiagnosed as 'normal settling' or blamed on poor compaction. The mechanism is fundamentally different — it is not gradual compression under weight, it is a sudden collapse of the soil structure, triggered by water. This is arguably the most underappreciated foundation hazard in New Mexico.",
         homeownerAction: "If there's an obvious water source near the affected area — a leak, a downspout, an irrigation line — get it corrected right away. That's what's actively driving the collapse; repairing the settlement itself is a piering job, but stopping the water is something you can do today.",
         related: [
@@ -111,11 +109,10 @@ const groups: Group[] = [
       {
         code: 'A2',
         name: 'Poorly Compacted Fill',
-        verdict: 'Yes',
         verdictClass: 'verdict-strong',
         what: "When a building site is graded, excavated material is used as fill to create a level pad. If this fill isn't properly compacted in controlled lifts, it compresses under the weight of the structure over time. Settlement is typically uneven because fill thickness varies across the site. Some fill contains debris, construction waste, or organic material that decomposes and creates voids.",
         where: 'Everywhere homes are built, but especially on hillside lots, subdivisions cut into mesas, sites where arroyos or drainages were filled, and rapid-growth developments.',
-        underpinning: 'Yes. The fill will not improve on its own. Piers through the fill to competent native soil or bedrock are the standard solution.',
+        underpinning: 'The fill will not improve on its own — piers through the fill to competent native soil or bedrock are the standard solution.',
         missed: "Without as-built records, it's difficult to know fill is present without investigation. The homeowner typically has no idea their lot was filled. Contractors often label this 'natural settlement' without checking.",
         onset: ['gradual'],
         see: ['see-floors', 'see-foundation-cracks'],
@@ -125,11 +122,10 @@ const groups: Group[] = [
       {
         code: 'A3',
         name: 'Cut-and-Fill Transition Movement',
-        verdict: 'Often',
         verdictClass: 'verdict-strong',
         what: "Houses built into hillsides often sit partly on undisturbed cut soil and partly on compressible fill. These two portions bear on fundamentally different materials. The fill side settles; the cut side doesn't. Differential movement is virtually guaranteed.",
         where: 'Foothills developments, Santa Fe hillsides, East Mountains, any area where lots were created by grading into slopes.',
-        underpinning: 'Often yes, especially when fill is deep. The fill side will typically require deeper piers than the cut side.',
+        underpinning: 'Especially when fill is deep, the fill side will typically require deeper piers than the cut side to reach the same stable support the cut side already has.',
         homeownerAction: "Check whether gutters and downspouts on the fill side of the house are actually directing water away from it — extra moisture concentrating there accelerates the very differential movement this cause describes, even though fixing the movement itself is a piering job.",
         related: [{ text: 'Glossary: Cut-and-Fill Construction →', href: '/glossary#cut-and-fill', blurb: 'The construction technique itself, and why it makes differential settlement almost guaranteed.' }],
         onset: ['gradual'],
@@ -140,11 +136,10 @@ const groups: Group[] = [
       {
         code: 'A4',
         name: 'Landfill and Undocumented Fill Sites',
-        verdict: 'Depends',
         verdictClass: 'verdict-conditional',
         what: 'Homes built on or near former landfill sites face ongoing settlement as buried waste decomposes, compresses, and creates voids. Gas migration from decomposition can also affect soil chemistry and moisture patterns. Older landfills may not appear on any map the homeowner has access to.',
         where: 'Scattered across the state. Municipal records may or may not document former disposal sites, particularly informal ones from earlier decades.',
-        underpinning: 'Depends on depth and extent. Deep piers to stable material below the fill may work for localized settlement. Widespread active decomposition may make the site unsuitable for standard residential repair.',
+        underpinning: 'Depth and extent decide it. Deep piers to stable material below the fill may work for localized settlement, but widespread active decomposition may make the site unsuitable for standard residential repair.',
         missed: 'Homeowners often have no idea their property sits on or near a former landfill. Investigation is the only way to identify it.',
         related: [{ text: 'Glossary: Organic Decomposition →', href: '/glossary#organic-decomposition', blurb: 'Settlement caused by buried vegetation decomposing over time, creating voids — the same mechanism at work here.' }],
         onset: ['gradual'],
@@ -155,11 +150,10 @@ const groups: Group[] = [
       {
         code: 'A5',
         name: 'Subsurface Erosion and Soil Piping',
-        verdict: 'Depends',
         verdictClass: 'verdict-conditional',
         what: "Water moving through erodible soils creates underground channels that carry soil particles away — water washing tunnels through the soil — forming voids beneath foundations. In New Mexico's climate of long dry periods interrupted by intense monsoon rainfall, this process can accelerate dramatically during storm events.",
         where: 'Common in dispersive soils (sodium-rich clays), fine-grained alluvial deposits, and loess. Rio Grande Valley and statewide.',
-        underpinning: 'Depends. Void filling may be the first priority. The water pathway must be interrupted. Underpinning alone does not solve subsurface erosion.',
+        underpinning: 'Void filling is often the first priority, and the water pathway has to be interrupted either way — underpinning alone does not solve subsurface erosion.',
         missed: 'Invisible until it manifests as sudden settlement or sinkhole-like depressions. Rarely considered in standard repair evaluations.',
         related: [{ text: 'Glossary: Soil Piping →', href: '/glossary#soil-piping', blurb: 'Erosion of soil particles by concentrated water flow through subsurface channels, forming pipe-like voids.' }],
         onset: ['sudden'],
@@ -170,11 +164,10 @@ const groups: Group[] = [
       {
         code: 'A6',
         name: 'Consolidation of Deep Alluvium',
-        verdict: 'Sometimes',
         verdictClass: 'verdict-conditional',
         what: 'Naturally deposited soft clays and silts compress under the weight of a structure over time. This is a load-driven process — the soil is squeezing water from its pore spaces under sustained pressure. Settlement can continue for years after construction but typically slows over time.',
         where: 'Rio Grande floodplain, major tributary floodplains, and ancient lake bed deposits in closed basins.',
-        underpinning: 'Yes, if the settlement is differential and exceeds structural tolerance. If uniform and within tolerance, monitoring is more appropriate.',
+        underpinning: 'If the settlement is differential and exceeds structural tolerance, underpinning is the answer. If it\'s uniform and within tolerance, monitoring is more appropriate.',
         missed: "Confused with other settlement types. The distinguishing feature: it's predictable, load-related, and decelerates over time.",
         related: [{ text: 'Glossary: Alluvial Soils →', href: '/glossary#alluvial-soils', blurb: 'Sediment deposited by moving water — composition varies with position relative to where it was deposited.' }],
         onset: ['gradual'],
@@ -185,10 +178,9 @@ const groups: Group[] = [
       {
         code: 'A7',
         name: 'Bearing Failure from Load Changes',
-        verdict: 'Often',
         verdictClass: 'verdict-strong',
         what: 'Additions, second stories, remodels that remove load-bearing walls, or changes that concentrate weight in new locations can exceed what the original soil and foundation were designed to support.',
-        underpinning: 'Often yes — the foundation needs deeper or broader support to handle the new loads.',
+        underpinning: 'The foundation typically needs deeper or broader support to handle the new loads that weren\'t part of the original design.',
         missed: "Blamed on 'bad soil' when the real issue is a load change the original design didn't anticipate.",
         related: [{ text: 'Glossary: Bearing Capacity →', href: '/glossary#bearing-capacity', blurb: 'The ability of soil or rock to support the load placed on it without failing or compressing excessively.' }],
         onset: ['gradual'],
@@ -207,12 +199,11 @@ const groups: Group[] = [
       {
         code: 'B1',
         name: 'Expansive Clay Soils (incl. Mancos Shale, Sulfate Heave, Caliche)',
-        verdict: 'Sometimes',
         verdictClass: 'verdict-conditional',
         anchorId: 'expansive-clay',
         what: 'Clay minerals that swell when wet, shrink when dry. Cyclical movement. Damage comes from repeated cycles over years. In New Mexico, these clays often come from specific geological formations that make them particularly reactive.',
         where: 'Statewide; severe in Rio Grande Valley, San Juan Basin, areas underlain by weathered Cretaceous shales. Caliche is common on alluvial fans and piedmont slopes.',
-        underpinning: 'Sometimes — when differential movement has caused structural distress that moisture control cannot reverse. But many expansive clay cases are better addressed first through drainage correction, irrigation management, and stabilizing the moisture envelope around the foundation. Underpinning without addressing moisture treats the symptom, not the cause.',
+        underpinning: 'When differential movement has caused structural distress that moisture control cannot reverse, underpinning is the answer. But many expansive clay cases are better addressed first through drainage correction, irrigation management, and stabilizing the moisture envelope around the foundation — underpinning without addressing moisture treats the symptom, not the cause.',
         missed: 'Heave is frequently misread as settlement. Homeowners see cracks and think their house is sinking when part of it is actually being pushed up. Underpinning a heaving foundation does not fix the problem — it fights the earth. The honest first step is almost always to evaluate and manage the moisture before reaching for piers.',
         homeownerAction: "Keep the moisture around your foundation as steady as you can — fix drainage issues, keep irrigation off the foundation, and avoid letting the perimeter soil swing between soaked and bone dry. That's the one piece of this that's genuinely in your control.",
         regional: 'In the San Juan Basin, Mancos Shale weathers into highly expansive clay that can be more severe than typical expansive soils; this weathered zone can extend many feet below grade, and the boundary between weathered and stable material is not uniform. In areas with Permian evaporites or gypsiferous soils, sulfate heave can occur — a chemical reaction between calcium stabilizers and sulfate-bearing soils that creates progressive, irreversible heave that does not reverse with drying. Caliche — a hard calcium carbonate layer, sometimes called hardpan — can provide false bearing if fractured or sitting on unstable material.',
@@ -237,7 +228,6 @@ const groups: Group[] = [
       {
         code: 'C1',
         name: 'Plumbing and Sewer Leaks Beneath Slab',
-        verdict: 'Not yet',
         verdictClass: 'verdict-weak',
         anchorId: 'plumbing-leaks',
         what: "Often the most common reason a New Mexico home ends up needing foundation repair. Leaks from supply, sewer, or drains saturate soil, causing heave, collapse, or erosion. Sewer leaks are especially insidious — they are deep, persistent, and often go undetected for years. Fix the leak first, then have the foundation inspected for movement — don't skip the second step.",
@@ -257,10 +247,9 @@ const groups: Group[] = [
       {
         code: 'C2',
         name: 'Poor Surface Drainage & Concentrated Runoff',
-        verdict: 'Rarely',
         verdictClass: 'verdict-weak',
         what: 'Water ponds against foundation due to improper grading, missing gutters, short downspouts, or hardscape directing runoff toward the building.',
-        underpinning: "Rarely the first move, but that doesn't mean there's nothing to do. Drainage correction is a real repair — left uncorrected for years, poor drainage is a genuine path to lasting foundation movement.",
+        underpinning: "Drainage correction is usually the actual repair here, not underpinning — and it's a real fix, not a placeholder. Left uncorrected for years, poor drainage is a genuine path to lasting foundation movement.",
         missed: 'This is the single most controllable factor in foundation performance, and the easiest one to let slide until the damage is already done.',
         homeownerAction: 'After the next rain, walk the perimeter and look for water pooling against the foundation, missing gutters, or downspouts dumping right at the wall — extend them out and regrade if the ground slopes toward the house.',
         related: [{ text: 'Glossary: Drainage Correction →', href: '/glossary#drainage-correction', blurb: 'Redirecting surface water away from a foundation — often the most important first step in foundation repair.' }],
@@ -272,10 +261,9 @@ const groups: Group[] = [
       {
         code: 'C3',
         name: 'Irrigation and Landscaping',
-        verdict: 'Rarely',
         verdictClass: 'verdict-weak',
         what: 'Sprinklers or drip lines against foundation create moisture differential between irrigated perimeter and dry native soil. Evaporative cooler drain lines and condensate, running against a wall for years without anyone noticing, are a common New Mexico-specific version of the same problem.',
-        underpinning: "Rarely the first move, but a real moisture source that needs correcting either way -- left running for years, this kind of localized wetting is a genuine driver of foundation movement, not just surface staining.",
+        underpinning: "The real fix is correcting the moisture source — pulling irrigation back, fixing a leaking line — not underpinning. Left running for years, this kind of localized wetting is a genuine driver of foundation movement, not just surface staining.",
         missed: 'Homeowners rarely connect watering habits — or where the evaporative cooler dumps its water — to foundation cracks.',
         homeownerAction: "Stop watering plants right next to the foundation and establish a dry buffer zone — and check where your evaporative cooler drains; a line running against the wall for years is a common overlooked source.",
         related: [{ text: 'Glossary: Moisture Trigger →', href: '/glossary#moisture-trigger', blurb: 'The specific source of moisture that initiated or is sustaining foundation movement — often irrigation, leaks, or drainage issues.' }],
@@ -287,7 +275,6 @@ const groups: Group[] = [
       {
         code: 'C4',
         name: 'Tree Root Moisture Extraction',
-        verdict: 'Rarely',
         verdictClass: 'verdict-weak',
         what: 'Large trees extract moisture from soil, causing shrinkage and settlement near the tree. Removing a mature tree can reverse it -- the soil rehydrates and swells, causing heave in the months afterward.',
         where: 'Rio Grande Valley, irrigated areas with cottonwoods, elms.',
@@ -302,10 +289,9 @@ const groups: Group[] = [
       {
         code: 'C5',
         name: 'Altered Moisture from Adjacent Development',
-        verdict: 'Rarely',
         verdictClass: 'verdict-weak',
         what: 'New construction, paving, or landscaping on neighboring properties changes water infiltration patterns.',
-        underpinning: "Rarely the first move, but the moisture change itself is real and needs addressing -- regrading or a drainage fix on your side of the property line is often the actual repair, even when the cause started next door.",
+        underpinning: "Regrading or a drainage fix on your side of the property line is usually the actual repair, even when the cause started next door — the moisture change itself is real and needs addressing regardless of whether underpinning ever enters the picture.",
         missed: "Focus stays on damaged house; nobody looks at neighbor's property.",
         homeownerAction: "Think back to what's changed next door recently — new construction, paving, or landscaping — and whether it's now sending water toward your house instead of away from it.",
         related: [{ text: 'Glossary: Moisture Migration →', href: '/glossary#moisture-migration', blurb: 'The movement of water through soil via capillary action, lateral flow, or vapor transmission.' }],
@@ -325,11 +311,10 @@ const groups: Group[] = [
       {
         code: 'D1',
         name: 'Evaporite Dissolution & Karst Subsidence',
-        verdict: 'Rarely',
         verdictClass: 'verdict-weak',
         what: 'Gypsum, salt dissolve at depth, creating voids and sinkholes.',
         where: 'Southeastern NM (Permian Basin), Santa Rosa, Tularosa Basin.',
-        underpinning: 'Rarely. Standard residential piers cannot bridge deep voids. This is a site suitability question requiring geologic investigation.',
+        underpinning: 'Standard residential piers cannot bridge deep voids — this is a site-suitability question requiring geologic investigation, not a piering decision.',
         missed: "Gradual subsidence attributed to 'normal settling.' When no practical localized fix exists, that's a site-suitability question, not a repair question -- and it's rarely framed that way.",
         related: [
           { text: 'Glossary: Subsidence →', href: '/glossary#subsidence', blurb: 'A general term for the downward settling of ground surface, from any cause.' },
@@ -343,11 +328,10 @@ const groups: Group[] = [
       {
         code: 'D2',
         name: 'Hillside Creep & Slope Instability',
-        verdict: 'Sometimes',
         verdictClass: 'verdict-conditional',
         what: 'Slow downhill soil movement, applying lateral force to foundations.',
         where: 'Sandia/Manzano foothills, Santa Fe hillsides, Jemez Mountains, mesa edges.',
-        underpinning: 'Only after slope stabilization. Piers alone will not resist lateral movement.',
+        underpinning: 'Slope stabilization has to happen first — piers alone will not resist lateral movement.',
         missed: 'Symptoms mimic differential settlement; clue is consistent downhill pattern.',
         onset: ['gradual'],
         see: ['see-cracks-exterior'],
@@ -357,11 +341,10 @@ const groups: Group[] = [
       {
         code: 'D3',
         name: 'Seismic Activity & Rio Grande Rift',
-        verdict: 'Mixed',
         verdictClass: 'verdict-conditional',
         what: 'Earthquakes can cause soil densification or liquefaction.',
         where: 'Rift corridor — Albuquerque, Socorro, Santa Fe, Taos.',
-        underpinning: "Post-earthquake settlement: yes. Fault rupture: underpinning doesn't address.",
+        underpinning: "Post-earthquake settlement can be corrected with piers. Fault rupture itself is a different problem — underpinning doesn't address ground that's actually torn.",
         related: [{ text: 'Glossary: Rio Grande Rift →', href: '/glossary#rio-grande-rift', blurb: 'The active crustal extension zone running the length of New Mexico.' }],
         onset: ['sudden'],
         see: ['see-crack-diagonal'],
@@ -371,11 +354,10 @@ const groups: Group[] = [
       {
         code: 'D4',
         name: 'Regional Groundwater Changes',
-        verdict: 'Rarely',
         verdictClass: 'verdict-weak',
         what: 'Decades of pumping draw down water tables, causing broad subsidence.',
         where: 'Albuquerque Basin, Mimbres, Estancia, lower Rio Grande.',
-        underpinning: "Not typically; regional issue. Underpinning may stabilize individual structure but won't stop subsidence.",
+        underpinning: "This is a regional issue, not a single-property one — underpinning may stabilize an individual structure, but it won't stop the broader subsidence driving it.",
         missed: "Easy to miss at the individual-home level, since the cause is regional, not something on the property itself. Still a real, often-progressive problem -- it just needs a different kind of investigation than a typical site visit.",
         related: [{ text: 'Glossary: Aquifer Compaction Subsidence →', href: '/glossary#aquifer-compaction-subsidence', blurb: 'Regional ground settlement caused by groundwater pumping, seen in the Deming area. Cannot be reversed by foundation repair.' }],
         onset: ['gradual'],
@@ -386,10 +368,9 @@ const groups: Group[] = [
       {
         code: 'D5',
         name: 'Arroyo and Flash Flood Erosion',
-        verdict: 'Rarely',
         verdictClass: 'verdict-weak',
         what: 'Lateral erosion from arroyos undermines foundations during flash floods.',
-        underpinning: 'Not typically. Requires channel stabilization, erosion protection.',
+        underpinning: 'Channel stabilization and erosion protection address the actual cause — underpinning alone doesn\'t stop the erosion driving the movement.',
         onset: ['sudden'],
         see: ['see-foundation-gap'],
         site: ['site-arroyo'],
@@ -406,11 +387,10 @@ const groups: Group[] = [
       {
         code: 'E1',
         name: 'Inadequate Foundation Design',
-        verdict: 'Often',
         verdictClass: 'verdict-strong',
         what: 'Foundation not matched to soil conditions — shallow footings, no geotech investigation.',
         where: 'Statewide; many older homes designed without soil testing.',
-        underpinning: 'Often yes — providing deep support that should have been there.',
+        underpinning: 'This usually means providing the deep support that should have been part of the original design.',
         related: [{ text: 'Glossary: Geotechnical Investigation →', href: '/glossary#geotechnical-investigation', blurb: 'A systematic program to characterize soil and groundwater conditions at a site — the step that was skipped here.' }],
         onset: ['gradual'],
         see: ['see-crack-diagonal', 'see-floors'],
@@ -420,10 +400,9 @@ const groups: Group[] = [
       {
         code: 'E2',
         name: 'Inadequate Reinforcement & Structural Capacity',
-        verdict: 'Partial',
         verdictClass: 'verdict-conditional',
         what: 'Concrete without enough steel cracks instead of bridging gaps. Piers on unreinforced foundation may lift one section while adjacent stays put.',
-        underpinning: 'Partially; structural reinforcement (carbon fiber, rebar) often needed too.',
+        underpinning: 'Underpinning alone often isn\'t the whole fix here — structural reinforcement (carbon fiber, rebar) is frequently needed alongside it.',
         missed: 'Contractors install piers assuming foundation transfers loads; if unreinforced, repair fails.',
         related: [{ text: 'Glossary: Structural Repair →', href: '/glossary#structural-repair', blurb: 'Work that changes how a foundation carries or transfers load, as distinct from non-structural intervention.' }],
         onset: ['gradual'],
@@ -434,10 +413,9 @@ const groups: Group[] = [
       {
         code: 'E3',
         name: 'Post-Tension Cable Failure',
-        verdict: 'Rarely',
         verdictClass: 'verdict-weak',
         what: 'Loss of tension in post-tension slab leads to cracking, settlement, or bowing.',
-        underpinning: 'Rarely. Forensic investigation, structural repair (carbon fiber, partial replacement).',
+        underpinning: 'Forensic investigation and structural repair (carbon fiber, partial replacement) address the actual failure — piers don\'t fix a cable that\'s lost tension.',
         missed: "Many PT slab cracks sold as 'settlement requiring piers' without checking cable tension.",
         related: [{ text: 'Glossary: Post-Tension Slab →', href: '/glossary#post-tension-slab', blurb: 'A concrete slab reinforced with tensioned steel cables, common on expansive soils.' }],
         onset: ['gradual'],
@@ -448,10 +426,9 @@ const groups: Group[] = [
       {
         code: 'E4',
         name: 'Prior Repair Failure',
-        verdict: 'Yes',
         verdictClass: 'verdict-strong',
         what: 'Previous underpinning failed — piers not deep enough, wrong bearing, etc.',
-        underpinning: 'Yes, as second repair. Evaluate and install deeper piers.',
+        underpinning: 'This calls for a second repair — evaluating what went wrong the first time, then installing piers to the depth that should have been reached originally.',
         missed: "Presented as 'new' problem when it's actually failure of prior repair.",
         homeownerAction: "If you have any paperwork from a prior foundation repair — who did it, pier depth, any warranty — dig it out. It'll save real time when someone assesses this.",
         related: [{ text: 'Glossary: Pier Selection →', href: '/glossary#pier-selection', blurb: 'The engineering decision of which pier type, spacing, depth, and capacity to specify — what likely went wrong the first time.' }],
@@ -463,11 +440,10 @@ const groups: Group[] = [
       {
         code: 'E5',
         name: 'Adobe & Non-Standard Foundations',
-        verdict: 'Caution',
         verdictClass: 'verdict-conditional',
         what: 'Adobe walls on adobe/rubble foundations; moisture causes material degradation that mimics settlement.',
         where: 'Northern NM, Albuquerque historic neighborhoods.',
-        underpinning: 'With caution. Requires specialized engineering; often material repair and moisture protection better.',
+        underpinning: 'This requires specialized engineering, and material repair plus moisture protection is often the better answer than underpinning an adobe or rubble foundation.',
         missed: "Degradation misread as settlement. The wall isn't sinking — the bottom of the wall is dissolving.",
         homeownerAction: 'Keep water away from the base of adobe or rubble foundation walls — good grading, working downspouts, and keeping plantings back from the wall base protect adobe more than almost anything else.',
         related: [{ text: 'Glossary: Adobe Foundation →', href: '/glossary#adobe-foundation', blurb: 'Traditional New Mexico construction using sun-dried mud bricks. Requires specialized evaluation and moisture management.' }],
@@ -487,11 +463,10 @@ const groups: Group[] = [
       {
         code: 'F1',
         name: 'Frost Heave',
-        verdict: 'Rarely',
         verdictClass: 'verdict-weak',
         what: 'Freeze-thaw cycles lift shallow footings.',
         where: 'Mountain communities — Taos, Angel Fire, Ruidoso.',
-        underpinning: 'Rarely. Insulation, drainage, proper footing depth.',
+        underpinning: 'Insulation, drainage, and correcting footing depth address the actual cause — underpinning doesn\'t fix a footing that\'s too shallow for frost depth.',
         onset: ['seasonal'],
         see: ['see-cracks-exterior'],
         site: [],
@@ -500,11 +475,10 @@ const groups: Group[] = [
       {
         code: 'F2',
         name: 'Vibration-Induced Settlement',
-        verdict: 'Sometimes',
         verdictClass: 'verdict-conditional',
         what: 'Traffic, construction, rail lines densify loose soils.',
         where: 'Corridors near I-25, I-40, rail lines.',
-        underpinning: 'Sometimes; soil densification may be better.',
+        underpinning: 'Soil densification is often the better answer here, though underpinning can be right depending on how much settlement has already occurred.',
         onset: ['gradual'],
         see: ['see-floors'],
         site: [],
@@ -513,7 +487,6 @@ const groups: Group[] = [
       {
         code: 'F3',
         name: 'Burrowing Animal Activity',
-        verdict: 'Rarely',
         verdictClass: 'verdict-weak',
         what: 'Prairie dogs, gophers create tunnels and voids.',
         underpinning: "Void filling and animal management is the real repair here, not underpinning — a legitimate fix on its own, not just a stopgap.",
@@ -856,22 +829,23 @@ const foundationOptions = [
                   <span class="specimen-tier-badge">{tier.title}</span>
                 </div>
                 <div class="verdict-line">
-                  <span class={`verdict-badge ${c.verdictClass}`}>
-                    <span class="verdict-q">Is underpinning the first choice here?</span>
-                    <span class="verdict-a">{c.verdict}</span>
-                  </span>
-                  <!-- Cause-specific, not one of three generic buckets --
-                       a bare "No" (or "Rarely") next to a vague shared
-                       caption reads as "you don't need this" when the real
-                       answer is often "not yet, fix X first." Per Tim: the
-                       Plumbing/Sewer Leaks card said "No" + a generic line
-                       and could easily be read as "a leak means no
-                       underpinning," when the honest answer is closer to
-                       "not while the leak's active -- reassess once it's
-                       fixed," and underpinning is often still the outcome.
-                       Always visible now, not tap-gated -- this is exactly
-                       the nuance someone would miss by not tapping. -->
-                  <span class="verdict-def">{c.underpinning}</span>
+                  <!-- Per Tim: every one of these 26 causes is a real path
+                       to foundation movement, so a one-word frequency
+                       judgment ("Rarely," "Often") next to "does this need
+                       underpinning" reads as dismissive no matter what the
+                       explanation underneath says -- the eye hits the word
+                       first and that's the impression that sticks. Dropped
+                       the word and the colored badge treatment entirely.
+                       c.verdict/verdictClass still exist in the data and
+                       still drive which tier (Rule This Out First / Needs
+                       a Closer Look / Usually Structural) a cause sorts
+                       into -- that signal comes from the section, not a
+                       per-card label. What's left here is just the
+                       question as a plain header and the real answer as
+                       plain text, no categorical word standing in front
+                       of it. -->
+                  <span class="verdict-q">Is underpinning the first choice here?</span>
+                  <p class="verdict-def">{c.underpinning}</p>
                 </div>
                 <p class="specimen-desc">{c.what}</p>
                 <div class="warning-drawer" id={c.anchorId} hidden>
@@ -1743,41 +1717,23 @@ const foundationOptions = [
   }
   .warning-trigger-text { font-size: 16px; color: var(--blue); font-weight: 600; line-height: 1.4; margin: 0; }
   .verdict-line { padding: 12px 24px 16px; }
-  .verdict-badge {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    width: 100%;
-    font-family: 'Source Serif 4', serif;
-    font-size: 0.82rem;
-    padding: 9px 14px;
-    border-radius: 8px;
-    text-align: left;
-  }
-  .verdict-q { flex: 1; }
-  .verdict-a {
+  .verdict-q {
+    display: block;
     font-family: 'DM Mono', monospace;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    white-space: nowrap;
-    flex-shrink: 0;
+    color: var(--gold-text);
+    margin-bottom: 6px;
   }
   .verdict-def {
     display: block;
     font-family: 'Source Serif 4', serif;
-    font-size: 0.9rem;
-    font-style: italic;
-    color: var(--muted);
-    padding: 6px 4px 0;
+    font-size: 0.95rem;
+    color: var(--slate);
+    line-height: 1.6;
   }
-  .verdict-strong { background: var(--blue-dark); color: #fff; }
-  .verdict-strong .verdict-q { color: rgba(255, 255, 255, 0.75); }
-  .verdict-conditional { background: transparent; border: 1px solid var(--gold); color: var(--gold-text); }
-  .verdict-conditional .verdict-q { color: var(--slate); }
-  .verdict-weak { background: var(--sand); color: var(--muted); border: 1px solid var(--stone); }
-  .verdict-weak .verdict-q { color: var(--slate); }
   .cause-match-tag {
     display: block;
     margin: 0 0 16px !important;
@@ -1887,7 +1843,6 @@ const foundationOptions = [
   }
   .other-strip:hover { border-color: var(--gold); }
   @media (max-width: 640px) {
-    .verdict-badge { flex-direction: column; align-items: flex-start; gap: 2px; }
     .tier-number { font-size: 28px; }
   }
 
