@@ -202,6 +202,7 @@ const schema = [
             <p class="creed-note">Four salesmen, one month, a contest where second place gets you fired — Mamet's story of high-pressure sales tactics at their most ruthless. <span class="creed-hit">The land they're pushing is called Rio Rancho.</span></p>
             <p class="creed-note">Whether Mamet meant this "City of Vision — Rio Rancho" has never been settled. The real one was sold the same way — by phone, by dinner party, to people who'd never stood on it. That was sixty years ago. Unfortunately, some of that still lives in Rio Rancho today.</p>
             <h3 class="creed-line"><span class="creed-word">Always</span><span class="creed-word">Be</span><span class="creed-word">Closing.</span></h3>
+            <h3 class="creed-line creed-line-sub"><span class="creed-word">Sign</span><span class="creed-word">On</span><span class="creed-word">The</span><span class="creed-word">Line</span><span class="creed-word">Which</span><span class="creed-word">Is</span><span class="creed-word">Dotted.</span></h3>
           </div>
         </div>
 
@@ -1419,6 +1420,11 @@ const schema = [
     display: flex;
     flex-wrap: wrap;
     gap: 0 0.24em;
+  }
+  .creed-line-sub {
+    font-size: clamp(20px, 2.4vw, 30px);
+    color: var(--gold-text);
+    margin-top: 10px;
   }
   .creed-word {
     display: inline-block;
