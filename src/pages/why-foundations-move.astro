@@ -541,20 +541,18 @@ const spectrum = [
     flex-direction: column;
     justify-content: center;
   }
-  /* Front is top-aligned instead of centered, and the title reserves
-     fixed vertical space (two lines' worth) regardless of whether a
-     given question actually wraps to one line or two -- otherwise
-     "TAP TO SEE" lands at a different height on every card depending
-     on title length, which is what made the row look uneven. */
   .myth-front {
     background: #fff;
     border: 1px solid var(--tls-stone, var(--stone));
     transition: border-color 0.25s, box-shadow 0.25s;
-    justify-content: flex-start;
   }
   .myth-card:hover .myth-front { border-color: rgba(184, 134, 11, 0.3); box-shadow: 0 2px 16px rgba(13, 34, 56, 0.06); }
   .myth-back { background: var(--dark-navy, var(--navy)); border: 1px solid rgba(184, 134, 11, 0.3); transform: rotateY(180deg); }
   .myth-back p { color: rgba(255, 255, 255, 0.9); font-size: 13px; line-height: 1.55; margin: 0; }
+  /* min-height reserves two lines' worth of space regardless of whether
+     a given question wraps to one line or two, so the title+hint block
+     is the same height on every card -- centering it then puts "TAP TO
+     SEE" at the same spot everywhere instead of drifting with title length. */
   .myth-title {
     font-family: 'Source Serif 4', serif;
     font-size: 16px;
