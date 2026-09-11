@@ -681,9 +681,12 @@ const foundationOptions = [
       <!-- CHECK ALL THAT APPLY -->
       <div class="facet-panel" id="facetPanel">
         <div class="facet-panel-head">
-          <span class="facet-panel-label">Check all that apply</span>
-          <p class="facet-panel-sub">This describes common patterns, not an evaluation of your home — the safest step, if you're ever unsure, is to have someone look.</p>
-          <p class="facet-panel-note">Same checklist on the <a href="/symptom-guide" id="crossToolLink">Symptom Guide</a> — check it once and we'll carry your answers over, either direction.</p>
+          <div class="facet-panel-head-text">
+            <span class="facet-panel-label">Check all that apply</span>
+            <p class="facet-panel-sub">This describes common patterns, not an evaluation of your home — the safest step, if you're ever unsure, is to have someone look.</p>
+            <p class="facet-panel-note">Same checklist on the <a href="/symptom-guide" id="crossToolLink">Symptom Guide</a> — check it once and we'll carry your answers over, either direction.</p>
+          </div>
+          <button type="button" id="facetClearTop" class="facet-clear facet-clear-top" hidden>Clear all</button>
         </div>
 
         <fieldset class="facet-group">
@@ -1033,7 +1036,7 @@ const foundationOptions = [
     const span = cb.parentElement?.querySelector('span');
     if (span) LABELS[cb.value] = span.textContent || cb.value;
   });
-  const clearBtn = document.getElementById('facetClear') as HTMLButtonElement;
+  const clearBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('.facet-clear'));
   const outcomeBox = document.getElementById('outcomeBox') as HTMLElement;
   const outcomeText = document.getElementById('outcomeText') as HTMLElement;
   const outcomePill = document.getElementById('outcomePill') as HTMLAnchorElement;
@@ -1197,7 +1200,7 @@ const foundationOptions = [
       localStorage.setItem(FACET_STORAGE_KEY, JSON.stringify(checked));
     } catch {}
     const anyChecked = checked.onset.length + checked.see.length + checked.site.length + checked.foundation.length > 0;
-    clearBtn.hidden = !anyChecked;
+    clearBtns.forEach((btn) => (btn.hidden = !anyChecked));
     resultsLead.hidden = !anyChecked;
     tierHeaders.forEach((h) => (h.hidden = anyChecked));
 
@@ -1261,11 +1264,13 @@ const foundationOptions = [
       applySort();
     })
   );
-  clearBtn.addEventListener('click', () => {
-    checkboxes.forEach((cb) => (cb.checked = false));
-    stripOpen = false;
-    applySort();
-  });
+  clearBtns.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      checkboxes.forEach((cb) => (cb.checked = false));
+      stripOpen = false;
+      applySort();
+    })
+  );
   const printBtn = document.getElementById('printResults') as HTMLButtonElement;
   const printDate = document.getElementById('printDate') as HTMLElement;
   printBtn.addEventListener('click', () => {
@@ -1515,7 +1520,8 @@ const foundationOptions = [
 
   /* ── Check-all-that-apply panel (shared with symptom-guide.astro) ── */
   .facet-panel { background: var(--white); border: 1px solid var(--stone); border-radius: 12px; padding: 28px 28px 20px; margin-bottom: 24px; }
-  .facet-panel-head { margin-bottom: 20px; }
+  .facet-panel-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+  .facet-clear-top { flex-shrink: 0; white-space: nowrap; }
   .facet-panel-label {
     display: block;
     font-family: 'DM Mono', monospace;
