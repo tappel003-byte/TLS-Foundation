@@ -237,11 +237,11 @@ const groups: Group[] = [
       {
         code: 'C1',
         name: 'Plumbing and Sewer Leaks Beneath Slab',
-        verdict: 'No',
+        verdict: 'Not yet',
         verdictClass: 'verdict-weak',
         anchorId: 'plumbing-leaks',
         what: 'Leaks from supply, sewer, or drains saturate soil, causing heave, collapse, or erosion. Sewer leaks are especially insidious — they are deep, persistent, and often go undetected for years.',
-        underpinning: 'No while leak active. Repair leak first, allow soil to stabilize, then reassess.',
+        underpinning: 'Not while the leak is active. Repair the leak first and let the soil stabilize — but that\'s often not the end of it. Once the leak is fixed, underpinning is frequently still the right call to correct the movement that already happened.',
         missed: "Many repair contracts signed without sewer camera inspection. A plumber fixes the pipe; a contractor sells piers — but nobody evaluates whether the soil will stabilize on its own once the water stops. A patch of unusually green, lush grass over a sewer line — even in a drought — is a common outdoor tell homeowners notice before anything shows up inside.",
         homeownerAction: "Check your water bill for a jump that doesn't have an obvious explanation, and ask your plumber if they can do a static pressure test for a below-slab sewer line — not just a camera inspection, which can miss what a pressure test catches.",
         related: [{ text: 'Glossary: Moisture Trigger →', href: '/glossary#moisture-trigger', blurb: 'The specific source of moisture that initiated or is sustaining foundation movement — often irrigation, leaks, or drainage.' }],
@@ -667,11 +667,6 @@ const foundationOptions = [
   { id: 'fnd-pierbeam', label: 'Pier and beam / crawlspace' },
   { id: 'fnd-unsure', label: 'Not sure' },
 ];
-const verdictDefs: Record<string, string> = {
-  'verdict-strong': 'Usually the right call once the cause is confirmed.',
-  'verdict-conditional': 'Depends on specifics — moisture, extent, or site conditions decide it.',
-  'verdict-weak': "Usually not the first move — something else needs fixing first.",
-};
 ---
 
 <Layout
@@ -860,11 +855,22 @@ const verdictDefs: Record<string, string> = {
                   <span class="specimen-tier-badge">{tier.title}</span>
                 </div>
                 <div class="verdict-line">
-                  <span class={`verdict-badge ${c.verdictClass}`} data-def={verdictDefs[c.verdictClass]} tabindex="0" role="button" aria-label={`Is underpinning the first choice for this cause? ${c.verdict}. Tap for more.`}>
+                  <span class={`verdict-badge ${c.verdictClass}`}>
                     <span class="verdict-q">Is underpinning the first choice here?</span>
                     <span class="verdict-a">{c.verdict}</span>
                   </span>
-                  <span class="verdict-def" hidden></span>
+                  <!-- Cause-specific, not one of three generic buckets --
+                       a bare "No" (or "Rarely") next to a vague shared
+                       caption reads as "you don't need this" when the real
+                       answer is often "not yet, fix X first." Per Tim: the
+                       Plumbing/Sewer Leaks card said "No" + a generic line
+                       and could easily be read as "a leak means no
+                       underpinning," when the honest answer is closer to
+                       "not while the leak's active -- reassess once it's
+                       fixed," and underpinning is often still the outcome.
+                       Always visible now, not tap-gated -- this is exactly
+                       the nuance someone would miss by not tapping. -->
+                  <span class="verdict-def">{c.underpinning}</span>
                 </div>
                 <p class="specimen-desc">{c.what}</p>
                 <div class="warning-drawer" id={c.anchorId} hidden>
@@ -872,7 +878,6 @@ const verdictDefs: Record<string, string> = {
                     <span class="symptom-category-badge">{c.groupTitle}</span>
                     <p class="cause-match-tag" data-match-tag hidden></p>
                     {c.where && <p><span class="field-label">Where in NM</span>{c.where}</p>}
-                    <p><span class="field-label">Underpinning appropriate?</span>{c.underpinning}</p>
                     <p class="underpinning-caveat">Any underpinning verdict always depends on the actual soil conditions and depth to competent bearing material at your specific site — that's exactly what a geotechnical investigation and a piering plan are for.</p>
                     {c.homeownerAction && (
                       <p class="homeowner-action"><span class="field-label">Try this yourself first</span>{c.homeownerAction}</p>
@@ -1415,25 +1420,6 @@ const verdictDefs: Record<string, string> = {
     });
   });
 
-  // Tappable verdict badges -- toggle an inline one-line definition without
-  // triggering the parent trigger's open/close (stopPropagation), so the
-  // legend travels with the reader instead of living only at the page top.
-  document.querySelectorAll<HTMLElement>('.verdict-badge').forEach((badge) => {
-    const def = badge.nextElementSibling as HTMLElement;
-    function toggle(e: Event) {
-      e.stopPropagation();
-      e.preventDefault();
-      const isOpen = !def.hidden;
-      document.querySelectorAll<HTMLElement>('.verdict-def').forEach((d) => (d.hidden = true));
-      def.hidden = isOpen;
-      if (!isOpen) def.textContent = badge.dataset.def || '';
-    }
-    badge.addEventListener('click', toggle);
-    badge.addEventListener('keydown', (e) => {
-      if ((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') toggle(e);
-    });
-  });
-
   // Cross-page deep links (e.g. from Why Foundations Move's Symptom Matrix)
   // land here as a #id in the URL -- auto-open the matching card and scroll.
   const hash = window.location.hash.slice(1);
@@ -1755,7 +1741,7 @@ const verdictDefs: Record<string, string> = {
     white-space: nowrap;
   }
   .warning-trigger-text { font-size: 16px; color: var(--blue); font-weight: 600; line-height: 1.4; margin: 0; }
-  .verdict-line { padding: 0 24px 16px; }
+  .verdict-line { padding: 12px 24px 16px; }
   .verdict-badge {
     display: flex;
     align-items: baseline;
@@ -1765,10 +1751,8 @@ const verdictDefs: Record<string, string> = {
     font-size: 0.82rem;
     padding: 9px 14px;
     border-radius: 8px;
-    cursor: pointer;
     text-align: left;
   }
-  .verdict-badge:hover { filter: brightness(0.97); }
   .verdict-q { flex: 1; }
   .verdict-a {
     font-family: 'DM Mono', monospace;
