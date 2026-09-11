@@ -34,6 +34,7 @@ const terms: { id: string; name: string; description: string }[] = [
   { id: 'dead-load', name: 'Dead Load', description: 'The permanent static weight of a structure — framing, roofing, concrete, and fixed components.' },
   { id: 'differential-settlement', name: 'Differential Settlement', description: 'Uneven movement where one part of a foundation settles more than another. Causes diagonal cracking at door and window corners.' },
   { id: 'disclosure', name: 'Disclosure', description: 'The legal requirement to inform a buyer of known material defects, including prior foundation repair.' },
+  { id: 'domestic-water-test', name: 'Domestic Water Test', description: 'Shutting off every fixture and appliance that uses water, then watching the meter for movement, to check for a leak on the supply side of the plumbing system. Won\'t catch a waste-line leak, since sewage leaving the house doesn\'t pass back through the meter.' },
   { id: 'drainage', name: 'Drainage', description: 'The general movement of surface and subsurface water away from a structure.' },
   { id: 'drainage-correction', name: 'Drainage Correction', description: 'Redirecting surface water away from a foundation to prevent soil saturation. Often the most important first step in foundation repair.' },
   { id: 'earth-movement-exclusion', name: 'Earth Movement Exclusion', description: 'A standard insurance policy clause excluding coverage for damage caused by earth movement.' },
@@ -85,6 +86,7 @@ const terms: { id: string; name: string; description: string }[] = [
   { id: 'scope-of-work', name: 'Scope of Work', description: 'The written description of exactly what a repair will and will not include.' },
   { id: 'seasonal-movement', name: 'Seasonal Movement', description: 'Foundation movement that recurs on a roughly annual cycle, tracking seasonal moisture change.' },
   { id: 'settlement', name: 'Settlement', description: 'Downward movement of a foundation caused by compression or consolidation of soil. Common in collapsible soil areas.' },
+  { id: 'sewer-water-test', name: 'Sewer Water Test', description: 'Also called an under-slab leak test. Plugging the main sewer cleanout, filling the line with water to floor level, and watching for a drop, to check for a leak on the waste side of the plumbing system -- the side a domestic water test can\'t see, since sewage leaving the house doesn\'t pass back through the meter.' },
   { id: 'slab-on-grade', name: 'Slab-on-Grade', description: 'A concrete slab poured directly on prepared soil. The dominant foundation type in New Mexico residential construction.' },
   { id: 'soil-investigation', name: 'Soil Investigation', description: 'A near-synonym for geotechnical investigation, sometimes describing the field sampling portion specifically.' },
   { id: 'soil-piping', name: 'Soil Piping', description: 'Erosion of soil particles by concentrated water flow through subsurface channels, forming pipe-like voids.' },
@@ -415,6 +417,18 @@ const definedTermSetSchema = {
             <span class="related-term" data-term="transferable-warranty">Transferable Warranty</span>
             <span class="related-term" data-term="home-inspection">Home Inspection</span>
             <span class="related-term" data-term="value-impact">Value Impact</span>
+          </div>
+        </div>
+        <div class="term-card" id="domestic-water-test">
+          <div class="term-name">Domestic Water Test</div>
+          <div class="term-definition">
+            <p>A simple homeowner check for a supply-side plumbing leak: shut off every fixture and appliance that uses water, note the reading on the water meter, wait 15–20 minutes without touching anything, then check it again. If the numbers moved, something on the supply side is leaking. It won't catch a waste-line leak, though, since sewage leaving the house doesn't pass back through the meter — that side needs a <span class="related-term" data-term="sewer-water-test">sewer water test</span> instead.</p>
+          </div>
+          <div class="related-terms">
+            <span class="related-label">Related:</span>
+            <span class="related-term" data-term="sewer-water-test">Sewer Water Test</span>
+            <span class="related-term" data-term="moisture-trigger">Moisture Trigger</span>
+            <span class="related-term" data-term="plumbing-leak-coverage">Plumbing Leak Coverage</span>
           </div>
         </div>
         <div class="term-card" id="drainage">
@@ -1104,6 +1118,18 @@ const definedTermSetSchema = {
             <span class="related-label">Related:</span>
             <span class="related-term" data-term="heave">Heave</span>
             <span class="related-term" data-term="differential-settlement">Differential Settlement</span>
+          </div>
+        </div>
+        <div class="term-card" id="sewer-water-test">
+          <div class="term-name">Sewer Water Test</div>
+          <div class="term-definition">
+            <p>Also called an under-slab leak test. A plumbing supply store can rent the equipment: plug the main sewer cleanout, fill the line with water up to floor level through a tub or sink, and watch it for 15–20 minutes. If the level drops, the sewer line is losing water somewhere below the slab. This is the waste-side counterpart to a <span class="related-term" data-term="domestic-water-test">domestic water test</span> — waste-line leaks don't show up on a water meter, since sewage leaving the house doesn't pass back through it.</p>
+          </div>
+          <div class="related-terms">
+            <span class="related-label">Related:</span>
+            <span class="related-term" data-term="domestic-water-test">Domestic Water Test</span>
+            <span class="related-term" data-term="moisture-trigger">Moisture Trigger</span>
+            <span class="related-term" data-term="plumbing-leak-coverage">Plumbing Leak Coverage</span>
           </div>
         </div>
         <div class="term-card" id="slab-on-grade">
