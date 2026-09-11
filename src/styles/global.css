@@ -85,12 +85,11 @@
   --fs-h2-core: clamp(28px, 3.5vw, 40px);
   --fs-h3-core: clamp(20px, 2.5vw, 26px);
 
-  --fs-eyebrow-city: 12px;
+  --fs-eyebrow-city: 13px;
+  --fs-label-city: 12px;
   --fs-body-city: 18px;
-  --fs-caption-city: 15px;
   --fs-h1-city: clamp(52px, 8vw, 108px);
   --fs-h2-city: clamp(28px, 3.8vw, 46px);
-  --fs-h3-city: 22px;
 }
 
 * {
