@@ -248,7 +248,11 @@ const groups: Group[] = [
         onset: ['sudden'],
         see: ['see-leak-signs', 'see-floors'],
         site: ['site-plumbing'],
-        foundation: ['fnd-slab'],
+        // fnd-slab and fnd-monolithic both count -- a monolithic slab with
+        // a turned-down edge is still a slab poured directly on grade, same
+        // under-slab plumbing exposure as plain slab-on-grade. Only
+        // post-tension is a genuinely different case (see E3 below).
+        foundation: ['fnd-slab', 'fnd-monolithic'],
       },
       {
         code: 'C2',
@@ -424,7 +428,7 @@ const groups: Group[] = [
         onset: ['gradual'],
         see: ['see-cracks-slab'],
         site: [],
-        foundation: ['fnd-slab'],
+        foundation: ['fnd-slab', 'fnd-monolithic'],
       },
       {
         code: 'E3',
@@ -1126,10 +1130,24 @@ const verdictDefs: Record<string, string> = {
       ? ' Given the site conditions you noted, this is also the kind of case where we\'d likely loop in our affiliate <a href="https://www.sandiageo.com" target="_blank" rel="noopener">Sandia GEO</a> for a deeper geotechnical read.'
       : '';
 
+    // Same calibration as Symptom Guide's urgencyTier (sudden onset +
+    // multiple symptoms at once), reused here as a single lead-in sentence
+    // rather than that page's full three-tier close -- Cause Library's
+    // moment is still "which of these mechanisms is it," not "how worried
+    // should I be," so this doesn't replace that framing, just flags the
+    // pattern before it. Kept to the same restrained wording Symptom Guide
+    // uses at its own highest tier -- no "emergency," no countdown, just
+    // "sooner rather than later."
+    const sudden = checked.onset.includes('sudden');
+    const urgencyLead =
+      sudden && checked.see.length >= 2
+        ? 'Sudden onset together with more than one symptom at once is a pattern worth having looked at sooner rather than later. '
+        : '';
+
     // innerHTML, not textContent -- embeds a glossary link. Safe here:
-    // `names` and `geotechClause` are both built from our own controlled
-    // strings (card titles rendered by us, a fixed clause), never from
-    // unescaped user input.
+    // `names`, `urgencyLead`, and `geotechClause` are all built from our
+    // own controlled strings (card titles rendered by us, fixed clauses),
+    // never from unescaped user input.
     // Cause Library's moment is different from Symptom Guide's -- someone
     // here is narrowing down *why*, among 26 possible mechanisms, not
     // asking whether to worry. So the close leans into that: matching a
@@ -1137,7 +1155,7 @@ const verdictDefs: Record<string, string> = {
     // against the actual pattern of movement is what confirms or rules it
     // out. (Deliberately not the same closing as Symptom Guide's own
     // buildOutcome -- see the comment there.)
-    outcomeText.innerHTML = `Based on what you selected, the closest matches below are ${names}. That's a starting point, not a determination. Matching a cause here is a hypothesis, not a confirmation -- the only way to know which one is actually happening at your house is a <a href="/glossary#floor-level-survey" class="glossary-link">floor-level survey</a> read against the pattern you're seeing.${geotechClause} Call us today and we'll help you confirm it.`;
+    outcomeText.innerHTML = `${urgencyLead}Based on what you selected, the closest matches below are ${names}. That's a starting point, not a determination. Matching a cause here is a hypothesis, not a confirmation -- the only way to know which one is actually happening at your house is a <a href="/glossary#floor-level-survey" class="glossary-link">floor-level survey</a> read against the pattern you're seeing.${geotechClause} Call us today and we'll help you confirm it.`;
 
     buildRelatedReading(scored);
   }

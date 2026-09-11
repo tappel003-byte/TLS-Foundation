@@ -89,7 +89,9 @@ const categories: Category[] = [
         onset: ['gradual'],
         see: ['see-cracks-slab'],
         site: [],
-        foundation: ['fnd-slab'],
+        // A monolithic slab with a turned-down edge is still poured
+        // directly on grade, same exposure as plain slab-on-grade.
+        foundation: ['fnd-slab', 'fnd-monolithic'],
       },
       {
         q: 'Stucco cracks on exterior walls',
@@ -316,7 +318,7 @@ const categories: Category[] = [
         onset: ['sudden'],
         see: ['see-leak-signs'],
         site: ['site-plumbing'],
-        foundation: ['fnd-slab'],
+        foundation: ['fnd-slab', 'fnd-monolithic'],
       },
       {
         q: 'Crawlspace moisture or sagging floors',
