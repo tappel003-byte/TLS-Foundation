@@ -198,7 +198,7 @@ const spectrum = [
             <div class="symptom-cell"><span class="symptom-cell-label">What You See</span><strong>Localized cracking near kitchen/bath</strong></div>
             <div class="symptom-cell"><span class="symptom-cell-label">What May Be Happening</span>Plumbing or sewer leak beneath slab.</div>
             <div class="symptom-cell"><span class="symptom-cell-label">Is Underpinning the Answer?</span>No while leak active. Repair first.</div>
-            <div class="symptom-cell"><span class="symptom-cell-label">The Honest First Step</span>Pressure test water lines; camera sewer. <a href="/cause-library#plumbing-leaks">Plumbing leaks →</a></div>
+            <div class="symptom-cell"><span class="symptom-cell-label">The Honest First Step</span>Below-slab leak test; domestic water test. <a href="/cause-library#plumbing-leaks">Plumbing leaks →</a></div>
           </div>
 
           <div class="symptom-row">
@@ -275,7 +275,7 @@ const spectrum = [
       <section id="evaluation">
         <h2>Why Evaluation Comes First</h2>
         <p>No reliable repair recommendation can be made from symptoms alone. Cracks, tilting, sticking doors can be caused by a dozen different mechanisms.</p>
-        <p>A proper evaluation includes site history, elevation surveys, soil borings, moisture source identification (including sewer camera), and structural analysis. It's the only honest path to a solution that actually solves the problem.</p>
+        <p>A proper evaluation includes site history, elevation surveys, soil borings, moisture source identification, and structural analysis. It's the only honest path to a solution that actually solves the problem.</p>
         <p>TLS Foundations requires this step. Our affiliated geotechnical firm, <a href="https://www.sandiageo.com" target="_blank" rel="noopener">Sandia GEO</a>, operates independently from repair sales — evaluation driven by evidence, not by what we need to sell.</p>
         <div class="soft-cta">
           <p>Have questions? We're happy to talk — no pressure, just answers. <a href="/contact-us">Contact TLS Foundations →</a></p>
@@ -306,7 +306,7 @@ const spectrum = [
       <span class="close-eyebrow">New Mexico</span>
       <p class="close-pull">Every foundation is different. Yours needs its own answer.</p>
       <div class="close-divider"></div>
-      <p class="close-sub">Text or call — you reach the owner(s).</p>
+      <p class="close-sub">Text or call — you'll usually get an owner, not a phone tree. Miss us and it's voicemail, not hold music: leave your name, we'll call back. We're out under houses more than we're behind a desk, so a little patience goes a long way — but you will hear from someone who's probably already worked your neighborhood.</p>
       <p class="close-note">This page is reference, not a diagnosis — for that, start with the <a href="/symptom-guide">Symptom Guide</a> or just call.</p>
       <div class="close-options">
         <a href="sms:5059914180" class="close-option">
@@ -541,11 +541,28 @@ const spectrum = [
     flex-direction: column;
     justify-content: center;
   }
-  .myth-front { background: #fff; border: 1px solid var(--tls-stone, var(--stone)); transition: border-color 0.25s, box-shadow 0.25s; }
+  /* Front is top-aligned instead of centered, and the title reserves
+     fixed vertical space (two lines' worth) regardless of whether a
+     given question actually wraps to one line or two -- otherwise
+     "TAP TO SEE" lands at a different height on every card depending
+     on title length, which is what made the row look uneven. */
+  .myth-front {
+    background: #fff;
+    border: 1px solid var(--tls-stone, var(--stone));
+    transition: border-color 0.25s, box-shadow 0.25s;
+    justify-content: flex-start;
+  }
   .myth-card:hover .myth-front { border-color: rgba(184, 134, 11, 0.3); box-shadow: 0 2px 16px rgba(13, 34, 56, 0.06); }
   .myth-back { background: var(--dark-navy, var(--navy)); border: 1px solid rgba(184, 134, 11, 0.3); transform: rotateY(180deg); }
   .myth-back p { color: rgba(255, 255, 255, 0.9); font-size: 13px; line-height: 1.55; margin: 0; }
-  .myth-title { font-family: 'Source Serif 4', serif; font-size: 16px; font-weight: 600; color: var(--blue); line-height: 1.3; }
+  .myth-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--blue);
+    line-height: 1.3;
+    min-height: 42px;
+  }
   .myth-hint {
     font-family: 'DM Mono', monospace;
     font-size: 9px;
