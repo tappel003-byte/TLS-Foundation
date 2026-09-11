@@ -268,7 +268,7 @@ const schema = [
   }
   .hero-headline {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(48px, 7vw, 88px);
+    font-size: var(--fs-hero-core);
     font-weight: 400;
     color: #fff;
     line-height: 1.1;
@@ -286,9 +286,6 @@ const schema = [
   @media (max-width: 640px) {
     .hero-content {
       padding: 0 24px 48px;
-    }
-    .hero-headline {
-      font-size: clamp(40px, 10vw, 64px);
     }
   }
 

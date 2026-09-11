@@ -60,6 +60,37 @@
 
   /* aliases used by individual page code blocks — same palette, different names */
   --navy: var(--blue-dark);
+
+  /*
+    TYPE SCALE (task #53) — two families, not one. Core/reference pages
+    (Home, Our Approach, Why Foundations Move, Common Concerns, Cause
+    Library, Symptom Guide, Crack Gauge, Glossary, Foundation Repair
+    Methods, NM Soil Conditions hub, Contact Us, Expansive/Collapsible
+    Soil) read as reference documents -- smaller, denser. City pages
+    (Albuquerque, Rio Rancho, Santa Fe) read as a magazine feature --
+    bigger, bolder display type, on purpose. Regional pages and the
+    method deep-dives already share one generated/copied template each
+    and don't need tokens here -- they're already internally consistent.
+
+    Values picked from what was already most-used for that role, not
+    invented from scratch, so applying these doesn't shift the site's
+    overall feel -- it just makes the same intended size actually
+    consistent everywhere it's used.
+  */
+  --fs-hero-core: clamp(36px, 6vw, 72px);
+  --fs-eyebrow-core: 11px;
+  --fs-body-core: 18px;
+  --fs-caption-core: 14px;
+  --fs-h1-core: clamp(40px, 6vw, 64px);
+  --fs-h2-core: clamp(28px, 3.5vw, 40px);
+  --fs-h3-core: clamp(20px, 2.5vw, 26px);
+
+  --fs-eyebrow-city: 12px;
+  --fs-body-city: 18px;
+  --fs-caption-city: 15px;
+  --fs-h1-city: clamp(52px, 8vw, 108px);
+  --fs-h2-city: clamp(28px, 3.8vw, 46px);
+  --fs-h3-city: 22px;
 }
 
 * {
