@@ -44,12 +44,18 @@
     pointer-events: none;
   }
   /* Below 640px, the Summary pill (PageSummary.astro) moves to this same
-     left:20/bottom:28 corner during early scroll. This pill isn't scroll-
-     gated (the need to go back can hit the moment someone lands), so it
-     stacks above that slot on mobile instead of fighting Summary for it. */
+     left:20/bottom:28 corner during early scroll. Rather than stacking
+     above it (which put this pill out of line with BackToTop), this
+     moves to the right side instead -- the same right:100px slot
+     MobilePageFlowNav's prev/next pills use on other pages, which is
+     free here since Job Notes articles aren't part of that chain (only
+     the /job-notes index page itself is, see src/data/pageFlow.ts).
+     That keeps it inline with BackToTop (both bottom:28) while staying
+     clear of Summary's left-side spot. */
   @media (max-width: 640px) {
     #tls-back-to-job-notes {
-      bottom: 84px;
+      left: auto;
+      right: 100px;
     }
   }
 </style>
