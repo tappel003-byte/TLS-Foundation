@@ -33,6 +33,14 @@
     z-index: 9999;
     box-shadow: 0 6px 18px rgba(13, 34, 56, 0.45);
     transition: background 0.2s;
+    /* Forces its own GPU compositing layer -- without this, iOS Safari
+       can visibly detach a bottom-anchored `position: fixed` element
+       from the viewport while its dynamic address-bar/toolbar is
+       animating during a scroll, making it briefly render as if it
+       were positioned within the page content instead of pinned to the
+       corner. Harmless no-op on browsers that don't need it. */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
   #tls-back-to-job-notes:hover {
     background: var(--gold);
