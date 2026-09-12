@@ -33,9 +33,11 @@ TLS Foundations serves all 33 counties across five geologically distinct regions
 - [Glossary](https://www.tlsfoundations.com/glossary): Plain-language definitions of foundation repair and soil science terms -- from acequia to underpinning. Browse and link directly to any term.
 - [Expansive Soil](https://www.tlsfoundations.com/expansive-soil): Why foundations move with the seasons in New Mexico -- the science of expansive clay soils, how they damage foundations, and what a real evaluation looks at.
 - [Collapsible Soil](https://www.tlsfoundations.com/collapsible-soil): Collapsible soils are New Mexico's most deceptive foundation hazard -- stable for decades, then gone in a season. Understanding the mechanism is the first step.
+- [Job Notes](https://www.tlsfoundations.com/job-notes): Short, dated field notes from real diagnostic calls -- genericized, no names or addresses, written up as they happen. New entries publish on their own schedule, not a fixed one.
+
+## Interactive Tools
+
 - [Symptom Guide](https://www.tlsfoundations.com/symptom-guide): See something? Here's what it usually means and whether it warrants attention -- New Mexico foundation symptoms grouped by category and soil context.
-
-## In Depth
-
-- [Soil & Movement](https://www.tlsfoundations.com/soil-movement): Three short films on the forces that move foundations across New Mexico -- causes, how to tell them apart, and honest evaluation before repair.
-- [Homeowner Decision Series](https://www.tlsfoundations.com/homeowner-decision-series): Four films on the decisions homeowners face when foundation movement shows up. No sales pitch -- 55 combined years working New Mexico soils.
+- [Cause Library](https://www.tlsfoundations.com/cause-library): Every mechanism that moves a New Mexico foundation, ranked by whether underpinning is actually the right call or something else needs to happen first.
+- [Printable Crack Gauge](https://www.tlsfoundations.com/crack-gauge): A free printable gauge for measuring crack width at home, plus what the measurement actually means.
+- [Send Us Photos](https://www.tlsfoundations.com/send-photos): Send photos of what you're seeing for an initial read before anyone visits in person.
