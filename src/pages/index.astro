@@ -15,7 +15,7 @@ const description =
   "We don't guess a fix and work backward; we read the site and let the remedy follow. 55 years of New Mexico foundation and geotechnical experience.";
 
 const services = [
-  { id: 'helical-piers', name: 'Helical Piers', description: 'A steel shaft with helical plates, rotated into the ground by torque -- not by pushing against the structure. The correct pier solution for most New Mexico residential foundations.' },
+  { id: 'helical-piers', name: 'Helical Piers', description: 'A steel shaft with helical plates, rotated into the ground by torque -- not by pushing against the structure. The default choice for most New Mexico residential foundations that need piers at all, since it carries no dead-load requirement like a push pier.' },
   { id: 'push-piers', name: 'Push Piers', description: "Installed by jacking against the structure's dead load. Appropriate for commercial and heavy structures. Not the right solution for most NM wood-frame residential homes." },
   { id: 'micropiles', name: 'Micropiles', description: 'Small-diameter drilled and grouted piers -- used when hard rock, cobbles, or dense caliche prevents helical installation, or when bearing depth is significant.' },
   { id: 'compaction-grouting', name: 'Compaction Grouting', description: 'Pressure-injected grout that densifies loose or collapsible soils beneath a structure. Appropriate for specific soil conditions -- not a universal fix.' },
@@ -146,14 +146,6 @@ const schema = [
       </div>
     </div>
 
-    <section class="method-statement">
-      <div class="method-inner">
-        <span class="method-eyebrow">Our approach</span>
-        <div class="method-headline">The method follows the diagnosis.</div>
-        <p class="method-sub">We don't lead with a solution. The soil tells us what it's doing. We listen first.</p>
-      </div>
-    </section>
-
     <section class="tabs-block">
       <div class="tabs-inner">
         <div class="tabs-header">
@@ -200,7 +192,7 @@ const schema = [
           <div class="svc-item">
             Helical Piers
             <div class="tip">
-              <p>A steel shaft with helical plates, rotated into the ground by torque — not by pushing against the structure. The correct pier solution for most New Mexico residential foundations.</p>
+              <p>A steel shaft with helical plates, rotated into the ground by torque — not by pushing against the structure. The default choice for most New Mexico residential foundations that need piers at all, since it carries no dead-load requirement like a push pier.</p>
               <a href="/foundation-repair-methods#helical-piers" class="tip-link">Learn more →</a>
             </div>
           </div>
@@ -326,6 +318,28 @@ const schema = [
     });
   }
   document.addEventListener('DOMContentLoaded', initTabs);
+
+  // The six method tips below are hover-only, which means touch devices --
+  // most visitors -- can't reach them at all (no hover event, and the item
+  // itself isn't a link). Tapping toggles the same reveal hover gives
+  // desktop, without changing anything about how hover already works there.
+  function initServiceTips() {
+    const items = Array.from(document.querySelectorAll<HTMLElement>('.svc-item'));
+    items.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        if ((e.target as HTMLElement).closest('.tip-link')) return;
+        const wasOpen = item.classList.contains('is-open');
+        items.forEach((i) => i.classList.remove('is-open'));
+        if (!wasOpen) item.classList.add('is-open');
+      });
+    });
+    document.addEventListener('click', (e) => {
+      if (!(e.target as HTMLElement).closest('.svc-item')) {
+        items.forEach((i) => i.classList.remove('is-open'));
+      }
+    });
+  }
+  document.addEventListener('DOMContentLoaded', initServiceTips);
 </script>
 
 <style>
@@ -890,7 +904,8 @@ const schema = [
     color: white;
     border-bottom-color: white;
   }
-  .svc-item:hover .tip {
+  .svc-item:hover .tip,
+  .svc-item.is-open .tip {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;

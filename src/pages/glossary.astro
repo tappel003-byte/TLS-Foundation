@@ -49,7 +49,7 @@ const terms: { id: string; name: string; description: string }[] = [
   { id: 'free-inspection', name: 'Free Inspection', description: 'An inspection offered at no cost, typically performed by someone compensated to sell the repair that follows.' },
   { id: 'geotechnical-investigation', name: 'Geotechnical Investigation', description: 'A systematic program to characterize soil and groundwater conditions at a site.' },
   { id: 'heave', name: 'Heave', description: 'Upward movement of a foundation caused by expanding soil beneath it. Common in expansive clay areas. Often misdiagnosed as settlement.' },
-  { id: 'helical-pier', name: 'Helical Pier', description: 'A steel shaft with helical plates, installed by rotating it into the ground. Used to transfer foundation loads to deeper, stable soil. The correct pier solution for most New Mexico residential foundations.' },
+  { id: 'helical-pier', name: 'Helical Pier', description: 'A steel shaft with helical plates, installed by rotating it into the ground. Used to transfer foundation loads to deeper, stable soil. The default choice for most New Mexico residential foundations that need piers at all, since it carries no dead-load requirement like a push pier.' },
   { id: 'home-inspection', name: 'Home Inspection', description: 'A general-condition inspection performed during a real estate transaction.' },
   { id: 'hydrocompaction', name: 'Hydrocompaction', description: 'Settlement caused by sudden collapse of loose, dry soil when moisture is introduced.' },
   { id: 'hydrostatic-pressure', name: 'Hydrostatic Pressure', description: 'The lateral force exerted by water-saturated soil against foundation walls.' },
@@ -629,7 +629,7 @@ const definedTermSetSchema = {
           <div class="term-name">Helical Pier</div>
           <div class="term-definition">
             <p>A steel shaft with one or more helical plates, installed by rotating it into the ground using hydraulic torque equipment. The helical plates advance the pier like a screw, allowing it to reach bearing depth without requiring the structure's dead load.</p>
-            <p>Helical piers are the correct residential pier solution for most New Mexico foundation work. Installation torque is monitored in real time and correlates directly to bearing capacity.</p>
+            <p>Helical piers are the default choice for most New Mexico residential work that needs piers at all, since they carry no dead-load requirement like a push pier. Installation torque is monitored in real time and correlates directly to bearing capacity.</p>
             <a href="/helical-piers-deep-dive" class="term-deep-link">Full technical breakdown →</a>
           </div>
           <div class="related-terms">
