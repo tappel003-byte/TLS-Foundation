@@ -22,6 +22,7 @@
 // than turned, especially right at the embedment depth, the torque
 // reading that capacity is correlated from stops being meaningful.
 import Layout from '../layouts/Layout.astro';
+import JobNoteLink from '../components/JobNoteLink.astro';
 
 const title = 'Helical Piers in New Mexico | TLS Foundations';
 const description =
@@ -135,7 +136,12 @@ const schema = [
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
 
-        <p class="closing-link"><a href="/foundation-repair-methods" class="body-link">← Back to Foundation Repair Methods</a><a href="/glossary#helical-pier" class="body-link">Glossary: Helical Pier →</a></p>
+        <p class="closing-link">
+          <a href="/foundation-repair-methods" class="body-link">← Back to Foundation Repair Methods</a>
+          <a href="/glossary#helical-pier" class="body-link">Glossary: Helical Pier →</a>
+          <JobNoteLink slug="caliche-stopped-the-helix" />
+          <JobNoteLink slug="it-didnt-get-deep-enough" />
+        </p>
       </article>
     </div>
   </div>

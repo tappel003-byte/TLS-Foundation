@@ -28,6 +28,7 @@
 // that installs independent of the structure (helical pier, micropile)
 // is the better fit there.
 import Layout from '../layouts/Layout.astro';
+import JobNoteLink from '../components/JobNoteLink.astro';
 
 const title = 'Push Piers in New Mexico | TLS Foundations';
 const description =
@@ -124,7 +125,12 @@ const schema = [
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
 
-        <p class="closing-link"><a href="/foundation-repair-methods" class="body-link">← Back to Foundation Repair Methods</a><a href="/glossary#push-pier" class="body-link">Glossary: Push Pier →</a></p>
+        <p class="closing-link">
+          <a href="/foundation-repair-methods" class="body-link">← Back to Foundation Repair Methods</a>
+          <a href="/glossary#push-pier" class="body-link">Glossary: Push Pier →</a>
+          <JobNoteLink slug="twenty-five-feet-is-not-a-bearing-layer" />
+          <JobNoteLink slug="the-steel-is-in-the-water-is-still-on" />
+        </p>
       </article>
     </div>
   </div>

@@ -15,6 +15,7 @@
 // foam works, not contractor opinion. [TIM: ...] marks spots needing
 // real NM numbers/field experience instead of guesses.
 import Layout from '../layouts/Layout.astro';
+import JobNoteLink from '../components/JobNoteLink.astro';
 
 const title = 'Foam Injection in New Mexico | TLS Foundations';
 const description =
@@ -94,7 +95,11 @@ const schema = [
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
 
-        <p class="closing-link"><a href="/foundation-repair-methods" class="body-link">← Back to Foundation Repair Methods</a><a href="/glossary#polyurethane-foam-injection" class="body-link">Glossary: Polyurethane Foam Injection →</a></p>
+        <p class="closing-link">
+          <a href="/foundation-repair-methods" class="body-link">← Back to Foundation Repair Methods</a>
+          <a href="/glossary#polyurethane-foam-injection" class="body-link">Glossary: Polyurethane Foam Injection →</a>
+          <JobNoteLink slug="foam-is-not-a-pier" />
+        </p>
       </article>
     </div>
   </div>

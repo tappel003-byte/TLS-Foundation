@@ -22,6 +22,7 @@
 // down to the one detail the other two don't already cover (that
 // contractors pay for these searches).
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 
 const title = 'Common Concerns — TLS Foundations';
 const summary =
@@ -274,6 +275,33 @@ const concerns: Concern[] = [
     relatedFaq: [{ href: '/common-concerns#causes', text: 'What causes foundation problems?' }, { href: '/common-concerns#heave', text: "What's the difference between settlement and heave?" }],
   },
 ];
+
+// Cross-links a specific concern to a specific Job Notes article -- only
+// once that article has actually published (see content.config.ts /
+// job-notes/index.astro for the publishDate gate). Checked against the
+// live collection here rather than hardcoded, so a link to a still-
+// scheduled article simply doesn't exist yet, then appears on its own
+// the next time the site rebuilds after it goes live.
+const publishedNotes = new Map(
+  (await getCollection('articles', ({ data }) => !data.draft && data.publishDate <= new Date())).map((e) => [e.id, e.data])
+);
+const jobNoteLinks: [string, string][] = [
+  ['warranty', 'the-warranty-on-the-steel'],
+  ['choose', 'nine-piers-is-not-nine-piers'],
+  ['wait', 'the-crack-that-already-finished'],
+  ['monitor', 'one-afternoon-is-not-a-year'],
+  ['wrong-repair', 'we-told-them-not-to-pier-it'],
+  ['doors-after', 'level-is-not-the-job'],
+  ['sell', 'the-packet-from-the-listing'],
+  ['engineer', 'what-the-floor-survey-is-not'],
+];
+for (const [id, slug] of jobNoteLinks) {
+  const note = publishedNotes.get(slug);
+  const concern = concerns.find((c) => c.id === id);
+  if (note && concern) {
+    concern.primaryLinks.push({ href: `/job-notes/${slug}`, text: `Job Notes: ${note.title} →` });
+  }
+}
 
 // Group by each concern's primary topic (tags[0]) into the six static
 // sections above. A few concerns carry a second tag (e.g. warranty is
