@@ -2,7 +2,7 @@
 title: "Caliche Stopped the Helix"
 description: "A helical pier's torque spikes against a caliche layer -- and why a high number on the gauge isn't the same thing as bearing capacity."
 summary: "When a helical pier's installation torque spikes against a hard caliche layer, that spike is information, not a verdict. Treating it as bearing capacity without knowing what's above and below that layer -- instead of switching to a different method when the ground calls for it -- is how a technically successful installation still leaves a house sitting on the problem."
-publishDate: 2026-09-14
+publishDate: 2026-09-05
 ---
 
 The shaft was turning. Then it wasn't turning the way it had been.

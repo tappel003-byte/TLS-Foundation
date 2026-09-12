@@ -2,7 +2,7 @@
 title: "The Steel Is In. The Water Is Still On."
 description: "Piers were installed correctly, and the door still bound the next summer -- because the moisture source that caused the movement was never actually shut off."
 summary: "A house had piers installed along the affected wall, and the next summer the door bound again anyway -- not because the repair failed, but because the cooler bleed, condensate line, or downspout that was feeding the clay was never addressed. Piers transfer load; they don't turn off a hose. Checking whether the water is actually off is the cheaper question to ask before assuming the repair itself was wrong."
-publishDate: 2027-12-06
+publishDate: 2027-10-13
 ---
 
 Someone already did the hard-looking part. Piers along the wall, brackets painted, grade patched. Summer comes back around and the door binds anyway.

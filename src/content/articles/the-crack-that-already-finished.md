@@ -2,7 +2,7 @@
 title: "The Crack That Already Finished"
 description: "Not every crack is an active job -- some are marks from movement that already happened, and the only way to tell the difference is time."
 summary: "A crack with paint in the gap and a homeowner who says it's looked the same since 2011 is a mark from movement that already finished, not an active problem. A crack that's wider than it was last season is a different story. The distinction isn't mystical -- it's whether anything is still changing, and that only shows up if you let time into the evaluation instead of judging it in one visit."
-publishDate: 2027-04-05
+publishDate: 2027-02-25
 ---
 
 Not every crack is a job.

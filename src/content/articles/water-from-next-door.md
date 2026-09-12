@@ -2,7 +2,7 @@
 title: "Water From Next Door"
 description: "One wall sticks and the opposite one doesn't -- because the moisture source is coming from over the fence, not from anything on your own lot."
 summary: "A house with movement on only one side had a bid to pier the whole perimeter, but the wet wall faced the neighbor's irrigation, not a cooler or a downspout. Piers don't turn off someone else's hose -- finding the actual moisture source, wherever it starts, comes before treating one wall like a bearing failure."
-publishDate: 2026-11-02
+publishDate: 2026-10-27
 ---
 
 The wet side of the house was not the side with the cooler or the downspout. It was the side that faces the neighbor.

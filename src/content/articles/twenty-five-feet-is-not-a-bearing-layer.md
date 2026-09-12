@@ -2,7 +2,7 @@
 title: "Twenty-Five Feet Is Not a Bearing Layer"
 description: "A proposed pier depth that sounds deep enough can still land ten feet below the water table -- and depth alone doesn't mean competent ground."
 summary: "A bid specified a pier depth of twenty-five feet without ever mentioning where the water table actually sat -- which turned out to be roughly ten feet above the planned tip. A number that sounds deep enough is still a guess until someone confirms what's actually at that elevation; a bearing layer is a depth with a reason behind it, not a package depth that sounded finished."
-publishDate: 2027-10-11
+publishDate: 2027-08-22
 ---
 
 The number came from the person running the job. Twenty-five feet. That would do it.

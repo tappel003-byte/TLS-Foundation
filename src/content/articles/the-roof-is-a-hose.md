@@ -2,7 +2,7 @@
 title: "The Roof Is a Hose"
 description: "Monsoon runoff off a New Mexico roof lands in a short, hard window -- and a missing or misaimed downspout can be doing more damage than any mystery soil condition."
 summary: "A New Mexico roof sheds monsoon water fast, and a downspout that's missing, kicked sideways, or aimed at the wrong corner puts that water in the same dirt a cooler line or condensate drip already found. Fixing the downspout and the grade isn't a lesser step before the real repair -- when the pattern is wet-corner, dry-corner, it's the first move, because piers driven next to an active hose don't turn the hose off."
-publishDate: 2027-04-26
+publishDate: 2027-03-30
 ---
 
 A New Mexico roof sheds a lot of water in a short window. Monsoon does not drizzle. It dumps. If the downspout is missing, kicked sideways, or dumped on the high side of the house, that dump lands in the same dirt the condensate line and the cooler bleed-off already found.

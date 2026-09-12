@@ -2,7 +2,7 @@
 title: "It Didn't Get Deep Enough"
 description: "The piers were in and the invoice said so, but the house kept moving -- because the shafts stopped short of the soil that could actually hold the load."
 summary: "A pier only does its job if it reaches soil that can carry the load, and depth on a proposal is a guess until the ground confirms it. Torque can read like capacity when it's really just a hard crust, and a bid priced to a shallow depth doesn't get any deeper just because the invoice is paid. The fix for a short pier isn't another one next to it -- it's getting past the layer that stopped the first one, or changing tools."
-publishDate: 2027-11-15
+publishDate: 2027-09-20
 ---
 
 The shafts were in. The invoice said they were in. The house was still moving.

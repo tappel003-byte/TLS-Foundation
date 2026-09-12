@@ -2,7 +2,7 @@
 title: "The Stucco Is Not the Foundation"
 description: "A hairline in stucco or a stepped crack in brick veneer is often the finish doing what finishes do -- not every mark in the coating is a soil problem."
 summary: "New Mexico finishes take a beating from heat and dry air, and stucco or brick veneer can crack without the house underneath doing anything unusual. The finish is a clue worth checking against doors, the stem wall, and the interior gypsum -- not a diagnosis on its own. A bid written from the curb because the brown coat is cracked is a bid written from the wrong layer."
-publishDate: 2027-07-19
+publishDate: 2027-06-09
 ---
 
 Stucco cracks. Brick veneer steps. A hairline at a window is often the finish doing what a finish does on a house that moves a little with heat and dry air. New Mexico finishes take a beating. Not every mark in the coating is a soil problem.

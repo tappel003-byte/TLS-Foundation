@@ -2,7 +2,7 @@
 title: "The Bid That Treated Heave as Settlement"
 description: "A crack that opened every summer and closed every winter got a settlement bid anyway. The calendar was already telling the real story."
 summary: "A house with a crack that widened in monsoon and irrigation season and narrowed by winter got a proposal for settlement piers regardless. Heave and settlement can produce nearly identical symptoms, but the seasonal pattern was already answering the question the bid never asked."
-publishDate: 2026-06-29
+publishDate: 2026-06-20
 ---
 
 The crack ran diagonally from a window corner, the way they usually do. What made it worth a second look wasn't the crack itself — it was that the homeowner had been watching it for two years and could describe exactly how it behaved. Wider in July and August. Narrower by November. Almost closed by January.

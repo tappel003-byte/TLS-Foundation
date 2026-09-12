@@ -2,7 +2,7 @@
 title: "The Water Table Moved"
 description: "In New Mexico's river valleys, the water table itself rises and falls with the year -- and a house can go from dry to wet at the same footing elevation without a single leak."
 summary: "Valley-floor water tables move with the river and the ditches, not just with rainfall on the surface. A house that tracks a whole side or a whole floor's movement to the wet and dry years of the valley isn't describing a cooler line or a neighbor's water -- it's describing the water table itself, and piers don't lower it. The first conversation is drainage and whether the bearing layer and the high water are even at different elevations."
-publishDate: 2027-05-31
+publishDate: 2027-04-19
 ---
 
 Valley floors in this state are not a static water line. The North Valley especially — the water table comes up and goes down with the river, the ditches, and the year. A house that was dry at the footing in April can have moisture at that same elevation in August without anyone spilling a glass.
