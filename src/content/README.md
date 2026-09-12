@@ -35,10 +35,7 @@ Setting `draft: true` holds an article back regardless of its
 `publishDate` -- use it if something needs to stay hidden past its date
 for any reason.
 
-## Making the section public
+## Section is public
 
-The listing page (`/job-notes`) and this whole mechanism work today, but
-the site's nav (`src/components/Header.astro`) doesn't link to it yet.
-Add that link when the section is ready to be public -- until then the
-page exists (reachable if someone knows the URL) but isn't advertised
-anywhere on the site.
+The listing page (`/job-notes`) is linked from the site nav under
+Reference (`src/components/Header.astro`).
