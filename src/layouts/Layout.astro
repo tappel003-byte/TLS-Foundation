@@ -60,16 +60,27 @@ const ogImageURL = new URL(ogImage, Astro.site);
 const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': 'https://www.tlsfoundations.com/#organization',
   legalName: 'TLS Foundations',
+  url: 'https://www.tlsfoundations.com',
+  logo: 'https://www.tlsfoundations.com/favicon.png',
   address: '5048 Edith Blvd NE, Suite E, Albuquerque, NM 87107, United States',
   email: 'TLSfoundationsNM@gmail.com',
   telephone: '+15059914180',
 };
 
+// GeneralContractor -- a schema.org subtype of LocalBusiness -- is more
+// specific than the plain LocalBusiness this carried before, and matches
+// what TLS actually is (a contractor performing the work), not a generic
+// storefront. areaServed spells out the three named city pages plus the
+// state overall, since the five regional soil pages cover all of NM.
 const localBusinessSchema = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
+  '@type': 'GeneralContractor',
+  '@id': 'https://www.tlsfoundations.com/#localbusiness',
   name: 'TLS Foundations',
+  url: 'https://www.tlsfoundations.com',
+  image: 'https://www.tlsfoundations.com/images/home-hero.webp',
   address: {
     '@type': 'PostalAddress',
     streetAddress: '5048 Edith Blvd NE, Suite E',
@@ -85,6 +96,12 @@ const localBusinessSchema = {
     opens: '08:00',
     closes: '17:00',
   },
+  areaServed: [
+    { '@type': 'State', name: 'New Mexico' },
+    { '@type': 'City', name: 'Albuquerque', containedInPlace: { '@type': 'State', name: 'New Mexico' } },
+    { '@type': 'City', name: 'Rio Rancho', containedInPlace: { '@type': 'State', name: 'New Mexico' } },
+    { '@type': 'City', name: 'Santa Fe', containedInPlace: { '@type': 'State', name: 'New Mexico' } },
+  ],
 };
 
 const websiteSchema = {
