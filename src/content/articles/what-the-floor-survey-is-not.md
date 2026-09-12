@@ -2,7 +2,7 @@
 title: "What the Floor Survey Is Not"
 description: "A floor-level survey is a map of the house's elevations -- not a home inspection, a geotechnical investigation, a stamped recommendation, or a repair bid."
 summary: "A floor-level survey shows whether the floors agree with the cracks and the doors. It's not a home inspection, not a geotechnical investigation, not a stamped engineering recommendation, and not a repair bid disguised as one visit. It's the picture that makes the next step -- watch it, drain it, investigate it, or repair it -- about the actual house instead of a guess from the doorway."
-publishDate: 2026-09-14
+publishDate: 2026-10-12
 ---
 
 A floor-level survey is a map. Elevations on a plan. A pattern. Areas that are high, areas that are low, and whether that pattern looks like a house moving or a house that was built that way.

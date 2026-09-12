@@ -2,7 +2,7 @@
 title: "The Condensate Line"
 description: "The AC condensate line most people never think about -- and why a summer of drips in one spot is enough to move expansive clay."
 summary: "Refrigerated air conditioners have to put the moisture they pull from the house somewhere, usually a short PVC line aimed at the dirt next to the foundation. A drip that small doesn't look like a problem, but it's enough water to matter either way: expansive clay swells under it, and collapsible soil can collapse from it -- permanently, unlike the clay."
-publishDate: 2026-08-03
+publishDate: 2026-08-24
 ---
 
 This is the other summer water. Not the swamp cooler.

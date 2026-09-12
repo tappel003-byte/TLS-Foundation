@@ -2,7 +2,7 @@
 title: "One Afternoon Is Not a Year"
 description: "A single visit shows a house on one day -- the seasonal patterns that actually separate heave from settlement only show up if someone watches across months."
 summary: "Every seasonal pattern that matters -- cooler season, condensate, monsoon, winter close-up -- only exists because someone watched a house across months, not one afternoon. If the story is 'it does this in summer and that in winter' and nobody's actually seen winter yet, that's a guess dressed up as a diagnosis. Time is a diagnostic tool, not a delay, and the two bids that come out of a snapshot versus a year of watching are not the same bid."
-publishDate: 2027-05-24
+publishDate: 2027-09-13
 ---
 
 A single visit is a snapshot. Doors on a hot day. A crack at the width it happens to be that Wednesday. Moisture in the dirt from last night's rain. You can learn a lot in an afternoon. You cannot learn the calendar.

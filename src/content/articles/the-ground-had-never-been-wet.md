@@ -2,7 +2,7 @@
 title: "The Ground Had Never Been Wet"
 description: "Some New Mexico soils were laid down dry and stayed that way for decades -- until the first real wetting, when the structure collapses and doesn't come back."
 summary: "Soil that's never been wet can hold a house for decades and then collapse the first time real water reaches it -- a lawn, a leak, a cooler line aimed the wrong way. Unlike heave, that settlement doesn't reverse when the water stops. The tell is the history: dry for years, then a change, then a one-way move that isn't a seasonal cycle."
-publishDate: 2026-12-28
+publishDate: 2027-03-08
 ---
 
 Some New Mexico soils were laid down dry and have stayed dry since. They hold a house until the first real wetting — a monsoon that finally ponds, a lawn, a leak, a cooler line that got aimed at the wrong dirt. Then the structure of the soil collapses. It doesn't swell back. Settlement from that is not a seasonal door. It is a drop that stays dropped.

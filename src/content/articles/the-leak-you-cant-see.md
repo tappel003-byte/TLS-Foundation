@@ -2,7 +2,7 @@
 title: "The Leak You Can't See"
 description: "Movement that ignores the seasonal calendar isn't cooler, condensate, or a neighbor's water -- it's a plumbing leak under the slab, and it needs to be found before anyone measures anything."
 summary: "A house moving in one room, on no seasonal schedule at all, usually isn't heave or settlement from surface water -- it's a supply, waste, or radiant line leaking under the slab, feeding the soil year-round. Piers on soil still being fed by an active leak are a repair sitting on an open tap; find and fix the leak first, then measure what's actually left to fix."
-publishDate: 2026-12-07
+publishDate: 2027-01-25
 ---
 
 The yard was dry. The cooler drain was piped. The grade looked fine. The house was still moving in one room.

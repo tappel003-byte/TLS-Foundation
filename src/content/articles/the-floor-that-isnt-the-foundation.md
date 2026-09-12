@@ -2,7 +2,7 @@
 title: "The Floor That Isn't the Foundation"
 description: "Waves in sheet vinyl on a radiant slab aren't automatically a foundation problem -- and they aren't automatically not one, either."
 summary: "Sheet vinyl on an older slab can ruck up in a pattern that looks like foundation movement, but it moves on its own from heat and shrinking seams. The elevations, the doors, and the cracks in the gypsum tell the foundation story; the flooring question still needs a flooring answer, even when both are happening on the same floor."
-publishDate: 2026-11-16
+publishDate: 2027-01-04
 ---
 
 Sheet vinyl in an older slab house, radiant heat in the floor, waves in the kitchen that weren't there last year. Someone already used the word settlement.
