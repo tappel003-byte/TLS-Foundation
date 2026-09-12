@@ -167,8 +167,7 @@ const schema = [
     margin: 0 auto;
     padding: 64px var(--gutter) 100px;
     display: grid;
-    grid-template-columns: 230px 1fr;
-    gap: 48px;
+    grid-template-columns: 260px 1fr;
     align-items: start;
   }
 
@@ -176,6 +175,11 @@ const schema = [
   .topic-nav {
     position: sticky;
     top: 100px;
+    padding-right: 40px;
+    border-right: 1px solid var(--stone);
+  }
+  .list-col {
+    padding-left: 48px;
   }
   .topic-nav-label {
     display: block;
@@ -316,10 +320,12 @@ const schema = [
   @media (max-width: 1023px) {
     .jn-layout {
       grid-template-columns: 1fr;
-      gap: 0;
     }
     .topic-nav {
       display: none;
+    }
+    .list-col {
+      padding-left: 0;
     }
     .topic-chips {
       display: flex;
