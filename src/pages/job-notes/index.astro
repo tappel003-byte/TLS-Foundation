@@ -377,6 +377,17 @@ const schema = [
       btn.classList.toggle('active', btn.dataset.topic === topic);
     });
     noMatch?.toggleAttribute('hidden', visible !== 0);
+
+    // Hiding entries can shrink the page a lot (filtering down to one
+    // topic vs. "All Notes"), but nothing else here re-measures
+    // scrollHeight -- Layout.astro's shared scroll handler (which drives
+    // tls-page-short/tls-footer-visible, and in turn whether BackToTop
+    // and the prev/next pills float fixed or drop into the page's
+    // static in-flow layout) only recomputes on an actual 'scroll'
+    // event. Firing one here forces it to re-check against the new,
+    // post-filter height instead of leaving those classes stale from
+    // whatever the page's height was before this click.
+    window.dispatchEvent(new Event('scroll'));
   }
 
   controls.forEach((btn) => {

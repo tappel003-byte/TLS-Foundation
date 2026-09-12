@@ -4,6 +4,7 @@
 // facet panel. Shares its facet vocabulary and region data with
 // cause-library.astro so answers carry over between the two.
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 
 // Same Web3Forms delivery as contact-us.astro (no backend needed on a
 // static Cloudflare Workers site) -- same access key, so signing up once
@@ -410,6 +411,42 @@ const linkBlurbs: Record<string, string> = {
   '/central-new-mexico': 'Soil conditions specific to Albuquerque and the Rio Grande corridor.',
   '/our-approach': "Why New Mexico's soil and climate make foundation problems here different from anywhere else.",
 };
+
+// Cross-links a specific symptom card to a specific Job Notes article --
+// but only once that article has actually published (see
+// content.config.ts / job-notes/index.astro for the publishDate gate).
+// Checked against the live collection here rather than hardcoded, so a
+// link to a still-scheduled article simply doesn't exist yet, then
+// appears on its own the next time the site rebuilds after it goes live.
+const publishedNotes = new Map(
+  (await getCollection('articles', ({ data }) => !data.draft && data.publishDate <= new Date())).map((e) => [e.id, e.data])
+);
+function findSymptom(q: string): Symptom | undefined {
+  for (const cat of categories) {
+    const item = cat.items.find((i) => i.q === q);
+    if (item) return item;
+  }
+  return undefined;
+}
+const jobNoteLinks: [string, string][] = [
+  ['Diagonal cracks near doors or windows', 'bid-that-treated-heave-as-settlement'],
+  ['Cracks in concrete slab or garage floor', 'the-garage-is-another-building'],
+  ['Stucco cracks on exterior walls', 'the-stucco-is-not-the-foundation'],
+  ['Gaps at the top or bottom of door frames', 'swamp-cooler-season'],
+  ['Sloping, uneven, or sinking floors', 'the-floor-that-isnt-the-foundation'],
+  ['Water pooling near the foundation', 'the-roof-is-a-hose'],
+  ['Foundation symptoms appearing after a plumbing change', 'the-leak-you-cant-see'],
+  ['Crawlspace moisture or sagging floors', 'the-condensate-line'],
+];
+for (const [q, slug] of jobNoteLinks) {
+  const note = publishedNotes.get(slug);
+  const symptom = findSymptom(q);
+  if (note && symptom) {
+    const href = `/job-notes/${slug}`;
+    symptom.links.push({ text: `Job Notes: ${note.title}`, href });
+    linkBlurbs[href] = note.description;
+  }
+}
 
 const allSymptoms = categories.flatMap((c) => c.items);
 

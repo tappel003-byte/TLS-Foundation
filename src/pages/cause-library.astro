@@ -34,6 +34,7 @@
 // regional issue nobody controls, something only a professional can
 // assess -- rather than inventing a step that isn't real.
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 
 // Same Web3Forms delivery as contact-us.astro and symptom-guide.astro --
 // same access key, so signing up once (see the TODO in contact-us.astro)
@@ -499,6 +500,43 @@ const groups: Group[] = [
     ],
   },
 ];
+
+// Cross-links a specific cause to a specific Job Notes article -- only
+// once that article has actually published (see content.config.ts /
+// job-notes/index.astro for the publishDate gate). Checked against the
+// live collection here rather than hardcoded, so a link to a still-
+// scheduled article simply doesn't exist yet, then appears on its own
+// the next time the site rebuilds after it goes live.
+const publishedNotes = new Map(
+  (await getCollection('articles', ({ data }) => !data.draft && data.publishDate <= new Date())).map((e) => [e.id, e.data])
+);
+function findCause(code: string): Cause | undefined {
+  for (const g of groups) {
+    const c = g.causes.find((c) => c.code === code);
+    if (c) return c;
+  }
+  return undefined;
+}
+const jobNoteRelated: [string, string][] = [
+  ['A1', 'the-ground-had-never-been-wet'],
+  ['A2', 'fill-under-the-slab'],
+  ['A3', 'cut-and-fill'],
+  ['A7', 'twenty-five-feet-is-not-a-bearing-layer'],
+  ['B1', 'caliche-stopped-the-helix'],
+  ['C1', 'the-leak-you-cant-see'],
+  ['C2', 'the-roof-is-a-hose'],
+  ['C3', 'water-from-next-door'],
+  ['C4', 'they-took-the-tree-out'],
+  ['D4', 'the-water-table-moved'],
+];
+for (const [code, slug] of jobNoteRelated) {
+  const note = publishedNotes.get(slug);
+  const cause = findCause(code);
+  if (note && cause) {
+    if (!cause.related) cause.related = [];
+    cause.related.push({ text: `Job Notes: ${note.title} →`, href: `/job-notes/${slug}`, blurb: note.description });
+  }
+}
 
 const allCauses = groups.flatMap((g) => g.causes.map((c) => ({ ...c, groupId: g.id, groupTitle: g.title })));
 
