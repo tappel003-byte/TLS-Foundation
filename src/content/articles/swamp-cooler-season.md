@@ -3,6 +3,7 @@ title: "Swamp-Cooler Season"
 description: "Why doors that stick in July and loosen by October are usually moisture, not a failing foundation."
 summary: "A seasonal pattern common across New Mexico: doors and windows that bind in the hottest, wettest part of summer and free up again once the weather turns. The cooler's bleed-off or a stuck float valve is often the first place to look -- but monsoon and irrigation can be doing the same job in the same months."
 publishDate: 2026-06-01
+topic: "water-drainage"
 ---
 
 Every year around the same time, the calls start sounding alike. A door that's been fine for a decade suddenly won't latch. A window sticks halfway. Someone runs a level across the living room floor for the first time in their life because a neighbor mentioned foundation problems and now they can't stop thinking about it.

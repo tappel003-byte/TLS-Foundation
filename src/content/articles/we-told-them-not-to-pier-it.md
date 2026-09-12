@@ -3,6 +3,7 @@ title: "We Told Them Not to Pier It"
 description: "Three pier bids were ready to schedule on a house whose crack had paint in it and a door that had already eased back by October -- the honest answer was not this week."
 summary: "A house had three ready-to-schedule pier bids, a crack with paint in it dating back years, and a door that had already eased back on its own by fall. Nobody had asked what the crack did in January before proposing steel. The honest answer was to mark it, fix the one downspout still dumping water, and wait -- not because there was no work, but because this wasn't that conversation yet."
 publishDate: 2026-09-12
+topic: "bids-scope"
 ---
 
 The cracks were real. The bids were real. Three of them, all steel, all ready to schedule.

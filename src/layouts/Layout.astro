@@ -6,6 +6,7 @@ import BackToTop from '../components/BackToTop.astro';
 import MobilePageFlowNav from '../components/MobilePageFlowNav.astro';
 import PageSummary from '../components/PageSummary.astro';
 import BackToServicesPill from '../components/BackToServicesPill.astro';
+import BackToJobNotesPill from '../components/BackToJobNotesPill.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -32,6 +33,8 @@ interface Props {
   nextPage?: { path: string; name: string };
   /** Shows the floating "Back to Services" pill, linking to that method's own card on /foundation-repair-methods#<backToServices> -- set on the 8 method pages only, value is the matching card's id (e.g. "helical-piers"). */
   backToServices?: string;
+  /** Shows the floating "Job Notes" pill, linking back to /job-notes -- set on individual Job Notes articles only. */
+  backToJobNotes?: boolean;
   /** Skips the sitewide MobilePageFlowNav render -- set on send-photos.astro, whose own compact header renders its own prev/next in the (otherwise-empty-on-landing) back-chevron slot instead, per Tim. Keeps this a one-off per-page opt-out rather than new sitewide plumbing, since only one page has a custom header to put it in. */
   hidePageFlowNav?: boolean;
 }
@@ -47,6 +50,7 @@ const {
   pageName,
   nextPage,
   backToServices,
+  backToJobNotes = false,
   hidePageFlowNav = false,
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -203,6 +207,7 @@ const websiteSchema = {
     }
     {summary && <PageSummary summary={summary} pageName={pageName} nextPage={nextPage} />}
     {backToServices && <BackToServicesPill anchor={backToServices} />}
+    {backToJobNotes && <BackToJobNotesPill />}
 
     <script>
       // Lightweight conversion tracking, sitewide -- writes to the EVENTS

@@ -17,6 +17,9 @@ const articles = defineCollection({
     // Shown in the "Summarize this page" popup (see PageSummary.astro).
     summary: z.string(),
     publishDate: z.date(),
+    // Groups the article under one of the topic filters on the /job-notes
+    // index page (see src/pages/job-notes/index.astro for labels).
+    topic: z.enum(['water-drainage', 'soil-ground', 'diagnosis-timing', 'bids-scope']),
     // Root-relative path, e.g. '/images/job-notes/some-photo.webp'. Optional --
     // falls back to a plain header if omitted.
     heroImage: z.string().optional(),

@@ -3,6 +3,7 @@ title: "The Packet From the Listing"
 description: "With closing eleven days out, an inspection note to 'monitor the cracks' and two photo-based pier bids were treated as a diagnosis -- but a closing deadline isn't a soil condition."
 summary: "A sale eleven days from closing already had an inspection note about cracks, plus two foundation bids written from a walkthrough shorter than the showing. The clock creates pressure for a sentence that lets the deal move, but 'needs piers' or 'monitor' from a fast look isn't a diagnosis -- it's a deadline wearing work boots. A floor-level survey can map whether the cracks and floors tell the same story and whether it looks old or live; it can't be rushed to fit a closing date, and a pier bid invented from photos to hit that date is the same shortcut running the other direction."
 publishDate: 2028-02-06
+topic: "bids-scope"
 ---
 
 Close is in eleven days. The folder already has an inspection, a remark about monitoring the cracks, and two foundation bids written from a walkthrough that lasted less than the showing.

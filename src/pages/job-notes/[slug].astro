@@ -58,6 +58,7 @@ const schema = [
   ogImage={heroImage}
   summary={summary}
   pageName={title}
+  backToJobNotes
 >
   <div class="tls-article" id="top">
     <section class="page-hero">
@@ -70,7 +71,6 @@ const schema = [
     <div class="article-outer">
       <article class="article-body">
         <Content />
-        <a href="/job-notes" class="back-to-list">← Back to Job Notes</a>
       </article>
     </div>
   </div>
@@ -213,20 +213,6 @@ const schema = [
     color: var(--blue);
     font-weight: 600;
   }
-  .back-to-list {
-    display: block;
-    margin-top: 48px;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 1px;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .back-to-list:hover {
-    color: var(--gold-text);
-  }
-
   @media (max-width: 768px) {
     .tls-article {
       --gutter: 24px;

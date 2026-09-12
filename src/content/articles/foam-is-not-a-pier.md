@@ -3,6 +3,7 @@ title: "Foam Is Not a Pier"
 description: "A repair packet with foam pumped under the slab was priced and written like a foundation fix -- but foam fills a void, it doesn't take a house load to a bearing layer or shut off the water causing it."
 summary: "A repair packet listed expanding foam pumped under the slab as the fix, priced and written like a foundation job. Foam can lift a slab sitting over a known void, but it doesn't carry house load to a bearing layer, stop a leak, or stop clay from swelling -- if the soil underneath is still wet or still collapsing, the foam is a cushion in a hole with the same problem underneath it. When two of three bids are foam and one is piers, that isn't three prices for one method; it's two different jobs, and the packet should say plainly what the foam is actually being asked to do."
 publishDate: 2028-01-07
+topic: "bids-scope"
 ---
 
 The packet had foam in it. Expanding polyurethane, pumped under the slab, "voids filled," house stabilized. It was priced like a repair and written like a foundation job.

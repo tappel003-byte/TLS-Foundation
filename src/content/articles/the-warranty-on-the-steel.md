@@ -3,6 +3,7 @@ title: "The Warranty on the Steel"
 description: "A warranty on the piers is a promise about the steel -- not a promise that the water is off, the clay has stopped moving, or the house will stop moving."
 summary: "A pier warranty covers the product: it won't rust through, it won't snap, it was installed to spec. It doesn't promise the clay will stop swelling, that a leak is actually off, or that the tips reached a layer that can hold the house. If the movement continues and the steel is technically fine, the warranty answers a different question than the one that actually matters."
 publishDate: 2027-11-20
+topic: "bids-scope"
 ---
 
 The piers have a warranty. The house is still moving.

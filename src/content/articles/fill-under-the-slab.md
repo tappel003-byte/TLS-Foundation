@@ -3,6 +3,7 @@ title: "Fill Under the Slab, Native Soil Under the Addition"
 description: "One house, two foundations, two completely different soil profiles a few feet apart -- and why treating them the same was the mistake."
 summary: "A house with an original section and a later addition sat on two different soil profiles just a few feet apart -- one on native ground, one on decades-old fill. The two ends were moving for different reasons and needed different answers, not one repair applied evenly across both."
 publishDate: 2026-07-17
+topic: "soil-ground"
 ---
 
 The original part of this house sat on native ground. The addition, put on later, sat on fill brought in to level a slope the first builder had worked around. On the surface it reads as one slab, one house, one problem. Underneath it was never one soil profile.

@@ -3,6 +3,7 @@ title: "Nine Piers Is Not Nine Piers"
 description: "Two bids for the same nine-pier repair aren't the same price if one of them quietly excludes the corner the machine can't reach."
 summary: "Two estimates can both say nine piers and still describe different jobs -- if one excludes the tight corner that needs a smaller rig or a different tool, that's not a cheaper price, it's a partial scope wearing the same digit as the complete one. If the actual problem is in that excluded corner, the lower bid gets a straight row of piers installed and the same door that started the call."
 publishDate: 2027-12-15
+topic: "bids-scope"
 ---
 
 Two estimates. Both say nine piers. One of them does not include the corner the machine can't reach.

@@ -3,6 +3,7 @@ title: "They Took the Tree Out"
 description: "Six months after a tree came out, a door on that wall stopped closing -- heave from the water the roots used to take, not settlement from the roots being gone."
 summary: "A tree that had dried the clay along one wall for years came out, and months later a door on that same wall started binding. The soil wasn't settling into the space the roots left -- it was rehydrating and swelling, heave that showed up on a delay tied to the first wet season after removal, not the day the tree came down."
 publishDate: 2026-12-05
+topic: "water-drainage"
 ---
 
 The tree had been there longer than the addition. Roots in the strip along the west wall, canopy throwing shade, soil in that bed drier than the rest of the yard for years. Then the tree came out. Six months later the door on that wall wouldn't close.
