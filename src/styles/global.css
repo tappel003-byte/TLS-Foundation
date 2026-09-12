@@ -102,6 +102,20 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
   /*
+    Sitewide safety net: an absolutely-positioned element anchored to
+    inline text (e.g. the .term-tip hover-definition boxes in
+    cause-library.astro / why-foundations-move.astro) can silently
+    extend past the right edge even while invisible (opacity/visibility
+    hidden still reserves its layout box) -- and once anything does
+    that, the whole page becomes horizontally pannable, letting a
+    visitor drag the entire site sideways past its own content. Found
+    on an iPad where a "RULE THIS OUT FIRST" Cause Library term tooltip
+    happened to land far enough right to trigger exactly this. Clipping
+    horizontal overflow at the document root is the standard backstop
+    for this class of bug, regardless of which component causes it.
+  */
+  overflow-x: hidden;
+  /*
     Without this, iOS Safari auto-inflates text size using its own
     heuristic (viewport width/orientation, DOM structure) -- and that
     heuristic doesn't treat a <button> and an <a> the same, so two
@@ -118,6 +132,14 @@ html {
   html {
     scroll-padding-top: 120px;
   }
+}
+
+body {
+  /* Paired with html's overflow-x: hidden above -- different browsers
+     treat html vs. body as "the" scrolling element for the document,
+     so both need it to reliably block horizontal panning regardless of
+     which one a given browser picks. */
+  overflow-x: hidden;
 }
 
 body,

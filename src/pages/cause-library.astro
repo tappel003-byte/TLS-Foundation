@@ -1507,13 +1507,15 @@ const foundationOptions = [
   .term-tip {
     position: absolute;
     bottom: 100%;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     margin-bottom: 10px;
     background: var(--blue-dark);
     color: white;
     padding: 16px 18px;
     border-radius: 8px;
     width: 260px;
+    max-width: calc(100vw - 32px);
     z-index: 1000;
     border-top: 3px solid var(--gold);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
@@ -1547,7 +1549,8 @@ const foundationOptions = [
     content: '';
     position: absolute;
     top: 100%;
-    left: 12px;
+    left: 50%;
+    margin-left: -8px;
     border: 8px solid transparent;
     border-top-color: var(--blue-dark);
   }
