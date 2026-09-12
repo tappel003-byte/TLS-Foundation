@@ -23,6 +23,12 @@ const articles = defineCollection({
     // Root-relative path, e.g. '/images/job-notes/some-photo.webp'. Optional --
     // falls back to a plain header if omitted.
     heroImage: z.string().optional(),
+    // Slugs of other articles this one pairs naturally with (e.g. two notes
+    // on the same underlying mechanism). Rendered as a small "Related field
+    // note" list at the bottom of the article -- gated the same way as any
+    // other cross-link, so a slug listed here before its own publishDate
+    // simply doesn't render until it's actually live.
+    relatedNotes: z.array(z.string()).default([]),
     // Manual override to hold a dated article back regardless of publishDate.
     draft: z.boolean().default(false),
   }),

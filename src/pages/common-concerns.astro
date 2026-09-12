@@ -286,6 +286,7 @@ const publishedNotes = new Map(
   (await getCollection('articles', ({ data }) => !data.draft && data.publishDate <= new Date())).map((e) => [e.id, e.data])
 );
 const jobNoteLinks: [string, string][] = [
+  ['heave', 'bid-that-treated-heave-as-settlement'],
   ['warranty', 'the-warranty-on-the-steel'],
   ['choose', 'nine-piers-is-not-nine-piers'],
   ['wait', 'the-crack-that-already-finished'],

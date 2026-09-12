@@ -21,10 +21,17 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { title, description, summary, publishDate, heroImage } = entry.data;
+const { title, description, summary, publishDate, heroImage, relatedNotes } = entry.data;
 const { Content } = await render(entry);
 
 const dateLabel = publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+// Same publishDate/draft gate as everywhere else -- a related slug listed
+// before its own publish date just doesn't resolve to anything here yet.
+const now = new Date();
+const related = relatedNotes.length
+  ? (await getCollection('articles', ({ id, data }) => relatedNotes.includes(id) && !data.draft && data.publishDate <= now))
+  : [];
 
 const schema = [
   {
@@ -71,6 +78,20 @@ const schema = [
     <div class="article-outer">
       <article class="article-body">
         <Content />
+        {
+          related.length > 0 && (
+            <div class="related-notes">
+              <span class="related-notes-label">Related field note{related.length > 1 ? 's' : ''}</span>
+              <ul>
+                {related.map((r) => (
+                  <li>
+                    <a href={`/job-notes/${r.id}`}>{r.data.title} →</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )
+        }
       </article>
     </div>
   </div>
@@ -212,6 +233,37 @@ const schema = [
   .article-body :global(strong) {
     color: var(--blue);
     font-weight: 600;
+  }
+  .related-notes {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--stone);
+  }
+  .related-notes-label {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .related-notes ul {
+    list-style: none;
+  }
+  .related-notes li {
+    margin-bottom: 6px;
+  }
+  .related-notes a {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--gold);
+    text-underline-offset: 3px;
+  }
+  .related-notes a:hover {
+    color: var(--gold-text);
   }
   @media (max-width: 768px) {
     .tls-article {

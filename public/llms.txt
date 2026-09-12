@@ -35,6 +35,17 @@ TLS Foundations serves all 33 counties across five geologically distinct regions
 - [Collapsible Soil](https://www.tlsfoundations.com/collapsible-soil): Collapsible soils are New Mexico's most deceptive foundation hazard -- stable for decades, then gone in a season. Understanding the mechanism is the first step.
 - [Job Notes](https://www.tlsfoundations.com/job-notes): Short, dated field notes from real diagnostic calls -- genericized, no names or addresses, written up as they happen. New entries publish on their own schedule, not a fixed one.
 
+## Job Notes (currently live)
+
+New entries publish on their own irregular schedule -- this list reflects what's live as of the last update to this file, not a complete archive. See the Job Notes index above for the current full set.
+
+- [Swamp-Cooler Season](https://www.tlsfoundations.com/job-notes/swamp-cooler-season): Why doors that stick in July and loosen by October are usually moisture, not a failing foundation.
+- [The Bid That Treated Heave as Settlement](https://www.tlsfoundations.com/job-notes/bid-that-treated-heave-as-settlement): A crack that opened every summer and closed every winter got a settlement bid anyway. The calendar was already telling the real story.
+- [Fill Under the Slab, Native Soil Under the Addition](https://www.tlsfoundations.com/job-notes/fill-under-the-slab): One house, two foundations, two completely different soil profiles a few feet apart -- and why treating them the same was the mistake.
+- [The Condensate Line](https://www.tlsfoundations.com/job-notes/the-condensate-line): The AC condensate line most people never think about -- and why a summer of drips in one spot is enough to move expansive clay.
+- [Caliche Stopped the Helix](https://www.tlsfoundations.com/job-notes/caliche-stopped-the-helix): A helical pier's torque spikes against a caliche layer -- and why a high number on the gauge isn't the same thing as bearing capacity.
+- [We Told Them Not to Pier It](https://www.tlsfoundations.com/job-notes/we-told-them-not-to-pier-it): Three pier bids were ready to schedule on a house whose crack had paint in it and a door that had already eased back by October -- the honest answer was not this week.
+
 ## Interactive Tools
 
 - [Symptom Guide](https://www.tlsfoundations.com/symptom-guide): See something? Here's what it usually means and whether it warrants attention -- New Mexico foundation symptoms grouped by category and soil context.

@@ -7,6 +7,7 @@
 // close no longer claims "we don't have an About Us page" directly under
 // a Story section that is one -- it argues urgency instead.
 import Layout from '../layouts/Layout.astro';
+import JobNoteLink from '../components/JobNoteLink.astro';
 
 const title = 'TLS Foundations — New Mexico Foundation Repair';
 const summary =
@@ -93,6 +94,8 @@ const schema = [
             <div class="notice-card-links">
               <a href="/foundation-repair-methods" class="notice-card-link">Foundation Repair Methods&nbsp;→</a>
               <a href="/glossary" class="notice-card-link notice-card-link-secondary">Also see: Glossary →</a>
+              <JobNoteLink slug="we-told-them-not-to-pier-it" class="notice-card-link notice-card-link-secondary" />
+              <JobNoteLink slug="bid-that-treated-heave-as-settlement" class="notice-card-link notice-card-link-secondary" />
             </div>
           </div>
           <div class="notice-card">
