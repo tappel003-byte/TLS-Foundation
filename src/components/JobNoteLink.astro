@@ -1,0 +1,28 @@
+---
+// Inline link to a single Job Notes article -- renders nothing if that
+// article hasn't actually published yet (future publishDate) or is
+// marked draft. This is what makes it safe to link a Job Notes article
+// from anywhere else on the site ahead of its scheduled date: the link
+// simply doesn't exist until the article does, then appears on its own
+// the next time the site rebuilds (see .github/workflows/scheduled-
+// rebuild.yml), same as the article itself.
+//
+// `text` overrides the link text entirely (for a link embedded mid-
+// sentence). Without it, this falls back to "Job Notes: {title} →",
+// matching the "Glossary: Helical Pier →" closing-link convention used
+// elsewhere on the site.
+import { getCollection } from 'astro:content';
+
+interface Props {
+  slug: string;
+  text?: string;
+  class?: string;
+}
+const { slug, text, class: className = 'body-link' } = Astro.props;
+
+const now = new Date();
+const matches = await getCollection('articles', ({ id, data }) => id === slug && !data.draft && data.publishDate <= now);
+const entry = matches[0];
+---
+
+{entry && <a href={`/job-notes/${slug}`} class={className}>{text || `Job Notes: ${entry.data.title} →`}</a>}

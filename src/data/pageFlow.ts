@@ -54,6 +54,7 @@ export const pageFlow: { path: string; name: string }[] = [
   { path: '/glossary', name: 'Glossary' }, // Reference
   { path: '/expansive-soil', name: 'Expansive Soil' },
   { path: '/collapsible-soil', name: 'Collapsible Soil' },
+  { path: '/job-notes', name: 'Job Notes' },
   { path: '/symptom-guide', name: 'Symptom Guide' }, // Interactive Tools
   { path: '/cause-library', name: 'Cause Library' },
   // "Crack Gauge" here, not "Printable Crack Gauge" -- per Tim, same
