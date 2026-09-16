@@ -2,3 +2,12 @@
 /home                  /                   301
 /foundation-repair-faq /common-concerns    301
 /sitemap.xml           /sitemap-index.xml  301
+
+# Bare domain (no www) was serving the exact same site with no redirect,
+# so Google was crawling and indexing two separate copies of every page --
+# this is what "Alternate page with proper canonical tag" in Search
+# Console's indexing report was actually seeing, and likely part of why
+# so many pages were stuck at "Discovered - currently not indexed"
+# (crawl budget split across duplicate URLs instead of one canonical set).
+https://tlsfoundations.com/*  https://www.tlsfoundations.com/:splat  301!
+http://tlsfoundations.com/*   https://www.tlsfoundations.com/:splat  301!
