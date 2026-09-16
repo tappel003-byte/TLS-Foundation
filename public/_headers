@@ -1,0 +1,23 @@
+# Cloudflare Workers static assets were serving every file -- fonts,
+# hashed CSS/JS, images -- with `Cache-Control: public, max-age=0,
+# must-revalidate` (the platform default), forcing a revalidation
+# round-trip on every single load. That's the biggest single fix on
+# Lighthouse's cache-lifetimes audit for this site.
+#
+# /_astro/* files are content-hashed by Astro's build (the hash is in
+# the filename itself), so a changed file always gets a new URL --
+# caching them forever is provably safe, never stale.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Fonts are static, self-hosted, and effectively never change without
+# a deliberate replacement -- same long/immutable treatment.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images aren't filename-hashed (home-hero.webp keeps its name across
+# a real photo swap), so a shorter cache that still revalidates
+# periodically -- a week -- balances real savings against the
+# possibility of a photo actually changing.
+/images/*
+  Cache-Control: public, max-age=604800
