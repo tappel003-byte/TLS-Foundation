@@ -814,7 +814,7 @@ const foundationOptions = [
             <input type="hidden" name="subject" value="Cause Library results from tlsfoundations.com" />
             <input type="hidden" name="from_name" value="TLS Foundations website" />
             <input type="hidden" name="message" id="sendMessageField" />
-            <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" />
+            <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <p class="send-form-note">We'll send exactly what's on this page — what you checked, and the read above.</p>
             <div class="form-row">
               <label for="send-name">Name</label>
@@ -917,7 +917,7 @@ const foundationOptions = [
         ))}
       </div>
 
-      <button type="button" class="other-strip" id="otherStrip" hidden></button>
+      <button type="button" class="other-strip" id="otherStrip" hidden>Other causes</button>
 
       <div class="contact-footer">
         <p><strong>If this matches what you're seeing, the next step is having someone confirm it in person.</strong></p>
@@ -1805,7 +1805,10 @@ const foundationOptions = [
     font-family: 'Playfair Display', serif;
     font-size: 34px;
     font-weight: 400;
-    color: var(--gold-light);
+    /* --gold-light is for dark backgrounds; this sits on the cream card
+       background, where it read as 2.28:1 -- fails WCAG AA. --gold-text
+       is the variant meant for light backgrounds and clears 5.92:1. */
+    color: var(--gold-text);
     line-height: 1;
     flex-shrink: 0;
     -webkit-text-stroke: 1px var(--gold-text);

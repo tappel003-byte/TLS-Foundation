@@ -677,7 +677,7 @@ const schema = [
             <input type="hidden" name="subject" value="Symptom Guide results from tlsfoundations.com" />
             <input type="hidden" name="from_name" value="TLS Foundations website" />
             <input type="hidden" name="message" id="sendMessageField" />
-            <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" />
+            <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <p class="send-form-note">We'll send exactly what's on this page — what you checked, and the read above.</p>
             <div class="form-row">
               <label for="send-name">Name</label>
@@ -751,7 +751,7 @@ const schema = [
         )}
       </div>
 
-      <button type="button" class="other-strip" id="otherStrip" hidden></button>
+      <button type="button" class="other-strip" id="otherStrip" hidden>Other symptoms</button>
 
       <div class="contact-footer">
         <p><strong>Nothing beats talking through what you're seeing.</strong></p>
@@ -1406,7 +1406,7 @@ const schema = [
   }
   .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(28px, 4vw, 46px); font-weight: 400; color: var(--white); line-height: 1.15; margin-bottom: 16px; }
   .page-hero h1 em { font-style: italic; color: var(--gold-light); }
-  .page-hero-sub { font-size: 17px; font-weight: 300; color: rgba(255, 255, 255, 0.5); line-height: 1.8; max-width: 640px; }
+  .page-hero-sub { font-size: 17px; font-weight: 300; color: rgba(255, 255, 255, 0.58); /* was 0.5 (4.17:1) -- WCAG AA needs 4.5:1 */ line-height: 1.8; max-width: 640px; }
   .diagnostic-note {
     background: var(--sand);
     border-left: 4px solid var(--gold);

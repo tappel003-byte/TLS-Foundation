@@ -256,7 +256,7 @@ const TRACKING_ROWS = 22;
               <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
               <input type="hidden" name="subject" value="Crack gauge lead from tlsfoundations.com" />
               <input type="hidden" name="from_name" value="TLS Foundations website — Crack Gauge" />
-              <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" />
+              <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
               <div class="send-form-grid">
                 <label class="send-field">
@@ -346,7 +346,7 @@ const TRACKING_ROWS = 22;
   .page-hero-sub {
     font-size: 17px;
     font-weight: 300;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.58); /* was 0.5 (4.17:1) -- WCAG AA needs 4.5:1 */
     line-height: 1.8;
     max-width: 600px;
   }
@@ -477,7 +477,10 @@ const TRACKING_ROWS = 22;
     color: var(--navy);
   }
   .brand-name.small { font-size: 15px; }
-  .brand-name em { font-style: normal; color: var(--tls-gold); }
+  /* --tls-gold read as 3.12:1 against the cream print-sheet background --
+     fails WCAG AA. --gold-text is the darker variant meant for light
+     backgrounds and clears 5.92:1. */
+  .brand-name em { font-style: normal; color: var(--gold-text); }
   .brand-tag {
     font-family: 'DM Mono', monospace;
     font-size: 8px;
@@ -545,7 +548,9 @@ const TRACKING_ROWS = 22;
     font-size: 8.5px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: var(--tls-gold);
+    /* --tls-gold read as 3.12:1 against the cream background -- fails
+       WCAG AA. --gold-text clears 5.92:1. */
+    color: var(--gold-text);
     margin-bottom: 4px;
   }
   .callout-box p, .surface-box p {

@@ -108,7 +108,9 @@ const {
     font-size: 14px;
     font-weight: 300;
     font-style: italic;
-    color: rgba(255, 255, 255, 0.38);
+    /* 0.38 read as 3.47:1 against this background -- fails WCAG AA's
+       4.5:1 for normal text. 0.58 clears it with margin. */
+    color: rgba(255, 255, 255, 0.58);
     line-height: 1.7;
     margin-bottom: 24px;
   }
@@ -164,7 +166,8 @@ const {
     font-family: 'DM Mono', monospace;
     font-size: 9px;
     letter-spacing: 1.5px;
-    color: rgba(255, 255, 255, 0.22);
+    /* 0.22 read as 2.03:1 -- fails WCAG AA. 0.50 clears 4.5:1. */
+    color: rgba(255, 255, 255, 0.5);
     line-height: 2;
   }
   /* The SandiaGEO mention in serviceAreaText is a plain <a> with no class
@@ -188,10 +191,12 @@ const {
     font-size: 10px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.2);
+    /* 0.2 read as 1.89:1 -- fails WCAG AA. 0.50 clears 4.5:1. */
+    color: rgba(255, 255, 255, 0.5);
   }
   .footer-privacy-link {
-    color: rgba(255, 255, 255, 0.4);
+    /* 0.4 read as 3.70:1 -- fails WCAG AA. 0.58 clears 4.5:1. */
+    color: rgba(255, 255, 255, 0.58);
     text-decoration: none;
     transition: color 0.2s;
   }
@@ -205,7 +210,8 @@ const {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
     letter-spacing: 1.5px;
-    color: rgba(255, 255, 255, 0.3);
+    /* 0.3 read as 2.67:1 -- fails WCAG AA. 0.52 clears 4.5:1. */
+    color: rgba(255, 255, 255, 0.52);
   }
 
   @media (max-width: 768px) {

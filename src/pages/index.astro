@@ -514,6 +514,12 @@ const schema = [
   .notice-card-urgent .notice-card-desc {
     color: rgba(255, 255, 255, 0.75);
   }
+  .notice-card-urgent .notice-card-arrow {
+    /* --gold-text is meant for light backgrounds; on this card's dark
+       blue background it read as 1.88:1 -- fails WCAG AA. --gold-light
+       is the dark-background variant and clears 4.89:1. */
+    color: var(--gold-light);
+  }
   .notice-card-arrow {
     font-family: 'DM Mono', monospace;
     font-size: 13px;
