@@ -421,11 +421,13 @@ const faqSchema = {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Centered, not biased toward the rock -- at 560px there's only
-       room for a fraction of this photo's height, so a centered crop
-       is what keeps a visible band of both sky and trees rather than
-       trading one away for more rock detail. */
-    object-position: center 50%;
+    /* At 560px there's only room for a fraction of this photo's
+       height, and dead-center (50%) crops out almost the entire tree
+       line at the bottom -- confirmed by simulating the actual
+       object-fit:cover crop at real viewport widths. 65% keeps the
+       full rock face and a clear band of trees, while still leaving
+       sky/cloud visible on the right side of the frame. */
+    object-position: center 65%;
     animation: kenburns 20s ease-in-out infinite alternate;
   }
   @keyframes kenburns {
