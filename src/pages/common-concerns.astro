@@ -407,28 +407,25 @@ const faqSchema = {
 <style>
   .hero {
     position: relative;
-    /* This photo (portrait-ish, 1080x720) isn't pre-cropped to the
-       site's usual wide/short banner shape, so a short box forces a
-       heavy vertical crop no matter where the crop window is centered.
-       680px (taller than the sitewide 560px norm) is what actually
-       gets sky, rock, and trees all in frame together instead of just
-       picking one -- confirmed visually, not a default. */
-    min-height: 680px;
+    /* Standard sitewide hero height (matches index/our-approach/
+       contact-us/etc). The source photo itself is now pre-cropped
+       (see common-concerns-hero.webp) to a wide/short aspect that
+       actually fits this box, so this page no longer needs a taller
+       box or a hard-biased crop position to get sky, rock, and trees
+       all in frame -- confirmed by simulating the real object-fit:cover
+       math at 1920/1440px before applying. */
+    min-height: 560px;
     display: flex;
     align-items: flex-end;
     overflow: hidden;
   }
   .hero-photo {
     position: absolute;
-    inset: -1%;
-    width: 102%;
-    height: 102%;
+    inset: -2%;
+    width: 104%;
+    height: 104%;
     object-fit: cover;
-    /* Slight downward bias so the crop takes a little more off the sky
-       (the least essential of the three) than off the trees, while still
-       leaving real sky visible above the rock -- not shifted hard toward
-       the bottom the way the first pass was. */
-    object-position: center 58%;
+    object-position: center;
     animation: kenburns 20s ease-in-out infinite alternate;
   }
   @keyframes kenburns {
