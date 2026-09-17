@@ -12,6 +12,15 @@
     // as before. Keeps this change contained to the one new endpoint
     // instead of putting the whole site behind a worker.
     "run_worker_first": ["/api/*"]
+    // The bare-domain (tlsfoundations.com, no www) -> www redirect is NOT
+    // handled here or in public/_redirects -- Workers Static Assets'
+    // _redirects file only supports relative URLs, so a host-based rule
+    // can't live there, and widening run_worker_first to every path just
+    // for a redirect would put the whole site behind the Worker for no
+    // reason (see worker/index.ts's own comment on why that was avoided
+    // for /api/* already). Set it up instead as a zone-level Redirect
+    // Rule / Bulk Redirect in the Cloudflare dashboard (Rules > Redirect
+    // Rules), which runs at the edge before any Worker or asset request.
   },
   "r2_buckets": [{ "binding": "PHOTOS", "bucket_name": "tls-homeowner-photos" }],
   "d1_databases": [{ "binding": "EVENTS", "database_name": "tls-foundation-events", "database_id": "f110eae2-e5f0-4d74-a5e5-0e5c1a7a0801" }]

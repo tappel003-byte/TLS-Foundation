@@ -3,11 +3,14 @@
 /foundation-repair-faq /common-concerns    301
 /sitemap.xml           /sitemap-index.xml  301
 
-# Bare domain (no www) was serving the exact same site with no redirect,
-# so Google was crawling and indexing two separate copies of every page --
-# this is what "Alternate page with proper canonical tag" in Search
-# Console's indexing report was actually seeing, and likely part of why
-# so many pages were stuck at "Discovered - currently not indexed"
-# (crawl budget split across duplicate URLs instead of one canonical set).
-https://tlsfoundations.com/*  https://www.tlsfoundations.com/:splat  301!
-http://tlsfoundations.com/*   https://www.tlsfoundations.com/:splat  301!
+# The bare-domain (no www) -> www redirect that used to live here as two
+# absolute-URL lines has been REMOVED, not just reformatted. Workers
+# Static Assets' _redirects parser only accepts relative source/destination
+# URLs (https://developers.cloudflare.com/workers/static-assets/redirects/)
+# -- an absolute host-based rule like "https://tlsfoundations.com/* ->
+# https://www.tlsfoundations.com/:splat" fails validation at deploy time
+# ("Invalid _redirects configuration: Line 12: Only relative URLs are
+# allowed"), and Cloudflare started hard-enforcing that and blocking every
+# deploy on this branch. A host-based redirect has to be a zone-level
+# Redirect Rule / Bulk Redirect in the Cloudflare dashboard instead --
+# see the comment in wrangler.jsonc and the note left for Tim.
