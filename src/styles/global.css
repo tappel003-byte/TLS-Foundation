@@ -114,7 +114,7 @@ html {
     horizontal overflow at the document root is the standard backstop
     for this class of bug, regardless of which component causes it.
   */
-  overflow-x: hidden;
+  overflow-x: clip;
   /*
     Without this, iOS Safari auto-inflates text size using its own
     heuristic (viewport width/orientation, DOM structure) -- and that
@@ -139,7 +139,7 @@ body {
      treat html vs. body as "the" scrolling element for the document,
      so both need it to reliably block horizontal panning regardless of
      which one a given browser picks. */
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body,
