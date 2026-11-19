@@ -1479,6 +1479,9 @@ const schema = [
     text-transform: uppercase;
     color: rgba(255,255,255,0.6);
   }
+  /* Full-bleed inside .town-rail-section (already zero horizontal padding).
+     Do NOT use margin: 0 -96px here — that pulls the rail under the sticky
+     left TOC and clips leading letters (Aztec→ztec, Subsurface→ubsurface). */
   .town-rail {
     display: grid;
     grid-template-columns: 18px 1fr;
@@ -1486,7 +1489,8 @@ const schema = [
     background: var(--sand);
     border-top: 1px solid var(--stone);
     border-bottom: 1px solid var(--stone);
-    margin: 0 -96px;
+    margin: 0;
+    width: 100%;
     padding: 0;
     box-sizing: border-box;
     max-width: none;
