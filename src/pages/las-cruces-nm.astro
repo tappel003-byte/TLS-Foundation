@@ -1,10 +1,9 @@
 ---
-// Las Cruces city page — Valley Transect + Field Overlay magazine layout.
+// Las Cruces city page — Valley Transect magazine layout.
 // Organizing principle: irrigation history → ground history (Mesilla Valley
 // as irrigated landscape that became residential). Signature: horizontal
-// east–west Valley Transect with River / La Mesa band-select PLUS an
-// irrigation overlay toggle (hatch sweep) that is unique to this page.
-// Former Farmland remains its own nav chapter (not overlay-only).
+// east–west Valley Transect with River / La Mesa band-select. Former
+// Farmland is its own nav chapter (content + ledger, no overlay gimmick).
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Foundation Repair in Las Cruces, NM | TLS Foundations';
@@ -171,14 +170,10 @@ const schema = [
             <p class="lede reveal">Las Cruces sits in the Mesilla Valley, in the Chihuahuan Desert, with the Organ Mountains east and the Rio Grande west. Desert, river, and mountain close together — which is part of why the ground here isn't one simple story.</p>
             <p class="reveal"><mark class="key">The ground under a Las Cruces home depends on which history it sits on — river-valley clay and silt, the La Mesa terrace's collapsible alluvium, or former agricultural land with its own uneven moisture and fill history.</mark> None of them announce themselves from the street.</p>
 
-            <!-- SIGNATURE: Valley Transect + irrigation overlay -->
+            <!-- SIGNATURE: Valley Transect (River / La Mesa band-select) -->
             <div class="transect reveal" id="transect">
               <div class="transect-toolbar">
                 <span class="transect-label">Valley Transect · Mesilla Valley</span>
-                <button type="button" class="irrig-toggle" id="irrigToggle" aria-pressed="false">
-                  <span class="irrig-toggle-dot" aria-hidden="true"></span>
-                  Show former irrigation overlay
-                </button>
               </div>
 
               <div class="transect-stage" id="transectStage">
@@ -196,10 +191,6 @@ const schema = [
                     <span class="t-band-sub">edge atmosphere</span>
                   </div>
                 </div>
-                <div class="irrig-overlay" id="irrigOverlay" aria-hidden="true">
-                  <div class="irrig-sweep"></div>
-                  <div class="irrig-ditches"></div>
-                </div>
               </div>
 
               <div class="transect-panels">
@@ -208,15 +199,10 @@ const schema = [
                   <h3>Fine clay and silt near the Rio Grande</h3>
                   <p>Ground closest to the river and historic Mesilla carries fine river and lake sediment deposited over thousands of years of flooding. Where that clay is present, it's genuinely expansive. Old Mesilla sits right in this corridor — some of the oldest continuously settled ground in the valley.</p>
                 </div>
-                <div class="t-panel" data-panel="mesa" hidden>
+                <div class="t-panel t-panel-mesa" data-panel="mesa" hidden>
                   <span class="t-panel-tag">East of the river · terrace</span>
                   <h3>La Mesa collapsible alluvium</h3>
                   <p>Older, dry-deposited alluvium that stayed stable for thousands of years because it stayed dry. Irrigation and urban moisture have triggered first-wetting collapse in mid-century foundations: the soil holds its shape until water reaches it, then loses volume rapidly — sometimes decades after a house was built.</p>
-                </div>
-                <div class="t-panel t-panel-irrig" data-panel="irrig" hidden>
-                  <span class="t-panel-tag">Overlay · land-use history</span>
-                  <h3>Former irrigated parcels (cross-cutting)</h3>
-                  <p>The hatch is not a third geographic band. It marks where flood-irrigated fields — chile, pecan, onion — were leveled into subdivisions. Old ditch lines and field boundaries can leave inconsistent bearing under what looks like one uniform lot. Full chapter below: Former Farmland.</p>
                 </div>
               </div>
             </div>
@@ -308,7 +294,7 @@ const schema = [
               <div class="folio-main">
                 <p><mark class="key">Much of the Mesilla Valley's newer growth sits on what used to be chile, pecan, or onion fields — flood-irrigated for generations before it was leveled and subdivided.</mark> That history doesn't disappear under a new slab.</p>
                 <p>Old field boundaries, filled-in irrigation ditches, and decades of uneven moisture conditioning can leave inconsistent bearing ground across what looks like one uniform lot. That can show up as differential movement — one part of a foundation settling or heaving differently than the rest.</p>
-                <p>We've seen differential movement on converted farmland directly. The overlay on the transect above is a visual reminder; this chapter is the full argument.</p>
+                <p>We've seen differential movement on converted farmland directly. This chapter is the full argument for that land-use history — it cuts across both the river corridor and the terrace.</p>
                 <div class="pull">Chile and pecans need irrigation to grow. Foundations need to know where that water history actually went.</div>
               </div>
               <div class="warn-stack">
@@ -500,12 +486,9 @@ const schema = [
   );
   document.querySelectorAll('.reveal').forEach((el) => revealObs.observe(el));
 
-  // Valley Transect band-select + irrigation overlay (Las Cruces-only)
+  // Valley Transect band-select (Las Cruces-only)
   const bands = document.querySelectorAll('.t-band');
   const panels = document.querySelectorAll('.t-panel');
-  const irrigToggle = document.getElementById('irrigToggle');
-  const irrigOverlay = document.getElementById('irrigOverlay');
-  const transectStage = document.getElementById('transectStage');
 
   function hidePanels() {
     panels.forEach((p) => {
@@ -528,53 +511,14 @@ const schema = [
         b.classList.remove('active');
         b.setAttribute('aria-pressed', 'false');
       });
-      // Band select is independent of overlay — but showing irrig panel
-      // only when overlay is on and no band selected would confuse; keep
-      // band panels primary when a band is chosen.
       if (was) {
         hidePanels();
-        if (irrigToggle?.getAttribute('aria-pressed') === 'true') showPanel('irrig');
         return;
       }
       band.classList.add('active');
       band.setAttribute('aria-pressed', 'true');
       showPanel(id);
     });
-  });
-
-  irrigToggle?.addEventListener('click', () => {
-    const on = irrigToggle.getAttribute('aria-pressed') === 'true';
-    if (on) {
-      irrigToggle.setAttribute('aria-pressed', 'false');
-      irrigToggle.classList.remove('on');
-      irrigOverlay?.classList.remove('sweeping', 'on');
-      irrigOverlay?.setAttribute('aria-hidden', 'true');
-      transectStage?.classList.remove('overlay-on');
-      // If no band active, hide irrig panel
-      const anyBand = document.querySelector('.t-band.active');
-      if (!anyBand) hidePanels();
-      return;
-    }
-    irrigToggle.setAttribute('aria-pressed', 'true');
-    irrigToggle.classList.add('on');
-    irrigOverlay?.setAttribute('aria-hidden', 'false');
-    irrigOverlay?.classList.remove('on');
-    irrigOverlay?.classList.add('sweeping');
-    transectStage?.classList.add('overlay-on');
-    // Restart sweep animation
-    const sweep = irrigOverlay?.querySelector('.irrig-sweep') as HTMLElement | null;
-    if (sweep) {
-      sweep.style.animation = 'none';
-      // force reflow
-      void sweep.offsetWidth;
-      sweep.style.animation = '';
-    }
-    window.setTimeout(() => {
-      irrigOverlay?.classList.remove('sweeping');
-      irrigOverlay?.classList.add('on');
-      const anyBand = document.querySelector('.t-band.active');
-      if (!anyBand) showPanel('irrig');
-    }, 900);
   });
 </script>
 
@@ -935,39 +879,8 @@ const schema = [
     text-transform: uppercase;
     color: var(--gold-text);
   }
-  .irrig-toggle {
-    appearance: none;
-    border: 1px solid var(--stone);
-    border-radius: 0;
-    background: var(--white);
-    color: var(--navy);
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding: 10px 14px;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .irrig-toggle-dot {
-    width: 10px;
-    height: 10px;
-    border: 1px solid var(--gold-text);
-    background: transparent;
-  }
-  .irrig-toggle.on {
-    border-color: var(--gold);
-    background: var(--sand);
-  }
-  .irrig-toggle.on .irrig-toggle-dot {
-    background: var(--gold);
-  }
-
   .transect-stage {
     position: relative;
-    overflow: hidden;
     border: 1px solid var(--stone);
   }
   .transect-bands {
@@ -980,26 +893,32 @@ const schema = [
     appearance: none;
     border: none;
     border-radius: 0;
-    border-right: 1px solid rgba(255, 255, 255, 0.15);
     text-align: left;
     padding: 28px 24px;
-    color: #fff;
     cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     gap: 6px;
   }
+  /* River = deep navy family; La Mesa = sand/stone light — must read as different */
   .t-river {
-    background: linear-gradient(160deg, var(--navy) 0%, var(--blue) 55%, var(--blue-mid) 100%);
+    background: linear-gradient(160deg, var(--navy) 0%, var(--blue) 100%);
+    color: #fff;
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
   }
   .t-mesa {
-    background: linear-gradient(160deg, var(--blue) 0%, var(--blue-mid) 100%);
+    background: linear-gradient(160deg, var(--sand) 0%, var(--stone) 100%);
+    color: var(--navy);
+    border-right: 1px solid var(--stone);
+    border-top: 3px solid var(--gold);
   }
+  .t-mesa .t-band-sub { color: var(--gold-text); opacity: 1; }
   .t-edge {
-    background: linear-gradient(160deg, var(--navy) 0%, var(--blue) 100%);
+    background: var(--navy);
+    color: rgba(255, 255, 255, 0.7);
     cursor: default;
-    opacity: 0.7;
+    opacity: 0.85;
   }
   .t-band-name {
     font-family: 'Playfair Display', serif;
@@ -1016,49 +935,7 @@ const schema = [
   .t-band.active {
     outline: 2px solid var(--gold);
     outline-offset: -2px;
-    filter: brightness(1.08);
   }
-
-  .irrig-overlay {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    opacity: 0;
-  }
-  .irrig-overlay.sweeping,
-  .irrig-overlay.on { opacity: 1; }
-  .irrig-sweep {
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      -28deg,
-      transparent 0 10px,
-      rgba(184, 134, 11, 0.22) 10px 12px
-    );
-    clip-path: inset(0 100% 0 0);
-  }
-  .irrig-overlay.sweeping .irrig-sweep {
-    animation: irrigSweep 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  }
-  .irrig-overlay.on .irrig-sweep {
-    clip-path: inset(0 0 0 0);
-  }
-  @keyframes irrigSweep {
-    from { clip-path: inset(0 100% 0 0); }
-    to { clip-path: inset(0 0 0 0); }
-  }
-  .irrig-ditches {
-    position: absolute;
-    inset: 18% 8% 22% 6%;
-    background:
-      linear-gradient(90deg, transparent 0, transparent 18%, rgba(253, 250, 246, 0.55) 18%, rgba(253, 250, 246, 0.55) 19%, transparent 19%),
-      linear-gradient(90deg, transparent 0, transparent 42%, rgba(253, 250, 246, 0.45) 42%, rgba(253, 250, 246, 0.45) 43%, transparent 43%),
-      linear-gradient(90deg, transparent 0, transparent 67%, rgba(253, 250, 246, 0.4) 67%, rgba(253, 250, 246, 0.4) 68%, transparent 68%);
-    opacity: 0;
-    transition: opacity 0.4s ease 0.35s;
-  }
-  .irrig-overlay.sweeping .irrig-ditches,
-  .irrig-overlay.on .irrig-ditches { opacity: 1; }
 
   .transect-panels { margin-top: 0; }
   .t-panel {
@@ -1066,6 +943,10 @@ const schema = [
     border: 1px solid var(--stone);
     border-top: none;
     padding: 28px 32px;
+  }
+  .t-panel-mesa {
+    background: var(--cream);
+    border-top: 3px solid var(--gold);
   }
   .t-panel-tag {
     font-family: 'DM Mono', monospace;
@@ -1082,12 +963,6 @@ const schema = [
     color: var(--navy);
     margin-bottom: 12px;
   }
-  .t-panel-irrig {
-    background: var(--navy);
-    color: rgba(255, 255, 255, 0.88);
-  }
-  .t-panel-irrig .t-panel-tag { color: var(--gold); }
-  .t-panel-irrig h3 { color: #fff; }
 
   .warn-stack {
     background: transparent;
@@ -1287,41 +1162,47 @@ const schema = [
     .ask-step-arrow { display: none; }
     .contact-closer { margin: 32px 24px 0; }
     .contact-closer-inner { flex-direction: column; align-items: flex-start; padding: 32px 24px; }
-    .valley-band { margin-left: -24px; margin-right: -24px; }
-    .folio-spread { grid-template-columns: 1fr; }
-    .folio-num { display: none; }
-    .ask-strip-bleed { margin-left: -24px; margin-right: -24px; padding: 36px 24px; }
   }
 
   /* ── Layout DNA: valley-band chapters + folio spreads + irrig ledger ── */
   .valley-band {
     margin: 0 -96px 36px;
     padding: 36px 48px;
-    color: #fff;
     display: grid;
     gap: 8px;
   }
+  /* River chapter = navy; La Mesa = sand/stone — must not look like the same box */
   .valley-west {
-    background: linear-gradient(90deg, var(--navy) 0%, var(--blue) 55%, var(--blue-mid) 100%);
+    background: linear-gradient(90deg, var(--navy) 0%, var(--blue) 100%);
+    color: #fff;
   }
+  .valley-west .valley-band-dir { color: var(--gold-lt); }
+  .valley-west .valley-band-tag { color: rgba(255, 255, 255, 0.7); }
   .valley-east {
-    background: linear-gradient(90deg, var(--blue) 0%, var(--blue-mid) 100%);
+    background: linear-gradient(90deg, var(--sand) 0%, var(--stone) 100%);
+    color: var(--navy);
+    border-top: 3px solid var(--gold);
+    border-bottom: 1px solid var(--stone);
   }
+  .valley-east .valley-band-dir { color: var(--gold-text); }
+  .valley-east .valley-band-tag { color: var(--slate); }
   .valley-field {
     background: repeating-linear-gradient(
       -28deg,
       var(--navy) 0 12px,
       var(--blue) 12px 24px
     );
+    color: #fff;
     border-top: 3px dashed var(--gold);
     border-bottom: 3px dashed var(--gold);
   }
+  .valley-field .valley-band-dir { color: var(--gold-lt); }
+  .valley-field .valley-band-tag { color: rgba(255, 255, 255, 0.7); }
   .valley-band-dir {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--gold-lt);
   }
   .valley-band-title {
     font-family: 'Playfair Display', serif;
@@ -1335,7 +1216,6 @@ const schema = [
     font-size: 10px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
   }
   .folio-spread {
     display: grid;
@@ -1350,6 +1230,8 @@ const schema = [
     color: rgba(184, 134, 11, 0.35);
     line-height: 1;
   }
+  .folio-main { min-width: 0; }
+  .warn-stack { min-width: 0; }
   .irrig-ledger {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1381,8 +1263,65 @@ const schema = [
     border-top: 1px solid var(--stone);
     border-bottom: 1px solid var(--stone);
   }
+
+  /* Mobile MUST come after Layout DNA — earlier media rules were overridden by
+     desktop grid/margin declarations that followed them in the cascade. */
   @media (max-width: 960px) {
+    .content-area { overflow-x: clip; }
+    .valley-band {
+      margin: 0 0 28px;
+      padding: 28px 20px;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    .valley-band-title {
+      font-size: clamp(26px, 8vw, 34px);
+      overflow-wrap: anywhere;
+    }
+    .valley-band-tag {
+      letter-spacing: 1px;
+      overflow-wrap: anywhere;
+    }
+    .folio-spread {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      width: 100%;
+      max-width: 100%;
+    }
+    .folio-num { display: none; }
+    .folio-main,
+    .warn-stack {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    .folio-main p {
+      font-size: 17px;
+      line-height: 1.75;
+    }
+    .warn-stack-label {
+      letter-spacing: 1.5px;
+      overflow-wrap: anywhere;
+    }
+    .warn-stack summary {
+      overflow-wrap: anywhere;
+    }
     .irrig-ledger { grid-template-columns: 1fr 1fr; }
+    .ask-strip-bleed {
+      margin-left: 0;
+      margin-right: 0;
+      padding: 36px 24px;
+    }
+    .t-band {
+      padding: 24px 20px;
+      min-height: 100px;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .t-band-name { font-size: 20px; overflow-wrap: anywhere; }
+    .t-band-sub { letter-spacing: 1px; overflow-wrap: anywhere; }
   }
 
 </style>
