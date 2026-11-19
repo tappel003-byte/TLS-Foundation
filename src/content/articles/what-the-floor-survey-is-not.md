@@ -6,11 +6,11 @@ publishDate: 2026-10-05
 topic: "diagnosis-timing"
 ---
 
-A floor-level survey is a map. Elevations on a plan. A pattern. Areas that are high, areas that are low, and whether that pattern looks like a house moving or a house that was built that way.
+A [floor-level survey](/glossary#floor-level-survey) is a map. Elevations on a plan. A pattern. Areas that are high, areas that are low, and whether that pattern looks like a house moving or a house that was built that way.
 
 It is not a home inspection. It will not tell you about the roof or the furnace.
 
-It is not a geotechnical investigation. Nobody drills a boring and nobody writes a soil report from a walk-across with a level.
+It is not a [geotechnical investigation](/glossary#geotechnical-investigation). Nobody drills a boring and nobody writes a soil report from a walk-across with a level.
 
 It is not a stamped recommendation. A document that tells you what to do to the foundation is engineering. That is a different piece of work, from a licensed engineer, and it costs more and takes longer because it is allowed to tell you what to do.
 

@@ -12,7 +12,7 @@ Fill does not behave like the ground it sits on. How differently depends on how 
 
 That was this house. The addition end was sinking, slowly. The original section wasn't, or at least not at the same rate, in the same direction. The crack at the seam where old met new wasn't cosmetic. It was the two sides of the house disagreeing about how much they had moved.
 
-A repair that only treats the crack treats it as one problem with one cause. It isn't. It is two profiles, attached to each other, doing two different things. Piers under the addition have to reach past the fill and into competent native material below it. That depth is set by the fill, not by the floor plan. Piers under the original section — native soil that was never the problem — may not be warranted, or they need a different depth and spacing if they are.
+A repair that only treats the crack treats it as one problem with one cause. It isn't. It is two profiles, attached to each other, doing two different things. [Piers](/foundation-repair-methods) under the addition have to reach past the fill and into competent native material below it. That depth is set by the fill, not by the floor plan. Piers under the original section — native soil that was never the problem — may not be warranted, or they need a different depth and spacing if they are.
 
 Not every New Mexico house is built this way. Sometimes the original is the fill and the addition is the better ground. Sometimes both ends are fill. The point is the same: find the boundary before you treat the slab as one soil.
 
