@@ -354,60 +354,15 @@ const schema = [
           <span class="section-num">06</span>
           <div class="section-inner">
             <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Before You Sign</span></div>
-            <h2 class="section-heading reveal">Three things worth <em>asking first</em></h2>
-            <p class="lede reveal">Not a pitch — three questions worth asking any foundation contractor before you sign anything.</p>
-
-            <div class="flip-cards reveal">
-              <div class="flip-card abc" tabindex="0" role="button" aria-label="Ask which of the three grounds you're on. Tap to learn more.">
-                <div class="flip-card-inner">
-                  <div class="flip-front">
-                    <span class="flip-num">1</span>
-                    <div>
-                      <div class="flip-title">Ask which of the three grounds you're on.</div>
-                      <p class="flip-front-sub">River bottom, La Mesa terrace, or former farmland — they don't take the same repair.</p>
-                      <span class="flip-hint">Tap to learn more</span>
-                    </div>
-                  </div>
-                  <div class="flip-back">
-                    <span class="flip-tag">Assessment</span>
-                    <p class="flip-body">A quote written before anyone's checked which of the valley's three ground histories is actually under your slab is a guess with a price tag attached. TLS works with <a href="https://www.sandiageo.com" target="_blank" rel="noopener">SandiaGEO</a> when a formal soil investigation is warranted — before a repair method is named, not after.</p>
-                    <span class="flip-tag">Investigation first</span>
-                  </div>
-                </div>
+            <h2 class="section-heading reveal">Not a pitch — <em>a few questions worth asking first</em></h2>
+            <div class="two-col reveal">
+              <div>
+                <p>Ask which of the valley's three grounds you're actually on. River bottom, La Mesa terrace, and former farmland don't take the same repair, and a quote written before anyone's checked which one is under your slab is a guess with a price tag attached. TLS works with <a href="https://www.sandiageo.com" target="_blank" rel="noopener">SandiaGEO</a> when a formal soil investigation is warranted — before a repair method is named, not after.</p>
+                <p><mark class="key">Ask if your lot used to be a field.</mark> If a subdivision was chile, pecan, or onion fields within living memory, old field boundaries and irrigation ditches don't disappear when the land gets leveled — they just go underground. A pier plan written without knowing that is a design written on assumption.</p>
               </div>
-              <div class="flip-card abc" tabindex="0" role="button" aria-label="Ask if your lot used to be a field. Tap to learn more.">
-                <div class="flip-card-inner">
-                  <div class="flip-front">
-                    <span class="flip-num">2</span>
-                    <div>
-                      <div class="flip-title">Ask if your lot used to be a field.</div>
-                      <p class="flip-front-sub">Former agricultural land can carry old ditch lines and fill nobody ever mapped.</p>
-                      <span class="flip-hint">Tap to learn more</span>
-                    </div>
-                  </div>
-                  <div class="flip-back">
-                    <span class="flip-tag">Before You Sign</span>
-                    <p class="flip-body">If a subdivision was chile, pecan, or onion fields within living memory, ask whether anyone's checked what's actually under a specific slab. Old field boundaries and irrigation ditches don't disappear when the land gets leveled — they just go underground. A pier plan written without knowing that is a design written on assumption.</p>
-                    <span class="flip-tag">Ground history matters</span>
-                  </div>
-                </div>
-              </div>
-              <div class="flip-card abc" tabindex="0" role="button" aria-label="Ask who actually shows up. Tap to learn more.">
-                <div class="flip-card-inner">
-                  <div class="flip-front">
-                    <span class="flip-num">3</span>
-                    <div>
-                      <div class="flip-title">Ask who actually shows up.</div>
-                      <p class="flip-front-sub">Not everyone who answers the phone is who ends up standing on your lot.</p>
-                      <span class="flip-hint">Tap to learn more</span>
-                    </div>
-                  </div>
-                  <div class="flip-back">
-                    <span class="flip-tag">Owner-Operated</span>
-                    <p class="flip-body">55 combined years working New Mexico soils. In Las Cruces, that means the person who looks at your home is the person who answers the phone — not a scheduler, not a commissioned rep passing through on a route. If your foundation is fine, we'll tell you that and leave.</p>
-                    <span class="flip-tag">TLS Foundations · Las Cruces, NM</span>
-                  </div>
-                </div>
+              <div>
+                <div class="pull">Ask who actually shows up. Not everyone who answers the phone is who ends up standing on your lot.</div>
+                <p>55 combined years working New Mexico soils. In Las Cruces, that means the person who looks at your home is the person who answers the phone — not a scheduler, not a commissioned rep passing through on a route. If your foundation is fine, we'll tell you that and leave.</p>
               </div>
             </div>
           </div>
@@ -551,27 +506,6 @@ const schema = [
     { rootMargin: '0px 0px -80px 0px' }
   );
   document.querySelectorAll('.stat-block').forEach((b) => statObs.observe(b));
-
-  function toggleFlip(card: Element) {
-    const isMobile = window.innerWidth <= 960;
-    if (!isMobile) {
-      const grid = card.closest('.flip-cards');
-      grid?.querySelectorAll('.flip-card').forEach((c) => {
-        if (c !== card) c.classList.remove('flipped');
-      });
-    }
-    card.classList.toggle('flipped');
-  }
-  document.querySelectorAll('.flip-card').forEach((card) => {
-    card.addEventListener('click', () => toggleFlip(card));
-    card.addEventListener('keydown', (e) => {
-      const ke = e as KeyboardEvent;
-      if (ke.key === 'Enter' || ke.key === ' ') {
-        e.preventDefault();
-        toggleFlip(card);
-      }
-    });
-  });
 
   document.querySelectorAll('.warning-trigger').forEach((trigger) => {
     trigger.addEventListener('click', () => {
@@ -971,31 +905,6 @@ const schema = [
   .warning-drawer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
   .warning-drawer-inner { padding: 0 0 24px 20px; font-size: 16px; color: var(--slate); line-height: 1.85; border-left: 2px solid rgba(184, 134, 11, 0.3); margin-left: 4px; }
 
-  .flip-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 96px; align-items: stretch; }
-  .flip-card { cursor: pointer; perspective: 1000px; align-self: stretch; height: 480px; }
-  .flip-card-inner { position: relative; width: 100%; height: 100%; display: grid; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
-  .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-  .flip-front, .flip-back {
-    grid-area: 1 / 1;
-    padding: 36px 32px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-top: 3px solid var(--gold);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-  }
-  .flip-front { background: var(--navy); }
-  .flip-back { background: var(--white); border: 1px solid var(--stone); border-top: 3px solid var(--gold); transform: rotateY(180deg); overflow-y: auto; }
-  .flip-num { font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 700; color: rgba(184, 134, 11, 0.7); line-height: 1; }
-  .flip-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 400; font-style: italic; color: var(--white); line-height: 1.35; margin-top: 16px; }
-  .flip-hint { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-light); margin-top: 20px; }
-  .flip-body { font-size: 16px; font-weight: 400; color: var(--navy); line-height: 1.85; flex: 1; margin-bottom: 16px; }
-  .flip-tag { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-text); }
-  .flip-card.abc .flip-num { font-size: 80px; color: var(--gold); opacity: 1; }
-  .flip-card.abc .flip-title { font-style: normal; font-weight: 600; color: var(--white); font-size: 19px; }
-  .flip-card.abc .flip-front-sub { font-size: 14px; color: rgba(255, 255, 255, 0.55); line-height: 1.6; margin-top: 10px; max-width: none; }
-
   .contact-closer { background: var(--navy); padding: 160px 96px; }
   .contact-closer-inner { display: grid; grid-template-columns: 1fr auto; gap: 64px; align-items: center; }
   .contact-closer .section-label-text { color: var(--gold); margin-bottom: 20px; display: block; }
@@ -1079,13 +988,6 @@ const schema = [
     .zone-strip { margin: 40px -24px 40px; }
     .zone-strip-content { flex-wrap: wrap; row-gap: 8px; }
     .zone-strip-tag { margin-left: 0; flex: 1 1 100%; white-space: normal; }
-    .flip-cards { grid-template-columns: 1fr; gap: 12px; }
-    .flip-card { perspective: none; height: auto; }
-    .flip-card-inner { transform: none !important; height: auto; }
-    .flip-front, .flip-back { position: static; transform: none; backface-visibility: visible; -webkit-backface-visibility: visible; }
-    .flip-back { display: none; }
-    .flip-card.flipped .flip-front { display: none; }
-    .flip-card.flipped .flip-back { display: flex; flex-direction: column; gap: 12px; border: none; }
     .contact-closer { padding: 72px 24px; }
     .contact-closer-inner { grid-template-columns: 1fr; gap: 36px; }
     .contact-closer-phone { align-items: flex-start; border-left: none; padding-left: 0; border-top: 1px solid rgba(184, 134, 11, 0.3); padding-top: 28px; }
