@@ -7,6 +7,19 @@
     "directory": "./dist",
     "not_found_handling": "404-page",
     "binding": "ASSETS",
+    // Astro's build.format defaults to "directory" (every page builds as
+    // pagename/index.html), but astro.config.mjs sets trailingSlash:
+    // 'never' -- so the sitemap and every canonical tag claim the no-slash
+    // URL is correct, while Workers Static Assets' own default
+    // html_handling ("auto-trailing-slash") 307-redirects every single
+    // one of those URLs to add the slash back, on every page except the
+    // homepage. Confirmed live via curl against the production site
+    // 2026-11-19 (e.g. /albuquerque-nm -> 307 -> /albuquerque-nm/).
+    // "drop-trailing-slash" serves pagename/index.html directly at the
+    // no-slash URL with no redirect, matching trailingSlash: 'never' and
+    // the sitemap exactly -- so Google stops being bounced through an
+    // unnecessary redirect on every single page in the sitemap.
+    "html_handling": "drop-trailing-slash",
     // Only /api/* is handled by the worker script (worker/index.ts) --
     // every other path is served straight from the static build, exactly
     // as before. Keeps this change contained to the one new endpoint
