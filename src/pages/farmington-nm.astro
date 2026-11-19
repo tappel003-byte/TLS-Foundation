@@ -349,7 +349,7 @@ const schema = [
           </div>
         </section>
 
-        <!-- 07 BEFORE YOU SIGN — town-tagged ask cards (Farmington-only presentation) -->
+        <!-- 07 BEFORE YOU SIGN — two-column by town (Farmington-only) -->
         <section class="section" id="before-you-sign">
           <span class="section-num">07</span>
           <div class="section-inner">
@@ -357,22 +357,24 @@ const schema = [
             <h2 class="section-heading reveal">One question framed for <em>each place on the confluence</em></h2>
             <p class="lede reveal">Not three copies of the same pitch — three different questions worth asking before you sign, tagged to where you actually live.</p>
 
-            <div class="ask-towns reveal">
-              <article class="ask-town ask-farmington">
-                <span class="ask-town-tag">Farmington</span>
+            <div class="bys-twocol reveal">
+              <article class="bys-twocol-primary">
+                <span class="bys-twocol-tag">Farmington</span>
                 <h3>Was this house built in the boom — and has anyone characterized the ground under it?</h3>
                 <p>1950s gas-boom stock went up fast. A same-day pier quote that never mentions era or soil depth is pricing a symptom, not a site.</p>
               </article>
-              <article class="ask-town ask-aztec">
-                <span class="ask-town-tag">Aztec</span>
-                <h3>Have they asked about water — not just cracks?</h3>
-                <p>Shallow groundwater is documented on this corridor. Persistently damp conditions change what "settlement" even means.</p>
-              </article>
-              <article class="ask-town ask-bloomfield">
-                <span class="ask-town-tag">Bloomfield</span>
-                <h3>Are they assuming shale because they can see it?</h3>
-                <p>Visible outcrops don't rule out the collapsible corridor nearby. Ask which mechanism they think you have — and how they know.</p>
-              </article>
+              <div class="bys-twocol-stack">
+                <article class="bys-twocol-item">
+                  <span class="bys-twocol-tag">Aztec</span>
+                  <h3>Have they asked about water — not just cracks?</h3>
+                  <p>Shallow groundwater is documented on this corridor. Persistently damp conditions change what "settlement" even means.</p>
+                </article>
+                <article class="bys-twocol-item">
+                  <span class="bys-twocol-tag">Bloomfield</span>
+                  <h3>Are they assuming shale because they can see it?</h3>
+                  <p>Visible outcrops don't rule out the collapsible corridor nearby. Ask which mechanism they think you have — and how they know.</p>
+                </article>
+              </div>
             </div>
             <p class="ask-closer reveal">Whoever you call, you should reach the person who will stand on your lot. Ours: <a href="tel:5059914180">(505) 991-4180</a>.</p>
           </div>
@@ -1126,42 +1128,55 @@ const schema = [
     align-self: center;
   }
 
-  /* Before You Sign — asymmetric town ask cards */
-  .ask-towns {
+  /* Before You Sign — two-column (Farmington primary | Aztec+Bloomfield) */
+  .bys-twocol {
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr;
-    gap: 20px;
-    margin-top: 32px;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 40px;
+    margin-top: 36px;
+    align-items: start;
   }
-  .ask-town {
-    background: var(--white);
-    border: 1px solid var(--stone);
-    padding: 24px 22px;
+  .bys-twocol-primary {
+    padding-right: 32px;
+    border-right: 1px solid var(--stone);
   }
-  .ask-farmington {
-    background: var(--navy);
-    color: rgba(255, 255, 255, 0.88);
-    border-color: var(--navy);
+  .bys-twocol-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
   }
-  .ask-farmington .ask-town-tag { color: var(--gold); }
-  .ask-farmington h3 { color: #fff; }
-  .ask-town-tag {
+  .bys-twocol-item {
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--stone);
+  }
+  .bys-twocol-item:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .bys-twocol-tag {
     font-family: 'DM Mono', monospace;
-    font-size: 13px;
+    font-size: 12px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--gold-text);
     display: block;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
-  .ask-town h3 {
+  .bys-twocol-primary h3,
+  .bys-twocol-item h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 20px;
     color: var(--navy);
     line-height: 1.3;
-    margin-bottom: 12px;
+    margin: 0 0 12px;
   }
-  .ask-town p { font-size: 15px; line-height: 1.65; margin: 0; }
+  .bys-twocol-primary h3 { font-size: 26px; }
+  .bys-twocol-item h3 { font-size: 20px; }
+  .bys-twocol-primary p,
+  .bys-twocol-item p {
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0;
+  }
   .ask-closer {
     margin-top: 28px !important;
     font-size: 17px !important;
@@ -1290,7 +1305,13 @@ const schema = [
     .two-col,
     .confluence-layout,
     .mech-pair,
-    .ask-towns { grid-template-columns: 1fr; }
+    .bys-twocol { grid-template-columns: 1fr; gap: 28px; }
+    .bys-twocol-primary {
+      padding-right: 0;
+      border-right: none;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--stone);
+    }
     .mech-vs { display: none; }
     .conf-primary { min-height: 0; }
     .confluence-map {
