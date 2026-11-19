@@ -54,6 +54,9 @@
     cream/sand/white.
   */
   --gold-text: #7d5c08;
+  /* RGB triplet of --gold-text, for rgba(var(--gold-text-rgb), X) --
+     same hand-sync requirement as --gold-rgb above. */
+  --gold-text-rgb: 125, 92, 8;
   --sand: #f5efe6;
   --stone: #e0d5c5;
   --slate: #4a5568;
