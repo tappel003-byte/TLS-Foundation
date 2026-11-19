@@ -130,8 +130,8 @@ const schema = [
         <p class="hero-sub">Three towns on one river system — Totah, waters flowing together. Town limits are not soil maps.</p>
       </div>
       <p class="hero-credit">
-        Photo by <a href="https://unsplash.com/@wildhoney" rel="noopener noreferrer" target="_blank">John Fowler</a>
-        {' '}on{' '}
+        <a href="https://unsplash.com/@wildhoney" rel="noopener noreferrer" target="_blank">J. Fowler</a>
+        {' '}·{' '}
         <a href="https://unsplash.com/photos/aerial-view-of-rock-cliffs-ONNLFLtiTrQ" rel="noopener noreferrer" target="_blank">Unsplash</a>
       </p>
     </div>
@@ -632,6 +632,7 @@ const schema = [
     background-size: cover;
     background-position: center 45%;
     animation: kenburns 20s ease-in-out infinite alternate;
+    filter: brightness(1.04) contrast(1.02);
   }
   @keyframes kenburns {
     0% {
@@ -717,21 +718,24 @@ const schema = [
   .hero-credit {
     position: absolute;
     z-index: 3;
-    right: 24px;
-    bottom: 16px;
+    right: 12px;
+    bottom: 8px;
     margin: 0;
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    color: rgba(255, 255, 255, 0.55);
+    font-size: 8px;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+    text-align: right;
+    color: rgba(255, 255, 255, 0.32);
   }
   .hero-credit a {
-    color: rgba(255, 255, 255, 0.72);
-    text-decoration: underline;
-    text-underline-offset: 2px;
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
   }
   .hero-credit a:hover {
-    color: var(--gold-light);
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   @keyframes fadeUp {
     to { opacity: 1; transform: translateY(0); }
@@ -1345,7 +1349,7 @@ const schema = [
     .nav-contact-sub { color: rgba(255, 255, 255, 0.5); }
 
     .hero-content { padding: 0 24px 48px; }
-    .hero-credit { right: 16px; bottom: 12px; font-size: 10px; }
+    .hero-credit { right: 10px; bottom: 6px; font-size: 7px; }
     .statement-band { padding: 36px 24px; }
     .section { padding: 56px 24px 32px; }
     .section-num { display: none; }

@@ -675,8 +675,8 @@ const schema = [
     background-size: cover;
     background-position: center 40%;
     animation: kenburns 20s ease-in-out infinite alternate;
-    /* Cool grey cast over sprawl (Tim): desaturate + slight lift under navy overlay */
-    filter: grayscale(0.72) brightness(1.08) contrast(1.05);
+    /* Cool grey cast + mild lift under navy overlay */
+    filter: grayscale(0.72) brightness(1.1) contrast(1.06);
   }
   @keyframes kenburns {
     0% {
@@ -789,14 +789,14 @@ const schema = [
     letter-spacing: 0.02em;
     line-height: 1.2;
     text-align: right;
-    color: rgba(255, 255, 255, 0.42);
+    color: rgba(255, 255, 255, 0.32);
   }
   .hero-credit a {
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(255, 255, 255, 0.4);
     text-decoration: none;
   }
   .hero-credit a:hover {
-    color: var(--gold-light);
+    color: rgba(255, 255, 255, 0.65);
     text-decoration: underline;
     text-underline-offset: 2px;
   }
