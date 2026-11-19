@@ -76,7 +76,7 @@ const orgSchema = {
 // GeneralContractor -- a schema.org subtype of LocalBusiness -- is more
 // specific than the plain LocalBusiness this carried before, and matches
 // what TLS actually is (a contractor performing the work), not a generic
-// storefront. areaServed spells out the three named city pages plus the
+// storefront. areaServed spells out all six named city pages plus the
 // state overall, since the five regional soil pages cover all of NM.
 const localBusinessSchema = {
   '@context': 'https://schema.org',
@@ -105,6 +105,9 @@ const localBusinessSchema = {
     { '@type': 'City', name: 'Albuquerque', containedInPlace: { '@type': 'State', name: 'New Mexico' } },
     { '@type': 'City', name: 'Rio Rancho', containedInPlace: { '@type': 'State', name: 'New Mexico' } },
     { '@type': 'City', name: 'Santa Fe', containedInPlace: { '@type': 'State', name: 'New Mexico' } },
+    { '@type': 'City', name: 'Las Cruces', containedInPlace: { '@type': 'State', name: 'New Mexico' } },
+    { '@type': 'City', name: 'Gallup', containedInPlace: { '@type': 'State', name: 'New Mexico' } },
+    { '@type': 'City', name: 'Farmington', containedInPlace: { '@type': 'State', name: 'New Mexico' } },
   ],
 };
 
