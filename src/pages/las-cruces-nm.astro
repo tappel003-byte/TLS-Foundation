@@ -329,33 +329,28 @@ const schema = [
           </div>
         </section>
 
-        <!-- 06 BEFORE YOU SIGN — 1-2-3 ask strip (Las Cruces-only) -->
+        <!-- 06 BEFORE YOU SIGN — pull-band (Las Cruces-only) -->
         <section class="section" id="before-you-sign">
           <span class="section-num">06</span>
           <div class="section-inner">
-            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Before You Sign · Three Steps</span></div>
+            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Before You Sign · Three Questions</span></div>
             <h2 class="section-heading reveal">Ask in order — <em>before the estimate means anything</em></h2>
+          </div>
 
-            <div class="ask-strip-bleed reveal">
-            <div class="ask-strip">
-              <div class="ask-step">
-                <span class="ask-step-num">1</span>
-                <h3>Which ground history?</h3>
-                <p>River corridor, La Mesa terrace, or former farmland — or a mix. A quote written before that question is answered is a price tag on a guess.</p>
-              </div>
-              <div class="ask-step-arrow" aria-hidden="true">→</div>
-              <div class="ask-step">
-                <span class="ask-step-num">2</span>
-                <h3>Was this a field?</h3>
-                <p>If the subdivision was chile, pecan, or onion within living memory, ditch lines and field edges don't vanish when the land is leveled. Ask whether that history was considered.</p>
-              </div>
-              <div class="ask-step-arrow" aria-hidden="true">→</div>
-              <div class="ask-step">
-                <span class="ask-step-num">3</span>
-                <h3>Who stands on the lot?</h3>
-                <p>Not everyone who answers the phone is who ends up on your property. Call <a href="tel:5059914180">(505) 991-4180</a> — you reach the owner(s).</p>
-              </div>
-            </div>
+          <div class="bys-pullband reveal">
+            <div class="bys-pullband-inner">
+              <blockquote class="bys-pull">
+                <span class="bys-pull-tag">01 · Ground</span>
+                <p>Which ground history — river corridor, La Mesa terrace, or former farmland — or a mix? A quote written before that question is answered is a price tag on a guess.</p>
+              </blockquote>
+              <blockquote class="bys-pull">
+                <span class="bys-pull-tag">02 · Land use</span>
+                <p>Was this a field? If the subdivision was chile, pecan, or onion within living memory, ditch lines and field edges don't vanish when the land is leveled. Ask whether that history was considered.</p>
+              </blockquote>
+              <blockquote class="bys-pull">
+                <span class="bys-pull-tag">03 · Who shows up</span>
+                <p>Who stands on the lot? Not everyone who answers the phone is who ends up on your property. Call <a href="tel:5059914180">(505) 991-4180</a> — you reach the owner(s).</p>
+              </blockquote>
             </div>
           </div>
         </section>
@@ -977,42 +972,46 @@ const schema = [
     color: var(--slate);
   }
 
-  /* Before You Sign — horizontal 1-2-3 strip */
-  .ask-strip {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr auto 1fr;
-    gap: 16px;
-    align-items: stretch;
-    margin-top: 32px;
-  }
-  .ask-step {
-    background: var(--white);
+  /* Before You Sign — pull-band (Las Cruces-only) */
+  .bys-pullband {
+    background: var(--navy);
+    margin: 36px -96px 0;
+    padding: 48px 96px;
     border-top: 3px solid var(--gold);
-    border: 1px solid var(--stone);
-    border-top: 3px solid var(--gold);
-    padding: 24px 20px;
   }
-  .ask-step-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    color: rgba(var(--gold-rgb), 0.9);
+  .bys-pullband-inner {
+    max-width: 920px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+  }
+  .bys-pull {
+    margin: 0;
+    padding: 0;
+    border: none;
+    max-width: 720px;
+  }
+  .bys-pull-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
     display: block;
-    line-height: 1;
     margin-bottom: 12px;
   }
-  .ask-step h3 {
+  .bys-pull p {
+    margin: 0 !important;
     font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    color: var(--navy);
-    margin-bottom: 10px;
+    font-size: clamp(20px, 2.4vw, 26px);
+    font-style: italic;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.92);
   }
-  .ask-step p { font-size: 15px; line-height: 1.65; margin: 0; }
-  .ask-step a { color: var(--gold-text); }
-  .ask-step-arrow {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    color: var(--gold-text);
-    align-self: center;
+  .bys-pull a {
+    color: var(--gold);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   /* Questions grouped by ground history */
@@ -1136,8 +1135,6 @@ const schema = [
     .two-col { grid-template-columns: 1fr; }
     .transect-bands { grid-template-columns: 1fr; }
     .t-edge { display: none; }
-    .ask-strip { grid-template-columns: 1fr; }
-    .ask-step-arrow { display: none; }
     .contact-closer { margin: 32px 24px 0; }
     .contact-closer-inner { flex-direction: column; align-items: flex-start; padding: 32px 24px; }
   }
@@ -1231,14 +1228,6 @@ const schema = [
     margin: 0 !important;
     color: var(--slate);
   }
-  .ask-strip-bleed {
-    background: var(--sand);
-    margin: 28px -96px 0;
-    padding: 40px 96px;
-    border-top: 1px solid var(--stone);
-    border-bottom: 1px solid var(--stone);
-  }
-
   /* Mobile MUST come after Layout DNA — earlier media rules were overridden by
      desktop grid/margin declarations that followed them in the cascade. */
   @media (max-width: 960px) {
@@ -1284,11 +1273,12 @@ const schema = [
       overflow-wrap: anywhere;
     }
     .irrig-ledger { grid-template-columns: 1fr 1fr; }
-    .ask-strip-bleed {
+    .bys-pullband {
       margin-left: 0;
       margin-right: 0;
       padding: 36px 24px;
     }
+    .bys-pull p { font-size: 20px; }
     .t-band {
       padding: 24px 20px;
       min-height: 100px;

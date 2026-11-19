@@ -305,31 +305,31 @@ const schema = [
           </div>
         </section>
 
-        <!-- 06 BEFORE YOU SIGN — probe checklist (Gallup-only presentation) -->
+        <!-- 06 BEFORE YOU SIGN — numbered checklist (Gallup-only) -->
         <section class="section" id="before-you-sign">
           <span class="section-num">06</span>
           <div class="section-inner">
-            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Before You Sign · Probe Checklist</span></div>
+            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Before You Sign · Numbered Checklist</span></div>
             <h2 class="section-heading reveal">Rule-outs worth making <em>before anyone prices a system</em></h2>
             <p class="lede reveal">Not a pitch — a Gallup-specific checklist. Start at the top. A quote written before these are answered is a price without a diagnosis.</p>
 
-            <ol class="probe-list reveal">
-              <li class="probe-item">
-                <span class="probe-item-num">01</span>
+            <ol class="bys-list reveal">
+              <li class="bys-list-item">
+                <span class="bys-list-num" aria-hidden="true">01</span>
                 <div>
                   <h3>Has anyone ruled out a void?</h3>
                   <p>On lots near the coal field — or where movement appeared suddenly — ask whether mine workings or unmapped cavities were considered. Soil repairs don't fix missing ground.</p>
                 </div>
               </li>
-              <li class="probe-item">
-                <span class="probe-item-num">02</span>
+              <li class="bys-list-item">
+                <span class="bys-list-num" aria-hidden="true">02</span>
                 <div>
                   <h3>Heave or settlement — which mechanism, and how do they know?</h3>
                   <p>Mancos heave and collapsible settlement need opposite responses. Ask for the evidence, not the product name.</p>
                 </div>
               </li>
-              <li class="probe-item">
-                <span class="probe-item-num">03</span>
+              <li class="bys-list-item">
+                <span class="bys-list-num" aria-hidden="true">03</span>
                 <div>
                   <h3>Who shows up — and who decides?</h3>
                   <p>You should reach the person who will stand on your lot, not a scheduler running a closing script. Call <a href="tel:5059914180">(505) 991-4180</a> — you reach the owner(s).</p>
@@ -1034,33 +1034,42 @@ const schema = [
     margin-bottom: 12px;
   }
 
-  /* Probe checklist — Before You Sign (Gallup-only presentation) */
-  .probe-list {
+  /* Before You Sign — numbered list (Gallup-only) */
+  .bys-list {
     list-style: none;
     margin: 36px 0 0;
     padding: 0;
-    border-top: 1px solid var(--stone);
+    counter-reset: none;
   }
-  .probe-item {
+  .bys-list-item {
     display: grid;
-    grid-template-columns: 64px 1fr;
-    gap: 20px;
-    padding: 28px 0;
+    grid-template-columns: 72px 1fr;
+    gap: 24px;
+    padding: 0 0 32px;
+    margin: 0 0 32px;
     border-bottom: 1px solid var(--stone);
   }
-  .probe-item-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 28px;
-    color: rgba(var(--gold-rgb), 0.85);
+  .bys-list-item:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
   }
-  .probe-item h3 {
+  .bys-list-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    letter-spacing: 2px;
+    color: var(--gold-text);
+    padding-top: 6px;
+  }
+  .bys-list-item h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 22px;
+    font-size: 24px;
     color: var(--navy);
-    margin-bottom: 8px;
+    margin: 0 0 10px;
+    line-height: 1.25;
   }
-  .probe-item p { margin-bottom: 0; }
-  .probe-item a { color: var(--gold-text); }
+  .bys-list-item p { margin: 0; font-size: 17px; line-height: 1.7; }
+  .bys-list-item a { color: var(--gold-text); }
 
   .seo-accordion { margin-top: 36px; }
   .seo-item { border-bottom: 1px solid var(--stone); }
@@ -1190,7 +1199,8 @@ const schema = [
     .section { padding: 56px 24px 32px; }
     .section-num { display: none; }
     .two-col { grid-template-columns: 1fr; gap: 24px; }
-    .probe-item { grid-template-columns: 40px 1fr; gap: 12px; }
+    .bys-list-item { grid-template-columns: 48px 1fr; gap: 14px; }
+    .bys-list-item h3 { font-size: 20px; }
     .contact-closer { margin: 32px 24px 0; }
     .contact-closer-inner { flex-direction: column; align-items: flex-start; padding: 32px 24px; }
     .cliff-band { padding: 22px 20px; }
