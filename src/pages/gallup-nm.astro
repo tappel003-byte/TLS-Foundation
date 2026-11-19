@@ -2,8 +2,8 @@
 // Gallup city page — Cliff Cross-Section magazine layout.
 // Organizing principle: three underground stories under one hillside
 // (Mancos heave · deep collapsible settlement · coal-mine voids).
-// Signature: Cliff Cross-Section — soil bands panel-select; mine void
-// is a broken gap (not a third equal soil layer), same tap-to-open as bands.
+// Signature: Cliff Cross-Section — stacked bands with roles; mine void
+// reads as a break (cream band, not a dashed gap toy); sandstone open by default.
 import Layout from '../layouts/Layout.astro';
 
 const title = 'Foundation Repair in Gallup, NM | TLS Foundations';
@@ -175,36 +175,35 @@ const schema = [
             <p class="lede reveal">Gallup was founded in 1881 as a railhead, named for a railroad paymaster, and grew in a valley where sandstone cliffs rise close on both sides. Geologists later named the Gallup Sandstone after this place — its type locality is here. That sandstone sits directly on the Mancos Shale: published mapping describes roughly 725 feet of marine shale at Gallup's western edge.</p>
             <p class="reveal">Two rock types, stacked, is the real story under the scenery. Add a third story that isn't rock at all — old coal workings and cavities — and a driveway diagnosis becomes a guess.</p>
 
-            <!-- SIGNATURE: Cliff Cross-Section -->
+            <!-- SIGNATURE: Cliff Cross-Section — stacked bands; void as break, not dashed toy -->
             <div class="cliff reveal" id="cliffSection">
               <div class="cliff-label">Cliff Cross-Section</div>
-              <div class="cliff-stage">
-                <button type="button" class="cliff-band cliff-sandstone" data-band="sandstone" aria-pressed="false">
+              <div class="cliff-stage" role="tablist" aria-label="Ground layers under Gallup">
+                <button type="button" class="cliff-band cliff-sandstone active" data-band="sandstone" role="tab" aria-selected="true" aria-controls="cliff-panel-sandstone" id="cliff-tab-sandstone">
                   <span class="cliff-band-name">Gallup Sandstone</span>
-                  <span class="cliff-band-hint">Tap to open</span>
+                  <span class="cliff-band-role">Bearing rock</span>
                 </button>
-                <button type="button" class="cliff-band cliff-mancos" data-band="mancos" aria-pressed="false">
+                <button type="button" class="cliff-band cliff-mancos" data-band="mancos" role="tab" aria-selected="false" aria-controls="cliff-panel-mancos" id="cliff-tab-mancos">
                   <span class="cliff-band-name">Mancos Shale</span>
-                  <span class="cliff-band-hint">Tap to open</span>
+                  <span class="cliff-band-role">Heave risk</span>
                 </button>
-                <button type="button" class="cliff-void" data-band="void" aria-pressed="false">
-                  <span class="cliff-void-gap" aria-hidden="true"></span>
-                  <span class="cliff-void-label">Mine void · not a soil layer</span>
-                  <span class="cliff-band-hint">Tap to open</span>
+                <button type="button" class="cliff-void" data-band="void" role="tab" aria-selected="false" aria-controls="cliff-panel-void" id="cliff-tab-void">
+                  <span class="cliff-void-name">Mine void</span>
+                  <span class="cliff-void-role">Not a soil layer</span>
                 </button>
               </div>
               <div class="cliff-panels">
-                <div class="cliff-panel" data-panel="sandstone" hidden>
+                <div class="cliff-panel open" data-panel="sandstone" id="cliff-panel-sandstone" role="tabpanel" aria-labelledby="cliff-tab-sandstone">
                   <span class="cliff-panel-tag">Formation · bearing</span>
                   <h3>Gallup Sandstone</h3>
                   <p>The red cliffs and ridges aren't just scenery — they're a formally named rock unit with its type locality at Gallup (1925). Where sandstone is the bearing ground under a slab, it is generally firm. The question that matters is what sits <em>directly</em> beneath a specific lot: sandstone, the Mancos under it, or fill.</p>
                 </div>
-                <div class="cliff-panel" data-panel="mancos" hidden>
+                <div class="cliff-panel" data-panel="mancos" id="cliff-panel-mancos" role="tabpanel" aria-labelledby="cliff-tab-mancos" hidden>
                   <span class="cliff-panel-tag">Formation · heave</span>
                   <h3>Mancos Shale</h3>
                   <p>Directly beneath the sandstone: marine shale with clay minerals that expand when they absorb moisture and shrink as they dry. Where it's close to the surface or exposed by grading, that movement reaches a foundation. Damage can look like settlement. It isn't — and it calls for the opposite repair.</p>
                 </div>
-                <div class="cliff-panel cliff-panel-void" data-panel="void" hidden>
+                <div class="cliff-panel cliff-panel-void" data-panel="void" id="cliff-panel-void" role="tabpanel" aria-labelledby="cliff-tab-void" hidden>
                   <span class="cliff-panel-tag">Not soil · void</span>
                   <h3>Old workings &amp; unmapped cavities</h3>
                   <p><mark class="key">State records catalog 129 known mines</mark> in the Gallup coal field, with maps where they exist — and cavities that no map shows. In 2015 a sinkhole opened above the abandoned Allison Mine on the city's west side. In our fieldwork we've run into old coal workings directly. This isn't a soil mechanism. It's a void where ground used to be, and it needs to be ruled in or out before anything else.</p>
@@ -452,22 +451,16 @@ const schema = [
   );
   document.querySelectorAll('.reveal').forEach((el) => revealObs.observe(el));
 
-  // Cliff Cross-Section: soil bands + void gap — same tap-to-open (no probe toy)
+  // Cliff Cross-Section: select a band to show its panel (sandstone open by default)
   const bands = document.querySelectorAll('.cliff-band, .cliff-void');
   const panels = document.querySelectorAll('.cliff-panel');
 
-  function hidePanels() {
-    panels.forEach((p) => {
-      (p as HTMLElement).hidden = true;
-      p.classList.remove('open');
-    });
+  function selectBand(id: string) {
     bands.forEach((b) => {
-      b.setAttribute('aria-pressed', 'false');
-      b.classList.remove('active');
+      const match = (b as HTMLElement).dataset.band === id;
+      b.classList.toggle('active', match);
+      b.setAttribute('aria-selected', match ? 'true' : 'false');
     });
-  }
-
-  function showPanel(id: string) {
     panels.forEach((p) => {
       const el = p as HTMLElement;
       const match = el.dataset.panel === id;
@@ -478,14 +471,7 @@ const schema = [
 
   bands.forEach((band) => {
     band.addEventListener('click', () => {
-      const id = (band as HTMLElement).dataset.band!;
-      const was = band.classList.contains('active');
-      hidePanels();
-      if (!was) {
-        band.classList.add('active');
-        band.setAttribute('aria-pressed', 'true');
-        showPanel(id);
-      }
+      selectBand((band as HTMLElement).dataset.band!);
     });
   });
 
@@ -930,94 +916,81 @@ const schema = [
     border-radius: 0;
     text-align: left;
     cursor: pointer;
-    padding: 28px 32px;
+    padding: 24px 32px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    transition: filter 0.25s, transform 0.25s;
+    align-items: baseline;
+    gap: 16px;
+    transition: filter 0.2s;
   }
   .cliff-sandstone {
     background: linear-gradient(135deg, var(--sand) 0%, var(--stone) 100%);
     color: var(--navy);
-    min-height: 88px;
+    min-height: 80px;
     border-bottom: 1px solid var(--stone);
   }
-  .cliff-sandstone .cliff-band-hint { color: var(--gold-text); opacity: 1; }
   .cliff-mancos {
     background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 55%, var(--blue-mid) 100%);
     color: #fff;
-    min-height: 100px;
+    min-height: 92px;
   }
   .cliff-band-name {
     font-family: 'Playfair Display', serif;
     font-size: 22px;
     font-weight: 700;
   }
-  .cliff-band-hint {
+  .cliff-band-role {
     font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    letter-spacing: 2px;
+    font-size: 12px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    opacity: 0.75;
+    opacity: 0.7;
+    flex-shrink: 0;
   }
+  .cliff-sandstone .cliff-band-role { color: var(--gold-text); opacity: 1; }
+  .cliff-mancos .cliff-band-role { color: rgba(255, 255, 255, 0.65); }
   .cliff-band.active {
-    outline: 2px solid var(--gold);
-    outline-offset: -2px;
-    filter: brightness(1.08);
+    box-shadow: inset 4px 0 0 var(--gold);
   }
-  .cliff-band:hover { filter: brightness(1.05); }
+  .cliff-band:hover { filter: brightness(1.04); }
 
-  /* Mine void = broken gap — NOT a third equal soil band */
+  /* Mine void = break in the stack — cream notch, no dashed gap toy */
   .cliff-void {
     appearance: none;
     border: none;
     border-radius: 0;
-    position: relative;
-    background: var(--navy);
-    color: #fff;
-    min-height: 72px;
-    padding: 20px 32px;
+    margin-top: 10px;
+    background: var(--cream);
+    color: var(--navy);
+    min-height: 64px;
+    padding: 18px 32px;
     cursor: pointer;
     text-align: left;
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    box-shadow: inset 0 0 0 1px var(--stone);
   }
-  .cliff-void-gap {
-    position: absolute;
-    left: 10%;
-    right: 18%;
-    top: 50%;
-    height: 3px;
-    background: repeating-linear-gradient(
-      90deg,
-      rgba(var(--gold-rgb), 0.9) 0 10px,
-      transparent 10px 18px
-    );
-    transform: translateY(-50%);
-    pointer-events: none;
+  .cliff-void-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--navy);
   }
-  .cliff-void-label {
+  .cliff-void-role {
     font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    letter-spacing: 2px;
+    font-size: 12px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.7);
-    position: relative;
-    z-index: 1;
-  }
-  .cliff-void .cliff-band-hint {
-    position: relative;
-    z-index: 1;
-    color: var(--gold-lt);
-    opacity: 1;
+    color: var(--gold-text);
+    flex-shrink: 0;
   }
   .cliff-void.active {
-    outline: 2px solid var(--gold);
-    outline-offset: -2px;
+    box-shadow: inset 4px 0 0 var(--gold);
+    background: var(--sand);
   }
+  .cliff-void:hover { background: var(--sand); }
 
   .cliff-panels { margin-top: 0; }
   .cliff-panel {
@@ -1230,8 +1203,10 @@ const schema = [
     .bys-list-item h3 { font-size: 20px; }
     .contact-closer { margin: 32px 24px 0; }
     .contact-closer-inner { flex-direction: column; align-items: flex-start; padding: 32px 24px; }
-    .cliff-band { padding: 22px 20px; }
-    .cliff-void { padding: 18px 20px; grid-template-columns: 1fr; }
+    .cliff-band,
+    .cliff-void { padding: 20px; flex-wrap: wrap; }
+    .cliff-band-name { font-size: 20px; }
+    .cliff-void-name { font-size: 18px; }
     .strata-strip { margin-left: -24px; margin-right: -24px; }
     /* Keep opposing slabs as a tight two-col on phone — Gallup's layout DNA */
     .void-interrupt { margin-left: -24px; margin-right: -24px; padding: 36px 24px; }
