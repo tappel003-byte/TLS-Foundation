@@ -550,7 +550,10 @@ const schema = [
   .hero-photo {
     position: absolute;
     inset: -10%;
-    background-image: url('/images/four-corners-hero.webp');
+    /* Placeholder until a real Gallup photo is in hand -- flat navy
+       instead of reusing another page's photo. */
+    background-image: none;
+    background-color: var(--navy);
     background-size: cover;
     background-position: center 55%;
     animation: kenburns 20s ease-in-out infinite alternate;
