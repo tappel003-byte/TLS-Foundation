@@ -85,15 +85,15 @@
     consistent everywhere it's used.
   */
   --fs-hero-core: clamp(36px, 6vw, 72px);
-  --fs-eyebrow-core: 11px;
+  --fs-eyebrow-core: 13px;
   --fs-body-core: 18px;
   --fs-caption-core: 14px;
   --fs-h1-core: clamp(40px, 6vw, 64px);
   --fs-h2-core: clamp(28px, 3.5vw, 40px);
   --fs-h3-core: clamp(20px, 2.5vw, 26px);
 
-  --fs-eyebrow-city: 13px;
-  --fs-label-city: 12px;
+  --fs-eyebrow-city: 15px;
+  --fs-label-city: 14px;
   --fs-body-city: 18px;
   --fs-h1-city: clamp(52px, 8vw, 108px);
   --fs-h2-city: clamp(28px, 3.8vw, 46px);
