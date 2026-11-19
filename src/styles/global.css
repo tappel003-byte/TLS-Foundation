@@ -254,3 +254,72 @@ header#header {
 .header-menu-nav-folder-content a:hover {
   color: var(--gold-light) !important;
 }
+
+/* ── IN-CONTENT BODY LINKS ── */
+/*
+  Canonical style for prose links (class="body-link"). Pages may still
+  override locally for a blue-on-cream article look; this is the default
+  when they don't (city pages, crack-gauge, etc.).
+
+  Dark surfaces are a separate problem: browser-default link blue
+  (#0000EE) and --gold-text (#7d5c08) are both illegible on navy. Any
+  content band that sits on navy/blue-dark must either carry .on-dark
+  or match one of the always-dark selectors below so bare <a> tags and
+  .body-link both resolve to gold-light / cream — same tokens as the
+  working Farmington Mechanism A link.
+*/
+a.body-link {
+  color: var(--gold-text);
+  text-decoration: underline;
+  text-decoration-color: rgba(var(--gold-rgb), 0.55);
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+a.body-link:hover {
+  color: var(--blue);
+}
+
+/*
+  Dark content bands — gold/cream links, never browser blue.
+  Prefer adding class="on-dark" (or data-surface="dark") on any new
+  navy/blue-dark prose container so future bare <a> tags inherit
+  correctly without a one-off patch.
+*/
+.on-dark a,
+.on-dark a.body-link,
+[data-surface='dark'] a,
+[data-surface='dark'] a.body-link,
+.mech-bleed a,
+.oppose-dark a,
+.cliff-panel-void a,
+.void-interrupt a,
+.model-section a,
+.outcome-box a,
+.close-note a,
+.town-cell-cant a,
+.valley-west a,
+.west-mesa-callout a,
+.heights-phase.wet a {
+  color: var(--gold-light);
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+.on-dark a:hover,
+.on-dark a.body-link:hover,
+[data-surface='dark'] a:hover,
+[data-surface='dark'] a.body-link:hover,
+.mech-bleed a:hover,
+.oppose-dark a:hover,
+.cliff-panel-void a:hover,
+.void-interrupt a:hover,
+.model-section a:hover,
+.outcome-box a:hover,
+.close-note a:hover,
+.town-cell-cant a:hover,
+.valley-west a:hover,
+.west-mesa-callout a:hover,
+.heights-phase.wet a:hover {
+  color: var(--cream);
+}
