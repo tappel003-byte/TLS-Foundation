@@ -632,7 +632,8 @@ const schema = [
     background-size: cover;
     background-position: center 45%;
     animation: kenburns 20s ease-in-out infinite alternate;
-    filter: brightness(1.04) contrast(1.02);
+    /* Mild lift + light color return under navy overlay */
+    filter: brightness(1.06) contrast(1.03) saturate(1.14);
   }
   @keyframes kenburns {
     0% {

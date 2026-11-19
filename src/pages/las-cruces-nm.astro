@@ -551,7 +551,8 @@ const schema = [
     /* Top-weighted: Organs upper/back, city lower/foreground; cut farmland/highway mid-ground */
     background-position: center 28%;
     animation: kenburns 20s ease-in-out infinite alternate;
-    filter: brightness(1.08) contrast(1.04);
+    /* Mild lift + light color return under navy overlay */
+    filter: brightness(1.08) contrast(1.04) saturate(1.12);
   }
   @keyframes kenburns {
     0% {
