@@ -554,12 +554,13 @@ const schema = [
   .gal-page {
     --navy: #0d2238;
     --blue: #1b3a5c;
+    --blue-mid: #2a5480;
     --gold: #b8860b;
     --gold-lt: #d4a017;
     --gold-text: #7d5c08;
     --sand: #f5efe6;
-    --stone: #ddd5c8;
-    --slate: #2c3a4a;
+    --stone: #e0d5c5;
+    --slate: #4a5568;
     --muted: #54626f;
     --cream: #fdfaf6;
     --white: #ffffff;
@@ -979,12 +980,14 @@ const schema = [
     transition: filter 0.25s, transform 0.25s;
   }
   .cliff-sandstone {
-    background: linear-gradient(135deg, #8b4518 0%, #a0522d 40%, #c4a574 100%);
-    color: #fff;
+    background: linear-gradient(135deg, var(--sand) 0%, var(--stone) 100%);
+    color: var(--navy);
     min-height: 88px;
+    border-bottom: 1px solid var(--stone);
   }
+  .cliff-sandstone .cliff-band-hint { color: var(--gold-text); opacity: 1; }
   .cliff-mancos {
-    background: linear-gradient(135deg, #3d4a3a 0%, #5a6b52 50%, #6e7d62 100%);
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 55%, var(--blue-mid) 100%);
     color: #fff;
     min-height: 100px;
   }
@@ -1349,18 +1352,19 @@ const schema = [
     align-items: center;
     gap: 40px;
     flex: 1;
+    background: var(--cream);
   }
   .strata-mancos .strata-strip-content {
-    background: linear-gradient(90deg, #5a6b52 0%, #6e7d62 100%);
+    border-left: 4px solid var(--blue-mid);
   }
   .strata-collapse .strata-strip-content {
-    background: linear-gradient(90deg, #8b4518 0%, #a0522d 55%, #c4a574 100%);
+    border-left: 4px solid var(--gold);
   }
   .strata-strip-title {
     font-family: 'Playfair Display', serif;
     font-size: 28px;
     font-weight: 700;
-    color: #fff;
+    color: var(--navy);
     line-height: 1.2;
     margin: 0;
   }
@@ -1369,7 +1373,7 @@ const schema = [
     font-size: 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.75);
+    color: var(--gold-text);
     margin-left: auto;
     flex-shrink: 0;
   }

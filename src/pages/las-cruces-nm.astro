@@ -582,12 +582,13 @@ const schema = [
   .lc-page {
     --navy: #0d2238;
     --blue: #1b3a5c;
+    --blue-mid: #2a5480;
     --gold: #b8860b;
     --gold-lt: #d4a017;
     --gold-text: #7d5c08;
     --sand: #f5efe6;
-    --stone: #ddd5c8;
-    --slate: #2c3a4a;
+    --stone: #e0d5c5;
+    --slate: #4a5568;
     --muted: #54626f;
     --cream: #fdfaf6;
     --white: #ffffff;
@@ -990,15 +991,15 @@ const schema = [
     gap: 6px;
   }
   .t-river {
-    background: linear-gradient(160deg, #1b3a5c 0%, #2a5480 55%, #3d6a8c 100%);
+    background: linear-gradient(160deg, var(--navy) 0%, var(--blue) 55%, var(--blue-mid) 100%);
   }
   .t-mesa {
-    background: linear-gradient(160deg, #6b5a3e 0%, #8a7349 50%, #a89060 100%);
+    background: linear-gradient(160deg, var(--blue) 0%, var(--blue-mid) 100%);
   }
   .t-edge {
-    background: linear-gradient(160deg, #3a2a28 0%, #5c4038 100%);
+    background: linear-gradient(160deg, var(--navy) 0%, var(--blue) 100%);
     cursor: default;
-    opacity: 0.85;
+    opacity: 0.7;
   }
   .t-band-name {
     font-family: 'Playfair Display', serif;
@@ -1089,22 +1090,25 @@ const schema = [
   .t-panel-irrig h3 { color: #fff; }
 
   .warn-stack {
-    background: var(--sand);
-    border: 1px solid var(--stone);
-    padding: 22px 20px;
+    background: transparent;
+    border: none;
+    padding: 0;
   }
   .warn-stack-label {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--gold-text);
     display: block;
-    margin-bottom: 14px;
+    margin-bottom: 20px;
   }
   .warn-stack details {
     border-top: 1px solid var(--stone);
     padding: 12px 0;
+  }
+  .warn-stack details:last-child {
+    border-bottom: 1px solid var(--stone);
   }
   .warn-stack summary {
     cursor: pointer;
@@ -1118,6 +1122,7 @@ const schema = [
     margin: 10px 0 0;
     font-size: 15px;
     line-height: 1.65;
+    color: var(--slate);
   }
 
   /* Before You Sign — horizontal 1-2-3 strip */
@@ -1297,16 +1302,16 @@ const schema = [
     gap: 8px;
   }
   .valley-west {
-    background: linear-gradient(90deg, #0d2238 0%, #1b3a5c 55%, #2a5480 100%);
+    background: linear-gradient(90deg, var(--navy) 0%, var(--blue) 55%, var(--blue-mid) 100%);
   }
   .valley-east {
-    background: linear-gradient(90deg, #6b5a3e 0%, #8a7349 50%, #a89060 100%);
+    background: linear-gradient(90deg, var(--blue) 0%, var(--blue-mid) 100%);
   }
   .valley-field {
     background: repeating-linear-gradient(
       -28deg,
-      #0d2238 0 12px,
-      #132a42 12px 24px
+      var(--navy) 0 12px,
+      var(--blue) 12px 24px
     );
     border-top: 3px dashed var(--gold);
     border-bottom: 3px dashed var(--gold);
