@@ -110,7 +110,7 @@ const schema = [
   description={description}
   schema={schema}
   footer="minimal"
-  ogImage="/images/rio-rancho-hero.webp"
+  ogImage="/images/rio-rancho-sprawl-hero.webp"
   summary={summary}
   pageName="Rio Rancho"
   nextPage={{ path: '/santa-fe-nm', name: 'Santa Fe' }}
@@ -129,8 +129,7 @@ const schema = [
         <p class="hero-sub">Foundation repair Rio Rancho, NM — on soil that requires honest attention before anything else.</p>
       </div>
       <p class="hero-credit">
-        Photo by Bradly Salazar (Riverrat303) /
-        <a href="https://commons.wikimedia.org/wiki/File:Rio_Rancho_Sprawl.jpeg" rel="noopener noreferrer" target="_blank">Wikimedia Commons</a>
+        <a href="https://commons.wikimedia.org/wiki/File:Rio_Rancho_Sprawl.jpeg" rel="noopener noreferrer" target="_blank">B. Salazar</a>
         {' '}·{' '}
         <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="noopener noreferrer" target="_blank">CC BY-SA 3.0</a>
       </p>
@@ -672,10 +671,12 @@ const schema = [
   .hero-photo {
     position: absolute;
     inset: -4%;
-    background-image: url('/images/rio-rancho-hero.webp');
+    background-image: url('/images/rio-rancho-sprawl-hero.webp');
     background-size: cover;
     background-position: center 40%;
     animation: kenburns 20s ease-in-out infinite alternate;
+    /* Mild lift: sprawl midtones go muddy under the navy overlay */
+    filter: brightness(1.08) contrast(1.03) saturate(1.04);
   }
   @keyframes kenburns {
     0% {
@@ -780,24 +781,24 @@ const schema = [
   .hero-credit {
     position: absolute;
     z-index: 3;
-    right: 24px;
-    bottom: 16px;
+    right: 12px;
+    bottom: 8px;
     margin: 0;
-    max-width: min(420px, calc(100% - 48px));
     font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    line-height: 1.45;
+    font-size: 8px;
+    letter-spacing: 0.02em;
+    line-height: 1.2;
     text-align: right;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(255, 255, 255, 0.42);
   }
   .hero-credit a {
-    color: rgba(255, 255, 255, 0.72);
-    text-decoration: underline;
-    text-underline-offset: 2px;
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
   }
   .hero-credit a:hover {
     color: var(--gold-light);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   @keyframes fadeUp {
     to {
@@ -1753,10 +1754,9 @@ const schema = [
       padding: 0 24px 64px;
     }
     .hero-credit {
-      right: 16px;
-      bottom: 12px;
-      font-size: 10px;
-      max-width: calc(100% - 32px);
+      right: 10px;
+      bottom: 6px;
+      font-size: 7px;
     }
     .section-num {
       display: none;
