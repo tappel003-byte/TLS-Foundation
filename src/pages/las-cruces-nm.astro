@@ -228,26 +228,29 @@ const schema = [
         <!-- 02 RIVER CORRIDOR -->
         <section class="section" id="river-corridor">
           <span class="section-num">02</span>
+          <div class="valley-band valley-west reveal">
+            <span class="valley-band-dir">West ← Rio Grande</span>
+            <h3 class="valley-band-title">River Corridor</h3>
+            <span class="valley-band-tag">Fine sediment · Expansive clay · Old Mesilla</span>
+          </div>
           <div class="section-inner">
-            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Ground History 01 · River Corridor</span></div>
             <h2 class="section-heading reveal">River corridor — <em>expansive clay on the valley floor</em></h2>
-            <div class="two-col reveal">
-              <div>
+            <div class="folio-spread reveal">
+              <div class="folio-num" aria-hidden="true">W</div>
+              <div class="folio-main">
                 <p>Ground closest to the Rio Grande and historic Mesilla carries fine river and lake sediment — clay and silt deposited long before the valley was leveed and irrigated on a schedule. Where that clay is present, it swells when wet and shrinks when dry, and it can heave a foundation built on it.</p>
                 <p>This is also the valley's oldest settled ground. Age alone isn't a verdict, but proximity to the river corridor is a reason to look closely at which mechanism is actually present.</p>
               </div>
-              <div>
-                <div class="warn-stack">
-                  <span class="warn-stack-label">Warning signs · river corridor</span>
-                  <details>
-                    <summary>Cracking that tracks wet and dry seasons</summary>
-                    <p>Expansive clay responds to moisture on a seasonal cycle. Damage that tracks wet and dry years, rather than appearing once and staying put, points toward heave rather than simple settlement.</p>
-                  </details>
-                  <details>
-                    <summary>Older homes in or near Old Mesilla</summary>
-                    <p>The oldest, most river-adjacent ground in the valley. Proximity to the corridor is a reason to check for heave specifically rather than assume settlement.</p>
-                  </details>
-                </div>
+              <div class="warn-stack">
+                <span class="warn-stack-label">Warning signs · river corridor</span>
+                <details>
+                  <summary>Cracking that tracks wet and dry seasons</summary>
+                  <p>Expansive clay responds to moisture on a seasonal cycle. Damage that tracks wet and dry years, rather than appearing once and staying put, points toward heave rather than simple settlement.</p>
+                </details>
+                <details>
+                  <summary>Older homes in or near Old Mesilla</summary>
+                  <p>The oldest, most river-adjacent ground in the valley. Proximity to the corridor is a reason to check for heave specifically rather than assume settlement.</p>
+                </details>
               </div>
             </div>
           </div>
@@ -256,26 +259,29 @@ const schema = [
         <!-- 03 LA MESA -->
         <section class="section" id="la-mesa-terrace">
           <span class="section-num">03</span>
+          <div class="valley-band valley-east reveal">
+            <span class="valley-band-dir">East → La Mesa</span>
+            <h3 class="valley-band-title">La Mesa Terrace</h3>
+            <span class="valley-band-tag">Collapsible alluvium · First wetting</span>
+          </div>
           <div class="section-inner">
-            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Ground History 02 · La Mesa Terrace</span></div>
             <h2 class="section-heading reveal">La Mesa terrace — <em>stable until the first wetting</em></h2>
-            <div class="two-col reveal">
-              <div>
+            <div class="folio-spread reveal">
+              <div class="folio-num" aria-hidden="true">E</div>
+              <div class="folio-main">
                 <p>East of the river, much of Las Cruces sits on the La Mesa terrace — older, dry-deposited alluvium. Irrigation and urban development moisture have triggered first-wetting collapse in a number of mid-20th-century foundations.</p>
                 <p><mark class="key">Collapsible soil stays stable while dry, then loses volume rapidly the first time sustained moisture reaches it</mark> — a first-wetting event, not a slow process. That can happen decades after a house was built, with no obvious cause from the outside.</p>
               </div>
-              <div>
-                <div class="warn-stack">
-                  <span class="warn-stack-label">Warning signs · La Mesa</span>
-                  <details>
-                    <summary>Settlement that seems to appear with no clear trigger</summary>
-                    <p>First wetting can look sudden from inside the house. The trigger is often moisture that finally reached soil that had stayed dry for decades.</p>
-                  </details>
-                  <details>
-                    <summary>Mid-century homes after a landscaping or irrigation change</summary>
-                    <p>New landscaping, a new sprinkler system, or a changed drainage pattern can be exactly the sustained moisture that triggers collapse in terrace soil that's been dry for decades.</p>
-                  </details>
-                </div>
+              <div class="warn-stack">
+                <span class="warn-stack-label">Warning signs · La Mesa</span>
+                <details>
+                  <summary>Settlement that seems to appear with no clear trigger</summary>
+                  <p>First wetting can look sudden from inside the house. The trigger is often moisture that finally reached soil that had stayed dry for decades.</p>
+                </details>
+                <details>
+                  <summary>Mid-century homes after a landscaping or irrigation change</summary>
+                  <p>New landscaping, a new sprinkler system, or a changed drainage pattern can be exactly the sustained moisture that triggers collapse in terrace soil that's been dry for decades.</p>
+                </details>
               </div>
             </div>
           </div>
@@ -284,28 +290,37 @@ const schema = [
         <!-- 04 FORMER FARMLAND — own chapter (mandatory) -->
         <section class="section" id="former-farmland">
           <span class="section-num">04</span>
+          <div class="valley-band valley-field reveal">
+            <span class="valley-band-dir">Cross-cutting · land use</span>
+            <h3 class="valley-band-title">Former Farmland</h3>
+            <span class="valley-band-tag">Field → subdivision · Differential fill</span>
+          </div>
           <div class="section-inner">
-            <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Ground History 03 · Former Farmland</span></div>
             <h2 class="section-heading reveal">Former farmland — <em>the conversion that doesn't disappear</em></h2>
-            <div class="two-col reveal">
-              <div>
+            <div class="irrig-ledger reveal">
+              <div class="irrig-step"><span>1</span><p>Flood-irrigated fields for generations</p></div>
+              <div class="irrig-step"><span>2</span><p>Leveled and subdivided</p></div>
+              <div class="irrig-step"><span>3</span><p>Ditch lines &amp; field edges stay underground</p></div>
+              <div class="irrig-step"><span>4</span><p>Differential movement under new streets</p></div>
+            </div>
+            <div class="folio-spread reveal">
+              <div class="folio-num" aria-hidden="true">F</div>
+              <div class="folio-main">
                 <p><mark class="key">Much of the Mesilla Valley's newer growth sits on what used to be chile, pecan, or onion fields — flood-irrigated for generations before it was leveled and subdivided.</mark> That history doesn't disappear under a new slab.</p>
                 <p>Old field boundaries, filled-in irrigation ditches, and decades of uneven moisture conditioning can leave inconsistent bearing ground across what looks like one uniform lot. That can show up as differential movement — one part of a foundation settling or heaving differently than the rest.</p>
-                <p>We've seen differential movement on converted farmland directly. It's also well-documented wherever irrigated land becomes a subdivision. The overlay on the transect above is a visual reminder; this chapter is the full argument.</p>
+                <p>We've seen differential movement on converted farmland directly. The overlay on the transect above is a visual reminder; this chapter is the full argument.</p>
+                <div class="pull">Chile and pecans need irrigation to grow. Foundations need to know where that water history actually went.</div>
               </div>
-              <div>
-                <div class="warn-stack">
-                  <span class="warn-stack-label">Warning signs · former farmland</span>
-                  <details>
-                    <summary>Movement worse on one side or corner of the house</summary>
-                    <p>A classic signature of differential movement — often tracing back to an old field boundary or ditch line nobody mapped before building.</p>
-                  </details>
-                  <details>
-                    <summary>Newer construction on land that was farmland within living memory</summary>
-                    <p>Doesn't mean there's a problem. It means the fill and moisture history under that slab is worth understanding before assuming the ground is as uniform as the new subdivision looks.</p>
-                  </details>
-                </div>
-                <div class="pull" style="margin-top:24px;">Chile and pecans need irrigation to grow. Foundations need to know where that water history actually went.</div>
+              <div class="warn-stack">
+                <span class="warn-stack-label">Warning signs · former farmland</span>
+                <details>
+                  <summary>Movement worse on one side or corner of the house</summary>
+                  <p>A classic signature of differential movement — often tracing back to an old field boundary or ditch line nobody mapped before building.</p>
+                </details>
+                <details>
+                  <summary>Newer construction on land that was farmland within living memory</summary>
+                  <p>Doesn't mean there's a problem. It means the fill and moisture history under that slab is worth understanding before assuming the ground is as uniform as the new subdivision looks.</p>
+                </details>
               </div>
             </div>
           </div>
@@ -337,7 +352,8 @@ const schema = [
             <div class="section-label"><span class="section-label-bar"></span><span class="section-label-text">Before You Sign · Three Steps</span></div>
             <h2 class="section-heading reveal">Ask in order — <em>before the estimate means anything</em></h2>
 
-            <div class="ask-strip reveal">
+            <div class="ask-strip-bleed reveal">
+            <div class="ask-strip">
               <div class="ask-step">
                 <span class="ask-step-num">1</span>
                 <h3>Which ground history?</h3>
@@ -355,6 +371,7 @@ const schema = [
                 <h3>Who stands on the lot?</h3>
                 <p>Not everyone who answers the phone is who ends up on your property. Call <a href="tel:5059914180">(505) 991-4180</a> — you reach the owner(s).</p>
               </div>
+            </div>
             </div>
           </div>
         </section>
@@ -1216,19 +1233,48 @@ const schema = [
   @media (max-width: 960px) {
     .page-layout { grid-template-columns: 1fr; }
     .page-layout::before { display: none; }
-    .left-nav { position: relative; height: auto; padding: 28px 20px; }
+
+    .left-nav {
+      position: static;
+      height: auto;
+      flex-direction: column;
+      padding: 24px;
+      border-bottom: 3px solid var(--gold);
+      background: var(--navy);
+    }
+    .nav-progress,
+    .nav-brand { display: none; }
     .nav-links {
       display: grid;
       grid-template-columns: 1fr 1fr;
+      gap: 0;
       flex: none;
       margin-bottom: 20px;
     }
-    .nav-links a { padding: 12px; border-left: none; }
+    .nav-links li { border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .nav-links li:nth-child(odd) { border-right: 1px solid rgba(255, 255, 255, 0.08); }
+    .nav-links a {
+      font-size: 15px;
+      padding: 12px 10px;
+      margin-left: 0;
+      border-left: none;
+      color: rgba(255, 255, 255, 0.75);
+    }
     .nav-links a .nav-dot { display: none; }
+    .nav-links a.active { color: var(--gold); border-left: none; }
+    .nav-contact {
+      margin-top: 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(184, 134, 11, 0.3);
+    }
+    .nav-contact-label { color: var(--gold); }
+    .nav-contact a { color: var(--white); font-size: 22px; }
+    .nav-contact-sub { color: rgba(255, 255, 255, 0.5); }
+
     .hero-content { padding: 0 24px 48px; }
     .statement-band { padding: 36px 24px; }
     .section { padding: 56px 24px 32px; }
-    .section-num { left: 24px; top: 24px; font-size: 14px; }
+    .section-num { display: none; }
     .two-col { grid-template-columns: 1fr; }
     .transect-bands { grid-template-columns: 1fr; }
     .t-edge { display: none; }
@@ -1236,5 +1282,102 @@ const schema = [
     .ask-step-arrow { display: none; }
     .contact-closer { margin: 32px 24px 0; }
     .contact-closer-inner { flex-direction: column; align-items: flex-start; padding: 32px 24px; }
+    .valley-band { margin-left: -24px; margin-right: -24px; }
+    .folio-spread { grid-template-columns: 1fr; }
+    .folio-num { display: none; }
+    .ask-strip-bleed { margin-left: -24px; margin-right: -24px; padding: 36px 24px; }
   }
+
+  /* ── Layout DNA: valley-band chapters + folio spreads + irrig ledger ── */
+  .valley-band {
+    margin: 0 -96px 36px;
+    padding: 36px 48px;
+    color: #fff;
+    display: grid;
+    gap: 8px;
+  }
+  .valley-west {
+    background: linear-gradient(90deg, #0d2238 0%, #1b3a5c 55%, #2a5480 100%);
+  }
+  .valley-east {
+    background: linear-gradient(90deg, #6b5a3e 0%, #8a7349 50%, #a89060 100%);
+  }
+  .valley-field {
+    background: repeating-linear-gradient(
+      -28deg,
+      #0d2238 0 12px,
+      #132a42 12px 24px
+    );
+    border-top: 3px dashed var(--gold);
+    border-bottom: 3px dashed var(--gold);
+  }
+  .valley-band-dir {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-lt);
+  }
+  .valley-band-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.1;
+  }
+  .valley-band-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+  .folio-spread {
+    display: grid;
+    grid-template-columns: 48px 1.2fr 0.9fr;
+    gap: 28px;
+    align-items: start;
+  }
+  .folio-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 700;
+    color: rgba(184, 134, 11, 0.35);
+    line-height: 1;
+  }
+  .irrig-ledger {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 0 0 36px;
+  }
+  .irrig-step {
+    background: var(--sand);
+    border-top: 3px solid var(--gold);
+    padding: 18px 14px;
+  }
+  .irrig-step span {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    color: rgba(184,134,11,0.7);
+    display: block;
+    margin-bottom: 8px;
+  }
+  .irrig-step p {
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+    margin: 0 !important;
+    color: var(--slate);
+  }
+  .ask-strip-bleed {
+    background: var(--sand);
+    margin: 28px -96px 0;
+    padding: 40px 96px;
+    border-top: 1px solid var(--stone);
+    border-bottom: 1px solid var(--stone);
+  }
+  @media (max-width: 960px) {
+    .irrig-ledger { grid-template-columns: 1fr 1fr; }
+  }
+
 </style>
