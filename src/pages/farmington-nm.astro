@@ -179,7 +179,6 @@ const schema = [
                 role="img"
                 aria-label="Map of Farmington, Aztec, and Bloomfield at the San Juan, Animas, and La Plata river confluence"
               ></div>
-              <p class="confluence-map-note">OpenStreetMap · rivers and towns as they sit on the ground — not an illustration</p>
 
               <div class="confluence-layout">
                 <a class="conf-primary" href="#farmington" data-town="farmington">
@@ -944,17 +943,10 @@ const schema = [
     width: 100%;
     height: min(52vw, 420px);
     min-height: 280px;
+    margin-bottom: 28px;
     border: 1px solid var(--stone);
     background: var(--sand);
     z-index: 0;
-  }
-  .confluence-map-note {
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 10px 0 28px !important;
   }
   .confluence-map-fallback {
     margin: 0;
