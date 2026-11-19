@@ -41,6 +41,12 @@ export const pageFlow: { path: string; name: string }[] = [
   { path: '/albuquerque-nm', name: 'Albuquerque' }, // City Pages
   { path: '/rio-rancho-nm', name: 'Rio Rancho' },
   { path: '/santa-fe-nm', name: 'Santa Fe' },
+  // "Farmington" here, not "Farmington, Aztec & Bloomfield" -- same
+  // pill-only shortening as the NM regions below. Nav dropdown keeps
+  // the full tri-city label; MobilePageFlowNav gets the short name.
+  { path: '/farmington-nm', name: 'Farmington' },
+  { path: '/gallup-nm', name: 'Gallup' },
+  { path: '/las-cruces-nm', name: 'Las Cruces' },
   { path: '/new-mexico-soil-conditions', name: 'Soil Roadmap' }, // NM Soils
   // "NM" here, not "New Mexico" -- per Tim, shortens the pill on
   // MobilePageFlowNav.astro; every other page reference to these
