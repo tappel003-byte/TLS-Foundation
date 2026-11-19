@@ -344,6 +344,8 @@ const schema = [
 </Layout>
 
 <script>
+  document.documentElement.classList.add('js-reveal');
+
   function initMethodsPage() {
     const flow = document.querySelector('.process-flow');
     if (flow) {
@@ -519,7 +521,8 @@ const schema = [
     padding: 0 40px;
   }
 
-  .reveal {
+  .reveal { opacity: 1; transform: none; }
+  :global(.js-reveal) .reveal {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s ease, transform 0.8s ease;

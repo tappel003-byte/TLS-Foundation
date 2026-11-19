@@ -280,6 +280,8 @@ const schema = [
 </Layout>
 
 <script>
+  document.documentElement.classList.add('js-reveal');
+
   const progressFill = document.getElementById('progressFill');
   const contentArea = document.querySelector('.content-area');
   window.addEventListener(
@@ -851,7 +853,12 @@ const schema = [
   .fact-box p:last-child { margin-bottom: 0 !important; }
 
   /* scroll reveals */
-  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal { opacity: 1; transform: none; }
+  :global(.js-reveal) .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
   @media (max-width: 767px) {

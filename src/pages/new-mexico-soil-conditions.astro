@@ -209,6 +209,8 @@ const serviceAreaText = `TLS Foundations provides foundation repair and geotechn
 </Layout>
 
 <script>
+  document.documentElement.classList.add('js-reveal');
+
   const progressFill = document.getElementById('progressFill');
   const contentArea = document.querySelector('.content-area');
   window.addEventListener(
@@ -764,7 +766,8 @@ const serviceAreaText = `TLS Foundations provides foundation repair and geotechn
   }
 
   /* scroll reveals */
-  .reveal {
+  .reveal { opacity: 1; transform: none; }
+  :global(.js-reveal) .reveal {
     opacity: 0;
     transform: translateY(16px);
     transition: opacity 0.6s ease, transform 0.6s ease;

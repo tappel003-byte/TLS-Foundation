@@ -433,6 +433,8 @@ const schema = [
 </Layout>
 
 <script>
+  document.documentElement.classList.add('js-reveal');
+
   const progressFill = document.getElementById('progressFill');
   const contentArea = document.querySelector('.content-area');
   window.addEventListener(
@@ -1078,7 +1080,8 @@ const schema = [
     margin-top: 8px;
   }
 
-  .reveal {
+  .reveal { opacity: 1; transform: none; }
+  :global(.js-reveal) .reveal {
     opacity: 0;
     transform: translateY(18px);
     transition: opacity 0.55s ease, transform 0.55s ease;
