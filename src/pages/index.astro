@@ -5,7 +5,7 @@
 // stat already made above) was cut, "you reach the owner(s)" went from 4
 // mentions down to 1 explained instance plus one fresh callback, and the
 // close no longer claims "we don't have an About Us page" directly under
-// a Story section that is one -- it argues urgency instead.
+// a Story section that is one. Single closer: "What to do next" (no urgency band).
 import Layout from '../layouts/Layout.astro';
 import JobNoteLink from '../components/JobNoteLink.astro';
 
@@ -263,34 +263,6 @@ const schema = [
           If something already feels wrong under the house, start with that call. We’ll talk it through and
           come look when it makes sense.
         </p>
-      </div>
-    </section>
-
-    <section class="contact-close">
-      <div class="contact-inner">
-        <span class="contact-eyebrow">Ready when you are</span>
-        <h2 class="contact-headline">
-          Left alone, most foundation movement keeps moving — waiting doesn't fix it. Text or call — you'll reach the people
-          who'll actually be at your house, not a scheduler.
-        </h2>
-        <p class="contact-sub">Real answers, no sales script.</p>
-        <div class="contact-options">
-          <div class="contact-option">
-            <span class="contact-option-label">Text</span>
-            <a href="sms:5059914180" class="contact-option-value">Send a text →</a>
-            <span class="contact-option-note">Usually same day</span>
-          </div>
-          <div class="contact-option">
-            <span class="contact-option-label">Call</span>
-            <a href="tel:5059914180" class="contact-option-value">(505) 991-4180</a>
-            <span class="contact-option-note">No hold music, no script</span>
-          </div>
-          <div class="contact-option">
-            <span class="contact-option-label">Location</span>
-            <span class="contact-option-value">Albuquerque,&nbsp;New Mexico</span>
-            <span class="contact-option-note">The state is our office</span>
-          </div>
-        </div>
       </div>
     </section>
   </main>
@@ -958,7 +930,7 @@ const schema = [
     margin-top: 40px;
   }
 
-  /* ── WHAT TO DO NEXT: navy stop between methods and closer.
+  /* ── WHAT TO DO NEXT: single homepage closer (replaces urgency band).
        Type/contrast only — no buttons, icons, or free-inspection pitch. ── */
   .next-steps {
     background: var(--blue);
@@ -1052,90 +1024,6 @@ const schema = [
     }
   }
 
-  /* ── CONTACT CLOSE: split layout, distinct from Why NM's Different /
-       Why Foundations Move's centered three-column band ── */
-  .contact-close {
-    background: var(--sand);
-    padding: 96px var(--gutter);
-    border-top: 2px solid var(--gold);
-    border-bottom: 2px solid var(--gold);
-    text-align: center;
-  }
-  .contact-inner {
-    max-width: 720px;
-    margin: 0 auto;
-  }
-  .contact-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 13px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold-text);
-    display: block;
-    margin-bottom: 24px;
-  }
-  .contact-headline {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(26px, 3.4vw, 40px);
-    font-weight: 400;
-    line-height: 1.25;
-    color: var(--blue);
-    margin-bottom: 20px;
-  }
-  .contact-sub {
-    font-size: 17px;
-    font-weight: 300;
-    color: var(--slate);
-    line-height: 1.7;
-    margin-bottom: 56px;
-  }
-  .contact-options {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 0;
-    flex-wrap: nowrap;
-  }
-  .contact-option {
-    flex: 1;
-    padding: 0 32px;
-    border-right: 1px solid var(--stone);
-    text-align: center;
-  }
-  .contact-option:last-child {
-    border-right: none;
-  }
-  .contact-option-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gold-text);
-    display: block;
-    margin-bottom: 10px;
-  }
-  .contact-option-value {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(18px, 2.2vw, 22px);
-    font-weight: 400;
-    color: var(--blue);
-    text-decoration: none;
-    display: block;
-    margin-bottom: 6px;
-    white-space: nowrap;
-    transition: color 0.2s;
-  }
-  .contact-option-value:hover {
-    color: var(--gold-text);
-  }
-  .contact-option-note {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
   @media (max-width: 768px) {
     .stat-number {
       font-size: 80px;
@@ -1164,25 +1052,6 @@ const schema = [
     }
     .svc-item:last-child {
       border-bottom: none;
-    }
-  }
-  @media (max-width: 640px) {
-    .contact-close {
-      padding: 64px 24px;
-    }
-    .contact-options {
-      flex-direction: column;
-      gap: 40px;
-    }
-    .contact-option {
-      border-right: none;
-      border-bottom: 1px solid var(--stone);
-      padding: 0 0 40px;
-      width: 100%;
-    }
-    .contact-option:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
     }
   }
 </style>
