@@ -217,7 +217,7 @@ const schema = [
 
             <div class="stat-block reveal">
               <div class="stat-item">
-                <span class="stat-num" data-target="1961">1961</span>
+                <span class="stat-num" data-target="1961" data-no-comma="true">1961</span>
                 <span class="stat-label">Land purchased</span>
                 <p class="stat-desc">55,000 acres of the Koontz Ranch, platted and sold before the ground was studied lot by lot</p>
               </div>
@@ -570,6 +570,7 @@ const schema = [
   function animateCount(el: Element) {
     const target = parseInt((el as HTMLElement).dataset.target || '');
     if (!target) return;
+    const noComma = (el as HTMLElement).dataset.noComma === 'true';
     const suffixEl = el.querySelector('span');
     const suffix = suffixEl ? suffixEl.outerHTML : '';
     const duration = 1600;
@@ -577,7 +578,8 @@ const schema = [
     const update = (now: number) => {
       const p = Math.min((now - start) / duration, 1);
       const ease = 1 - Math.pow(1 - p, 3);
-      el.innerHTML = Math.floor(ease * target).toLocaleString() + suffix;
+      const value = Math.floor(ease * target);
+      el.innerHTML = (noComma ? String(value) : value.toLocaleString()) + suffix;
       if (p < 1) requestAnimationFrame(update);
     };
     requestAnimationFrame(update);

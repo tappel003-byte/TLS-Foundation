@@ -172,7 +172,7 @@ const schema = [
               <div class="sticky-col">
                 <div class="basin-stat reveal">
                   <div class="basin-stat-item">
-                    <span class="basin-stat-num" data-target="1706">1706</span>
+                    <span class="basin-stat-num" data-target="1706" data-no-comma="true">1706</span>
                     <span class="basin-stat-label">Founded</span>
                     <p class="basin-stat-desc">Three centuries of building on rift basin sediment</p>
                   </div>
@@ -623,6 +623,7 @@ const schema = [
   function animateCount(el: Element) {
     const target = parseInt((el as HTMLElement).dataset.target || '');
     if (!target) return;
+    const noComma = (el as HTMLElement).dataset.noComma === 'true';
     const suffixEl = el.querySelector('span');
     const suffix = suffixEl ? suffixEl.outerHTML : '';
     const duration = 1600;
@@ -630,7 +631,8 @@ const schema = [
     const update = (now: number) => {
       const p = Math.min((now - start) / duration, 1);
       const ease = 1 - Math.pow(1 - p, 3);
-      el.innerHTML = Math.floor(ease * target).toLocaleString() + suffix;
+      const value = Math.floor(ease * target);
+      el.innerHTML = (noComma ? String(value) : value.toLocaleString()) + suffix;
       if (p < 1) requestAnimationFrame(update);
     };
     requestAnimationFrame(update);
