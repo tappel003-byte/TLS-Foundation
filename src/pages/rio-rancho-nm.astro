@@ -675,8 +675,8 @@ const schema = [
     background-size: cover;
     background-position: center 40%;
     animation: kenburns 20s ease-in-out infinite alternate;
-    /* Mild lift: sprawl midtones go muddy under the navy overlay */
-    filter: brightness(1.08) contrast(1.03) saturate(1.04);
+    /* Cool grey cast over sprawl (Tim): desaturate + slight lift under navy overlay */
+    filter: grayscale(0.72) brightness(1.08) contrast(1.05);
   }
   @keyframes kenburns {
     0% {
