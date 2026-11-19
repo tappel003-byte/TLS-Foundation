@@ -548,15 +548,17 @@ const schema = [
     inset: -4%;
     background-image: url('/images/las-cruces-hero.webp');
     background-size: cover;
-    background-position: center 50%;
+    /* Frame lower: Organs stay above; farmland/city sit near subcopy */
+    background-position: center 62%;
     animation: kenburns 20s ease-in-out infinite alternate;
+    filter: brightness(1.08) contrast(1.04);
   }
   @keyframes kenburns {
     0% {
-      transform: scale(1) translate(1%, 0);
+      transform: scale(1.02) translate(0.4%, 1.4%);
     }
     100% {
-      transform: scale(1.03) translate(-1%, 0.5%);
+      transform: scale(1.06) translate(-1%, 0.2%);
     }
   }
   .hero-overlay {
