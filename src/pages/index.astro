@@ -1038,7 +1038,9 @@ const schema = [
     font-size: 15px;
     font-weight: 300;
     font-style: italic;
-    color: rgba(255, 255, 255, 0.45);
+    /* Was rgba(255,255,255,0.45) on navy — ~2:1, hard to read on mobile.
+       Soft voice stays in italic + weight; cream clears WCAG AA on --blue. */
+    color: var(--cream);
     line-height: 1.7;
     margin: 0;
     max-width: 520px;
