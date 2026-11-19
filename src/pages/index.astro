@@ -239,6 +239,33 @@ const schema = [
       </div>
     </section>
 
+    <!-- What to do next: educate → call an owner. Answers AI Overview
+         "unclear next steps / credibility vs sales" friction only. -->
+    <section class="next-steps" aria-labelledby="next-steps-headline">
+      <div class="next-steps-inner">
+        <span class="next-steps-eyebrow">What to do next</span>
+        <h2 id="next-steps-headline" class="next-steps-headline">
+          Learn what you need here. When you’re ready, call.
+        </h2>
+        <p class="next-steps-body">
+          Use this site to understand New Mexico soil and what foundation movement actually looks like.
+          When you’re ready to talk about your house, call or text. You’ll get an owner back — not a call
+          center, not a scheduler. It may take a little while; you’ll hear from someone who does the work.
+        </p>
+        <p class="next-steps-cta">
+          <a href="tel:5059914180" class="next-steps-phone">(505) 991-4180</a>
+          <span class="next-steps-sep" aria-hidden="true">·</span>
+          <a href="sms:5059914180" class="next-steps-action">Text</a>
+          <span class="next-steps-or"> or </span>
+          <a href="tel:5059914180" class="next-steps-action">call</a>
+        </p>
+        <p class="next-steps-quiet">
+          If something already feels wrong under the house, start with that call. We’ll talk it through and
+          come look when it makes sense.
+        </p>
+      </div>
+    </section>
+
     <section class="contact-close">
       <div class="contact-inner">
         <span class="contact-eyebrow">Ready when you are</span>
@@ -929,6 +956,98 @@ const schema = [
   }
   .services-section .acc-link {
     margin-top: 40px;
+  }
+
+  /* ── WHAT TO DO NEXT: navy stop between methods and closer.
+       Type/contrast only — no buttons, icons, or free-inspection pitch. ── */
+  .next-steps {
+    background: var(--blue);
+    padding: 88px var(--gutter);
+    border-top: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+  }
+  .next-steps-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .next-steps-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 20px;
+  }
+  .next-steps-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 3.6vw, 40px);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--cream);
+    margin-bottom: 24px;
+  }
+  .next-steps-body {
+    font-family: 'Source Serif 4', serif;
+    font-size: clamp(16px, 1.8vw, 18px);
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.72);
+    line-height: 1.85;
+    margin: 0 0 36px;
+  }
+  .next-steps-cta {
+    margin: 0 0 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(15px, 1.8vw, 17px);
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .next-steps-phone {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(18px, 2.2vw, 22px);
+    letter-spacing: 1px;
+    color: var(--gold-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .next-steps-phone:hover {
+    color: var(--cream);
+  }
+  .next-steps-sep {
+    margin: 0 10px;
+    color: rgba(255, 255, 255, 0.35);
+  }
+  .next-steps-action {
+    font-family: 'DM Mono', monospace;
+    color: var(--gold-light);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(var(--gold-rgb), 0.45);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .next-steps-action:hover {
+    color: var(--cream);
+    border-bottom-color: var(--cream);
+  }
+  .next-steps-or {
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .next-steps-quiet {
+    font-family: 'Source Serif 4', serif;
+    font-size: 15px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.45);
+    line-height: 1.7;
+    margin: 0;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+  @media (max-width: 640px) {
+    .next-steps {
+      padding: 64px 24px;
+    }
   }
 
   /* ── CONTACT CLOSE: split layout, distinct from Why NM's Different /
