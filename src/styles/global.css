@@ -38,7 +38,7 @@
   --blue-dark: #0d2238;
   --blue-mid: #2a5480;
   --gold: #d4af37;
-  --gold-light: #d4a017;
+  --gold-light: #e3c15c;
   /* RGB triplet of --gold, for rgba(var(--gold-rgb), X) where an alpha
      value is needed -- keep this in sync with --gold above by hand,
      since CSS can't derive one from the other. */
