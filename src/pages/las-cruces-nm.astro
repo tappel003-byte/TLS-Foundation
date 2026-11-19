@@ -289,8 +289,7 @@ const schema = [
               <div class="irrig-step"><span>3</span><p>Ditch lines &amp; field edges stay underground</p></div>
               <div class="irrig-step"><span>4</span><p>Differential movement under new streets</p></div>
             </div>
-            <div class="folio-spread reveal">
-              <div class="folio-num" aria-hidden="true">F</div>
+            <div class="folio-spread folio-spread-plain reveal">
               <div class="folio-main">
                 <p><mark class="key">Much of the Mesilla Valley's newer growth sits on what used to be chile, pecan, or onion fields — flood-irrigated for generations before it was leveled and subdivided.</mark> That history doesn't disappear under a new slab.</p>
                 <p>Old field boundaries, filled-in irrigation ditches, and decades of uneven moisture conditioning can leave inconsistent bearing ground across what looks like one uniform lot. That can show up as differential movement — one part of a foundation settling or heaving differently than the rest.</p>
@@ -1224,6 +1223,10 @@ const schema = [
     gap: 28px;
     align-items: start;
   }
+  /* Former Farmland: no letter column — gold “F” read as a drop-cap on “Much…” */
+  .folio-spread-plain {
+    grid-template-columns: 1.25fr 0.9fr;
+  }
   .folio-num {
     font-family: 'Playfair Display', serif;
     font-size: 64px;
@@ -1232,6 +1235,11 @@ const schema = [
     line-height: 1;
   }
   .folio-main { min-width: 0; }
+  .folio-main p {
+    font-size: 18px;
+    line-height: 1.75;
+    max-width: 42em;
+  }
   .warn-stack { min-width: 0; }
   .irrig-ledger {
     display: grid;
