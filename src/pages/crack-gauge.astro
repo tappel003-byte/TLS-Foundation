@@ -492,7 +492,9 @@ const TRACKING_ROWS = 22;
     color: var(--navy);
     margin: 6px 0 6px;
   }
-  .gold { color: var(--tls-gold); }
+  /* --tls-gold reads 3.12:1 against the cream print-sheet background --
+     fails WCAG AA, same as .brand-name em above. --gold-text clears 5.92:1. */
+  .gold { color: var(--gold-text); }
   .panel-copy { font-size: 11px; line-height: 1.55; color: #374151; }
   .panel-section { margin-top: 14px; }
   .panel-label {
