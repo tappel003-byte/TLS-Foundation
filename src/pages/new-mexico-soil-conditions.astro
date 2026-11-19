@@ -265,7 +265,6 @@ const serviceAreaText = `TLS Foundations provides foundation repair and geotechn
   .roadmap-page {
     --navy: #0d2238;
     --blue: #1b3a5c;
-    --gold: #b8860b;
     /*
       --gold-text: the same gold family but darkened for text sitting on
       light backgrounds (cream/sand/white) -- --gold only clears WCAG AA
@@ -274,7 +273,6 @@ const serviceAreaText = `TLS Foundations provides foundation repair and geotechn
       --gold stays as-is where it's already on a dark background (hero
       overlay, the basin-stat number) and already passes there.
     */
-    --gold-text: #7d5c08;
     --sand: #f5efe6;
     --stone: #ddd5c8;
     --slate: #2c3a4a;
@@ -372,7 +370,7 @@ const serviceAreaText = `TLS Foundations provides foundation repair and geotechn
     max-width: 560px;
     line-height: 1.6;
     margin-bottom: 32px;
-    border-left: 2px solid rgba(184, 134, 11, 0.5);
+    border-left: 2px solid rgba(var(--gold-rgb), 0.5);
     padding: 18px 24px 18px 22px;
   }
   .hero-sub-attr {

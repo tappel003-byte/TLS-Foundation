@@ -1453,9 +1453,6 @@ const foundationOptions = [
     --blue: #1b3a5c;
     --blue-dark: #0d2238;
     --blue-mid: #2a5480;
-    --gold: #b8860b;
-    --gold-light: #d4a017;
-    --gold-text: #7d5c08;
     --sand: #f5efe6;
     --stone: #e0d5c5;
     --slate: #4a5568;
@@ -1818,7 +1815,7 @@ const foundationOptions = [
 
   /* ── Specimen cards ── */
   .specimen-card { background: var(--white); border: 1px solid var(--stone); border-radius: 8px; transition: opacity 0.2s, border-color 0.2s; }
-  .specimen-card.matched { border-color: rgba(184, 134, 11, 0.5); }
+  .specimen-card.matched { border-color: rgba(var(--gold-rgb), 0.5); }
   .specimen-head { padding: 20px 24px 0; display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
   .specimen-tier-badge {
     flex-shrink: 0;

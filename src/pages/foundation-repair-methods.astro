@@ -500,9 +500,7 @@ const schema = [
   .tlsfrm {
     --navy: #0d2238;
     --blue: #1b3a5c;
-    --gold: #b8860b;
     /* gold-text: darkened gold for text on cream/sand/white -- --gold itself only clears WCAG AA on dark backgrounds */
-    --gold-text: #7d5c08;
     --stone: #ddd5c8;
     --stone-warm: #e8dfce;
     --cream-label: #ece0c8;
@@ -533,7 +531,7 @@ const schema = [
 
   .gold-rule {
     height: 2px;
-    background: linear-gradient(to right, var(--gold), rgba(184, 134, 11, 0.08));
+    background: linear-gradient(to right, var(--gold), rgba(var(--gold-rgb), 0.08));
     margin: 0;
   }
 
@@ -550,7 +548,7 @@ const schema = [
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(to right, var(--gold), rgba(184, 134, 11, 0.2));
+    background: linear-gradient(to right, var(--gold), rgba(var(--gold-rgb), 0.2));
   }
   .hero .tlsfrm-container {
     position: relative;
@@ -592,7 +590,7 @@ const schema = [
     font-weight: 400;
     color: var(--white);
     text-decoration: none;
-    border-bottom: 2px solid rgba(184, 134, 11, 0.5);
+    border-bottom: 2px solid rgba(var(--gold-rgb), 0.5);
     padding-bottom: 6px;
     transition: color 0.25s, border-color 0.25s;
     display: inline-block;
@@ -735,7 +733,7 @@ const schema = [
     padding: 26px 22px;
     background: var(--navy);
     border-radius: 4px;
-    border-top: 2px solid rgba(184, 134, 11, 0.25);
+    border-top: 2px solid rgba(var(--gold-rgb), 0.25);
     transform: translateY(0);
     transition: background 0.6s ease, transform 0.6s ease, box-shadow 0.6s ease, border-color 0.6s ease;
   }
@@ -811,7 +809,7 @@ const schema = [
     cursor: pointer;
   }
   .method-card:hover {
-    border-color: rgba(184, 134, 11, 0.3);
+    border-color: rgba(var(--gold-rgb), 0.3);
     box-shadow: 0 4px 20px rgba(13, 34, 56, 0.04);
   }
   .method-card.expanded {

@@ -1376,9 +1376,6 @@ const schema = [
     --blue: #1b3a5c;
     --blue-dark: #0d2238;
     --blue-mid: #2a5480;
-    --gold: #b8860b;
-    --gold-light: #d4a017;
-    --gold-text: #7d5c08;
     --sand: #f5efe6;
     --stone: #e0d5c5;
     --slate: #4a5568;
@@ -1666,7 +1663,7 @@ const schema = [
     padding: 28px 32px;
     transition: opacity 0.2s, border-color 0.2s, padding 0.2s;
   }
-  .symptom.matched { border-color: rgba(184, 134, 11, 0.5); }
+  .symptom.matched { border-color: rgba(var(--gold-rgb), 0.5); }
   .symptom.collapsed { padding: 14px 20px; }
   .symptom.collapsed h2 { margin-bottom: 0; font-size: 1rem; }
   .symptom-title-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }

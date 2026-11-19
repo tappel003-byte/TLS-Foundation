@@ -572,9 +572,9 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
   .sp-page {
     --sp-blue: #1b3a5c;
     --sp-navy: #0d2238;
-    --sp-gold: #b8860b;
-    --sp-gold-light: #d4a017;
-    --sp-gold-text: #7d5c08;
+    --sp-gold: var(--gold);
+    --sp-gold-light: var(--gold-light);
+    --sp-gold-text: var(--gold-text);
     --sp-sand: #f5efe6;
     --sp-stone: #e0d5c5;
     --sp-slate: #4a5568;
@@ -657,7 +657,7 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
   .sp-icon {
     margin-top: 40px; margin-bottom: 28px;
     width: 80px; height: 80px; border-radius: 24px;
-    background: rgba(184, 134, 11, 0.12);
+    background: rgba(var(--gold-rgb), 0.12);
     display: flex; align-items: center; justify-content: center;
     color: var(--sp-blue);
   }
@@ -689,8 +689,8 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
     margin-top: 16px;
     display: flex; gap: 10px;
     border-radius: 12px;
-    border: 1px solid rgba(184, 134, 11, 0.3);
-    background: rgba(184, 134, 11, 0.07);
+    border: 1px solid rgba(var(--gold-rgb), 0.3);
+    background: rgba(var(--gold-rgb), 0.07);
     padding: 12px;
     font-size: 12px;
     line-height: 1.6;
@@ -791,7 +791,7 @@ const WORSENING = ['Yes', 'No', 'Not sure'];
   .sp-done { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: 40px; }
   .sp-done-icon {
     width: 80px; height: 80px; border-radius: 24px;
-    background: rgba(184, 134, 11, 0.18);
+    background: rgba(var(--gold-rgb), 0.18);
     display: flex; align-items: center; justify-content: center;
     font-size: 32px; color: var(--sp-blue); margin-bottom: 28px;
   }

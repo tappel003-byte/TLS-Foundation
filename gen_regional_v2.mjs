@@ -273,7 +273,6 @@ ${zonesHtml}
   .cnm-page {
     --navy: #0d2238;
     --blue: #1b3a5c;
-    --gold: #b8860b;
     /*
       --gold-text: the same gold family but darkened for text sitting on
       light backgrounds (cream/sand/white) -- the original --gold only
@@ -283,7 +282,6 @@ ${zonesHtml}
       already on a dark background (hero overlay, the basin-stat number)
       where it already passes and darkening would look muddy there.
     */
-    --gold-text: #7d5c08;
     --sand: #f5efe6;
     --stone: #ddd5c8;
     --slate: #2c3a4a;
@@ -373,7 +371,7 @@ ${zonesHtml}
     max-width: 560px;
     line-height: 1.6;
     margin-bottom: 32px;
-    border-left: 2px solid rgba(184, 134, 11, 0.5);
+    border-left: 2px solid rgba(var(--gold-rgb), 0.5);
     padding: 18px 24px 18px 22px;
   }
   .hero-cta {
@@ -678,7 +676,7 @@ ${zonesHtml}
     font-weight: 600;
     color: var(--blue);
     text-decoration: underline;
-    text-decoration-color: rgba(184, 134, 11, 0.4);
+    text-decoration-color: rgba(var(--gold-rgb), 0.4);
     text-underline-offset: 3px;
   }
   .zone-city-links-list a:hover { color: var(--gold-text); }

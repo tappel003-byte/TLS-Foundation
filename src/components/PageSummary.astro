@@ -159,7 +159,7 @@ const { summary, pageName, nextPage } = Astro.props;
     justify-content: space-between;
     margin-bottom: 16px;
     padding-bottom: 14px;
-    border-bottom: 1px solid rgba(184, 134, 11, 0.3);
+    border-bottom: 1px solid rgba(var(--gold-rgb), 0.3);
   }
   .tls-summarize-header-text {
     display: flex;
@@ -177,7 +177,7 @@ const { summary, pageName, nextPage } = Astro.props;
     font-size: 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--gold-text, #7d5c08);
+    color: var(--gold-text);
   }
   #tls-summarize-close {
     background: none;
@@ -190,7 +190,7 @@ const { summary, pageName, nextPage } = Astro.props;
     padding: 0;
   }
   #tls-summarize-close:hover {
-    color: var(--gold-text, #7d5c08);
+    color: var(--gold-text);
   }
   .tls-summarize-panel-inner p {
     font-family: 'Source Serif 4', Georgia, serif;
@@ -202,7 +202,7 @@ const { summary, pageName, nextPage } = Astro.props;
   .tls-summarize-cta {
     margin-top: 20px;
     padding-top: 16px;
-    border-top: 1px solid rgba(184, 134, 11, 0.3);
+    border-top: 1px solid rgba(var(--gold-rgb), 0.3);
     display: flex;
     align-items: baseline;
     gap: 10px;
@@ -223,7 +223,7 @@ const { summary, pageName, nextPage } = Astro.props;
     letter-spacing: 0.2px;
   }
   .tls-summarize-phone:hover {
-    color: var(--gold-text, #7d5c08);
+    color: var(--gold-text);
   }
   .tls-summarize-text-link {
     font-family: 'Source Serif 4', Georgia, serif;
@@ -231,11 +231,11 @@ const { summary, pageName, nextPage } = Astro.props;
     font-size: 14px;
     color: var(--muted, #54626f);
     text-decoration: underline;
-    text-decoration-color: rgba(184, 134, 11, 0.4);
+    text-decoration-color: rgba(var(--gold-rgb), 0.4);
     text-underline-offset: 3px;
   }
   .tls-summarize-text-link:hover {
-    color: var(--gold-text, #7d5c08);
+    color: var(--gold-text);
   }
   .tls-summarize-cta-sub {
     display: block;
@@ -258,7 +258,7 @@ const { summary, pageName, nextPage } = Astro.props;
     text-decoration: none;
   }
   .tls-summarize-next:hover {
-    color: var(--gold-text, #7d5c08);
+    color: var(--gold-text);
   }
 
   @media (max-width: 640px) {

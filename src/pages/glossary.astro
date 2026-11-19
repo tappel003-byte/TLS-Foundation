@@ -1538,8 +1538,7 @@ const definedTermSetSchema = {
     --blue: #1b3a5c;
     --blue-dark: #0d2238;
     --blue-mid: #2a5480;
-    --tls-gold: #b8860b;
-    --gold-light: #d4a017;
+    --tls-gold: var(--gold);
     --tls-sand: #f5efe6;
     --tls-stone: #e0d5c5;
     --tls-slate: #4a5568;
@@ -1631,7 +1630,7 @@ const definedTermSetSchema = {
   .search-input:focus {
     outline: none;
     border-color: var(--tls-gold);
-    box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.2);
+    box-shadow: 0 0 0 2px rgba(var(--gold-rgb), 0.2);
   }
   .search-input::placeholder {
     color: var(--muted);
@@ -1764,10 +1763,10 @@ const definedTermSetSchema = {
     letter-spacing: 0.5px;
     color: var(--blue, #1b3a5c);
     text-decoration: none;
-    border-bottom: 1px dotted var(--tls-gold, #b8860b);
+    border-bottom: 1px dotted var(--tls-gold);
   }
   .term-deep-link:hover {
-    color: var(--gold-text, #7d5c08);
+    color: var(--gold-text);
   }
   .related-terms {
     border-top: 1px solid var(--tls-stone);

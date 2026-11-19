@@ -39,6 +39,10 @@
   --blue-mid: #2a5480;
   --gold: #b8860b;
   --gold-light: #d4a017;
+  /* RGB triplet of --gold, for rgba(var(--gold-rgb), X) where an alpha
+     value is needed -- keep this in sync with --gold above by hand,
+     since CSS can't derive one from the other. */
+  --gold-rgb: 184, 134, 11;
   /*
     --gold-text: same gold family, darkened for text on light backgrounds
     (cream/sand/white). --gold itself only clears WCAG AA (4.5:1) against
