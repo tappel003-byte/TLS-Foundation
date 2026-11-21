@@ -18,7 +18,7 @@ import ReferenceNav from '../components/ReferenceNav.astro';
 
 const title = 'What to Do If You Think You Have a Foundation Problem | TLS Foundations';
 const summary =
-  "If you've noticed a crack, a sticking door, or an uneven floor, you don't have to know what it means before you do anything. Four small steps you can take today: write down what you're seeing and when it started, take two photos (one close, one from farther back, with the date), note anything else that changed around the same time, and talk it through with an owner -- by phone, or with Send Us Photos. You're welcome to call before doing any of the other steps. From there: the Symptom Guide if you want to understand what you're seeing, the Printable Crack Gauge if you want to see whether it's changing, or Send Us Photos if you'd like someone to look at it.";
+  "If you've noticed a crack, a sticking door, or an uneven floor, you don't have to know what it means before you do anything. Four small steps you can take today: write down what you're seeing and when it started, take two photos (one close with the printable crack gauge held against the crack, one from farther back, with the date and time written on the back of the gauge), note anything else that changed around the same time, and talk it through with an owner -- by phone, or with Send Us Photos. You're welcome to call before doing any of the other steps. From there: the Symptom Guide if you want to understand what you're seeing, the Printable Crack Gauge if you want to see whether it's changing, or Send Us Photos if you'd like someone to look at it.";
 const description =
   "Found a crack and not sure what to do? Four small steps you can take today -- write it down, take two photos, note what else changed, and talk it through with an owner.";
 
@@ -29,11 +29,10 @@ const description =
 // rendered as HTML so the floor-level survey term can link to the glossary.
 // Set it back to null to hide the section.
 const fieldExample: { heading: string; paragraphs: string[]; quote?: string } | null = {
-  heading: 'We hear some version of this all the time. It isn\u2019t one particular house; it\u2019s how these calls often go.',
+  heading: 'We hear some version of this all the time. It isn\u2019t one particular house.',
   paragraphs: [
-    'A homeowner spends more time at home than they used to. They start looking at the house the way you only do when you\u2019re around it all day, and they notice a small crack. A few days later, another. Then a third. Each one is easy to shrug off by itself, and together they get hard to stop thinking about.',
-    'Usually there\u2019s a reason it weighs on them. They know New Mexico soil can be hard on foundations, and often someone they know has had a bad experience. After that, every new crack looks like the start of the same story.',
-    'When we go out, we look at the whole house, not just the cracks they\u2019ve found &mdash; and we often find others they haven\u2019t noticed, because noticing them is what we do. We&rsquo;ll also do a <a href="/glossary#floor-level-survey" class="body-link">floor-level survey</a>, a map of how the floor sits, point by point, across the house. Sometimes it shows a pattern, and then we can usually say where and why. Sometimes there&rsquo;s one specific cause, like a single spot near the garage. And sometimes most of what&rsquo;s worrying someone is a hairline crack in the drywall here and a single crack there, with no pattern of movement behind them. A scattering of small cracks with no pattern behind them is a different situation from a house that is moving, and the survey is how we tell the difference.',
+    'A homeowner spends more time at home than they used to. They notice a small crack. A few days later, another. Then a third. Each is easy to shrug off alone; together they&rsquo;re hard to stop thinking about. Usually there&rsquo;s a reason it weighs on them &mdash; they know New Mexico soil can be hard on foundations, and someone they know had a bad experience.',
+    'When we go out, we look at the whole house, not just the cracks they found &mdash; and we often find others they haven&rsquo;t noticed. We also do a <a href="/glossary#floor-level-survey" class="body-link">floor-level survey</a>, a map of how the floor sits across the house. Sometimes it shows a pattern, and we can say where and why. Sometimes there&rsquo;s one specific cause, like a spot near the garage. And sometimes it&rsquo;s a hairline drywall crack here and a single crack there, with no pattern of movement behind them. That&rsquo;s a different situation from a house that is moving, and the survey is how we tell the difference.',
     'Either way, we want you to know what you&rsquo;re looking at. Fear is a common way foundation repair gets sold. It isn&rsquo;t how we work.',
   ],
   quote: 'The better a homeowner understands their own problem, the better the repair goes, and the better the relationship afterward.',
@@ -87,46 +86,50 @@ const schema = [
 
         <div class="article-section" id="four-steps">
           <h2>Four Steps You Can Take <em>Today</em></h2>
-          <p class="opening">None of these costs anything or changes anything about your house. They just make whatever comes next easier.</p>
+          <p class="opening">None of these costs anything or changes anything about your house.</p>
 
           <ol class="step-list">
             <li>
               <h3>Write down what you're seeing</h3>
-              <p>Where is it? When did you first notice it? Has it changed since? A few lines in your phone is enough &mdash; something like &ldquo;hairline crack above the garage door, noticed in October, about the same since.&rdquo;</p>
+              <p>Where is it? When did you first notice it? Has it changed? Put today's date on it, and note whether it's rained or snowed lately.</p>
             </li>
             <li>
-              <h3>Take two photos</h3>
-              <p>Take one close-up of the crack, and one from farther back so we can see where it is on the wall or in the room. Keep the date with the photos &mdash; your phone does this on its own if you leave them where they are.</p>
+              <h3>Take two photos, with our crack gauge</h3>
+              <p>Print our <a href="/crack-gauge" class="body-link">Printable Crack Gauge</a> and hold it against the crack for a close-up. Then step back for a second photo, so we can see where it is. On the back of the gauge, write the date and time &mdash; the date matters most.</p>
             </li>
             <li>
-              <h3>Note what else changed around the same time</h3>
-              <p>A door that started sticking, a floor that feels different underfoot, water pooling somewhere new in the yard &mdash; mention it even if you're not sure it's related. Sometimes it's the piece that explains the rest. Often it isn't, and that's fine; it's easier for us to set aside than to guess at.</p>
+              <h3>Note what else changed</h3>
+              <p>A door that started sticking, a floor that feels different, water pooling somewhere new, a leak, new irrigation. Mention it even if you're not sure it's related.</p>
             </li>
             <li>
               <h3>Talk it through with us</h3>
-              <p><a href="tel:5059914180" class="body-link">Call</a>, or use <a href="/send-photos" class="body-link">Send Us Photos</a>. An owner can talk through what you're seeing, what the photos help show, and whether it makes sense to come look.</p>
+              <p><a href="tel:5059914180" class="body-link">Call</a>, <a href="sms:5059914180" class="body-link">text</a>, or use <a href="/send-photos" class="body-link">Send Us Photos</a>. An owner can talk through what you're seeing, what the photos show, and whether it makes sense to come look. You don't have to finish the other steps first &mdash; if you have a question, call <a href="tel:5059914180" class="body-link phone-link">(505) 991-4180</a> now.</p>
             </li>
           </ol>
 
           <div class="callout-block">
-            <span class="callout-label">Call at any point</span>
-            <p><strong>You don't have to finish the other three steps first.</strong> If you have a question, pick up the phone: <a href="tel:5059914180" class="body-link phone-link">(505) 991-4180</a>. You'll reach the owner, and the notes and photos can wait until you're ready for them.</p>
+            <span class="callout-label">Hold off for now</span>
+            <p><strong>Don't patch, caulk or paint over the crack yet</strong> &mdash; it's your record of what's happening. And don't sign anything the same day someone looks at your house.</p>
+          </div>
+
+          <div class="callout-block">
+            <span class="callout-label">Call sooner if</span>
+            <p>A crack is widening quickly, a wall is bowing or leaning, or there's water you can't stop. Don't wait on the steps &mdash; <a href="tel:5059914180" class="body-link phone-link">(505) 991-4180</a>. Otherwise, <a href="/common-concerns#wait" class="body-link">here's how to think about when repair is needed</a>.</p>
           </div>
         </div>
 
         <div class="article-section" id="next">
           <h2>Three Paths for <em>Whatever You Need Next</em></h2>
-          <p class="opening">Pick the one that sounds like you.</p>
 
           <ul class="path-list">
             <li>
               <span class="path-need">&ldquo;I want to understand what I'm seeing.&rdquo;</span>
-              <p>Check what applies and see what it usually means, and how New Mexico soils factor in.</p>
+              <p>Check what applies and see what it usually means.</p>
               <a href="/symptom-guide" class="path-link">Symptom Guide <span aria-hidden="true">→</span></a>
             </li>
             <li>
               <span class="path-need">&ldquo;I want to see if it's changing.&rdquo;</span>
-              <p>Print it, fold it in half, and hold it against the crack. A log over about 30 days shows whether it's moving.</p>
+              <p>Hold it against the crack, log the date on the back, and check again in about 30 days.</p>
               <a href="/crack-gauge" class="path-link">Printable Crack Gauge <span aria-hidden="true">→</span></a>
             </li>
             <li>
@@ -160,9 +163,8 @@ const schema = [
         <div class="article-section" id="after-photos">
           <h2>What Happens After I <em>Send Photos</em>?</h2>
           <p class="opening">A person looks at them, and an owner calls you back.</p>
-          <p>There's no account and no app. You take or choose your photos, tag each one by room, and, if you want, add what worries you, how long it's been there, and whether it's getting worse. We need your first name and a phone number to call you back &mdash; everything else is optional, including the best time to call.</p>
-          <p>When we call, we talk through what the photos show, what they can't show, and whether it makes sense to come out and look. A photo can tell us where a crack is and what it looks like. It can't tell us what's under it, which is why the conversation matters as much as the pictures.</p>
-          <p><a href="/send-photos" class="body-link">Send Us Photos</a> whenever you're ready &mdash; or <a href="tel:5059914180" class="body-link">call</a> if you'd rather just talk.</p>
+          <p>No account, no app. Add your photos, tag each by room, and tell us what worries you if you want. We need your first name and a phone number; everything else is optional.</p>
+          <p>When we call, we talk through what the photos show, what they can't, and whether it makes sense to come look. A photo shows us where a crack is. It can't show what's under it &mdash; which is why the call matters as much as the pictures.</p>
         </div>
 
         <a href="#top" class="back-to-top">↑ Back to top</a>
