@@ -5,10 +5,8 @@
 // Built on the same article template as collapsible-soil / expansive-soil,
 // plus the shared ReferenceNav band.
 //
-// FIELD EXAMPLE: the "From the Field" section renders only when `fieldExample`
-// below is filled in -- an anonymous story from a real visit (a worried
-// homeowner, a few isolated cracks), no city and no identifying details.
-// Set it back to null to hide the section.
+// FIELD EXAMPLE: the "A Story We Hear Often" section renders only when
+// `fieldExample` below is filled in. See the note above it.
 //
 // FOLLOW-UP PROMISE: the "What happens after I send photos?" section only
 // describes what send-photos.astro actually does today (photos + contact info
@@ -24,18 +22,19 @@ const summary =
 const description =
   "Found a crack and not sure what to do? Four small steps you can take today -- write it down, take two photos, note what else changed, and talk it through with an owner.";
 
-// Tim told the story Nov 21, 2026; this is the draft in his words, for him to
-// review. No city, no identifying details. Paragraphs are our own trusted
-// strings, rendered as HTML so the floor-level survey term can link to the
-// glossary.
+// A composite, not one visit (Tim, Nov 21, 2026): the real story he told was
+// from a house he had left hours earlier, too recognizable to publish, so this
+// is the pattern he hears all the time, written without any single house's
+// details. It says so on the page. Paragraphs are our own trusted strings,
+// rendered as HTML so the floor-level survey term can link to the glossary.
+// Set it back to null to hide the section.
 const fieldExample: { heading: string; paragraphs: string[]; quote?: string } | null = {
-  heading: 'We hear some version of this all the time.',
+  heading: 'We hear some version of this all the time. It isn\u2019t one particular house; it\u2019s how these calls often go.',
   paragraphs: [
-    'A homeowner works from home. Over a few weeks they start really looking at the house, and they notice a small crack. Then another. Then another. Each one is easy to shrug off by itself, and together they get hard to stop thinking about.',
-    'This one was very anxious, and not without reason. They live in a part of New Mexico with some significant soil problems, and a house close to theirs had serious foundation trouble. After that, every new crack looked like the start of the same story.',
-    'We went out and did an initial assessment, including a <a href="/glossary#floor-level-survey" class="body-link">floor-level survey</a> &mdash; a map of how the floor sits, point by point, across the whole house. In the garage there was an area where we could point to a specific cause. Most of what they were worried about, though, was a hairline crack in the drywall here and a single crack there. Cracks like that didn&rsquo;t line up with any pattern of movement, because the survey didn&rsquo;t show one. A scattering of small cracks with no pattern behind them is a different situation from a house that is moving, and the survey is how we tell the difference.',
-    'It often goes the other way, too. We&rsquo;ll be told &ldquo;we just have this one crack,&rdquo; and when we walk the house we find others the homeowner hasn&rsquo;t noticed &mdash; it&rsquo;s what we&rsquo;re trained to see. That&rsquo;s why we look at the whole house and not just the crack you called about.',
-    'Fear is a common way foundation repair gets sold. It isn&rsquo;t how we work. We want you to come to us knowing what you&rsquo;re looking at.',
+    'A homeowner spends more time at home than they used to. They start looking at the house the way you only do when you\u2019re around it all day, and they notice a small crack. A few days later, another. Then a third. Each one is easy to shrug off by itself, and together they get hard to stop thinking about.',
+    'Usually there\u2019s a reason it weighs on them. They know New Mexico soil can be hard on foundations, and often someone they know has had a bad experience. After that, every new crack looks like the start of the same story.',
+    'When we go out, we look at the whole house, not just the cracks they\u2019ve found &mdash; and we often find others they haven\u2019t noticed, because noticing them is what we do. We&rsquo;ll also do a <a href="/glossary#floor-level-survey" class="body-link">floor-level survey</a>, a map of how the floor sits, point by point, across the house. Sometimes it shows a pattern, and then we can usually say where and why. Sometimes there&rsquo;s one specific cause, like a single spot near the garage. And sometimes most of what&rsquo;s worrying someone is a hairline crack in the drywall here and a single crack there, with no pattern of movement behind them. A scattering of small cracks with no pattern behind them is a different situation from a house that is moving, and the survey is how we tell the difference.',
+    'Either way, we want you to know what you&rsquo;re looking at. Fear is a common way foundation repair gets sold. It isn&rsquo;t how we work.',
   ],
   quote: 'The better a homeowner understands their own problem, the better the repair goes, and the better the relationship afterward.',
 };
@@ -143,7 +142,7 @@ const schema = [
           fieldExample && (
             <div class="article-section" id="from-the-field">
               <h2>
-                A Short Example <em>From the Field</em>
+                A Story We <em>Hear Often</em>
               </h2>
               <p class="opening">{fieldExample.heading}</p>
               {fieldExample.paragraphs.map((p) => (
