@@ -71,7 +71,7 @@ const schema = [
   <main class="tls-home">
     <section class="notice-router">
       <div class="notice-inner">
-        <span class="notice-eyebrow">Not sure where to start?</span>
+        <a href="/what-to-do" class="notice-eyebrow notice-eyebrow-link">Not sure where to start?</a>
         <h2 class="notice-headline">What are you noticing?</h2>
         <p class="notice-sub">Pick what's going on. Every card below leads to a real answer — not a contact form.</p>
         <div class="notice-grid">
@@ -448,6 +448,15 @@ const schema = [
     color: var(--gold-text);
     display: block;
     margin-bottom: 16px;
+  }
+  .notice-eyebrow-link {
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    width: fit-content;
+    transition: border-color 0.2s;
+  }
+  .notice-eyebrow-link:hover {
+    border-bottom-color: var(--gold-text);
   }
   .notice-headline {
     font-family: 'Playfair Display', serif;

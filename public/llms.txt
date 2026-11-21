@@ -30,6 +30,7 @@ TLS Foundations serves all 33 counties across five geologically distinct regions
 
 ## Reference
 
+- [What to Do First](https://www.tlsfoundations.com/what-to-do): A homeowner's starting point if they think they have a foundation problem -- four small steps to take today (write it down, take two photos, note what else changed, talk it through with an owner), and where to go next.
 - [Glossary](https://www.tlsfoundations.com/glossary): Plain-language definitions of foundation repair and soil science terms -- from acequia to underpinning. Browse and link directly to any term.
 - [Expansive Soil](https://www.tlsfoundations.com/expansive-soil): Why foundations move with the seasons in New Mexico -- the science of expansive clay soils, how they damage foundations, and what a real evaluation looks at.
 - [Collapsible Soil](https://www.tlsfoundations.com/collapsible-soil): Collapsible soils are New Mexico's most deceptive foundation hazard -- stable for decades, then gone in a season. Understanding the mechanism is the first step.

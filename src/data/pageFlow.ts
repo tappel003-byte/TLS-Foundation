@@ -57,7 +57,8 @@ export const pageFlow: { path: string; name: string }[] = [
   { path: '/four-corners', name: 'Four Corners' },
   { path: '/eastern-new-mexico', name: 'Eastern NM' },
   { path: '/southern-new-mexico', name: 'Southern NM' },
-  { path: '/glossary', name: 'Glossary' }, // Reference
+  { path: '/what-to-do', name: 'What to Do First' }, // Reference
+  { path: '/glossary', name: 'Glossary' },
   { path: '/expansive-soil', name: 'Expansive Soil' },
   { path: '/collapsible-soil', name: 'Collapsible Soil' },
   { path: '/job-notes', name: 'Job Notes' },

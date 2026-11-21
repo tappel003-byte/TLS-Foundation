@@ -1,0 +1,475 @@
+---
+// "What to Do If You Think You Have a Foundation Problem" -- the Reference
+// page for a homeowner who has noticed something and is wondering what to do
+// today. First item in the Reference folder (Header.astro), above Glossary.
+// Built on the same article template as collapsible-soil / expansive-soil,
+// plus the shared ReferenceNav band.
+//
+// FIELD EXAMPLE: the "From the Field" section is built but empty on purpose.
+// It renders only when `fieldExample` below is filled in -- an anonymous
+// story from a real visit (isolated tile cracks, a worried homeowner), told in
+// Tim's own words with no city and no identifying details. Until then nothing
+// editorial-looking reaches the public page.
+//
+// FOLLOW-UP PROMISE: the "What happens after I send photos?" section only
+// describes what send-photos.astro actually does today (photos + contact info
+// go to TLS, an owner calls back). It deliberately does not repeat a
+// response-time number: send-photos says "usually the same day" on its landing
+// step and "within 24 hours" on its confirmation step.
+import Layout from '../layouts/Layout.astro';
+import ReferenceNav from '../components/ReferenceNav.astro';
+
+const title = 'What to Do If You Think You Have a Foundation Problem | TLS Foundations';
+const summary =
+  "If you've noticed a crack, a sticking door, or an uneven floor, you don't have to know what it means before you do anything. Four small steps you can take today: write down what you're seeing and when it started, take two photos (one close, one from farther back, with the date), note anything else that changed around the same time, and talk it through with an owner -- by phone, or with Send Us Photos. You're welcome to call before doing any of the other steps. From there: the Symptom Guide if you want to understand what you're seeing, the Printable Crack Gauge if you want to see whether it's changing, or Send Us Photos if you'd like someone to look at it.";
+const description =
+  "Found a crack and not sure what to do? Four small steps you can take today -- write it down, take two photos, note what else changed, and talk it through with an owner.";
+
+// Fill this in when Tim has told the story. Shape:
+//   { heading: 'A few tile cracks, and a lot of worry',
+//     paragraphs: ['...', '...'],
+//     quote: 'Optional one-line pull quote.' }
+const fieldExample: { heading: string; paragraphs: string[]; quote?: string } | null = null;
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    datePublished: '2026-11-21',
+    dateModified: '2026-11-21',
+    headline: 'What to Do If You Think You Have a Foundation Problem',
+    description,
+    about: description,
+    author: { '@type': 'Organization', name: 'TLS Foundations' },
+    publisher: { '@type': 'Organization', name: 'TLS Foundations' },
+    url: 'https://www.tlsfoundations.com/what-to-do',
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.tlsfoundations.com' },
+      { '@type': 'ListItem', position: 2, name: 'What to Do If You Think You Have a Foundation Problem', item: 'https://www.tlsfoundations.com/what-to-do' },
+    ],
+  },
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  footer="minimal"
+  schema={schema}
+  summary={summary}
+  pageName="What to Do First"
+  nextPage={{ path: '/glossary', name: 'Glossary' }}
+>
+  <div class="tls-article" id="top">
+    <section class="page-hero">
+      <div class="page-hero-inner">
+        <span class="hero-eyebrow">Reference · What to Do First</span>
+        <h1>What to Do If You Think You Have a <em>Foundation Problem</em></h1>
+        <p class="page-hero-sub">A few notes, two photos, and a phone call whenever you want one.</p>
+      </div>
+    </section>
+
+    <div class="article-outer">
+      <article class="article-body">
+        <p class="article-lede">If you found a crack and keep coming back to look at it, here's where to start. You don't have to know what it means yet &mdash; that's what we're for. A few notes and two photos are plenty, and you're welcome to <a href="tel:5059914180" class="body-link">call</a> before you do any of it.</p>
+
+        <div class="article-section" id="four-steps">
+          <h2>Four Steps You Can Take <em>Today</em></h2>
+          <p class="opening">None of these costs anything or changes anything about your house. They just make whatever comes next easier.</p>
+
+          <ol class="step-list">
+            <li>
+              <h3>Write down what you're seeing</h3>
+              <p>Where is it? When did you first notice it? Has it changed since? A few lines in your phone is enough &mdash; something like &ldquo;hairline crack above the garage door, noticed in October, about the same since.&rdquo;</p>
+            </li>
+            <li>
+              <h3>Take two photos</h3>
+              <p>Take one close-up of the crack, and one from farther back so we can see where it is on the wall or in the room. Keep the date with the photos &mdash; your phone does this on its own if you leave them where they are.</p>
+            </li>
+            <li>
+              <h3>Note what else changed around the same time</h3>
+              <p>A door that started sticking, a floor that feels different underfoot, water pooling somewhere new in the yard &mdash; mention it even if you're not sure it's related. Sometimes it's the piece that explains the rest. Often it isn't, and that's fine; it's easier for us to set aside than to guess at.</p>
+            </li>
+            <li>
+              <h3>Talk it through with us</h3>
+              <p><a href="tel:5059914180" class="body-link">Call</a>, or use <a href="/send-photos" class="body-link">Send Us Photos</a>. An owner can talk through what you're seeing, what the photos help show, and whether it makes sense to come look.</p>
+            </li>
+          </ol>
+
+          <div class="callout-block">
+            <span class="callout-label">Call at any point</span>
+            <p><strong>You don't have to finish the other three steps first.</strong> If you have a question, pick up the phone: <a href="tel:5059914180" class="body-link phone-link">(505) 991-4180</a>. You'll reach the owner, and the notes and photos can wait until you're ready for them.</p>
+          </div>
+        </div>
+
+        <div class="article-section" id="next">
+          <h2>Three Paths for <em>Whatever You Need Next</em></h2>
+          <p class="opening">Pick the one that sounds like you.</p>
+
+          <ul class="path-list">
+            <li>
+              <span class="path-need">&ldquo;I want to understand what I'm seeing.&rdquo;</span>
+              <p>Check what applies and see what it usually means, and how New Mexico soils factor in.</p>
+              <a href="/symptom-guide" class="path-link">Symptom Guide <span aria-hidden="true">→</span></a>
+            </li>
+            <li>
+              <span class="path-need">&ldquo;I want to see if it's changing.&rdquo;</span>
+              <p>Print it, fold it in half, and hold it against the crack. A log over about 30 days shows whether it's moving.</p>
+              <a href="/crack-gauge" class="path-link">Printable Crack Gauge <span aria-hidden="true">→</span></a>
+            </li>
+            <li>
+              <span class="path-need">&ldquo;I'd like someone to look at it.&rdquo;</span>
+              <p>Send a few photos in about two minutes, or just call.</p>
+              <a href="/send-photos" class="path-link">Send Us Photos <span aria-hidden="true">→</span></a>
+              <a href="tel:5059914180" class="path-call">Or call <span class="phone-link">(505) 991-4180</span></a>
+            </li>
+          </ul>
+        </div>
+
+        {
+          fieldExample && (
+            <div class="article-section" id="from-the-field">
+              <h2>
+                A Short Example <em>From the Field</em>
+              </h2>
+              <p class="opening">{fieldExample.heading}</p>
+              {fieldExample.paragraphs.map((p) => (
+                <p>{p}</p>
+              ))}
+              {fieldExample.quote && (
+                <div class="pull-quote">
+                  <p>{fieldExample.quote}</p>
+                </div>
+              )}
+            </div>
+          )
+        }
+
+        <div class="article-section" id="after-photos">
+          <h2>What Happens After I <em>Send Photos</em>?</h2>
+          <p class="opening">A person looks at them, and an owner calls you back.</p>
+          <p>There's no account and no app. You take or choose your photos, tag each one by room, and, if you want, add what worries you, how long it's been there, and whether it's getting worse. We need your first name and a phone number to call you back &mdash; everything else is optional, including the best time to call.</p>
+          <p>When we call, we talk through what the photos show, what they can't show, and whether it makes sense to come out and look. A photo can tell us where a crack is and what it looks like. It can't tell us what's under it, which is why the conversation matters as much as the pictures.</p>
+          <p><a href="/send-photos" class="body-link">Send Us Photos</a> whenever you're ready &mdash; or <a href="tel:5059914180" class="body-link">call</a> if you'd rather just talk.</p>
+        </div>
+
+        <a href="#top" class="back-to-top">↑ Back to top</a>
+
+        <p class="closing-link"><a href="/common-concerns" class="body-link">Questions about cost or timing? See Common Concerns.</a></p>
+      </article>
+    </div>
+  </div>
+
+  <ReferenceNav />
+</Layout>
+
+<style>
+  .tls-article {
+    --blue: #1b3a5c;
+    --blue-dark: #0d2238;
+    --blue-mid: #2a5480;
+    --tls-gold: var(--gold);
+    --tls-sand: #f5efe6;
+    --tls-stone: #e0d5c5;
+    --tls-slate: #4a5568;
+    --muted: #54626f;
+    --dark: #1a1a1a;
+    --tls-cream: #fdfaf6;
+    --gutter: 64px;
+    --content-max: 1100px;
+    --article-max: 720px;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 18px;
+    background: #fff;
+    color: var(--dark);
+    line-height: 1.9;
+  }
+  .tls-article :global(.body-link) {
+    color: var(--blue);
+    text-decoration: underline;
+    text-decoration-color: var(--tls-gold);
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+  }
+  .tls-article :global(.body-link):hover {
+    color: var(--gold-text);
+  }
+  .page-hero {
+    background: var(--blue);
+    padding: 52px var(--gutter) 44px;
+    border-bottom: 2px solid var(--tls-gold);
+  }
+  .page-hero-inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 46px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .page-hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .page-hero-sub {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.58); /* was 0.5 (4.17:1) -- WCAG AA needs 4.5:1 */
+    line-height: 1.8;
+    max-width: 600px;
+  }
+  .article-outer {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 64px var(--gutter) 80px;
+  }
+  .article-body {
+    max-width: var(--article-max);
+    margin: 0 auto;
+  }
+  .article-lede {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.85;
+    color: var(--tls-slate);
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .article-section {
+    margin-bottom: 56px;
+    scroll-margin-top: 80px;
+  }
+  .article-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    font-weight: 400;
+    color: var(--blue);
+    line-height: 1.2;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .article-section h2 em {
+    font-style: italic;
+    color: var(--gold-text);
+  }
+  .article-section p {
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--tls-slate);
+    line-height: 1.9;
+    margin-bottom: 20px;
+  }
+  .article-section p:last-child {
+    margin-bottom: 0;
+  }
+  .article-section p.opening {
+    font-size: 18px;
+    color: var(--blue);
+    font-weight: 400;
+  }
+  .pull-quote {
+    margin: 40px 0;
+    padding: 32px 40px;
+    border-left: 3px solid var(--gold-text);
+    background: var(--tls-sand);
+  }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px !important;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--blue) !important;
+    line-height: 1.55 !important;
+    margin-bottom: 0 !important;
+  }
+  .callout-block {
+    margin: 40px 0;
+    padding: 28px 32px;
+    background: var(--tls-cream);
+    border-top: 2px solid var(--tls-gold);
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .callout-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-text);
+    display: block;
+    margin-bottom: 14px;
+  }
+  .callout-block p {
+    font-size: 15px !important;
+    font-weight: 300;
+    color: var(--tls-slate) !important;
+    line-height: 1.8 !important;
+    margin-bottom: 10px !important;
+  }
+  .callout-block p:last-child {
+    margin-bottom: 0 !important;
+  }
+  .callout-block strong {
+    color: var(--blue);
+    font-weight: 600;
+  }
+
+  /* The four steps: a numbered list in the same ruled style as .key-points. */
+  .step-list {
+    margin: 32px 0;
+    list-style: none;
+    counter-reset: step;
+  }
+  .step-list li {
+    counter-increment: step;
+    position: relative;
+    padding: 22px 0 22px 56px;
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .step-list li:first-child {
+    border-top: 1px solid var(--tls-stone);
+  }
+  .step-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 24px;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--tls-gold);
+    border-radius: 50%;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    line-height: 34px;
+    text-align: center;
+    color: var(--gold-text);
+  }
+  .step-list h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--blue);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .step-list p {
+    font-size: 16px !important;
+    margin-bottom: 0 !important;
+    line-height: 1.8 !important;
+  }
+
+  /* The three paths: ruled rows, one need each, one link each. */
+  .path-list {
+    margin: 32px 0 0;
+    list-style: none;
+  }
+  .path-list li {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--tls-stone);
+  }
+  .path-list li:first-child {
+    border-top: 1px solid var(--tls-stone);
+  }
+  .path-need {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-style: italic;
+    color: var(--blue);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .path-list p {
+    font-size: 16px !important;
+    margin-bottom: 12px !important;
+    line-height: 1.8 !important;
+  }
+  .path-link {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 1px solid var(--tls-gold);
+    padding-bottom: 3px;
+    transition: color 0.2s;
+  }
+  .path-link:hover {
+    color: var(--gold-text);
+  }
+  .path-call {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 15px;
+    color: var(--tls-slate);
+    text-decoration: none;
+  }
+  .path-call .phone-link,
+  .phone-link {
+    white-space: nowrap;
+  }
+  .path-call:hover .phone-link {
+    color: var(--gold-text);
+  }
+
+  .back-to-top {
+    display: block;
+    text-align: right;
+    margin-top: 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .back-to-top:hover {
+    color: var(--gold-text);
+  }
+  .closing-link {
+    margin-top: 32px;
+    font-size: 17px;
+  }
+
+  @media (max-width: 768px) {
+    .article-outer {
+      padding: 40px 24px 56px;
+    }
+    .pull-quote {
+      padding: 24px 24px;
+    }
+    .step-list li {
+      padding-left: 48px;
+    }
+    .step-list li::before {
+      width: 32px;
+      height: 32px;
+      line-height: 30px;
+    }
+    .path-call {
+      display: block;
+      margin: 14px 0 0;
+    }
+  }
+</style>
